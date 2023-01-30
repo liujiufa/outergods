@@ -1,0 +1,80 @@
+.userInfoPage{
+    margin:74px 255px 130px;
+    .userInfoTitle{
+        color: #3683F7;
+        font-weight: 600;
+        font-size: 24px
+    }
+    .mainLabel{
+        color: #fff;
+        font-weight: 600;
+        font-size: 20px;
+        margin-top: 15px;
+    }
+    .mainLabelTips{
+        margin-top:10px;
+        color: rgba(255, 255, 255, 0.8);
+
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        span{
+            color: #3683F6;
+        }
+    }
+    .headerLabel{
+        color: #fff;
+        font-size: 12px;
+        margin-top: 10px;
+    }
+    .userHeader{
+        width: 66px;
+        height: 66px;
+        border-radius:50%;
+        margin-top: 10px;
+        img{
+            width: 100%;
+        }
+    }
+    .InfoLabel{
+        color: #fff;
+        font-weight: 500;
+        font-size: 16px;
+        margin-top: 15px;
+    }
+    .putBox{
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-sizing: border-box;
+        border-radius: 6px;
+        max-width: 467px;
+        width: 100%;
+        height: 36px;
+        margin-top: 10px;
+        padding:0 15px;
+        color: #fff;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        input{
+            background: transparent;
+            border: none;
+            width: 100%;
+        }
+        ::-webkit-input-placeholder{
+            color: rgba(255, 255, 255, 0.8);
+        }
+    }
+    .submit{
+        background: #3683F7;
+        border-radius: 25px;
+        width: 130px;
+        height: 50px;
+        margin-top:40px;
+        color: #FFFFFF;
+        font-size: 16px;
+    }
+}
+@media (max-width: 1024px){
+    .userInfoPage{
+        margin:74px 50px 130px;
+    }
+}

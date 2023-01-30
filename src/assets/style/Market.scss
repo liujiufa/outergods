@@ -1,0 +1,277 @@
+.MarketPage {
+    background: linear-gradient(233.91deg, rgba(210, 253, 253, 0.3) 9.69%, rgba(194, 177, 255, 0.3) 38.49%, rgba(109, 131, 255, 0.18) 68.83%, rgba(56, 255, 243, 0.249) 83.42%);
+    // filter: blur(263.5px);
+    min-height: calc(100vh - 171px);
+
+    .contentBox {
+        max-width: 1440px;
+        margin: 0px auto;
+
+        .tabBox {
+            margin: 70px 20px 50px;
+            display: flex;
+            align-items: center;
+            height: 50px;
+            width: 216px;
+            background: linear-gradient(315deg, #8E99FF80 50%, #AE8CFF80 50%);
+            box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(2.5px);
+            /* Note: backdrop-filter has minimal browser support */
+            border-radius: 30px;
+            padding: 1px;
+
+            .tabContent {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                height: 100%;
+                background: #F5F5F5;
+                border-radius: 30px;
+                display: flex;
+                padding: 1px;
+
+                .tabItem {
+                    width: 102px;
+                    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.25);
+                    backdrop-filter: blur(2.5px);
+                    /* Note: backdrop-filter has minimal browser support */
+                    border-radius: 30px;
+                }
+
+                .tabItemActive {
+                    background: linear-gradient(90deg, rgba(118, 131, 255, 0.8) 10.15%, rgba(158, 114, 255, 0.8) 100%);
+                }
+            }
+        }
+    }
+}
+
+.MarketSearchRow {
+    width: 100%;
+    max-width: 1410px;
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+
+    .search {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #788CFF;
+        margin-left: 30px;
+        width: 120px;
+        height: 36px;
+        border: 1px solid #788CFF;
+        box-sizing: border-box;
+        border-radius: 18px;
+        padding: 6px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .searchBox {
+            font-size: 14px;
+
+            overflow: hidden;
+            white-space: nowrap;
+            margin-right: 3px;
+        }
+    }
+
+    .filter {
+        margin-left: 30px;
+        background: linear-gradient(269.72deg, #9C75FF 0.22%, #7485FF 99.76%);
+        border-radius: 18px;
+        width: 120px;
+        height: 36px;
+        padding: 6px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #FFFFFF;
+        font-size: 14px;
+    }
+}
+
+.goodsList {
+    width: 100%;
+    max-width: 1440px;
+    margin: 44px auto 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 330px);
+    justify-content: center;
+    grid-row-gap: 30px;
+    grid-column-gap: 30px;
+}
+
+.activeBox {
+    .itemBigBox {
+        margin-top: 25px;
+        width: 100%;
+        background: #FFFFFF;
+        box-shadow: 22px 26px 202px rgba(198, 207, 231, 0.5);
+        border-radius: 45px;
+        overflow: hidden;
+
+        .titleBox {
+            padding: 45px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FFFFFF;
+            box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
+
+            .titleItem {
+                width: 150px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                letter-spacing: 0.1em;
+                color: #000000;
+            }
+
+            .type,
+            .date {
+                width: 100px;
+            }
+        }
+
+        .contentBox {
+            padding: 20px 45px;
+
+            .itemBox {
+                padding: 25px 0px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+                .item {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    width: 150px;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: #000000;
+
+                    .top {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 22px;
+                        letter-spacing: 0.1em;
+                        color: #000000;
+                    }
+
+                    .bottom {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: rgba(0, 0, 0, 0.6);
+                    }
+                }
+
+                .type,
+                .date {
+                    width: 100px;
+                }
+            }
+        }
+    }
+}
+
+.LoadMore {
+    width: 120px;
+    height: 36px;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid #788CFF;
+    box-sizing: border-box;
+    border-radius: 18px;
+    margin: 50px auto 159px;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+    color: #788CFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width:1440px) {
+    .MarketPage {
+        .goodsList {
+            grid-template-columns: repeat(auto-fill, 280px);
+        }
+
+        .MarketSearchRow {
+            padding: 0 20px;
+
+            .search {
+                margin-left: 15px;
+            }
+
+            .filter {
+                margin-left: 15px;
+            }
+        }
+    }
+}
+
+@media (max-width:1024px) {}
+
+@media (max-width:768px) {
+    .LoadMore {
+        margin: 50px auto !important;
+    }
+
+    .goodsList {
+        grid-template-columns: repeat(auto-fill, 172px) !important;
+        grid-row-gap: 15px;
+        grid-column-gap: 15px;
+    }
+}
+
+@media (max-width:425px) {
+    .MarketSearchRow {
+        justify-content: center;
+
+        .search {
+            width: 100px;
+        }
+    }
+}
+
+@media (max-width:375px) {
+    .MarketPage {
+        .MarketSearchRow {
+            padding: 0 5px;
+
+            .search {
+                margin-left: 10px;
+            }
+
+            .filter {
+                margin-left: 10px;
+            }
+        }
+    }
+
+}

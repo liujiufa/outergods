@@ -1,0 +1,464 @@
+.userInfo {
+    margin: 58px 255px 40px;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    .userHeader {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        overflow: hidden;
+        flex-shrink: 0;
+        img {
+            width: 100%;
+        }
+    }
+
+    .Info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 20px;
+        max-width: 100%;
+        flex: 1;
+        overflow: hidden;
+        .userName {
+            color: #fff;
+            font-weight: 600;
+            font-size: 24px;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            div{
+                color: #fff;
+                font-weight: 600;
+                font-size: 24px;
+                max-width: 80%;
+                overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+            }
+            img {
+                margin-left: 10px;
+                flex-shrink: 0;
+            }
+        }
+
+        .userAddress {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-sizing: border-box;
+            border-radius: 18px;
+            width: 188px;
+            height: 36px;
+            font-size: 14px;
+            color: #fff;
+            margin-top: 10px;
+
+            span {
+                margin: 0 10px 0 5px;
+                letter-spacing: 0.1em;
+            }
+        }
+
+        .introduce {
+            margin-top: 18px;
+            color: #fff;
+            font-size: 12px;
+        }
+    }
+
+    .btnGroupRow {
+        display: flex;
+        flex-shrink: 0;
+    }
+
+    .share,
+    .set {
+        background: #3683F7;
+        border-radius: 18px;
+        width: 84px;
+        height: 36px;
+        color: #FFFFFF;
+        font-size: 14px;
+
+        img {
+            margin-right: 6px;
+        }
+    }
+
+    .share {
+        margin-right: 23px;
+    }
+}
+
+.tabs {
+    margin: 0 255px;
+    display: flex;
+
+    .item {
+        color: #fff;
+        font-weight: 600;
+        font-size: 20px;
+        margin-right: 40px;
+    }
+    @media (max-width:375px) {
+        .item {
+            font-size: 16px;
+        }
+    }
+
+    .activeItem {
+        color: #3683F7;
+    }
+}
+
+.TableBox {
+    margin: 0 255px;
+    .ant-table{
+        background: transparent !important;
+
+    }
+    .ant-table-thead > tr > th{
+        font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0.1em;
+                color: rgba(255, 255, 255, 0.6);
+                background: transparent !important;
+                border-bottom: none !important;
+    }
+    .ant-table-tbody{
+        tr{
+            td.ant-table-cell-row-hover,.ant-table-row:hover{
+                background: transparent !important;
+            }
+            td{
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+            }
+        }
+    }
+}
+
+.LoadMore {
+    width: 120px;
+    height: 36px;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
+    border-radius: 18px;
+    margin: 50px auto 159px;
+}
+
+@media (max-width:1024px) {
+    .TableBox {
+        margin: 0 16px;
+    }
+}
+
+.searchRow {
+    margin: 30px 255px 0px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+
+    .tab {
+        display: flex;
+
+        .item {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            // width: 60px;
+            padding: 0 8px;
+            height: 30px;
+            border-radius: 15px;
+            margin-right: 10px;
+            white-space:nowrap;
+        }
+
+        .activeItem {
+            color: #3683F7;
+            background: rgba(54, 131, 247, 0.12);
+        }
+    }
+
+    .searchedge {
+        width: 100%;
+        max-width: 1410px;
+        display: flex;
+        justify-content: flex-end;
+        margin: auto;
+
+        .search {
+            margin-left: 30px;
+            width: 120px;
+            height: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-sizing: border-box;
+            border-radius: 18px;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.6);
+
+            .searchBox {
+                font-size: 14px;
+
+                overflow: hidden;
+                white-space: nowrap;
+                margin-right: 3px;
+            }
+        }
+
+        .filter {
+            margin-left: 30px;
+            background: #3683F7;
+            border-radius: 18px;
+            width: 84px;
+            height: 36px;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #FFFFFF;
+            font-size: 14px;
+        }
+    }
+}
+
+.goodsList {
+    width: 100%;
+    max-width: 1410px;
+    margin: 44px auto 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 330px);
+    grid-row-gap: 30px;
+    grid-column-gap: 30px;
+    justify-content: center;
+}
+
+@media (max-width: 1440px) {
+
+    .userInfo,
+    .tabs,
+    .searchRow {
+        margin: 58px 120px 40px !important;
+    }
+
+    .goodsList {
+        grid-template-columns: repeat(auto-fill, 280px) !important;
+        grid-row-gap: 10px !important;
+        grid-column-gap: 10px !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .userInfo {
+        margin: 58px 60px 40px !important;
+        flex-wrap: wrap;
+    }
+
+    .searchRow {
+        .search {
+            margin-left: 10px !important;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .goodsList {
+        grid-template-columns: repeat(auto-fill, 172px) !important;
+    }
+
+    .userInfo {
+        flex-direction: column;
+
+        .userHeader {
+            width: 80px;
+            height: 80px;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .Info {
+            align-items: center;
+            margin: 0;
+
+            >div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .btnGroupRow {
+            margin-top: 25px;
+        }
+    }
+
+    .tabs {
+        margin: 30px 16px 20px !important;
+    }
+
+    .searchRow {
+        margin: 20px 16px 20px !important;
+        flex-wrap: wrap;
+
+        .searchedge {
+            justify-content: flex-start !important;
+            margin-top: 16px !important;
+
+            .search {
+                margin: 0 10px 0 0 !important;
+                padding: 0 5px !important;
+                width: 80px !important;
+            }
+
+            .filter {
+                margin-left: 0 !important;
+            }
+        }
+    }
+}
+
+.rewardInfo {
+    margin: 0 255px;
+
+    .PleaseForward {
+        color: #fff;
+        font-weight: 600;
+        font-size: 24px;
+    }
+
+    .copyLink {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-sizing: border-box;
+        border-radius: 18px;
+        padding: 8px 20px;
+        max-width: 100%;
+        width: max-content;
+        color: #fff;
+        font-size: 14px;
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+
+        img {
+            margin-left: 15px;
+        }
+    }
+
+    .ruleLabel {
+        color: #fff;
+        font-weight: 500;
+        font-size: 14px;
+        margin-top: 20px;
+    }
+
+    .ruleSub {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .explain {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 10px;
+        margin-top: 10px;
+    }
+
+    .rewardLabel {
+        margin-top: 40px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 24px;
+    }
+    .rewardToken{
+        color: #fff;
+        font-weight: 500;
+        font-size: 14px;
+        align-self:flex-start;
+    }
+    .rewardRow{
+        display: flex;
+        align-items: center;
+        margin-top:24px;
+        margin-bottom: 40px;
+        
+        .Cumulative{
+            background: #073260;
+            box-shadow: 0px 0px 5px rgba(7, 50, 96, 0.78);
+            border-radius: 12px;
+            width: 151px;
+            height: 75px;
+            padding:15px;
+            box-sizing: border-box;
+            margin-right: 20px;
+            .label{
+                color: #fff;
+                font-size: 12px;
+            }
+
+            .value {
+                color: #fff;
+                font-weight: 600;
+                font-size: 16px;
+            }
+            .underline{
+                text-decoration: underline;
+            }
+        }
+
+        .receiveBtn {
+            background: #3683F7;
+            border-radius: 18px;
+            width: 84px;
+            height: 36px;
+            margin-left: 20px;
+            color: #FFFFFF;
+            font-size: 14px;
+        }
+    }
+    @media (max-width:425px) {
+        .rewardRow{
+            flex-direction: column;
+            align-items: flex-start;
+            .Cumulative{
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .receiveBtn{
+                width: 120px;
+            }
+        }
+    }
+}
+
+@media (max-width: 425px) {
+    .userInfo {
+        margin: 20px 16px 20px !important;
+    }
+}
+
+@media (max-width: 1440px) {
+    .rewardInfo {
+        margin: 58px 120px 40px !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .rewardInfo {
+        margin: 58px 60px 40px !important;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 425px) {
+    .rewardInfo {
+        margin: 58px 30px 40px !important;
+    }
+}

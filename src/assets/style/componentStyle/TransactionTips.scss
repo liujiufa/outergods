@@ -1,0 +1,114 @@
+.TransactionTipsLabel {
+    height: 70px;
+    margin: 50px auto;
+}
+
+.TransactionTips {
+    max-width: 1410px;
+    width: 100%;
+    height: 70px;
+    background: #05284E;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04);
+    border-radius: 43px;
+    margin: 50px auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .TipsInfo {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .headImg {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-left: 30px;
+        margin-right: 10px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .TipsText {
+        display: flex;
+        align-items: center;
+
+        span {
+            font-size: 16px;
+        }
+
+        .color33 {
+            color: #fff;
+            margin-left: 10px;
+        }
+
+        .colorA5 {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.6);
+            margin-left: 10px;
+        }
+
+        .colorRed {
+            color: #F62222;
+            margin-left: 10px;
+        }
+
+        .colorBlue {
+            color: #3683F6;
+            margin-left: 10px;
+        }
+
+        .colorGreen {
+            color: #16DC71;
+            margin-left: 10px;
+        }
+    }
+
+    .dynamic {
+        padding: 8px 27px;
+        border: 1px solid #3683F6;
+        box-sizing: border-box;
+        border-radius: 25px;
+        margin-right: 18px;
+        color: #3683F6;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width:1024px) {}
+
+@media (max-width:768px) {}
+
+@media (max-width:425px) {
+    .TransactionTips {
+        height: auto;
+        padding: 10px 0;
+
+        .headImg {
+            margin-left: 10px;
+
+            .TipsText {
+                span {
+                    font-size: 14;
+                }
+            }
+
+            .dynamic {
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+@media (max-width:375px) {}

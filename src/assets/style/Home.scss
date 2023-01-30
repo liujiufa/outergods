@@ -1,0 +1,556 @@
+.HomePage {
+    padding-bottom: 185px;
+    background: #051D37;
+
+    .earth {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        img {
+            width: 100%;
+        }
+
+        .box {
+            position: absolute;
+            text-align: center;
+
+            .earthTitle {
+                font-family: 'DIN';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 50px;
+                line-height: 61px;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: #FFFFFF;
+            }
+
+            .earthText {
+                font-family: 'DIN';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 30px;
+                line-height: 36px;
+                letter-spacing: 0.1em;
+
+                color: rgba(255, 255, 255, 0.8);
+            }
+        }
+    }
+
+    .banner {
+        width: 100%;
+        height: 1010px;
+        // background:url('../image/BannerBg.png') center /100% 100% no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .explain {
+            margin-right: 30px;
+
+            .main {
+                color: #fff;
+                font-size: 40px;
+            }
+
+            .sub {
+                margin-top: 20px;
+                font-size: 16px;
+                color: #fff;
+            }
+        }
+    }
+    .GtujibiBanner img {
+        width: 60%;
+        border-radius: 40px;
+    }
+
+}
+
+.ReleaseTitle {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    text-align: center;
+    font-weight: 600;
+    font-size: 40px;
+    color: #fff;
+    margin-top: 110px;
+}
+.ReleaseBox{
+    display: flex;
+    justify-content: center;
+    max-width:1000px;
+    margin: auto;
+    position: relative;
+    // .ReleaseContent1{
+    //     width: 600px;
+    // }
+}
+
+.ReleaseImg {
+    text-align: center;
+    margin-top: 55px;
+    img{
+        width: 100%;
+    }
+}
+
+.ReleaseName {
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    font-size: 30px;
+    margin-top: 54px;
+}
+
+.TokenRow {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+
+    .token1 {
+        font-size: 16px;
+        color: #16DC71;
+        font-weight: 500;
+
+        img {
+            vertical-align: top;
+        }
+    }
+
+    .token2 {
+        margin-left: 40px;
+        font-size: 16px;
+        color: #9116DC;
+        font-weight: 500;
+    }
+    @media (max-width:660px) {
+        flex-direction: column;
+        .token1 {
+            font-size: 12px;
+            text-align: center;
+        }
+    
+        .token2 {
+            font-size: 12px;
+            text-align: center;
+            margin: 0;
+        }
+    }
+}
+
+.StartTips {
+    margin-top: 10px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+
+    span {
+        font-weight: 600;
+        font-size: 16px;
+        color: #fff;
+    }
+}
+
+.InProgress {
+    color: #F72222;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+    img{
+        margin-left: 2px;
+    }
+}
+
+.popularityTitle {
+    color: #fff;
+    font-weight: 600;
+    font-size: 40px;
+    text-align: center;
+    margin-top: 200px;
+}
+
+.popularityRow {
+    margin-top: 100px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, 330px);
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+}
+
+.more {
+    width: 120px;
+    height: 36px;
+    border: 1px solid #A5A5A5;
+    box-sizing: border-box;
+    border-radius: 18px;
+    margin: 60px auto 0;
+    color: #A5A5A5;
+    font-size: 14px;
+}
+
+.CollectionTitle {
+    margin-top: 200px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 40px;
+
+    .pastTimes {
+        margin-left: 20px;
+        width: 120px;
+        height: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        box-sizing: border-box;
+        border-radius: 18px;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: rgba(255, 255, 255, 0.8);
+    }
+}
+
+.CollectionList {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 48px 228px 0;
+
+    .CollectionCardWidth {
+        width: 446px;
+        margin: 0 18px;
+    }
+}
+
+.courseTitle {
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    font-size: 40px;
+    margin-top: 125px;
+}
+
+.courseRow {
+    display: flex;
+    justify-content: center;
+    margin-top: 77px;
+
+    .courseItem {
+        margin: 0 45px 20px;
+
+        .courseName {
+            font-weight: 500;
+            font-size: 18px;
+            color: #fff;
+            margin-top: 22px;
+        }
+    }
+}
+
+.GtujibiTitle {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    margin-top: 348px;
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    font-size: 40px;
+}
+
+.GtujibiSubTitle {
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.GtujibiBanner {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.explore {
+    width: 222px;
+    height: 50px;
+    background: #3683F7;
+    border-radius: 25px;
+    color: #FFFFFF;
+    font-size: 16px;
+    margin: 50px auto 0;
+}
+
+.addCommunity {
+    color: #fff;
+    font-weight: 600;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 145px;
+}
+
+.IconRow {
+    margin-top: 20px;
+
+    img {
+        margin: 0 15px;
+    }
+}
+
+.HomePage {
+    @media (max-width:1440px) {
+        .banner {
+            flex-direction: column;
+            height: auto;
+
+            .explain {
+                margin: 0 0 50px;
+
+                .sub {
+                    text-align: center;
+                }
+            }
+        }
+
+        // .ReleaseImg {
+        //     img {
+        //         width: 812px;
+        //     }
+        // }
+        .ReleaseBox{
+            margin: 0 auto;
+            .ReleaseContent1,.ReleaseContent2{
+                margin:0 auto;
+            }
+        }
+
+        .popularityTitle {
+            margin-top: 80px;
+        }
+
+        .popularityRow {
+            margin-top: 60px;
+            grid-template-columns: repeat(auto-fill, 280px);
+
+        }
+
+        .CollectionTitle {
+            margin-top: 80px;
+        }
+
+        .CollectionList {
+            margin: 48px 0 0;
+        }
+
+        .courseRow {
+            .courseItem {
+                width: 328px;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+
+        .GtujibiTitle {
+            margin-top: 150px;
+        }
+    }
+
+    @media (max-width:1024px) {
+        .banner {
+            >img {
+                width: 80%;
+            }
+        }
+
+        .ReleaseTitle {
+            margin-top: 40px;
+        }
+
+        .ReleaseImg {
+            img {
+                width: 90%;
+            }
+        }
+
+        .popularityTitle {
+            margin-top: 40px;
+        }
+
+        .GtujibiTitle {
+            margin-top: 40px;
+        }
+
+        .GtujibiBanner {
+            img {
+                width: 80%;
+            }
+        }
+    }
+
+    @media (max-width:768px) {
+        padding-bottom: 80px;
+
+        .earth {
+            .box {
+                .earthTitle {
+                    font-size: 25px;
+                    line-height: inherit;
+                }
+
+                .earthText {
+                    font-size: 20px;
+                    line-height: inherit;
+                }
+            }
+        }
+
+        .banner {
+
+            // background:url('../image/BannerBg.png') top /100% auto no-repeat;
+            .explain {
+                .main {
+                    font-size: 26px;
+                }
+
+                .sub {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .ReleaseTitle {
+            margin-top: 40px;
+        }
+        .ReleaseBox{
+            display: block;
+            
+        }
+
+        .courseRow {
+            flex-wrap: wrap;
+        }
+
+        .courseTitle {
+            margin-top: 60px;
+        }
+
+        .IconRow {
+            flex-wrap: wrap;
+            justify-content: center;
+
+            img {
+                margin: 6px;
+            }
+        }
+
+        .popularityRow {
+            grid-template-columns: repeat(auto-fill, 172px) !important;
+            grid-row-gap: 10px !important;
+            grid-column-gap: 10px !important;
+        }
+    }
+
+    @media (max-width:425px) {
+        .earth .box{
+            .earthTitle{
+            font-size: 18px;
+        }
+        .earthText{
+            font-size: 16px;
+        }
+    } 
+        .banner {
+            .explain {
+                margin: 0 0 20px;
+
+                .main {
+                    font-size: 22px;
+                }
+
+                .sub {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .ReleaseTitle {
+            margin-top: 20px;
+            font-size: 22px;
+        }
+
+        .ReleaseImg {
+            margin-top: 10px;
+        }
+
+        .ReleaseName {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .popularityTitle {
+            margin-top: 40px;
+            font-size: 26px;
+        }
+
+        .CollectionTitle {
+            margin-top: 40px;
+            font-size: 22px;
+        }
+
+        .popularityRow {
+            margin-top: 20px;
+        }
+
+        .GtujibiTitle {
+            font-size: 26px;
+        }
+
+        .GtujibiBanner {
+            margin-top: 20px;
+        }
+    }
+
+    @media (max-width:375px) {
+        .banner {
+            .explain {
+                margin: 0 0 10px;
+
+                .main {
+                    font-size: 22px;
+                }
+
+                .sub {
+                    font-size: 12px;
+                }
+            }
+        }
+        .GtujibiSubTitle {
+            padding: 0 10px;
+        }
+    }
+}
+.swiper-button-prev,.swiper-button-next{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    margin-top: -30px;
+    border-radius:50%;
+    z-index: 99;
+    border: none;
+    @media (max-width:1300px) {
+        display:none;
+    }
+}
+.swiper-button-prev{
+    left: -100px;
+    background:url(../image/Prev.png) center center / 100% 100% no-repeat;
+}
+.swiper-button-next{
+    background:url(../image/Next.png) center center / 100% 100% no-repeat;
+    right: -100px;
+}

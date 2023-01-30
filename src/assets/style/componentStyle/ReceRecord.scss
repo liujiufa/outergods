@@ -1,0 +1,33 @@
+.close {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+.ReceRecordModalTop {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    color: #fff;
+    font-weight: 500;
+    font-size: 22px;
+    text-align: center;
+}
+.TableBoxRecord{
+    padding:0 16px;
+    width: 100%;
+    .ant-table,.ant-table-cell{
+        background:transparent !important;
+    }
+    th{
+        color: rgba(255, 255, 255, 0.6) !important;
+        font-size: 14px !important;
+    }
+    td{
+        color: #FFFFFF !important;
+        font-size: 16px !important;
+    }
+}
+.ant-table-thead > tr > th,.ant-table-tbody > tr > td{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}

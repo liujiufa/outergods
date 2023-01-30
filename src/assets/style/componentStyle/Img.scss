@@ -1,0 +1,17 @@
+.inLoadImg {
+    opacity: 0;
+}
+
+.loadImg {
+    animation: loadImg 1s;
+}
+
+@keyframes loadImg {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

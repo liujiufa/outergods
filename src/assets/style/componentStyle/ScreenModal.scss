@@ -1,0 +1,221 @@
+.ant-modal-content {
+    background: #E0E1FF !important;
+    border-radius: 50px !important;
+
+    .ant-modal-body {
+        padding: 50px 20px;
+    }
+}
+
+.modalTop {
+    height: 70px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    margin: 0 30px;
+
+
+    .title {
+        color: #000000;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 40px;
+    }
+
+    >img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.columnAll {
+    display: flex;
+    margin-top: 20px;
+    flex-wrap: wrap;
+
+    .column {
+        flex: 1;
+        flex-shrink: 0;
+        border-right: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 0 30px 30px 30px;
+
+        .columnLabel {
+            color: #000000;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .ScreenLabel {
+            color: #000000;
+            font-weight: 500;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .ScreenDropDown {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+            border-radius: 18px;
+            min-width: 150px;
+            width: 100%;
+            height: 36px;
+            display: flex;
+            padding: 0 15px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: rgba(0, 0, 0, 0.8);
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            /* identical to box height */
+            letter-spacing: 0.1em;
+        }
+
+        .section {
+            width: 259px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            span {
+                font-size: 14px;
+                color: rgba(0, 0, 0, 0.8);
+            }
+
+            .min,
+            .max {
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                box-sizing: border-box;
+                border-radius: 18px;
+                width: 96px;
+                height: 36px;
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 14px;
+
+                input {
+                    width: 100%;
+                    border: none;
+                    text-align: center;
+                    background: transparent;
+                    color: #000;
+                }
+
+                ::-webkit-input-placeholder {
+                    color: rgba(0, 0, 0, 0.8);
+
+                }
+            }
+        }
+
+        .search {
+            padding: 0 15px;
+            display: flex;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+            border-radius: 18px;
+            width: 100%;
+            height: 36px;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+
+            img {
+                margin-right: 10px;
+            }
+
+            input {
+                flex: 1;
+                border: none;
+                background: transparent !important;
+                border-radius: 18px;
+                color: #000;
+            }
+
+            ::-webkit-input-placeholder {
+                color: rgba(0, 0, 0, 0.8);
+            }
+        }
+
+        .project {
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+
+            .projectImg {
+                border-radius: 8px;
+                width: 44px;
+                height: 44px;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            .projectName,
+            .ProjectNo {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                color: #000000;
+                margin-left: 6px;
+            }
+
+            .ProjectNo {
+                flex: 1;
+                text-align: right;
+            }
+        }
+    }
+
+    .column:last-child {
+        border-right: none;
+    }
+}
+
+.ModalFooter {
+    margin: 30px 30px 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .resultNum {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 14px;
+    }
+
+    .resetBtn,
+    .enterBtn {
+        width: 84px;
+        height: 36px;
+        border-radius: 18px;
+        font-size: 14px;
+        margin-left: 20px;
+    }
+
+    .resetBtn {
+        border: 1px solid #7385FF;
+        color: #7285FF;
+    }
+
+    .enterBtn {
+        background: linear-gradient(90.29deg, #7185FF 0.25%, #9E71FF 99.76%);
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        /* identical to box height */
+        letter-spacing: 0.1em;
+        color: #FFFFFF;
+    }
+}

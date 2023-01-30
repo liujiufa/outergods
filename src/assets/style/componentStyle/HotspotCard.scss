@@ -1,0 +1,170 @@
+.HotspotCard {
+    width: 330px;
+    background: #FFFFFF;
+    box-shadow: 20px 22.2995px 107px rgba(198, 207, 231, 0.4);
+    border-radius: 24px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    .imgBox {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+
+        >img {
+            width: 100%;
+        }
+
+        .buyBtn {
+            position: absolute;
+            // bottom: 20px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 96px;
+            height: 38px;
+            background: linear-gradient(90deg, rgba(113, 133, 255, 0.65) 1.56%, #7185FF 26.68%, #9E71FF 77.44%, rgba(158, 113, 255, 0.42) 100%);
+            border-radius: 31px;
+
+        }
+
+
+        &:hover {
+            animation: riggund 2s 0s 1 ease;
+
+            @keyframes riggund {
+                0% {
+                    bottom: 0px;
+                }
+
+                100% {
+                    bottom: 20px;
+                }
+            }
+        }
+    }
+
+    .bottonBox {
+        padding: 12px 15px;
+
+        .cardName {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 17px;
+            /* identical to box height */
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .cardTokenId {
+
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 22px;
+            color: #000000;
+            margin: 5.8px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .cardPrice {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                color: #788CFF;
+                display: flex;
+                align-items: center;
+
+                img {
+                    margin-right: 8px;
+                }
+
+                span {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 20px;
+                    color: rgba(0, 0, 0, 0.6);
+                    margin-left: 5px;
+                }
+            }
+
+            .Collection {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+
+
+}
+
+@media (max-width:1440px) {
+    .HotspotCard {
+        width: 280px;
+
+
+    }
+}
+
+@media (max-width:1024px) {}
+
+@media (max-width:768px) {
+    .HotspotCard {
+        width: 172px;
+        margin: auto;
+
+
+
+        .cardName {
+            div {
+                font-size: 14px;
+            }
+        }
+
+        .cardTokenId {
+            font-size: 14px;
+        }
+
+        .cardPrice {
+            font-size: 12px;
+
+            img {
+                width: 10px;
+            }
+        }
+
+        .cardBottom {
+            .Collection {
+                font-size: 12px;
+            }
+
+            .minPrice {
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+@media (max-width:425px) {}
+
+@media (max-width:375px) {}

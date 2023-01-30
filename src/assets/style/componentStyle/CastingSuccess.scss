@@ -1,0 +1,48 @@
+.ant-modal-content{background: #073260 !important;
+border-radius: 50px !important;}
+.ModalTop {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    color: #fff;
+    font-weight: 500;
+    font-size: 22px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.CastingImg {
+    margin: 20px auto 0;
+    width: 60%;
+    overflow: hidden;
+    img {
+        width: 110%;
+    }
+}
+
+.sse {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.Enter {
+    margin: 0 30px;
+    background: #3683F7;
+    border-radius: 25px;
+    height: 50px;
+    color: #FFFFFF;
+    font-size: 16px;
+    margin-top: 44px;
+}
+
+.close {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}

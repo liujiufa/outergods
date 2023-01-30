@@ -1,0 +1,258 @@
+.Casting {
+    .Banner {
+        img {
+            width: 100%;
+        }
+    }
+
+    .LRlayout {
+        margin: 102px 255px;
+        display: flex;
+        align-items: center;
+
+        .Text {
+            flex: 1;
+
+            .main {
+                font-weight: 600;
+                font-size: 40px;
+                color: #fff;
+            }
+
+            .sub {
+                color: #fff;
+                font-size: 16px;
+            }
+        }
+    }
+
+    .introduceTitle {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        color: #fff;
+        text-align: center;
+        font-weight: 600;
+        font-size: 40px;
+    }
+
+    .introduce {
+        max-width: 888px;
+        margin: 30px auto 0;
+        color: rgba(255, 255, 255, 0.8);
+        ;
+        font-size: 16px;
+        text-align: center;
+    }
+    .introduceLeft{
+        text-align: left;
+    }
+
+    .CastingList ,.CastingListOne{
+        display: grid;
+        justify-content: center;
+        grid-template-columns: repeat(auto-fill, 330px);
+        grid-gap: 80px;
+        margin-top: 54px;
+        margin: 54px 255px 0;
+
+        .CastingBtn {
+            background: #3683F7;
+            border-radius: 25px;
+            width: 130px;
+            height: 50px;
+            margin: 15px auto 0;
+            color: #FFFFFF;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .invalid {
+            background: #9FA4AB;
+        }
+    }
+    .CastingListOne{
+        display: flex;
+        justify-content: center;
+        margin: 54px 0 0;
+    }
+
+    .invitation {
+        margin: 160px 255px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+        .send {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+
+        .invitationLink {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+
+            .LinkBox {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0.1em;
+                color: #FFFFFF;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                box-sizing: border-box;
+                border-radius: 18px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                padding: 0 15px;
+                margin-right: 10px;
+            }
+
+            img {
+                margin-left: 10px;
+            }
+        }
+
+        .invitationNum {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        .receive {
+            color: #3683F7;
+            font-weight: 600;
+            font-size: 16px;
+            margin-top: 15px;
+            display: flex;
+
+            .receiveBtn {
+                background: #3683F7;
+                border-radius: 25px;
+                width: 90px;
+                height: 30px;
+                margin-left: 20px;
+                color: #FFFFFF;
+                font-size: 14px;
+            }
+        }
+
+        .rule {
+            margin-top: 45px;
+            color: rgba(255, 255, 255,0.6);
+            font-size: 12px;
+
+            .ruleTitle {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 197.5%;
+                letter-spacing: 0.1em;
+                color: #FFFFFF;
+            }
+            .ruleContent{
+                color: #fff;
+                font-size: 12px;
+                line-height: 23.7px;
+            }
+            margin-bottom: 66px;
+        }
+    }
+}
+
+@media (max-width:1700px)and(min-width:1440px) {
+    .Casting {
+        .LRlayout {
+            margin: 102px 100px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .invitation {
+            margin: 20px 145px 0;
+        }
+    }
+}
+
+@media (max-width:1439px) {
+    .Casting {
+        .LRlayout {
+            margin: 102px 100px;
+            flex-direction: column;
+
+            .Text {
+                text-align: center;
+                margin-bottom: 50px;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            .Text{
+                margin-top: 50px;
+            }
+        }
+
+        .CastingList {
+            grid-template-columns: repeat(auto-fill, 330px);
+        }
+    }
+}
+
+@media (max-width:1024px) {
+    .Casting {
+        .LRlayout {
+            margin: 102px 0;
+
+            img {
+                width: 80%;
+            }
+        }
+    }
+
+    .introduce {
+        padding: 0 16px;
+    }
+}
+
+@media (max-width:768px) {
+    .Casting {
+        .CastingList {
+            margin: 54px 0 0;
+        }
+
+        .invitation {
+            margin: 60px 16px;
+        }
+    }
+}
+
+@media (max-width:425px) {
+    .Casting {
+        .LRlayout {
+            margin: 50px 0;
+
+            .Text {
+                margin-bottom: 20px;
+
+                .main {
+                    font-size: 26px;
+                }
+            }
+        }
+
+        .introduceTitle {
+            font-size: 26px;
+        }
+    }
+}
+
+@media (max-width:375px) {
+    .Casting {
+        .CastingList {
+            grid-template-columns: repeat(auto-fill, 280px);
+        }
+    }
+}

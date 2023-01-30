@@ -1,0 +1,180 @@
+.CastingItem {
+    // border: 1px solid #C7C7C7;
+    box-sizing: border-box;
+    border-radius: 29px;
+    padding: 20px 28px;
+    width: 330px;
+
+    .nftName {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        // font-weight: 900;
+        font-size: 26px;
+        line-height: 36px;
+        text-align: center;
+        letter-spacing: 0.1em;
+
+        color: #FFFFFF;
+
+        text-shadow: 0px 0px 4px rgba(255, 157, 205, 0.83);
+        margin-top: 16px;
+        font-weight: 900;
+    text-shadow: 0px 1px #0024ff, 0px 3px #ff00d8;
+    }
+
+    .cardImg {
+        width: 100%;
+        border-radius: 20px;
+        overflow: hidden;
+        margin: auto;
+
+        img {
+            width: 100%;
+        }
+
+        .Model {
+            width: 100%;
+            height: 100%;
+            min-height: 198px;
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            .CardInfo {
+                position: absolute;
+                display: none;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.3);
+                z-index: 99;
+                top: 0;
+                left: 0;
+                flex-direction: column;
+                justify-content: flex-end;
+
+                .name {
+                    text-align: center;
+                    font-weight: 600;
+                    font-size: 16px;
+                    color: #FFFFFF;
+                    letter-spacing: 0.1em
+                }
+
+                .desc {
+                    font-weight: 500;
+                    font-size: 16px;
+                    color: rgba(255, 255, 255, 0.8);
+                    letter-spacing: 0.1em;
+                    margin: 0 16px;
+                    // text-align:justify;
+                }
+
+                @media (max-width:780px) {
+                    .desc {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+
+        .Model:hover .CardInfo {
+            display: flex;
+        }
+    }
+
+    .price {
+        
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 900;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1em;
+        color: #FFFFFF;
+        margin-top: 15px;
+        text-shadow: 0px 1px #0024ff, 0px 3px #ff00d8;
+    }
+
+    .surplus {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1em;
+        color: #FFFFFF;
+        display: flex;
+        margin-top: 15px;
+        align-items: center;
+
+        span {
+            font-family: 'PingFang SC';
+font-style: normal;
+font-weight: 900;
+font-size: 14px;
+line-height: 20px;
+text-align: center;
+letter-spacing: 0.1em;
+color: #FFFFFF;
+text-shadow: 0px 1px #0024ff, 0px 3px #ff00d8;
+
+        }
+
+        .surplusRow {
+            margin: 0 15px;
+            height: 8px;
+            background: #EFEFEF;
+            border-radius: 6px;
+            flex: 1;
+            overflow: hidden;
+
+            .surplusValue {
+                height: 100%;
+                background: linear-gradient(89.91deg, #383FF4 0.06%, #FF11D7 99.93%);
+                border-radius: 6px;
+            }
+        }
+    }
+}
+.TextMain{
+    position: relative;
+    font-weight: 900;
+    font-size: 14px;
+    .Text1,.Text2,.Text3{
+        letter-spacing: 0.1em;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    .Text2,.Text3{
+        position: absolute;
+        top: 0;
+    }
+    .Text2,.Text3{
+        color:transparent;
+    }
+    .Text1{
+        color: #FFFFFF;
+        position: relative;
+        text-shadow: 0px 0px 4px rgba(255, 157, 205, 0.83);
+        z-index: 9;
+    }
+    .Text2{
+        text-shadow: 0px 1px 0px #0024FF;
+        z-index: 8;
+    }
+    .Text3{
+        text-shadow: 0px 2px 0px #FF00D8;
+        z-index: 7;
+    }
+}
+@media (max-width:375px) {
+    .CastingItem {
+        width: 280px;
+
+        .cardImg {
+            img {
+                width: 100%;
+            }
+        }
+    }
+}

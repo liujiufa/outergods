@@ -1,0 +1,152 @@
+.searchRow{
+    max-width: 1410px;
+    margin: 30px auto 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    .tab{
+        display: flex;
+        align-items: center;
+        .item{
+            color: #fff;
+            font-size: 14px;
+            width: 80px;
+            height: 30px;
+            border-radius: 15px;
+            margin-right: 30px;
+        }
+        .activeItem{
+            color: #3683F7;
+            background: rgba(54, 131, 247, 0.12);
+        }
+    }
+    .searchedge{
+        width: 100%;
+        max-width: 1410px;
+        display: flex;
+        justify-content: flex-end;
+        margin: auto;
+        .search{
+            color: rgba(255, 255, 255, 0.8);
+            margin-left: 30px;
+            width: 120px;
+            height: 36px;
+            border: 1px solid #666666;
+            box-sizing: border-box;
+            border-radius: 18px;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content:space-between;
+        line-height: 36px;
+    .searchBox{
+        font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-right: 3px;
+    }
+        }
+        .filter{
+            margin-left: 30px;
+            background: #3683F7;
+            border-radius: 18px;
+            width: 84px;
+            height: 36px;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content:space-between;
+            color: #FFFFFF;
+            font-size: 14px;
+        }
+    }
+}
+.goodsList{
+    width: 100%;
+    max-width: 1410px;
+    margin:44px auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 330px);
+    grid-row-gap: 30px;
+    grid-column-gap: 30px;
+}
+
+.TableBox{
+    max-width: 1410px;
+    margin: 0 auto;
+    .ant-table {
+        background: transparent !important;
+    }
+
+    .ant-table-thead {
+        // .ant-table-tbody > tr.ant-table-row:hover > td, .ant-table-tbody > tr > td.ant-table-cell-row-hover
+        tr {
+            th {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0.1em;
+                color: rgba(255, 255, 255, 0.6);
+                background: transparent !important;
+                border-bottom: none !important;
+            }
+        }
+    }
+    .ant-table-tbody{
+        tr{
+            td.ant-table-cell-row-hover,.ant-table-row:hover{
+                background: transparent !important;
+            }
+            td{
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+            }
+        }
+        tr.ant-table-placeholder:hover {
+            td{
+                background: transparent !important;
+
+            }
+        }
+    }
+}
+@media screen and(max-width:767px) {
+    .searchRow .tab .item{
+        margin-right: 10px;
+    }
+    .searchRow .searchedge .filter{
+        margin-left: 10px;
+    }
+}
+@media screen and(min-width:320px) and(max-width:424px){
+    .searchRow{
+        display: block;
+        .tab {
+        width: 80%;
+        display: flex;
+        margin: 10px auto;
+        
+    }
+    .searchedge{
+        width: 80%;
+        .Box{
+            display: flex;
+            flex: 1;
+            justify-content: center;
+        }
+        .search{
+            margin-left: 0;
+        }
+        .filter{
+            margin-left: 0px;
+        }
+    }
+}
+.searchRow .tab .item {
+    flex: 1;
+    margin-right: 0px;
+}
+}

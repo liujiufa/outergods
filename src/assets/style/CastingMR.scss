@@ -1,0 +1,362 @@
+// .BgBox{
+//     height: 100%;
+//     background: url(../image/CastingMRBg.png)  center/ 100% 100%;
+//     .LRlayout1{
+//         padding: 102px 255px 150px;
+//         margin: auto auto;
+//         .Text .sub{
+//             padding-right: 150px;
+//         }
+//     }
+//     .LRlayout2{
+//         padding: 0px 255px 102px;
+//         margin: auto auto;
+
+//     }
+// }
+// @media (max-width:1700px) and(min-width:1440px){
+//     .BgBox .LRlayout1{
+//         padding: 102px 100px 150px;
+//         margin: auto auto;
+//     }
+//     .Casting .LRlayout .Text .sub{
+//         padding-right: 150px;
+//     }
+// }
+// @media (max-width: 1439px){
+//     .Casting .LRlayout .Text .sub{
+//         padding-right: 0px;
+//     }
+// }
+.Casting {
+    .Banner {
+        img {
+            width: 100%;
+        }
+    }
+
+    .BgBox {
+        background: url(../image/CastingMRBg.png) center/ 100% 100%;
+        border: 1px solid transparent;
+
+        .LRlayout {
+            margin: 102px 255px;
+            display: flex;
+            align-items: center;
+
+            .Text {
+                flex: 1;
+
+                .main {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 900;
+                    font-size: 40px;
+                    line-height: 56px;
+                    letter-spacing: 0.085em;
+                    color: #FFFFFF;
+                    // text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.42);
+                    text-shadow: -4px 0 rgb(255, 0, 0), 0 4px rgb(255, 0, 0), 4px 0 rgb(255, 0, 0), 0 -4px rgb(255, 0, 0);
+                img{
+                    max-width: 100%;
+                }
+                }
+
+                .sub {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 195%;
+                    letter-spacing: 0.1em;
+                    color: #fff;
+margin-top: 30px;
+                }
+
+                .sub1 {
+                    margin-right: 150px;
+                }
+            }
+        }
+
+        .titleBox {
+            display: flex;
+            justify-content: center;
+            .introduceTitle {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                color: #fff;
+                text-align: center;
+                font-weight: 600;
+                font-size: 40px;
+                img{
+                    max-width: 100%;
+                }
+
+            }
+
+            .introducesubTitle {
+                position: absolute;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                color: #fff;
+                text-align: center;
+                font-weight: 600;
+                font-size: 40px;
+            }
+        }
+
+
+
+        .introduce {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 195%;
+            text-align: center;
+            letter-spacing: 0.1em;
+
+            color: #FFFFFF;
+            max-width: 888px;
+            margin: 30px auto 0;
+        }
+
+        .CastingList {
+            display: grid;
+            justify-content: center;
+            grid-template-columns: repeat(auto-fill, 330px);
+            grid-gap: 80px;
+            margin-top: 54px;
+            margin: 54px 255px 0;
+
+            >.item {
+                background: url(../image/CastingMRItemBg.png) center/ 100% 100%;
+
+            }
+
+            .CastingBtn {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 900;
+                font-size: 14px;
+                text-align: center;
+                letter-spacing: 0.1em;
+                color: #FFFFFF;
+                text-shadow: 0px 1px #0024ff, 0px 3px #ff00d8;
+                background: transparent;
+                border-radius: 25px;
+                /* width: 278px; */
+                height: 50px;
+                margin: 15px auto 10px;
+                border: 2px solid #FFFFFF;
+            }
+
+            .invalid {
+                background: #9FA4AB;
+            }
+        }
+
+        .invitation {
+            margin: 160px 255px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+            .send {
+                color: #fff;
+                font-weight: 600;
+                font-size: 14px;
+                margin-top: 30px;
+            }
+
+            .invitationLink {
+                margin-top: 10px;
+                display: flex;
+                align-items: center;
+
+                .LinkBox {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    letter-spacing: 0.1em;
+                    color: #FFFFFF;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    box-sizing: border-box;
+                    border-radius: 18px;
+                    height: 36px;
+                    display: flex;
+                    align-items: center;
+                    padding: 0 15px;
+                    margin-right: 10px;
+                }
+
+                img {
+                    margin-left: 10px;
+                }
+            }
+
+            .invitationNum {
+                color: #fff;
+                font-weight: 600;
+                font-size: 14px;
+                margin-top: 40px;
+            }
+
+            .receive {
+                color: #3683F7;
+                font-weight: 600;
+                font-size: 16px;
+                margin-top: 15px;
+                display: flex;
+
+                .receiveBtn {
+                    background: #3683F7;
+                    border-radius: 25px;
+                    width: 90px;
+                    height: 30px;
+                    margin-left: 20px;
+                    color: #FFFFFF;
+                    font-size: 14px;
+                }
+            }
+
+            .rule {
+                margin-top: 45px;
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 12px;
+
+                .ruleTitle {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 197.5%;
+                    letter-spacing: 0.1em;
+                    color: #FFFFFF;
+                }
+
+                .ruleContent {
+                    color: #fff;
+                    font-size: 12px;
+                    line-height: 23.7px;
+                }
+
+                margin-bottom: 66px;
+            }
+        }
+    }
+}
+
+@media (max-width:1700px)and(min-width:1440px) {
+    .Casting {
+        .BgBox {
+            .LRlayout {
+                margin: 102px 100px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .invitation {
+                margin: 0 145px;
+            }
+        }
+    }
+}
+
+@media (max-width:1439px) {
+    .Casting {
+        .BgBox {
+            .LRlayout {
+                margin: 102px 100px;
+                flex-direction: column;
+
+                .Text {
+                    text-align: center;
+                    margin-bottom: 50px;
+                    margin-left: 0 !important;
+
+                    .sub {
+                        margin:30px auto;
+                    }
+                }
+
+                .Text {
+                    margin-top: 50px;
+                }
+            }
+
+            .CastingList {
+                grid-template-columns: repeat(auto-fill, 330px);
+            }
+        }
+    }
+}
+
+@media (max-width:1024px) {
+    .Casting {
+        .BgBox {
+            .LRlayout {
+                margin: 102px 0;
+
+                >img {
+                    width: 90%;
+                }
+            }
+
+            .introduce {
+                padding: 0 16px;
+            }
+        }
+    }
+
+
+}
+
+@media (max-width:768px) {
+    .Casting {
+        .BgBox {
+            .CastingList {
+                margin: 54px 0 0;
+            }
+
+            .invitation {
+                margin: 60px 16px;
+            }
+        }
+    }
+}
+
+@media (max-width:425px) {
+    .Casting {
+        .BgBox {
+
+
+            .LRlayout {
+                margin: 50px 0;
+
+                .Text {
+                    margin-bottom: 20px;
+
+                    .main {
+                        font-size: 26px;
+                    }
+                }
+            }
+
+            .introduceTitle {
+                font-size: 26px;
+            }
+        }
+    }
+}
+
+@media (max-width:375px) {
+    .Casting {
+        .BgBox {
+            .CastingList {
+                grid-template-columns: repeat(auto-fill, 280px);
+            }
+        }
+    }
+}

@@ -1,0 +1,298 @@
+.layout {
+    .Content {
+        background: linear-gradient(233.91deg, rgba(210, 253, 253, 0.3) 9.69%, rgba(194, 177, 255, 0.3) 38.49%, rgba(109, 131, 255, 0.18) 68.83%, rgba(56, 255, 243, 0.249) 83.42%);
+        margin-top: 70px;
+    }
+}
+
+.MainSider {
+    // background: #FFFFFF !important;
+    // background: transparent !important;
+    position: relative;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.04);
+    height: 70px !important;
+    display: flex;
+    align-items: center;
+    z-index: 99;
+
+    &::after {
+        content: '';
+        background: linear-gradient(270deg, #BEEEFF 0%, #D3DEFA 51.04%, #E2D9F9 100%);
+        box-shadow: 0px 38px 91px rgba(198, 207, 231, 0.6);
+        // filter: blur(3px);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+    }
+
+    .logo {}
+
+    .HeadMenu {
+        display: none;
+        margin-left: 20px;
+    }
+
+    .menu {
+        margin-left: 70px;
+        display: flex;
+
+        .menuItem {
+            margin-right: 40px;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 22px;
+            color: rgba(0, 0, 0, 0.8);
+
+            .unLink {
+                width: 100%;
+                height: 2px;
+                background: transparent;
+                border-radius: 18px;
+            }
+        }
+
+        .MenuActive {
+            color: #554EFF;
+
+        }
+
+
+    }
+
+    .ant-dropdown-menu-item {
+        padding: 10px 12px !important;
+    }
+
+    @media (max-width:1440px) and (min-width:1024px) {
+        .menu {
+            margin-left: 70px;
+            display: flex;
+
+            .menuItem {
+                margin-right: 40px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 22px;
+                color: rgba(0, 0, 0, 0.8);
+
+            }
+        }
+    }
+
+    .search {
+        flex: 1;
+        border-radius: 22px;
+        height: 44px;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        margin-right: 48px;
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        img {
+            padding-left: 15px;
+        }
+
+        input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 48px;
+            padding: 0 15px;
+            background: transparent;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-size: 16px;
+            line-height: 22px;
+            letter-spacing: 0.1em;
+            color: #000;
+        }
+
+        input::-webkit-input-placeholder {
+            font-weight: 400;
+            font-size: 16px;
+            color: #A5A5A5;
+        }
+
+        .searchResult {
+            position: absolute;
+            width: 100%;
+            top: 44px;
+            z-index: 998;
+            max-height: 400px;
+            overflow-y: auto;
+            background: #fff;
+            box-shadow: rgba(15, 15, 15, 0.2) 0px 8px 16px -8px;
+            border-radius: 20px;
+            padding: 30px;
+
+            .LabelRow {
+                border-bottom: 1px solid #e1e1e1;
+                height: 36px;
+                display: flex;
+                align-items: center;
+            }
+
+            .resItem {
+                display: flex;
+                align-items: center;
+                height: 45px;
+
+                .radius {
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    margin-right: 20px;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    .Chain {
+        display: flex;
+        align-items: center;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+        color: #000000;
+
+        .ChainName {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 22px;
+            color: #000000;
+            margin-left: 10px;
+            font-weight: 700;
+
+        }
+    }
+
+    .Lang {
+        font-family: 'PingFang SC';
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        margin-left: 34px;
+        line-height: 22px;
+        font-weight: 700;
+        color: #000000;
+
+        .LangName {
+            margin-left: 10px
+        }
+
+        img {
+            margin-right: 10px;
+        }
+    }
+
+    .walletIcon {
+        margin-left: 30px;
+    }
+
+    @media (max-width:1150px) {
+
+        .menu,
+        .Chain,
+        .Lang {
+            display: none;
+        }
+
+        .HeadMenu {
+            display: inline-block;
+        }
+
+        .search {
+            margin: 0 0 0 48px;
+        }
+    }
+
+    @media (max-width:768px) {
+        .search {
+            margin: 0 20px;
+        }
+
+        .walletIcon {
+            margin: 0;
+        }
+    }
+}
+
+.MainFooter {
+    position: relative;
+    background: #FFFFFF !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 99;
+    padding: 24px 0px !important;
+
+    >div {
+        width: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+}
+
+.ant-dropdown-menu-title-content {
+    display: flex;
+
+    .dropText {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        letter-spacing: 0.1em;
+        margin-left: 10px;
+        color: #333333;
+    }
+}
+
+.ant-dropdown-menu {
+    border-radius: 10px !important;
+}
+
+@media (max-width:768px) {
+    .ant-layout-header {
+        padding: 0 12px !important;
+    }
+}
+
+.box {
+    padding: 5px 0px;
+    display: flex;
+    align-items: center;
+}
+
+// 下拉菜单图标旋转
+.rotetaClose {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transition: transform .5s;
+}
+
+.rotetaOpen {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transition: transform .5s;
+}

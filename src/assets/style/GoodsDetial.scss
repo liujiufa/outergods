@@ -1,0 +1,540 @@
+.GoodsDetial {
+    margin: 95px 255px 80px;
+    display: flex;
+
+    .DetialImg {
+        flex: 1;
+
+        .GoodsImg {
+            width: 460px;
+            border-radius: 40px;
+
+            img {
+                width: 100%;
+            }
+        }
+
+    }
+    .DetialImg2{
+        display: none;
+    }
+
+    .GoodsInfo {
+        flex: 1;
+        margin-left: 60px;
+
+        .infoRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            .rowLeft {
+                display: flex;
+                align-items: center;
+
+                .projectName {
+                    color: #fff;
+                    font-weight: 600;
+                    font-size: 24px;
+                }
+
+                .nftName {
+                    color: #fff;
+                    font-weight: 600;
+                    font-size: 20px;
+                }
+            }
+
+            .rowRight {
+                display: flex;
+                align-items: center;
+
+                .colorA5 {
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 14px;
+                    margin: 0 10px;
+                }
+            }
+
+            .shareGroup {
+                width: 102px;
+                height: 34px;
+                border: 1px solid rgba(255, 255, 255, 0.8);
+                box-sizing: border-box;
+                border-radius: 4px;
+                display: flex;
+
+                .item {
+                    flex: 1;
+                    border-right: 1px solid rgba(255, 255, 255, 0.8);
+                }
+
+                .item:last-child {
+                    border-right: none;
+                }
+            }
+        }
+
+        .hold {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            .userAddress{
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                box-sizing: border-box;
+                border-radius: 18px;
+                width: 188px;
+                height: 36px;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.6);
+                margin-left: 10px;
+                span{
+                    margin: 0 10px 0 10px;
+                    letter-spacing: 0.1em;
+                }
+                img{
+                    vertical-align: center !important;
+
+                }
+            }
+        }
+
+        .buyRow {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-sizing: border-box;
+            border-radius: 48px;
+            min-height: 96px;
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            .buyPrice {
+                display: flex;
+                align-items: center;
+
+                .division {
+                    height: 30px;
+                    border-right: 1px solid rgba(255, 255, 255, 0.2);;
+                    margin: 0 15px;
+                }
+
+                .Price {
+                    >div {
+                        margin: 10px 0;
+                    }
+
+                    .tokenNum {
+                        color: #16DC71;
+                        font-weight: 500;
+                        font-size: 16px;
+                    }
+
+                    .dollar {
+                        color: rgba(255, 255, 255, 0.8);
+                        font-size: 16px;
+                    }
+                }
+            }
+
+            .btnGroup {
+                display: flex;
+            }
+
+            .BuyBtn {
+                background: #3683F7;
+                border-radius: 25px;
+                width: 130px;
+                height: 50px;
+                color: #FFFFFF;
+                font-size: 16px;
+            }
+
+            .NoBuyBtn {
+                background: #DCDCDC;
+            }
+
+            .cancelBtn {
+                width: 130px;
+                height: 50px;
+                border: 1px solid #3683F6;
+                box-sizing: border-box;
+                border-radius: 25px;
+                color: #3683F6;
+                margin-left: 20px;
+            }
+        }
+
+        .describe {
+            margin: 30px 0;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+            word-break:break-all;
+        }
+
+        .sellBtn {
+            width: 100%;
+            background: #3683F7;
+            border-radius: 25px;
+            height: 50px;
+            margin-bottom: 30px;
+            color: #FFFFFF;
+            font-size: 16px;
+        }
+
+        .attribute {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-sizing: border-box;
+            border-radius: 48px;
+            height: 50px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 30px;
+
+            .item {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                color: #fff;
+                font-weight: 400;
+                font-size: 14px;
+                padding: 0 8px;
+                height: 30px;
+                border-radius: 15px;
+                margin-right: 30px;
+            }
+
+            .activeItem {
+                color: #3683F7;
+                background: rgba(54, 131, 247, 0.12);
+            }
+        }
+
+        .attrRow {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+            >div,
+            a {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                text-align: left;
+                letter-spacing: 0.1em;
+                color: #FFFFFF;
+            }
+
+            .attrLabel {
+                width: 80px;
+                flex-shrink: 0;
+            }
+
+            .attrValue {
+                margin-left: 60px;
+                display: -webkit-box;
+                /*将对象转为弹性盒模型展示*/
+                -webkit-box-orient: vertical;
+                /*设置弹性盒模型子元素的排列方式*/
+                -webkit-line-clamp: 5;
+                /*限制文本行数*/
+                overflow: hidden;
+                /*超出隐藏*/
+                font-size: 14px;
+
+                img {
+                    width: 14px;
+                    vertical-align:middle;
+                }
+            }
+        }
+    }
+
+}
+
+.dynamicOrTable {
+    margin: 95px 255px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+
+    .tab {
+        display: flex;
+
+        .item {
+            color: #333333;
+            font-size: 14px;
+            // width: 60px;
+            padding: 0 8px;
+            height: 30px;
+            border-radius: 15px;
+            margin-right: 30px;
+        }
+
+        .activeItem {
+            color: #3683F7;
+            background: rgba(54, 131, 247, 0.12);
+        }
+    }
+
+    .search {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1em;
+        margin-left: 30px;
+        width: 120px;
+        height: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.8);
+        box-sizing: border-box;
+        border-radius: 18px;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .searchBox{
+        font-size: 14px;
+
+            overflow: hidden;
+            white-space: nowrap;
+            margin-right: 3px;
+        }
+    }
+}
+
+.TableBox {
+    margin: 0 255px;
+    .ant-table {
+        background: transparent !important;
+    }
+
+    .ant-table-thead {
+        // .ant-table-tbody > tr.ant-table-row:hover > td, .ant-table-tbody > tr > td.ant-table-cell-row-hover
+        tr {
+            th {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0.1em;
+                color: rgba(255, 255, 255, 0.6);
+                background: transparent !important;
+                border-bottom: none !important;
+            }
+        }
+    }
+    .ant-table-tbody{
+        tr{
+            td.ant-table-cell-row-hover,.ant-table-row:hover{
+                background: transparent !important;
+            }
+            td{
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+            }
+        }
+    }
+
+    .typeMain {
+        color: #fff;
+        font-weight: 500;
+        font-size: 16px;
+    }
+
+    .typeSub {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 16px;
+    }
+
+    .goodInfo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            margin-right: 7px;
+            width: 30px;height: 30px;
+        }
+
+        .protName {
+            font-weight: 500;
+            font-size: 16px;
+            color: #fff;
+
+        }
+
+        .nft {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+            text-align: left;
+        }
+    }
+
+    .goodPrice {
+        .Uprice {
+            color: #fff;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .bnbprice {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+        }
+    }
+
+    .color33 {
+        color: #fff;
+        font-weight: 500;
+        font-size: 16px;
+    }
+}
+
+.other {
+    color: #fff;
+    font-weight: 600;
+    font-size: 40px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.otherRow {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, 330px);
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    margin-top: 50px;
+}
+
+.LoadMore {
+    width: 120px;
+    height: 36px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
+    border-radius: 18px;
+    margin: 50px auto 50px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.brnRow {
+    display: none;
+    margin-top: 20px;
+
+    .BuyBtn {
+        background: #3683F7;
+        border-radius: 25px;
+        width: 130px;
+        height: 50px;
+        color: #FFFFFF;
+        font-size: 16px;
+        flex: 1;
+    }
+
+    .NoBuyBtn {
+        background: #DCDCDC;
+    }
+
+    .cancelBtn {
+        width: 130px;
+        height: 50px;
+        border: 1px solid #3683F6;
+        box-sizing: border-box;
+        border-radius: 25px;
+        color: #3683F6;
+        margin-left: 20px;
+    }
+}
+
+@media (max-width:1439px) {
+    .GoodsDetial {
+        flex-direction: column;
+
+        .GoodsInfo {
+            margin: 20px 0 0;
+        }
+    }
+}
+
+@media (max-width:1440px) {
+    .otherRow {
+        grid-template-columns: repeat(auto-fill, 280px);
+    }
+}
+
+@media (max-width:1024px) {
+    .GoodsDetial {
+        margin: 30px 16px;
+
+        .DetialImg {
+            .GoodsImg {
+                width: 320px;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .dynamicOrTable {
+        margin: 95px 16px 0;
+    }
+
+    .TableBox {
+        margin: 0 16px;
+    }
+
+}
+
+@media (max-width:580px) {
+    .GoodsDetial{
+        .DetialImg{
+            .GoodsImg{
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                img{
+                    width: 80%;
+                }
+            }
+        }
+       .DetialImg1{
+display: none;
+    }
+    .DetialImg2{
+        display: block;
+        margin-top: 26px;
+    }
+    } 
+    .other {
+        font-size: 26px;
+    }
+
+    .btnGroup {
+        display: none !important;
+    }
+
+    .brnRow {
+        display: flex;
+    }
+}
+
+@media (max-width:768px) {
+    .attrValue {
+        margin-left: 40px !important;
+    }
+}
