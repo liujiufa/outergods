@@ -131,6 +131,7 @@ export default function Market(): JSX.Element {
       // console.log(res,"交易场数据")
     })
   }
+  
   return (
     <div className="MarketPage">
       {/* <TransactionTips></TransactionTips> */}
