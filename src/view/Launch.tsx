@@ -1,44 +1,60 @@
-import React, { useEffect ,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import '../assets/style/Launch.scss'
-import { useNavigate ,useSearchParams} from "react-router-dom";
-import {getPlatformBaseDetail} from '../API'
-import {stateType} from '../store/reducer'
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { getPlatformBaseDetail } from '../API'
+import { stateType } from '../store/reducer'
+import { Dropdown, Menu, Switch } from 'antd'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration' // import plugin
-import {useSelector,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from 'react-i18next'
-import LaunchBanner from '../assets/image/LaunchBanner.png'
-import LaunchLogo from '../assets/image/LaunchLogo.png'
+import Goods, { NftInfo } from '../components/HotspotCard'
+import SuccessfulModal from '../components/SuccessfulModal'
+import ReportModal from '../components/ReportModal'
+import bannerDemo from '../assets/image/bannerDemo.png'
+import avtorImg from '../assets/image/4.png'
 import authentication from '../assets/image/authentication.png'
-import ProjectContact1 from '../assets/image/ProjectName1.png'
-import ProjectContact2 from '../assets/image/ProjectName2.png'
-import ProjectContact3 from '../assets/image/ProjectName3.png'
-import ProjectContact4 from '../assets/image/ProjectName4.png'
-import ProjectContact5 from '../assets/image/ProjectName5.png'
-import ProjectContact6 from '../assets/image/ProjectName6.png'
-import ProjectContact7 from '../assets/image/ProjectName7.png'
+import filterOpenIcon from '../assets/image/filterOpenIcon.png'
+import filterCloseIcon from '../assets/image/filterCloseIcon.png'
+import openRoundIcon from '../assets/image/openRoundIcon.png'
+import selectedIcon from '../assets/image/selectedIcon.png'
+import ETHIcon from '../assets/image/ETH.png'
+import Search from '../assets/image/searchIcon.png'
+import outLinkIcon1 from '../assets/image/outLinkIcon1.png'
+import outLinkIcon2 from '../assets/image/outLinkIcon2.png'
+import outLinkIcon3 from '../assets/image/outLinkIcon3.png'
+import outLinkIcon4 from '../assets/image/outLinkIcon4.png'
+import outLinkIcon5 from '../assets/image/outLinkIcon5.png'
+import outLinkIcon6 from '../assets/image/outLinkIcon6.png'
+import outLinkIcon7 from '../assets/image/outLinkIcon7.png'
+import openIcon from '../assets/image/openIconWhite.png'
+
 import go from '../assets/image/go.png'
-interface detialType{
-    name:string
-    routingName:string
-    image:string
-    bannerUrl:string
-    castStartTime:number
-    castEndTime:number
-    startPrice:number
-    coinName:string
-    twitterUrl?:string
-    telegraphGroupUrl?:string
-    webUrl?:string
-    totalReleaseNum:number
-    id:number
-    projectExplain:string
+interface detialType {
+    name: string
+    routingName: string
+    image: string
+    bannerUrl: string
+    castStartTime: number
+    castEndTime: number
+    startPrice: number
+    coinName: string
+    twitterUrl?: string
+    telegraphGroupUrl?: string
+    webUrl?: string
+    totalReleaseNum: number
+    id: number
+    projectExplain: string
 }
 export default function Launch(): JSX.Element {
     const [params] = useSearchParams();
-    let state = useSelector<stateType,stateType>(state => state);
+    let state = useSelector<stateType, stateType>(state => state);
     let [startTime, setstartTime] = useState<number>(0)
-    let [LaunchDetial,setLaunchDetial] = useState<detialType |null>(null)
+    let [tabActive, setTabActive] = useState<number>(0)
+    let [expand1, setExpand1] = useState<boolean>(false)
+    let [expand2, setExpand2] = useState<boolean>(false)
+    let [successfulModal, setSuccessfulModal] = useState<boolean>(false)
+    let [LaunchDetial, setLaunchDetial] = useState<detialType | null>(null)
     let [newTime, setNewTime] = useState(dayjs().valueOf())
     let { t } = useTranslation()
     let id = params.get('id')
@@ -47,27 +63,40 @@ export default function Launch(): JSX.Element {
     useEffect(() => {
         let time = setInterval(() => {
             if (startTime) {
-            setNewTime(dayjs().valueOf())
+                setNewTime(dayjs().valueOf())
             }
         }, 1000)
         return () => {
             clearInterval(time)
         }
     }, [startTime])
-    useEffect(()=>{
-        if(state.token && id){
-            getPlatformBaseDetail(id).then(res=>{
+    useEffect(() => {
+        if (state.token && id) {
+            getPlatformBaseDetail(id).then(res => {
                 setLaunchDetial(res.data)
                 setstartTime(res.data.castStartTime)
-                console.log(res,"发射台详情")
+                console.log(res, "发射台详情")
             })
         }
-    },[state.token])
-    function goLaunchDetial(){
-        if(LaunchDetial){
-            navigate('/'+LaunchDetial.routingName+'?id='+LaunchDetial.id)
+    }, [state.token])
+    function goLaunchDetial() {
+        if (LaunchDetial) {
+            navigate('/' + LaunchDetial.routingName + '?id=' + LaunchDetial.id)
         }
     }
+
+    const typeMenu = (
+        <Menu>
+            <Menu.Item>全部</Menu.Item>
+            <Menu.Item>全部</Menu.Item>
+        </Menu>
+    );
+
+    // 开关
+    const onChange = (checked: boolean) => {
+        console.log(`switch to ${checked}`);
+    };
+
     const navigate = useNavigate();
     const diffTime = dayjs.duration(startTime - newTime);
     // const day = diffTime.days(); //天
@@ -75,91 +104,165 @@ export default function Launch(): JSX.Element {
     const minutes = diffTime.minutes(); //分钟
     const seconds = diffTime.seconds();
     return (
-        <div className="Launch">
+        <div className="ProjectDetail">
             <div className="banner">
-                {
-                    LaunchDetial && <img src={LaunchDetial.bannerUrl} alt="" />
-                }
-                
-                <div className="LaunchLogo">
-                    {LaunchDetial ? <img src={LaunchDetial.image} alt="" /> : <img src={LaunchLogo} alt="" />}
-                    
+                <img src={bannerDemo} alt="" />
+                <div className="dataItems">
+                    <div className="item">
+                        <div className="top">$1110.1</div>
+                        <div className="bottom">总交易量</div>
+                    </div>
+                    <div className="item">
+                        <div className="top">$0.005</div>
+                        <div className="bottom">地板价</div>
+                    </div>
+                    <div className="item">
+                        <div className="top">10%</div>
+                        <div className="bottom">创作者收益</div>
+                    </div>
+                    <div className="item">
+                        <div className="top">111</div>
+                        <div className="bottom">物品</div>
+                    </div>
+                    <div className="item">
+                        <div className="top">111</div>
+                        <div className="bottom">已上架</div>
+                    </div>
+                    <div className="item">
+                        <div className="top">111</div>
+                        <div className="bottom">持有者</div></div>
                 </div>
             </div>
-            <div className="projectNameLaunch flexCenter">
-                {LaunchDetial && LaunchDetial.name}
-                <img src={authentication} alt="" />
-            </div>
-            <div className="Contact">
-                {/* <img src={ProjectContact1} alt="" /> */}
-                {
-                    LaunchDetial?.webUrl && <a href={LaunchDetial.webUrl} target="_blank" rel="noreferrer">
-                        <img src={ProjectContact7} alt="" />
-                    </a>
-                }
-                {
-                    LaunchDetial?.twitterUrl && <a href={LaunchDetial.twitterUrl} target="_blank" rel="noreferrer">
-                        <img src={ProjectContact2} alt="" />
-                    </a>
-                }
-                
-                {/* <img src={ProjectContact3} alt="" /> */}
-                {/* <img src={ProjectContact4} alt="" /> */}
-                {/* <img src={ProjectContact5} alt="" /> */}
-                {
-                    LaunchDetial?.telegraphGroupUrl && <a href={LaunchDetial.telegraphGroupUrl} target="_blank" rel="noreferrer">
-                        <img src={ProjectContact6} alt="" />
-                    </a>
-                }
-            </div>
-            <div className="LaunchInfo">
-                <div className="column">
-                    <div className="label">{t('Mint Start')}</div>
-                    {/* <div className="value">23小时10分39秒</div> */}
-                    {/* LaunchDetial && <div className="value">{dayjs(LaunchDetial.castStartTime).format('YYYY年MM月DD日') }</div> */}
-                    {
-                        startTime > newTime ? <div className="value">{hours}:{minutes}:{seconds}</div>:<div className="value">{t('Ongoing')}</div>
-                        
-                    }
-                    
+            <div className="contentBox">
+                <div className="logoAvtor">
+                    <img src={avtorImg} alt="" />
                 </div>
-                <div className="column">
-                    <div className="label">{t('Mint End')}</div>
-                    {
-                        LaunchDetial && <div className="value">{dayjs(LaunchDetial.castEndTime).format('MM/DD/YYYY') }</div>
-                    }
+                <div className="outLinkBox">
+                    <div className="linkItem">
+                        <img src={outLinkIcon1} alt="" />
+                    </div>
+                    <div className="linkItem">
+                        <img src={outLinkIcon2} alt="" />
+                    </div>
+                    <div className="linkItem">
+                        <img src={outLinkIcon3} alt="" />
+                    </div>
+                    <div className="linkItem">
+                        <img src={outLinkIcon4} alt="" />
+                    </div>
+                    <div className="linkItem">
+                        <img src={outLinkIcon5} alt="" />
+                    </div>
+                    <div className="linkItem copyItem" onClick={() => { }}>
+                        <img src={outLinkIcon6} alt="" />
+                        {true && <>
+                            <div className='copyLinkBox'>
+                                <div className="title">复制链接</div>
+                                <div className="outLink">在Facebook上分享</div>
+                                <div className="outLink">在Twitter上分享</div>
+                            </div>
+                        </>}
+                    </div>
+                    <div className="linkItem">
+                        <img src={outLinkIcon7} alt="" />
+                    </div>
                 </div>
-                <div className="column">
-                    <div className="label">{t('Start Price')}</div>
-                    {
-                        LaunchDetial && <div className="value">{LaunchDetial.startPrice} {LaunchDetial.coinName}</div>
-                    }
-                    
+                <div className="personalBox">
+                    <div className="name">Rat3</div>
+                    <div className="address">创作者 <span> 678789....hguio</span></div>
+                    <div className="detail">"Because every person knows what he likes, every person thinks he is an expert on user interfaces.,--Paul Hecke“因为每个人都知道自己喜欢什么，所以每个人都觉得自己是用户界面专家。”</div>
+                    <div className="detailBtn">+扩展</div>
                 </div>
-                <div className="column">
-                    <div className="label">{t('Items')}</div>
-                    {
-                        LaunchDetial && <div className="value">{LaunchDetial.totalReleaseNum}</div>
-                    }
+
+                <div className="tebBox">
+                    <div className={tabActive === 0 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(0) }}>物品</div>
+                    <div className={tabActive === 1 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(1) }}>动态</div>
+                </div>
+                <div className="line"></div>
+                {/* 物品容器 */}
+                <div className="container">
+                    <div className="header">
+                        <div className="leftBox">
+                            <div className="filterBtn"><img src={filterOpenIcon} alt="" /></div>
+                            <div className="searchBox">
+                                <div className="search" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
+                                    <img src={Search} alt="" />
+                                    <input type="text" placeholder="按名称、属性搜索" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="dropDownBox">
+                            <div className="MarketSearchRow">
+                                <Dropdown overlay={typeMenu} trigger={['click']} >
+                                    <div className="search">
+                                        <div className="searchBox">全部</div>
+                                        <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
+                                    </div>
+                                </Dropdown>
+                                <Dropdown overlay={typeMenu} trigger={['click']}>
+                                    <div className="search">
+                                        <div className="searchBox">最新上架</div>
+                                        <img className={expand2 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
+                                    </div>
+                                </Dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="bigContent">
+                        <div className="slider">
+                            <div className="settingPut">
+                                <div className="title">已上架</div>
+                                <div className="right"><Switch defaultChecked onChange={onChange} /></div>
+                            </div>
+                            <div className="priceFilter">
+                                <div className="title">$价格范围</div>
+                                <div className="right"><img src={openRoundIcon} alt="" /></div>
+                            </div>
+                            {true && <>
+                                <div className="topBox">
+                                    <div className="button flexCenter">最小值</div>
+                                    <div className="word flexCenter">-</div>
+                                    <div className="button flexCenter">最大值</div>
+                                </div>
+                                <div className="bottom flexCenter">
+                                    <div className="applyBtn flexCenter">应用</div>
+                                </div>
+                            </>}
+                            <div className="coinBox">
+                                <div className="title">货币</div>
+                                <div className="right">
+                                    <img src={openRoundIcon} alt="" />
+                                </div>
+                            </div>
+                            {true && <>
+                                <div className="coin">
+                                    <div className="coinTitle"><img src={ETHIcon} alt="" />ETH</div>
+                                    <div className="checkBox">
+                                        {true ? <img src={selectedIcon} alt="" /> : <div className="radio"></div>}
+                                    </div>
+                                </div>
+                                <div className="coin">
+                                    <div className="coinTitle"><img src={ETHIcon} alt="" />WETH</div>
+                                    <div className="checkBox">
+                                        <div className="radio"></div>
+                                    </div>
+                                </div>
+                            </>}
+                        </div>
+                        <div className="content">
+                            <div className="goodsNumber">1,000个物品</div>
+                            <div className="goodsList">
+                                <Goods></Goods>
+                                <Goods></Goods>
+                                <Goods></Goods>
+                                <Goods></Goods>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            {
-                startTime <= newTime &&<div className="openBuyBtn flexCenter pointer" onClick={goLaunchDetial}>
-                {t('Open mint page')}
-                    <img src={go} alt="" />
-                </div>
-            }
-            
-            {/* 说明 */}
-            <div className="explain">
-            
-            <div className="explainTitle">
-            {t('Project Description')}:
-            </div>
-            {
-                LaunchDetial && LaunchDetial.projectExplain
-            }
-            </div>
-        </div>
+            <SuccessfulModal isShow={false} close={() => { setSuccessfulModal(false) }} ></SuccessfulModal>
+            <ReportModal isShow={false} close={() => { setSuccessfulModal(false) }} ></ReportModal>
+        </div >
     )
 }
