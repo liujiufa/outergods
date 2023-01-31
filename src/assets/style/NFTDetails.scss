@@ -23,6 +23,7 @@
 
                 img {
                     width: 100%;
+                    border-radius: 33.376px;
                 }
             }
 
@@ -378,6 +379,46 @@
                         cursor: pointer;
                     }
 
+                    .shareBox {
+                        position: relative;
+
+                        .copyLinkBox {
+                            position: absolute;
+                            bottom: -160px;
+                            left: 50%;
+                            width: 200px;
+                            transform: translateX(-50%);
+                            background: #FFFFFF;
+                            box-shadow: 16px 4px 62px rgba(141, 147, 163, 0.5);
+                            border-radius: 16px;
+                            overflow: hidden;
+
+                            >div {
+                                display: flex;
+                                flex-direction: column;
+                                flex: 1;
+                                font-family: 'PingFang SC';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 16px;
+                                line-height: 22px;
+                                color: rgba(0, 0, 0, 0.6);
+                                padding: 12px 0px;
+                                text-align: center;
+                            }
+
+                            .title {
+                                font-family: 'PingFang SC';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 16px;
+                                line-height: 22px;
+                                color: #FFFFFF;
+                                background: #788CFE;
+                            }
+                        }
+                    }
+
                     .sanlian-box {
                         display: flex;
                         justify-content: center;
@@ -391,6 +432,207 @@
                             cursor: pointer;
 
                         }
+                    }
+                }
+            }
+        }
+
+        .activeBox {
+            .itemBigBox {
+                margin-top: 80px;
+                width: 100%;
+                background: #FFFFFF;
+                box-shadow: 22px 26px 202px rgba(198, 207, 231, 0.5);
+                border-radius: 45px;
+                overflow: hidden;
+
+                .titleBox {
+                    padding: 45px;
+                    height: 100px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background: #FFFFFF;
+                    box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
+
+                    .titleItem {
+                        width: 150px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 20px;
+                        /* identical to box height */
+                        letter-spacing: 0.1em;
+                        color: #000000;
+                    }
+
+                    .type,
+                    .date {
+                        width: 100px;
+                    }
+
+                    .activeTip {
+                        width: 67px;
+                        height: 35px;
+                        background: #D5DBFF;
+                        border-radius: 35px;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 22px;
+                        letter-spacing: 0.1em;
+                        color: #7285FF;
+                    }
+
+                    .right {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .dropDownBox {
+                            .MarketSearchRow {
+                                width: 100%;
+                                max-width: 1410px;
+                                display: flex;
+                                justify-content: flex-end;
+                                margin: auto;
+
+                                .search {
+                                    font-family: 'PingFang SC';
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    font-size: 14px;
+                                    line-height: 20px;
+                                    color: #788CFF;
+                                    margin-left: 30px;
+                                    width: 120px;
+                                    height: 36px;
+                                    border: 1px solid #788CFF;
+                                    box-sizing: border-box;
+                                    border-radius: 18px;
+                                    padding: 6px 15px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+
+
+                                    .searchBox {
+                                        font-size: 14px;
+
+                                        overflow: hidden;
+                                        white-space: nowrap;
+                                        margin-right: 3px;
+                                    }
+                                }
+
+                                .filter {
+                                    margin-left: 30px;
+                                    background: linear-gradient(269.72deg, #9C75FF 0.22%, #7485FF 99.76%);
+                                    border-radius: 18px;
+                                    width: 120px;
+                                    height: 36px;
+                                    padding: 6px 15px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    color: #FFFFFF;
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+
+                        .switch {
+                            width: 40px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+
+                    .subTitle {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 18px;
+                        line-height: 25px;
+                        letter-spacing: 0.1em;
+                        color: #000000;
+                    }
+
+                }
+
+                .NFTDetailsTitleBox {}
+
+                .contentBox {
+                    padding: 20px 45px;
+
+                    .itemBox {
+                        padding: 25px 0px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+                        .item {
+                            display: flex;
+                            align-items: center;
+                            flex-direction: column;
+                            width: 150px;
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 700;
+                            font-size: 16px;
+                            line-height: 22px;
+                            color: #000000;
+
+                            .top {
+                                font-family: 'PingFang SC';
+                                font-style: normal;
+                                font-weight: 700;
+                                font-size: 16px;
+                                line-height: 22px;
+                                color: #000000;
+                            }
+
+                            .bottom {
+                                font-family: 'PingFang SC';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 16px;
+                                line-height: 22px;
+                                color: rgba(0, 0, 0, 0.6);
+                            }
+                        }
+
+                        .projectName {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+
+                            img {
+                                margin-right: 8px;
+                            }
+                        }
+
+                        .type,
+                        .date {
+                            width: 100px;
+                        }
+                    }
+
+                    .goodsList {
+                        width: 100%;
+                        margin: 40px auto 40px;
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, 277px);
+                        justify-content: space-between;
+                        grid-row-gap: 30px;
+                        grid-column-gap: 30px;
                     }
                 }
             }

@@ -1,0 +1,69 @@
+.ManageModal {
+    .ant-modal-content {
+        background: #E0E1FF !important;
+        border-radius: 50px !important;
+
+        .ant-modal-body {
+            padding: 40px 30px;
+        }
+    }
+
+    .confirmModalTop {
+        position: relative;
+        height: 70px;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 30px;
+
+        .title {
+            position: absolute;
+            right: 50%;
+            transform: translateX(50%);
+            text-align: center;
+            color: #000000;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 40px;
+        }
+
+        >img {
+            position: absolute;
+            right: 0px;
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .tip {
+        text-align: center;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+        letter-spacing: 0.1em;
+        color: #000000;
+    }
+
+    .ConfirmModalFooter {
+        margin: 30px 30px 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        .enterBtn {
+            height: 50px;
+            width: 100%;
+            background: linear-gradient(90deg, #7385FF 1.21%, #9E73FF 98.99%);
+            border-radius: 25px;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            text-align: center;
+            letter-spacing: 0.1em;
+            color: #FFFFFF;
+        }
+    }
+}
