@@ -15,11 +15,11 @@ import NFT1Png from '../assets/image/nftGroup/nft1.png'
 import NFTPng from '../assets/image/nft.png'
 
 import styled from "styled-components"
-import { FlexCCBox, FlexSBCBox, FlexSCBox, FlexSECBox } from "../components/FlexBox";
+import { FlexCCBox, FlexSBCBox, FlexSCBox } from "../components/FlexBox";
 import { useState } from "react";
 import { Menu, Dropdown } from "antd";
 import ProjectGroup from "../components/ProjectGroup";
-import Goods, { NftInfo } from '../components/HotspotCard'
+import Goods from '../components/HotspotCard'
 
 const Container = styled.div`
     width: 100%;
@@ -62,7 +62,7 @@ const SwiperBoxPC = styled(Swiper)`
 	}
 `
 
-const SlideItemPC = styled(SwiperSlide)`
+const SlideItemPC = styled(SwiperSlide)<{idx: number}>`
     text-align: center;
     font-size: 18px;
     display: block;
@@ -75,15 +75,14 @@ const SlideItemPC = styled(SwiperSlide)`
     -webkit-align-items: center;
     align-items: center;
 	transition: 300ms;
-	transform: scale(0.7) !important;
+	transform: ${({idx})=> `scale(${idx}) !important`};
+	/* transform: scale(0.7) !important; */
     background: #FFFFFF;
     border-radius: 12px;
     font-size: 24px;
     color: #000000;
     cursor: pointer;
     
-    width: 600px !important;
-    height: 600px !important;
 `
 
 const SliderContainer = styled.div`
@@ -133,7 +132,7 @@ const TipsGroup = styled(FlexSBCBox)`
     background: #FFFFFF;
     box-shadow: 15px 3px 82px rgba(198, 207, 231, 0.45);
     border-radius: 126px;
-    padding: 32px 16px;
+    padding: 16px 32px;
 `
 
 const TipsGroupLeft = styled(FlexSCBox)`
@@ -252,8 +251,7 @@ const UserContent = styled.div`
 `
 
 const UserImg = styled.img`
-    width: 150px;
-    height: 150px;
+    width: 100%;
     border-radius: 15px;
 `
 
@@ -344,6 +342,7 @@ export default function Main() {
 
     const [nftIdo, setNftIdo] = useState<any[]>([BgPng, Bg1Png, Bg2Png, BgPng, Bg1Png, BgPng, Bg2Png])
     const [expand1, setExpand1] = useState(true)
+    const [activeIndex, setActiveIndex] = useState(0)
 
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
@@ -360,21 +359,25 @@ export default function Main() {
 
                 {
                     !!nftIdo.length && <SwiperBoxPC
-                        slidesPerView={3}
+                        slidesPerView={7}
                         spaceBetween={30}
                         centeredSlides={true}
                         loop={true}
                         loopFillGroupWithBlank={true}
                         className="mySwiper"
                         id="swiper-nft-pc"
-                        slideToClickedSlide
+                        // slideToClickedSlide
                         onSlideChangeTransitionEnd={(s) => {
                             console.log("s", s)
                         }}
+                        onTouchEnd={(swiper) =>{
+                            console.log("swiper",swiper)
+                            setActiveIndex(swiper.activeIndex % nftIdo.length)
+                        }}
                     >
                         {
-                            nftIdo.map((item, idx) => <SlideItemPC onClick={() => {
-                                console.log("idx", idx)
+                            nftIdo.map((item, idx) => <SlideItemPC idx={1- Math.abs((idx - activeIndex)) / nftIdo.length} onClick={(event) => {
+                                console.log("item", item, event, idx)
                             }} >
                                 <SliderContainer >
                                     <img src={item} />
