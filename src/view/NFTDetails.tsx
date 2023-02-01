@@ -298,7 +298,7 @@ export default function NFTDetails() {
                 </div>
 
             </div>
-            <ManageModal isShow={true} close={() => { setManageModal(false) }} ></ManageModal>
+            <ManageModal isShow={false} close={() => { setManageModal(false) }} ></ManageModal>
         </div>
     )
 }
