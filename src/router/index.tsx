@@ -20,6 +20,7 @@ const Someone = React.lazy(() => import('../view/Someone'));
 
 
 const NFTDetails = React.lazy(() => import('../view/NFTDetails'));
+const Main = React.lazy(() => import('../view/Main'));
 
 
 
@@ -47,6 +48,7 @@ export default function Router() {
             <Route path="UserInfo"  element={<UserInfo/>}></Route>
             <Route path="Someone"  element={<Someone/>}></Route>
             <Route path="NFTDetails"  element={<NFTDetails/>}></Route>
+            <Route path="Main"  element={<Main/>}></Route>
             
             <Route path="StartRes1"  element={<StartRes1/>}></Route>
             {/* <Route path="StartRes2"  element={<StartRes2/>}></Route>
