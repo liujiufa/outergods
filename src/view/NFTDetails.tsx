@@ -17,11 +17,16 @@ import { Fragment, useState } from 'react'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import Goods, { NftInfo } from '../components/HotspotCard'
 import ManageModal from '../components/ManageModal'
+import CancelSaleModal from '../components/CancelSaleModal'
+import ConfirmBuyModal from '../components/ConfirmBuyModal'
+import SaleNFTModal from '../components/SaleNFTModal'
+import StepSaleNFTModal from '../components/StepSaleNFTModal'
 
-
-const TABS = ["描述",
+const TABS = [
+    "描述",
     "属性",
-    "信息"]
+    "信息"
+]
 
 export default function NFTDetails() {
     const [tabIndex, setTabIndex] = useState(0)
@@ -298,7 +303,11 @@ export default function NFTDetails() {
                 </div>
 
             </div>
-            <ManageModal isShow={true} close={() => { setManageModal(false) }} ></ManageModal>
+            <ManageModal isShow={false} close={() => { setManageModal(false) }} ></ManageModal>
+            <CancelSaleModal isShow={false} close={() => { setManageModal(false) }} ></CancelSaleModal>
+            <ConfirmBuyModal isShow={false} close={() => { setManageModal(false) }} ></ConfirmBuyModal>
+            <SaleNFTModal isShow={false} close={() => { setManageModal(false) }} ></SaleNFTModal>
+            <StepSaleNFTModal isShow={true} close={() => { setManageModal(false) }} ></StepSaleNFTModal>
         </div>
     )
 }

@@ -167,31 +167,13 @@ export default function ScreenModal(props: any) {
   return (
     <Modal visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={566} className="ManageModal">
       <div className="confirmModalTop">
-        <div className="title">调整价格</div>
+        <div className="title">取消</div>
         <img src={closeIcon} alt="" onClick={() => props.close()} />
       </div>
-      <div className="middleBox">
-        <div className="priceTitle">价格</div>
-        <div className="dropDownBox">
-          <div className="left">
-            <div className="MarketSearchRow">
-              <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
-                <div className="search">
-                  <div className="searchBox"><img src={ETHCoinIcon} alt="" /><div className="coinName"> ETH</div></div>
-                  <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
-                </div>
-              </Dropdown>
-            </div>
-          </div>
-          <div className="right">
-            <input type="number" placeholder='0.00' />
-          </div>
-        </div>
-      </div>
-      <div className="bottomTip">费用说明：平台收取5%，创作者收取3%</div>
+      <div className="saleTip">确认取消出售？</div>
 
       <div className="ManageModalFooter">
-        <div className="enterBtn flexCenter">更新</div>
+        <div className="enterBtn flexCenter">确认</div>
       </div>
     </Modal>
   )
