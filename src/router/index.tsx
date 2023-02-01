@@ -1,5 +1,5 @@
-import React,{ Suspense } from 'react';
-import { Route,Routes} from "react-router-dom";
+import React, { Suspense } from 'react';
+import { Route, Routes } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
 import DeputyLayout from "../Layout/DeputyLayout";
 import PageLoding from '../components/PageLoding';
@@ -49,15 +49,15 @@ export default function Router() {
             <Route path="Someone"  element={<Someone/>}></Route>
             <Route path="NFTDetails"  element={<NFTDetails/>}></Route>
             <Route path="Main"  element={<Main/>}></Route>
-            
+
             <Route path="StartRes1"  element={<StartRes1/>}></Route>
             {/* <Route path="StartRes2"  element={<StartRes2/>}></Route>
             <Route path="StartRes3"  element={<StartRes3/>}></Route> */}
-          </Route>
-          <Route path="/DeputyLayout" element={<DeputyLayout />}>
-          </Route>
+        </Route>
+        <Route path="/DeputyLayout" element={<DeputyLayout />}>
+        </Route>
       </Routes>
     </Suspense>
 
-)
+  )
 }

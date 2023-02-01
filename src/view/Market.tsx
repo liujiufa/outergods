@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Goods, { NftInfo } from '../components/HotspotCard'
 import { createAddMessageAction } from '../store/actions'
 import ScreenModal, { ScreenDataType } from '../components/ScreenModal'
+import ConfirmModal from '../components/ConfirmModal'
 import NoData from '../components/NoData'
 import { Menu, Dropdown } from 'antd';
 import { useTranslation } from 'react-i18next'
@@ -14,6 +15,8 @@ import { useTranslation } from 'react-i18next'
 import '../assets/style/Market.scss'
 import openIcon from '../assets/image/openIconWhite.png'
 import filter from '../assets/image/filter.png'
+import demoTestImg from '../assets/image/demoTestImg.png'
+import authentication from '../assets/image/authentication.png'
 
 
 export default function Market(): JSX.Element {
@@ -131,7 +134,7 @@ export default function Market(): JSX.Element {
       // console.log(res,"交易场数据")
     })
   }
-  
+
   return (
     <div className="MarketPage">
       {/* <TransactionTips></TransactionTips> */}
@@ -200,12 +203,12 @@ export default function Market(): JSX.Element {
                     <div className="top">上架</div>
                     <div className="bottom">一口价</div>
                   </div>
-                  <div className="item">
+                  <div className="item projectName">
                     <div className="leftBox">
-                      <img src="" alt="" />
+                      <img src={demoTestImg} alt="" />
                     </div>
                     <div className="right">
-                      <div className="top">项目名称 <img src="" alt="" /></div>
+                      <div className="top">项目名称 <img src={authentication} alt="" /></div>
                       <div className="bottom">NFT名称</div>
                     </div>
                   </div>
@@ -242,6 +245,7 @@ export default function Market(): JSX.Element {
 
       </div>
       <ScreenModal isShow={showScreenModal} close={() => { setShowScreenModal(false) }} changeScreen={changeScreen} ></ScreenModal>
+      <ConfirmModal isShow={false} close={() => { setShowScreenModal(false) }} changeScreen={changeScreen} ></ConfirmModal>
     </div >
   )
 }

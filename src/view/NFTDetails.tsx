@@ -1,7 +1,5 @@
 
-
-
-import { Tooltip } from 'antd'
+import { Tooltip, Menu, Dropdown } from 'antd'
 import BinancePng from '../assets/image/nftDetails/binance.png'
 import TipsPng from '../assets/image/nftDetails/tips.png'
 import CopyPng from '../assets/image/nftDetails/copy.png'
@@ -9,11 +7,16 @@ import UsdtPng from '../assets/image/nftDetails/usdt.png'
 import SharePng from '../assets/image/nftDetails/share.png'
 import FabulousPng from '../assets/image/nftDetails/fabulous.png'
 import RefreshPng from '../assets/image/nftDetails/refresh.png'
-
-
+import NFTImage from '../assets/image/4.png'
+import demoTestImg from '../assets/image/demoTestImg.png'
+import authentication from '../assets/image/authentication.png'
+import openIcon from '../assets/image/openIconWhite.png'
+import switchIcon from '../assets/image/switchIcon.png'
 import '../assets/style/NFTDetails.scss'
 import { Fragment, useState } from 'react'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
+import Goods, { NftInfo } from '../components/HotspotCard'
+import ManageModal from '../components/ManageModal'
 
 
 const TABS = ["描述",
@@ -22,6 +25,8 @@ const TABS = ["描述",
 
 export default function NFTDetails() {
     const [tabIndex, setTabIndex] = useState(0)
+    const [expand1, setExpand1] = useState(true)
+    const [manageModal, setManageModal] = useState(false)
     const [nftData, setNftData] = useState([{
         title: "总市值",
         price: "0.55",
@@ -37,12 +42,23 @@ export default function NFTDetails() {
         range: "-254"
 
     }])
+    const handleDropDown = (fun: any, value: boolean) => {
+        fun(!value);
+    }
+
+
+    let typeMenu = (
+        <Menu onClick={() => handleDropDown(setExpand1, expand1)}>
+            <Menu.Item>全部</Menu.Item>
+        </Menu>
+    );
+
     return (
         <div className="NFTDetailsPage">
             <div className="contentBox">
                 <div className="tabBox">
                     <div className='left'>
-                        <img src="https://th.bing.com/th/id/R.171e8fe1aa1544a1868ab710eed82d82?rik=FLPxvVVL9C9bnQ&riu=http%3a%2f%2fwww.pp3.cn%2fuploads%2fallimg%2f200710%2f14-200G00Z321.jpg&ehk=Lb0IHCCZIdqYQOi28m%2borU8c1ARGbTEC%2f8WYzfwRuHo%3d&risl=&pid=ImgRaw&r=0" alt="" />
+                        <img src={NFTImage} alt="" />
                     </div>
                     <div className='right'>
                         <h4 className='title'>
@@ -50,7 +66,7 @@ export default function NFTDetails() {
                         </h4>
                         <div className="project">
                             <div className="name">
-                                <img src="https://pages.anjukestatic.com/usersite/site/img/seo/app-download.jpg" alt="" className="logo" />
+                                <img src={NFTImage} alt="" className="logo" />
                                 <div className="project-name">项目名称</div>
                             </div>
                             <span className="icon">
@@ -184,7 +200,16 @@ export default function NFTDetails() {
                 <div className="sanlian">
                     <div className="sanlian-container">
                         <div className="sanlian-content">
-                            <img src={SharePng} alt="" />
+                            <div className="shareBox">
+                                <img src={SharePng} alt="" />
+                                {true && <>
+                                    <div className='copyLinkBox'>
+                                        <div className="title">复制链接</div>
+                                        <div className="outLink">在Facebook上分享</div>
+                                        <div className="outLink">在Twitter上分享</div>
+                                    </div>
+                                </>}
+                            </div>
                             <div className="sanlian-box">
                                 <img src={FabulousPng} alt="" />
                                 <div className="sanlian-text">
@@ -192,11 +217,88 @@ export default function NFTDetails() {
                                 </div>
                             </div>
                             <img src={RefreshPng} alt="" />
-                            
+
                         </div>
                     </div>
                 </div>
+                {/* 动态 */}
+                <div className='activeBox'>
+                    <div className="itemBigBox">
+                        <div className="titleBox">
+                            <div className="activeTip flexCenter">动态</div>
+                            <div className="right">
+                                <div className="dropDownBox">
+                                    <div className="MarketSearchRow">
+                                        <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
+                                            <div className="search">
+                                                <div className="searchBox">全部</div>
+                                                <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
+                                            </div>
+                                        </Dropdown>
+                                    </div>
+                                </div>
+                                <div className="switch"><img src={switchIcon} alt="" /></div>
+                            </div>
+                        </div>
+                        {false && <div className="contentBox">
+                            <div className="itemBox NFTDetailsTitleBox">
+                                <div className="item type">类型</div>
+                                <div className="item">物品</div>
+                                <div className="item">价格</div>
+                                <div className="item">从</div>
+                                <div className="item">到</div>
+                                <div className="item date">日期</div>
+                            </div>
+                            <div className="itemBox">
+                                <div className="item type">
+                                    <div className="top">上架</div>
+                                    <div className="bottom">一口价</div>
+                                </div>
+                                <div className="item projectName">
+                                    <div className="leftBox">
+                                        <img src={demoTestImg} alt="" />
+                                    </div>
+                                    <div className="right">
+                                        <div className="top">项目名称 <img src={authentication} alt="" /></div>
+                                        <div className="bottom">NFT名称</div>
+                                    </div>
+                                </div>
+                                <div className="item">
+                                    <div className="top">$234.87</div>
+                                    <div className="bottom">0.32 BNB</div>
+                                </div>
+                                <div className="item">
+                                    Ox2423...sdw7
+                                </div>
+                                <div className="item">
+                                    Ox2423...12FF
+                                </div>
+                                <div className="item date">
+                                    5分钟前
+                                </div>
+                            </div>
+                        </div>}
+                    </div>
+                </div>
+                {/* 来自这个项目 */}
+                <div className='activeBox'>
+                    <div className="itemBigBox">
+                        <div className="titleBox">
+                            <div className="subTitle">来自这个项目</div>
+                        </div>
+                        <div className="contentBox">
+                            <div className="goodsList">
+                                <Goods></Goods>
+                                <Goods></Goods>
+                                <Goods></Goods>
+                                <Goods></Goods>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+            <ManageModal isShow={true} close={() => { setManageModal(false) }} ></ManageModal>
         </div>
     )
 }

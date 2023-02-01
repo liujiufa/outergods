@@ -244,7 +244,7 @@ const MainLayout: React.FC = () => {
             <Layout className="Content">
                 <Outlet />
             </Layout>
-            <Footer className="MainFooter">
+            <div className="MainFooter">
                 <div className="footerBox">
                     <img src={footerLogo}></img>
                 </div>
@@ -253,7 +253,7 @@ const MainLayout: React.FC = () => {
                     <img src={outLink2} alt="" />
                     <img src={outLink3} alt="" />
                 </div>
-            </Footer>
+            </div>
         </Layout>
     )
 };
