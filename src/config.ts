@@ -38,7 +38,7 @@ export const contractAddress: contractAddressType = {
     // "JSGReceive":"0x6BC4d5fc81464cD5a42d3A856f7617B706b79d67",
     //测试
     "USDT": "0x0d1CDEc8C2e14286Cf076094813A0428B1d74CF7",
-    "NFT": "0x198ef8bbefffa8adaf77358f29c63822b4e37e69",
+    "NFT": "0x66BfE7D1307263944DAaE448c85f2B641a63B851",
     "Market": "0x5C5E40E603094BC9A67Ee82b7dac0969f48e4783",
     "Casting": "0xb33Dd0b59B3246163F4912c090Afd990733D2432",
     "Receive": "0x2e565b56b9a09446da48192733ea4440fc99f18a",

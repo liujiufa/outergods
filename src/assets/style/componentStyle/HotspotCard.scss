@@ -8,6 +8,7 @@
     position: relative;
     top: 0;
     left: 0;
+    overflow: hidden;
 
     .imgBox {
         position: relative;
@@ -57,14 +58,30 @@
         padding: 12px 15px;
         width: 100%;
 
-        .cardName {
-            font-family: 'PingFang SC';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 12px;
-            line-height: 17px;
-            /* identical to box height */
-            color: rgba(0, 0, 0, 0.6);
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .cardName {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 17px;
+                /* identical to box height */
+                color: rgba(0, 0, 0, 0.6);
+            }
+
+            .Collection {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    margin-right: 5px;
+                }
+            }
         }
 
         .cardTokenId {
@@ -160,54 +177,79 @@
                 }
             }
 
-           
+
         }
 
         .hover-show-card {
             display: none;
 
         }
-        .box {
+
+
+    }
+
+    .cardBottomBox {
+        padding: 0px 15px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .cardPrice {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 20px;
+            /* identical to box height */
+            color: #788CFF;
             display: flex;
             align-items: center;
-            justify-content: space-between;
 
-            .cardPrice {
+            img {
+                margin-right: 8px;
+            }
+
+            span {
                 font-family: 'PingFang SC';
                 font-style: normal;
                 font-weight: 700;
                 font-size: 14px;
                 line-height: 20px;
-                /* identical to box height */
-                color: #788CFF;
-                display: flex;
-                align-items: center;
-
-                img {
-                    margin-right: 8px;
-                }
-
-                span {
-                    font-family: 'PingFang SC';
-                    font-style: normal;
-                    font-weight: 700;
-                    font-size: 14px;
-                    line-height: 20px;
-                    color: rgba(0, 0, 0, 0.6);
-                    margin-left: 5px;
-                }
-            }
-
-            .Collection {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                img {
-                    margin-right: 5px;
-                }
+                color: rgba(0, 0, 0, 0.6);
+                margin-left: 5px;
             }
         }
+
+    }
+
+    .menuBox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 42px;
+        width: 100%;
+        background: #788CFE;
+
+        .right {
+            height: 100%;
+            width: 70px;
+            border-left: 1px solid #FFFFFF;
+
+        }
+
+        .left {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 22px;
+            color: #FFFFFF;
+        }
+
     }
 
 

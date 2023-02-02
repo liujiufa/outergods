@@ -86,13 +86,10 @@ export default function Personal(): JSX.Element {
     let [userCurrentNft, setUserCurrentNft] = useState<NftCurrentType>()
     const navigate = useNavigate();
     let [tabIndex, setTabIndex] = useState<number>(0)
-    let [isDynamic, setIsDynamic] = useState<boolean>(false)
     let [showScreenModal, setShowScreenModal] = useState<boolean>(false)
     let [showReceRecord, setShowReceRecord] = useState<boolean>(false)
     let [nftState, setNftstate] = useState(0)
     let [nftSort, setNftSort] = useState(0)
-    let [DynamicState, setDynamicState] = useState(1)
-    let [DynamicType, setDynamicType] = useState(0)
     let [pageNum, setPageNum] = useState<number>(1)
     let type = params.get('type')
     let operateTtype = [
@@ -121,7 +118,7 @@ export default function Personal(): JSX.Element {
         dispatch(createSetLodingAction(true))
         getNfts({
             "address": web3React.account,
-            "chain": "bsc",
+            "chain": "bsc%20testnet",
             "cursor": fig,
             "pageSize": 10
         }).then((res) => {
@@ -148,13 +145,12 @@ export default function Personal(): JSX.Element {
     function filterByName2(aim: NftInfo[], name: string, status: number) {
         return aim.filter(item => item.name == name || item.status == status)
     }
-
     useEffect(() => {
         if (web3React.account) {
             getNfts(
                 {
                     "address": web3React.account,
-                    "chain": "bsc",
+                    "chain": "bsc%20testnet",
                     "cursor": "",
                     "pageSize": 10
                 }
@@ -293,11 +289,12 @@ export default function Personal(): JSX.Element {
                                     </div>
                                 </div>
                                 <div className="content">
-                                    <div className="goodsList">
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                        <Goods></Goods>
+                                    <div>
+                                        {userCurrentNft ? <>
+                                            <div className="goodsList">{userCurrentNft.result.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} ></Goods>)}</div>
+                                            <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
+                                        </> : <NoData />}
+                                        {/* <Goods></Goods> */}
                                     </div>
                                 </div>
                             </div>

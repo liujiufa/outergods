@@ -227,8 +227,8 @@
 
         .tabContentBox {
             .bigContent {
-                height: 1000px;
-                margin-bottom: 30px;
+                // height: 1000px;
+                padding-bottom: 30px;
                 display: flex;
                 justify-content: space-between;
                 overflow: auto;
@@ -458,6 +458,16 @@
                         grid-row-gap: 30px;
                         grid-column-gap: 30px;
                     }
+
+                    .LoadMore {
+                        width: 120px;
+                        height: 36px;
+                        color: #788CFF;
+                        border: 1px solid #788CFF;
+                        box-sizing: border-box;
+                        border-radius: 18px;
+                        margin: 0px auto;
+                    }
                 }
             }
         }
@@ -522,15 +532,7 @@
     }
 }
 
-.LoadMore {
-    width: 120px;
-    height: 36px;
-    color: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-sizing: border-box;
-    border-radius: 18px;
-    margin: 50px auto 159px;
-}
+
 
 @media (max-width:1024px) {
     .TableBox {
