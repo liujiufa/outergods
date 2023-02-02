@@ -16,6 +16,7 @@ import defaultCard from '../assets/image/defaultCard.png'
 import testNFT from '../assets/image/testNFT.png'
 import NftCardImagePng from '../assets/image/nftCardImage.png'
 import NFT1Png from '../assets/image/nftGroup/nft1.png'
+import moreBtnIcon from '../assets/image/moreBtnIcon.png'
 
 
 export interface NftItem {
@@ -53,6 +54,7 @@ export interface propsType {
 export default function HotspotCard(props: any) {
   const navigate = useNavigate();
   let [isLike, setIsLike] = useState<boolean>(true)
+  let [activeMenu, setActiveMenu] = useState<boolean>(false)
   let [LikeNum, setLikeNum] = useState<number>(0)
   let { t } = useTranslation();
 
@@ -74,8 +76,9 @@ export default function HotspotCard(props: any) {
       navigate('/project?projectName=' + props.NftInfo.name)
     }
   }
-  function goDetial() {
-
+  function HotspotCardFun(e: any) {
+    e.stopPropagation()
+    setActiveMenu(true)
   }
 
   const list = [{
@@ -99,13 +102,17 @@ export default function HotspotCard(props: any) {
   }]
   return (
     /* onClick={()=>{navigate('/Goods')}} */
-    <div className="HotspotCard pointer" >
+    <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }}>
       <div className="imgBox" style={{ borderRadius: "8px 8px 45px 0px" }}>
         {false && <div className="buyBtn flexCenter">购买</div>}
         <Img url={testNFT}></Img>
       </div>
       <div className="bottonBox">
-        <div className="cardName" onClick={goProject}>XXXXXXXXX</div>
+        <div className="box">
+          <div className="cardName" onClick={goProject}>XXXXXXXXX</div>
+          <div className="Collection pointer nowrap" onClick={LikeFun}><img src={isLike ? Like : NotLike} alt="" /> {LikeNum}</div>
+        </div>
+
         <div className="cardTokenId home-nft">Mystery Box
           <div className="hover-show-card">
             <img className="hover-show-card-img" src={NftCardImagePng} />
@@ -133,13 +140,16 @@ export default function HotspotCard(props: any) {
             </div>
           </div>
         </div>
-        <div className="box">
-          <div className="cardPrice">
-            <img src={BNBIcon} alt="" /> 0.01 BNB <span>($0.45)</span>
-          </div>
-          <div className="Collection pointer nowrap" onClick={LikeFun}><img src={isLike ? Like : NotLike} alt="" /> {LikeNum}</div>
+      </div>
+      {activeMenu ? <div className='menuBox'>
+        <div className="left" onClick={() => { props.goPath() }}>出售</div>
+        <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
+      </div> : <div className="cardBottomBox">
+        <div className="cardPrice">
+          <img src={BNBIcon} alt="" /> 0.01 BNB <span>($0.45)</span>
         </div>
       </div>
-    </div>
+      }
+    </div >
   )
 }
