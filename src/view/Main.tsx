@@ -27,6 +27,7 @@ const Container = styled.div`
     position: relative;
     top: 0;
     left: 0;
+    overflow: hidden;
 `
 
 const NFTContent = styled.div`
@@ -366,7 +367,7 @@ export default function Main() {
                         loopFillGroupWithBlank={true}
                         className="mySwiper"
                         id="swiper-nft-pc"
-                        // slideToClickedSlide
+                        slideToClickedSlide
                         onSlideChangeTransitionEnd={(s) => {
                             console.log("s", s)
                         }}
@@ -376,7 +377,7 @@ export default function Main() {
                         }}
                     >
                         {
-                            nftIdo.map((item, idx) => <SlideItemPC idx={1- Math.abs((idx - activeIndex)) / nftIdo.length} onClick={(event) => {
+                            nftIdo.map((item, idx) => <SlideItemPC idx={1 - Math.abs((idx - activeIndex) ? 0.4 : 0) } onClick={(event) => {
                                 console.log("item", item, event, idx)
                             }} >
                                 <SliderContainer >
