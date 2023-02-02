@@ -144,6 +144,7 @@ export default function Personal(): JSX.Element {
             })
         })
     }
+
     function filterByName2(aim: NftInfo[], name: string, status: number) {
         return aim.filter(item => item.name == name || item.status == status)
     }
@@ -182,7 +183,6 @@ export default function Personal(): JSX.Element {
     }
     /* 判断跳转到出售页面还是正在出售页面 */
     function goPath(goods: any) {
-
         /* 状态正常去挂卖 */
         if (goods.status === 0) {
             return navigate(`/Sell?ID=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}`)

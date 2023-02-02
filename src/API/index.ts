@@ -364,7 +364,7 @@ export function getUserDrawDetail() {
     })
 }
 
-// 测试
+// 个人中心
 export function getNfts(data: any) {
     return axois.request({
         url: `/user/home/getNFTs`,
