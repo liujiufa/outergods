@@ -24,31 +24,29 @@
 
         .buyBtn {
             position: absolute;
-            // bottom: 20px;
+            bottom: 20px;
             right: 50%;
             transform: translateX(50%);
             width: 96px;
             height: 38px;
             background: linear-gradient(90deg, rgba(113, 133, 255, 0.65) 1.56%, #7185FF 26.68%, #9E71FF 77.44%, rgba(158, 113, 255, 0.42) 100%);
             border-radius: 31px;
+            animation: riggund 2s 0s 1 ease;
+            z-index: 999;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 900;
+            font-size: 16px;
+            line-height: 22px;
+            color: #FFFFFF;
 
-        }
+            @keyframes riggund {
+                0% {
+                    bottom: 0px;
+                }
 
-
-        &:hover {
-            >img {
-                animation: riggund 2s 0s 1 ease;
-
-                @keyframes riggund {
-                    0% {
-                        width: 100%;
-                        height: 100%;
-                    }
-
-                    100% {
-                        width: 120%;
-                        height: 120%;
-                    }
+                100% {
+                    bottom: 20px;
                 }
             }
         }

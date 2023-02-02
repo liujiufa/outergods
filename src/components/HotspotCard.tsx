@@ -5,6 +5,8 @@ import { userGiveLike } from '../API'
 import { NumSplic } from '../utils/tool'
 import Img from './Img'
 import { useTranslation } from 'react-i18next'
+import { useWeb3React } from '@web3-react/core'
+
 // import HotspotCardImg from '../assets/image/HotspotCardImg.png'
 import authentication from '../assets/image/authentication.png'
 import NotCertified from '../assets/image/NotCertified.png'
@@ -53,8 +55,10 @@ export interface propsType {
 /* 少地板价 */
 export default function HotspotCard(props: any) {
   const navigate = useNavigate();
+  const web3React = useWeb3React()
   let [isLike, setIsLike] = useState<boolean>(true)
   let [activeMenu, setActiveMenu] = useState<boolean>(false)
+  let [activeBuyMenu, setActiveBuyMenu] = useState<boolean>(false)
   let [LikeNum, setLikeNum] = useState<number>(0)
   let { t } = useTranslation();
 
@@ -77,8 +81,14 @@ export default function HotspotCard(props: any) {
     }
   }
   function HotspotCardFun(e: any) {
+    // e.stopPropagation()
+    if (props.tag === "Personal") {
+      setActiveMenu(true)
+    }
+  }
+  function BuyNFTFun(e: any) {
     e.stopPropagation()
-    setActiveMenu(true)
+    setActiveBuyMenu(true)
   }
 
   const list = [{
@@ -100,11 +110,13 @@ export default function HotspotCard(props: any) {
     title: "持有者",
     amount: "111"
   }]
+
+
   return (
     /* onClick={()=>{navigate('/Goods')}} */
-    <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }}>
-      <div className="imgBox" style={{ borderRadius: "8px 8px 45px 0px" }}>
-        {false && <div className="buyBtn flexCenter">购买</div>}
+    <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }}>
+      <div className="imgBox" style={{ borderRadius: "8px 8px 45px 0px" }} onMouseEnter={(e) => { BuyNFTFun(e) }} onMouseLeave={() => { setActiveBuyMenu(false) }}>
+        {activeBuyMenu && <div className="buyBtn flexCenter" onClick={() => { props.buyBtnFun() }}>购买</div>}
         <Img url={testNFT}></Img>
       </div>
       <div className="bottonBox">
@@ -141,14 +153,15 @@ export default function HotspotCard(props: any) {
           </div>
         </div>
       </div>
-      {activeMenu ? <div className='menuBox'>
-        <div className="left" onClick={() => { props.goPath() }}>出售</div>
-        <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
-      </div> : <div className="cardBottomBox">
-        <div className="cardPrice">
-          <img src={BNBIcon} alt="" /> 0.01 BNB <span>($0.45)</span>
+      {
+        activeMenu ? <div className='menuBox'>
+          <div className="left" onClick={() => { props.goPath() }}>出售</div>
+          <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
+        </div> : <div className="cardBottomBox">
+          <div className="cardPrice">
+            <img src={BNBIcon} alt="" /> 0.01 BNB <span>($0.45)</span>
+          </div>
         </div>
-      </div>
       }
     </div >
   )

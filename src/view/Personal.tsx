@@ -291,7 +291,7 @@ export default function Personal(): JSX.Element {
                                 <div className="content">
                                     <div>
                                         {userCurrentNft ? <>
-                                            <div className="goodsList">{userCurrentNft.result.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} ></Goods>)}</div>
+                                            <div className="goodsList">{userCurrentNft.result.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal"></Goods>)}</div>
                                             <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
                                         </> : <NoData />}
                                         {/* <Goods></Goods> */}

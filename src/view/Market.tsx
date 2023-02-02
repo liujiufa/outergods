@@ -17,19 +17,22 @@ import openIcon from '../assets/image/openIconWhite.png'
 import filter from '../assets/image/filter.png'
 import demoTestImg from '../assets/image/demoTestImg.png'
 import authentication from '../assets/image/authentication.png'
+import ConfirmBuyNFTModal from '../components/ConfirmBuyNFTModal'
 
 
 export default function Market(): JSX.Element {
   // 控制图标上下
   const [expand14, setExpand14] = useState(true);
   const [expand15, setExpand15] = useState(true);
-  const [tabActive, setTabActive] = useState(1);
+  const [tabActive, setTabActive] = useState(0);
   const dispatch = useDispatch();
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
   const navigate = useNavigate();
   let [showScreenModal, setShowScreenModal] = useState<boolean>(false)
+  let [buyNFTModal, setBuyNFTModal] = useState<boolean>(false)
   let [TradeOrder, setTradeOrder] = useState<NftInfo[]>([])
+  let [currentTradeOrder, setCurrentTradeOrder] = useState<NftInfo>()
   let [pageNum, setPageNum] = useState<number>(1)
   // 下拉图标旋转
   const handleDropDown = (fun: any, value: boolean) => {
@@ -91,6 +94,7 @@ export default function Market(): JSX.Element {
       }
     </Menu>
   );
+
   /* 筛选条件改变重新加载第一页数据 */
   useEffect(() => {
     getTradeOrder({
@@ -103,17 +107,24 @@ export default function Market(): JSX.Element {
       currentPage: 1,
       pageSize: 10
     }).then(res => {
+      res.data.map((item: any, index: number) => {
+        item.metadata = JSON.parse(item.metadata)
+      })
+      console.log(res.data, "交易场数据")
       setTradeOrder(res.data)
-      // console.log(res,"交易场数据")
     })
   }, [sortIndex, typeIndex, state.token])
   /* 修改筛选条件 重置分页 */
   useEffect(() => {
     setPageNum(1)
   }, [sortIndex, typeIndex])
-  /* 加载更多 */
+
+  const buyBtnFun = (item: any) => {
+    setBuyNFTModal(true)
+    setCurrentTradeOrder(item)
+  }
+
   function LoadMore() {
-    // console.log("加载更多")
     let page = pageNum + 1
     setPageNum(page)
     getTradeOrder({
@@ -131,7 +142,6 @@ export default function Market(): JSX.Element {
       } else {
         setTradeOrder([...TradeOrder, ...res.data])
       }
-      // console.log(res,"交易场数据")
     })
   }
 
@@ -166,7 +176,7 @@ export default function Market(): JSX.Element {
               {t('Filter')}
             </div>
           </div>
-          <>
+          {/* <>
             <div className="goodsList">
               <Goods></Goods>
               <Goods></Goods>
@@ -174,7 +184,18 @@ export default function Market(): JSX.Element {
               <Goods></Goods>
             </div>
             <div className="LoadMore pointer flexCenter" onClick={LoadMore}>{t('Load More')}  {'>'}</div>
-          </>
+          </> 
+          */}
+          {
+            TradeOrder.length > 0 ?
+              <>
+                <div className="goodsList">
+                  {TradeOrder.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { navigate('/Goods?type=Market&orderId=' + item.orderId) }} buyBtnFun={() => { buyBtnFun(item) }} tag="Market"></Goods>)}
+                </div>
+                <div className="LoadMore pointer flexCenter" onClick={LoadMore}>{t('Load More')}  {'>'}</div>
+              </> :
+              <NoData />
+          }
         </>}
 
         {/* 动态 */}
@@ -246,6 +267,7 @@ export default function Market(): JSX.Element {
       </div>
       <ScreenModal isShow={showScreenModal} close={() => { setShowScreenModal(false) }} changeScreen={changeScreen} ></ScreenModal>
       <ConfirmModal isShow={false} close={() => { setShowScreenModal(false) }} changeScreen={changeScreen} ></ConfirmModal>
+      {currentTradeOrder && <ConfirmBuyNFTModal NFTInfo={currentTradeOrder} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} changeScreen={changeScreen} ></ConfirmBuyNFTModal>}
     </div >
   )
 }
