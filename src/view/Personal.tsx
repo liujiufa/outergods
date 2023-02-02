@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Table, Pagination } from 'antd';
+import { Table, Pagination, Collapse, Space } from 'antd';
 import { NftUserType } from '../API'
 import { getUserInfo, getNftUserInfo, getNftUserState, getUserAwardList, getUserGiveLikeList, drawAward, syncUserNftData, getNfts } from '../API'
 import { createAddMessageAction, createSetLodingAction } from '../store/actions'
@@ -39,6 +39,8 @@ import typeItem2 from '../assets/image/typeItem2.png'
 import typeItem3 from '../assets/image/typeItem3.png'
 import typeItem4 from '../assets/image/typeItem4.png'
 import typeItem5 from '../assets/image/typeItem5.png'
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import authentication from '../assets/image/authentication.png'
 
 const { Column } = Table;
 
@@ -90,6 +92,7 @@ export default function Personal(): JSX.Element {
     let [showReceRecord, setShowReceRecord] = useState<boolean>(false)
     let [nftState, setNftstate] = useState(0)
     let [nftSort, setNftSort] = useState(0)
+    const [activeKey, setActiveKey] = useState("");
     let [pageNum, setPageNum] = useState<number>(1)
     let type = params.get('type')
     let operateTtype = [
@@ -199,7 +202,7 @@ export default function Personal(): JSX.Element {
     }
 
     return (
-        <div>
+        <div id="Personal" >
             <div className="Personal">
                 <div className="personalContent">
                     <div className="topBox">
@@ -215,13 +218,30 @@ export default function Personal(): JSX.Element {
                                 <span>{web3React.account ? AddrHandle(web3React.account, 5, 4) : t('User address')}</span>
                                 <img className="copyIcon" src={copyIcon} alt="" />
                             </div>
-                            <div className="outlinkBox">
-                                <div className="linkItem"><img src={twitterIcon} alt="" /></div>
-                                <div className="linkItem"><img src={facebookIcon} alt="" /></div>
+                            <div className="media-group">
+                                <div className="outlinkBox">
+                                    <div className="linkItem"><img src={twitterIcon} alt="" /></div>
+                                    <div className="linkItem"><img src={facebookIcon} alt="" /></div>
+                                </div>
+                                <div className="btnGroupRow l-hidden">
+                                    <div className="share pointer flexCenter shareBox" >
+                                        <img src={shareIcon} alt="" />{t('Share')}
+                                        {true && <>
+                                            <div className='copyLinkBox'>
+                                                <div className="title">复制链接</div>
+                                                <div className="outLink">在Facebook上分享</div>
+                                                <div className="outLink">在Twitter上分享</div>
+                                            </div>
+                                        </>}
+                                    </div>
+                                    <div className="share pointer flexCenter" onClick={() => { navigate('/UserInfo') }}>
+                                        <img src={minSet} alt="" />{t('Settings')}
+                                    </div>
+                                </div>
                             </div>
                             <div className="introduce">{t('Join in April 2022 / short self-introduction', { FullMonth: getMonth(userInfo?.createTime), FullYear: getFullYear(userInfo?.createTime) })}{userInfo?.brief || t('short self-introduction')}</div>
                         </div>
-                        <div className="btnGroupRow">
+                        <div className="btnGroupRow m-hidden">
                             <div className="share pointer flexCenter shareBox" >
                                 <img src={shareIcon} alt="" />{t('Share')}
                                 {true && <>
@@ -236,6 +256,7 @@ export default function Personal(): JSX.Element {
                                 <img src={minSet} alt="" />{t('Settings')}
                             </div>
                         </div>
+
                     </div>
 
                     <div className="tebBox">
@@ -251,14 +272,22 @@ export default function Personal(): JSX.Element {
                             <div className="bigContent">
                                 <div className="slider">
                                     <div className="stateBox">
-                                        <div className="stateTitle">状态</div>
-                                        <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部（122） </div>
-                                        <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中（12）</div>
-                                        <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
-                                        <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏（12） </div>
+                                        <div className="stateTitle m-hidden">状态</div>
+                                        <div className='m-hidden'>
+                                            <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部（122） </div>
+                                            <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中（12）</div>
+                                            <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
+                                            <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏（12） </div>
+                                        </div>
+                                        <div className='nft-type l-hidden'>
+                                            <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部（122） </div>
+                                            <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中（12）</div>
+                                            <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
+                                            <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏（12） </div>
+                                        </div>
                                     </div>
                                     <div className="seriesBox">
-                                        <div className="seriesTitle">
+                                        <div className="seriesTitle m-hidden">
                                             系列
                                         </div>
                                         <div className="seriesSearch">
@@ -288,7 +317,7 @@ export default function Personal(): JSX.Element {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="content">
+                                <div className="content m-hidden">
                                     <div>
                                         {userCurrentNft ? <>
                                             <div className="goodsList">{userCurrentNft.result.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} ></Goods>)}</div>
@@ -316,7 +345,7 @@ export default function Personal(): JSX.Element {
                         {/* 2：动态 */}
                         {tabActive === 2 && <>
                             <div className="bigContent">
-                                <div className="slider">
+                                <div className="slider m-hidden">
                                     <div className="typeTitle">类别</div>
                                     <div className="typeBox">
                                         <div className="flexCenter kindTitle activeType"> <img src={typeItem1} alt="" /> 全部类型</div>
@@ -326,12 +355,80 @@ export default function Personal(): JSX.Element {
                                         <div className="flexCenter managepriceType"> <img src={typeItem5} alt="" /> 调价</div>
                                     </div>
                                 </div>
-                                <div className="content">
+                                <div className="content m-hidden">
                                     <div className="goodsList">
                                         <Goods></Goods>
                                         <Goods></Goods>
                                         <Goods></Goods>
                                         <Goods></Goods>
+                                    </div>
+                                </div>
+
+                                <div className="itemBigBox l-hidden">
+                                    <div className="contentBox">
+                                        <Space direction="vertical">
+                                            <Collapse activeKey={activeKey} expandIcon={() => <></>} collapsible="icon" defaultActiveKey={['1']}>
+                                                <Collapse.Panel header={
+                                                    <div className="itemBox">
+                                                        <div className="item type">
+                                                            <div className="top">上架</div>
+                                                            <div className="bottom">一口价</div>
+                                                        </div>
+                                                        <div className='group'>
+                                                            <div className="item projectName">
+                                                                <div className="leftBox">
+                                                                    <img src={demoTestImg} alt="" />
+                                                                </div>
+                                                                <div className="right">
+                                                                    <div className="top">项目名称 <img src={authentication} alt="" /></div>
+                                                                    <div className="bottom">NFT名称</div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="item">
+                                                                <div className="top">$234.87</div>
+                                                                <div className="bottom">0.32 BNB</div>
+                                                            </div>
+                                                            <div className='drap-icon' onClick={() => {
+                                                                if (activeKey === "1") {
+                                                                    setActiveKey("")
+                                                                } else {
+                                                                    setActiveKey("1")
+                                                                }
+                                                            }} >
+                                                                {
+                                                                    activeKey !== "1" ? <DownOutlined /> : <UpOutlined />
+                                                                }
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                } key="1">
+                                                    <div className="group">
+                                                        <div className="item">
+                                                            <div className="text">
+                                                                Ox2423...sdw7
+                                                            </div>
+                                                            <div className="type">从</div>
+                                                        </div>
+                                                        <div className="item">
+                                                            <div className="text">
+                                                                Ox2423...12FF
+                                                            </div>
+                                                            <div className="type">到</div>
+
+                                                        </div>
+                                                        <div className="item date">
+                                                            <div className="text type-date">
+
+                                                                5分钟前
+                                                            </div>
+                                                            <div className="type">日期</div>
+
+                                                        </div>
+                                                    </div>
+                                                </Collapse.Panel>
+                                            </Collapse>
+                                        </Space>
                                     </div>
                                 </div>
                             </div>

@@ -2,6 +2,8 @@
     background: linear-gradient(233.91deg, rgba(210, 253, 253, 0.3) 9.69%, rgba(194, 177, 255, 0.3) 38.49%, rgba(109, 131, 255, 0.18) 68.83%, rgba(56, 255, 243, 0.249) 83.42%);
     // filter: blur(263.5px);
 
+
+
     .banner {
         position: relative;
 
@@ -87,6 +89,8 @@
             padding-top: 30px;
             display: flex;
             justify-content: flex-end;
+
+
 
             .linkItem {
                 margin-right: 32px;
@@ -479,6 +483,25 @@
                         justify-content: space-between;
                         grid-row-gap: 30px;
                         grid-column-gap: 30px;
+
+                        .mobile-filter {
+                            position: fixed;
+                            bottom: 120px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            padding: 16px 20px;
+                            background: #FFFFFF;
+                            box-shadow: 6px 10px 49px rgba(21, 21, 21, 0.25);
+                            border-radius: 10px;
+                            font-weight: 400;
+                            font-size: 14px;
+                            color: #000000;
+
+                            img {
+                                width: 16px;
+                                height: 16px;
+                            }
+                        }
                     }
                 }
             }
@@ -579,6 +602,25 @@
     }
 }
 
+#launch {
+
+    & .l-hidden {
+        display: none;
+    }
+
+    & .m-hidden {
+        display: flex;
+    }
+
+    & .l-hidden-block {
+        display: none;
+    }
+
+    & .m-hidden-block {
+        display: block;
+    }
+}
+
 @media (max-width:1024px) {
     .explain {
         padding: 36px 20px 0;
@@ -613,6 +655,61 @@
                 bottom: -35px;
             }
         }
+    }
+
+    #launch.ProjectDetail {
+
+        .dataItems {
+            display: none;
+        }
+
+        .outLinkBox {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        & .l-hidden {
+            display: flex;
+        }
+
+        & .m-hidden {
+            display: none;
+        }
+
+        & .l-hidden-block {
+            display: block;
+        }
+
+        & .m-hidden-block {
+            display: none;
+        }
+
+        .logoAvtor {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            top: 0;
+            left: 0;
+            justify-content: start;
+            align-items: center;
+            transform: translateY(0);
+            margin-top: 24px;
+
+            .personalBox {
+                margin-left: 20px;
+            }
+        }
+
+        .detail {
+            margin-top: 12px;
+            font-weight: 400;
+            font-size: 16px;
+            /* or 24px */
+            letter-spacing: 0.1em;
+            color: rgba(0, 0, 0, 0.8);
+        }
+
     }
 }
 

@@ -2,133 +2,34 @@
     background: linear-gradient(233.91deg, rgba(210, 253, 253, 0.3) 9.69%, rgba(194, 177, 255, 0.3) 38.49%, rgba(109, 131, 255, 0.18) 68.83%, rgba(56, 255, 243, 0.249) 83.42%);
     // filter: blur(263.5px);
     min-height: calc(100vh - 171px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 
-    .userInfoContent {
-        max-width: 1440px;
-        margin: 0px auto 80px;
+    .userInfoContainer {
+        flex: 1;
+        display: flex;
+        justify-content: start;
+        align-items: center;
 
+        .userInfoContent {
+            max-width: 800px;
+            margin: 0px auto 80px;
 
-        .setting {
-            font-family: 'PingFang SC';
-            font-style: normal;
-            font-weight: 700;
-            font-size: 30px;
-            line-height: 42px;
-            /* identical to box height */
-            letter-spacing: 0.1em;
-            color: #000000;
-            margin: 70px 0px 25px;
-        }
-
-        .userInfoTitle {
-            font-family: 'PingFang SC';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 20px;
-            /* identical to box height */
-            letter-spacing: 0.1em;
-            color: #000000;
-        }
-
-        .line {
-            width: 100%;
-            max-width: 468px;
-            height: 1px;
-            background: #D9D9D9;
-            margin: 10px 0px 30px;
-        }
-
-        .mainLabel {
-            font-family: 'PingFang SC';
-            font-style: normal;
-            font-weight: 700;
-            font-size: 20px;
-            line-height: 28px;
-            /* identical to box height */
-            letter-spacing: 0.1em;
-            color: #000000;
-        }
-
-        .mainLabelTips {
-            margin-top: 10px;
-            font-family: 'PingFang SC';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 20px;
-            /* identical to box height */
-
-            letter-spacing: 0.1em;
-
-            color: #000000;
-
-            span {
-                color: #3683F6;
-            }
-        }
-
-        .headerLabel {
-            font-family: 'PingFang SC';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 20px;
-            /* identical to box height */
-            letter-spacing: 0.1em;
-            color: #000000;
-            margin: 8px 0px;
-        }
-
-        .userHeader {
-            width: 66px;
-            height: 66px;
-            border-radius: 50%;
-            margin-top: 10px;
-            margin-bottom: 25px;
-
-            img {
-                width: 100%;
-            }
-        }
-
-        .InfoLabel {
-            font-family: 'PingFang SC';
-            font-style: normal;
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 22px;
-            letter-spacing: 0.1em;
-            color: #000000;
-            margin-top: 15px;
-            img{
-                margin-right:10px ;
-            }
-        }
-
-        .putBox {
-            box-sizing: border-box;
-            border-radius: 6px;
-            max-width: 467px;
-            width: 100%;
-            height: 36px;
-            margin-top: 10px;
-            padding: 0 15px;
-            color: #000000;
-
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            border-radius: 6px;
-
-            input {
-                background: transparent;
-                border: none;
-                width: 100%;
+            .setting {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 30px;
+                line-height: 42px;
+                /* identical to box height */
+                letter-spacing: 0.1em;
+                color: #000000;
+                margin: 70px 0px 25px;
             }
 
-            ::-webkit-input-placeholder {
+            .userInfoTitle {
                 font-family: 'PingFang SC';
                 font-style: normal;
                 font-weight: 400;
@@ -138,16 +39,166 @@
                 letter-spacing: 0.1em;
                 color: #000000;
             }
-        }
 
-        .submit {
-            background: #3683F7;
-            border-radius: 25px;
-            width: 130px;
-            height: 50px;
-            margin-top: 40px;
-            color: #FFFFFF;
-            font-size: 16px;
+            .line {
+                width: 100%;
+                max-width: 468px;
+                height: 1px;
+                background: #D9D9D9;
+                margin: 10px 0px 30px;
+            }
+
+            .mainLabel {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 28px;
+                /* identical to box height */
+                letter-spacing: 0.1em;
+                color: #000000;
+            }
+
+            .mainLabelTips {
+                margin-top: 10px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+
+                letter-spacing: 0.1em;
+
+                color: #000000;
+
+                span {
+                    color: #3683F6;
+                }
+            }
+
+            .headerLabel {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                letter-spacing: 0.1em;
+                color: #000000;
+                margin: 8px 0px;
+            }
+
+            .userHeader {
+                width: 66px;
+                height: 66px;
+                border-radius: 50%;
+                margin-top: 10px;
+                margin-bottom: 25px;
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            .InfoLabel {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 22px;
+                letter-spacing: 0.1em;
+                color: #000000;
+                margin-top: 15px;
+
+                img {
+                    margin-right: 10px;
+                }
+            }
+
+            .putBox {
+                box-sizing: border-box;
+                border-radius: 6px;
+                max-width: 467px;
+                width: 100%;
+                height: 36px;
+                margin-top: 10px;
+                padding: 0 15px;
+                color: #000000;
+
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                border-radius: 6px;
+
+                input {
+                    background: transparent;
+                    border: none;
+                    width: 100%;
+                }
+
+                ::-webkit-input-placeholder {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    /* identical to box height */
+                    letter-spacing: 0.1em;
+                    color: #000000;
+                }
+            }
+
+            .submit {
+                background: #3683F7;
+                border-radius: 25px;
+                width: 130px;
+                height: 50px;
+                margin-top: 40px;
+                color: #FFFFFF;
+                font-size: 16px;
+            }
         }
     }
+
+    .right {
+        flex: 1;
+    }
+}
+
+@media (max-width:1024px) and (min-width:751px) {
+
+    #userinfo {
+        .right {
+            display: none;
+        }
+
+        .userInfoContainer {
+            padding: 0 24px;
+        }
+    }
+
+}
+
+
+@media (max-width:750px) {
+    
+    #userinfo {
+        .right {
+            display: none;
+        }
+        .line {
+            max-width: 301px;
+        }
+
+        .putBox {
+            max-width: 300px;
+        }
+
+        .userInfoContainer {
+            padding: 0 12px;
+        }
+    }
+
 }

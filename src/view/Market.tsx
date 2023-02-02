@@ -142,7 +142,7 @@ export default function Market(): JSX.Element {
   }
 
   return (
-    <div id="Market" className="MarketPage">
+    <div id="market" className="MarketPage">
       {/* <TransactionTips></TransactionTips> */}
       <div className="contentBox">
         <div className="tabBox">
@@ -194,7 +194,7 @@ export default function Market(): JSX.Element {
                 </div>
               </Dropdown>
             </div>
-            <div className="itemBigBox itemBigBoxL">
+            <div className="itemBigBox contentBoxL">
               <div className="titleBox">
                 <div className="titleItem type">类型</div>
                 <div className="titleItem">物品</div>
@@ -203,7 +203,7 @@ export default function Market(): JSX.Element {
                 <div className="titleItem">到</div>
                 <div className="titleItem date">日期</div>
               </div>
-              <div className="contentBox ">
+              <div className="contentBox">
                 <div className="itemBox">
                   <div className="item type">
                     <div className="top">上架</div>
@@ -234,7 +234,7 @@ export default function Market(): JSX.Element {
                 </div>
               </div>
             </div>
-            <div className="itemBigBox itemBigBoxM">
+            <div className="itemBigBox contentBoxM">
 
               <div className="contentBox">
 
