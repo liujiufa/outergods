@@ -22,16 +22,24 @@ import NoData from '../components/NoData'
 import LaunchLogo from '../assets/image/LaunchLogo.png'
 import write from '../assets/image/writeWhite.png'
 import chainIcon from '../assets/image/ETHIcon.png'
-import copyIcon from '../assets/image/copyIconWhite.png'
+import copyIcon from '../assets/image/copyIcon.png'
 import shareIcon from '../assets/image/shareIcon.png'
 import minSet from '../assets/image/minSet.png'
-import refreshWhite from '../assets/image/refreshWhite.png'
-import openIcon from '../assets/image/openIconWhite.png'
-import filter from '../assets/image/filter.png'
-import TableGoodsImg from '../assets/image/TableGoodsImg.png'
-import authentication from '../assets/image/authentication.png'
-import NotCertified from '../assets/image/NotCertified.png'
-import minCopyIcon from '../assets/image/copyIconWhite.png'
+import twitterIcon from '../assets/image/twitterIcon.png'
+import facebookIcon from '../assets/image/facebookIcon.png'
+import stateItem1 from '../assets/image/stateItem1.png'
+import stateItem2 from '../assets/image/stateItem2.png'
+import stateItem3 from '../assets/image/stateItem3.png'
+import stateItem4 from '../assets/image/stateItem4.png'
+import Search from '../assets/image/searchIcon.png'
+import demoTestImg from '../assets/image/demoTestImg.png'
+import viewIcon from '../assets/image/viewIcon.png'
+import typeItem1 from '../assets/image/typeItem1.png'
+import typeItem2 from '../assets/image/typeItem2.png'
+import typeItem3 from '../assets/image/typeItem3.png'
+import typeItem4 from '../assets/image/typeItem4.png'
+import typeItem5 from '../assets/image/typeItem5.png'
+
 const { Column } = Table;
 
 
@@ -64,24 +72,14 @@ interface NftCurrentType {
     result: NftCurrentItemType[]
     status: string
 }
-// let operateTtype =[
-//     '挂单',
-//     '出售',
-//     '取消订单',
-//     '转出',
-//     '改价格',
-//   ]
 export default function Personal(): JSX.Element {
     // 控制图标上下
     const [expand16, setExpand16] = useState(true);
-    const [expand17, setExpand17] = useState(true);
-    const [expand18, setExpand18] = useState(true);
-    const [expand19, setExpand19] = useState(true);
     const [params] = useSearchParams();
     const web3React = useWeb3React()
     const dispatch = useDispatch();
     let { t } = useTranslation();
-
+    const [tabActive, setTabActive] = useState(0);
     let state = useSelector<stateType, stateType>(state => state);
     let [userInfo, setUserInfo] = useState<userInfoType | any>(null)
     let [userNft, setUsetNft] = useState<NftInfo[]>([])
@@ -96,10 +94,6 @@ export default function Personal(): JSX.Element {
     let [DynamicState, setDynamicState] = useState(1)
     let [DynamicType, setDynamicType] = useState(0)
     let [pageNum, setPageNum] = useState<number>(1)
-    // let [currencyType,setCurrencyType] = useState(0)
-    let [tableData, setTableData] = useState([])
-    let [AwardList, setAwardList] = useState<AwardType[]>([])
-    let [userLikeList, setUserLikeList] = useState<NftInfo[]>([])
     let type = params.get('type')
     let operateTtype = [
         t('Listing'),
@@ -137,138 +131,6 @@ export default function Personal(): JSX.Element {
         })
         // dispatch(createAddMessageAction(t('No more')))
     }
-    /* 同步 */
-    function syncUserNftDataFun() {
-        dispatch(createSetLodingAction(true))
-        setPageNum(1)
-        syncUserNftData(web3React.account as string).then(res => {
-            console.log(res, '同步');
-            getNftUserInfo({
-                userAddress: web3React.account as string,
-                pageSize: 10,
-                currentPage: 1,
-                bidType: -1,
-                status: CollectionStateMap[nftState].value,
-                type: -1,
-                projectName: '',
-                sortType: CollectionSortMap[nftSort].value
-            }).then(res => {
-                setUsetNft(res.data)
-                // console.log(res,'用户所拥有的nft')
-                dispatch(createAddMessageAction(t('Sync complete')))
-            }, () => {
-                dispatch(createAddMessageAction(t('Sync complete')))
-            }).finally(() => {
-                dispatch(createSetLodingAction(false))
-
-            })
-        }, () => {
-            dispatch(createSetLodingAction(false))
-            dispatch(createAddMessageAction(t('Sync failed')))
-        })
-    }
-    /* 收藏 start */
-    let CollectionStateMap = [
-        {
-            key: t('All'),
-            value: -1
-        },
-        {
-            key: t('For sale'),
-            value: 1
-        },
-        {
-            key: t('Not listed'),
-            value: 0
-        }
-    ];
-    let currencyMap = [
-        {
-            key: 'BNB',
-            value: 0
-        },
-        {
-            key: 'USDT',
-            value: 1
-        },
-    ]
-    let CollectionSortMap = [
-        {
-            key: t('newest'),
-            value: 1
-        },
-        {
-            key: t('value'),
-            value: 3
-        }
-    ]
-    const CollectionStateMenu = (
-        <Menu onClick={() => handleDropDown(setExpand16, expand16)}>
-            {
-                CollectionStateMap.map((item, index) => <Menu.Item key={index} onClick={() => { setNftstate(index) }}>
-                    {item.key}
-                </Menu.Item>)
-            }
-        </Menu>
-    );
-    const CollectionScreenMenu = (
-        <Menu onClick={() => handleDropDown(setExpand17, expand17)}>
-            {
-                CollectionSortMap.map((item, index) => <Menu.Item key={index} onClick={() => { setNftSort(index) }}>
-                    {item.key}
-                </Menu.Item>)
-            }
-        </Menu>
-    );
-    /* 收藏 end */
-    /* 动态 start */
-    let DynamicStateMap = [
-        {
-            key: t('Listing'),
-            value: 0
-        },
-        {
-            key: t('Sale'),
-            value: 1
-        },
-        {
-            key: t('Cancel an order'),
-            value: 2
-        },
-        {
-            key: t('Send'),
-            value: 3
-        }
-    ];
-    let DynamicTypeMap = [
-        {
-            key: t('NFT'),
-            value: 2
-        },
-        {
-            key: t('Blind Box'),
-            value: 1
-        }
-    ]
-    const DynamicStateMenu = (
-        <Menu onClick={() => handleDropDown(setExpand18, expand18)}>
-            {
-                DynamicStateMap.map((item, index) => <Menu.Item key={index} onClick={() => { setDynamicState(index) }}>
-                    {item.key}
-                </Menu.Item>)
-            }
-        </Menu>
-    );
-    const DynamicTypeMenu = (
-        <Menu onClick={() => handleDropDown(setExpand19, expand19)}>
-            {
-                DynamicTypeMap.map((item, index) => <Menu.Item key={index} onClick={() => { setDynamicType(index) }}>
-                    {item.key}
-                </Menu.Item>)
-            }
-        </Menu>
-    );
-    /* 动态 end */
 
     function multiFilter(array: [], filters: any) {
         const filterKeys = Object.keys(filters)
@@ -305,28 +167,6 @@ export default function Personal(): JSX.Element {
         }
     }, [web3React.account, state.token])
 
-    const onShowSizeChange = (current: number, pageSize: number) => {
-        console.log(current, pageSize);
-    };
-
-    function changeIsDynamic(value: boolean) {
-        //获取用户所有的nft
-        if (!value) {
-
-        } else {
-            //获取动态
-
-        }
-        setIsDynamic(value)
-    }
-    function invitation() {
-        if (!web3React.account) {
-            return dispatch(createAddMessageAction(t('Please connect your wallet')))
-        } else {
-            copy(window.location.origin + window.location.pathname + '?address=' + web3React.account)
-            dispatch(createAddMessageAction(t('Copied')))
-        }
-    }
     function share() {
         // console.log(window.location)
         copy(window.location.origin + window.location.pathname + '#/Someone?address=' + web3React.account)
@@ -361,271 +201,150 @@ export default function Personal(): JSX.Element {
             dispatch(createAddMessageAction(t('Please connect your wallet')))
         }
     }
-    function drawFun(id: number, amount: number) {
-        if (amount <= 0) {
-            dispatch(createAddMessageAction(t('Not enough balance')))
-        }
-        drawAward(id).then((res: any) => {
-            // console.log(res,"领取加密")
-            if (res.code === 500) {
-                dispatch(createAddMessageAction(res.msg))
-            }
-            Contracts.example.getMarketAward(web3React.account as string, res.data).then((res: any) => {
-                // console.log(res,"领取结果")
-            })
-        })
-    }
-    function goSomeone(address: string) {
-        if (address) {
-            navigate('/Someone?address=' + address)
-        }
-    }
-    function goProject(projectName: string, isAuthentication: number | null) {
-        if (!isAuthentication) {
-            dispatch(createAddMessageAction(t('Not certified')))
-        }
-        if (projectName && isAuthentication) {
-            navigate('/project?projectName=' + projectName)
-        }
-    }
+
     return (
         <div>
-            <div className="userInfo">
-                <div className="userHeader">
-                    <img id="headImg" src={userInfo?.headImg || LaunchLogo} alt="" />
-                </div>
-                <div className="Info">
-                    <div className="userName"><div title={userInfo?.userName || t('Username')}>{userInfo?.userName || t('Username')}</div><img className="pointer" src={write} alt="" onClick={() => { navigate('/UserInfo') }} /></div>
-                    <div className="userAddress flexCenter pointer" onClick={copyUserAddr} >
-                        <img src={chainIcon} alt="" />
-                        <span>{web3React.account ? AddrHandle(web3React.account, 5, 4) : t('User address')}</span>
-                        <img className="copyIcon" src={copyIcon} alt="" />
+            <div className="Personal">
+                <div className="personalContent">
+                    <div className="topBox">
+                        <div className="userHeader">
+                            <img id="headImg" src={userInfo?.headImg || LaunchLogo} alt="" />
+                        </div>
+                        <div className="Info">
+                            <div className="userName">
+                                <div title={userInfo?.userName || t('Username')}>{userInfo?.userName || t('Username')}</div>
+                                <div className="level flexCenter">VIP0</div>
+                            </div>
+                            <div className="userAddress flexCenter pointer" onClick={copyUserAddr} >
+                                <span>{web3React.account ? AddrHandle(web3React.account, 5, 4) : t('User address')}</span>
+                                <img className="copyIcon" src={copyIcon} alt="" />
+                            </div>
+                            <div className="outlinkBox">
+                                <div className="linkItem"><img src={twitterIcon} alt="" /></div>
+                                <div className="linkItem"><img src={facebookIcon} alt="" /></div>
+                            </div>
+                            <div className="introduce">{t('Join in April 2022 / short self-introduction', { FullMonth: getMonth(userInfo?.createTime), FullYear: getFullYear(userInfo?.createTime) })}{userInfo?.brief || t('short self-introduction')}</div>
+                        </div>
+                        <div className="btnGroupRow">
+                            <div className="share pointer flexCenter shareBox" >
+                                <img src={shareIcon} alt="" />{t('Share')}
+                                {true && <>
+                                    <div className='copyLinkBox'>
+                                        <div className="title">复制链接</div>
+                                        <div className="outLink">在Facebook上分享</div>
+                                        <div className="outLink">在Twitter上分享</div>
+                                    </div>
+                                </>}
+                            </div>
+                            <div className="share pointer flexCenter" onClick={() => { navigate('/UserInfo') }}>
+                                <img src={minSet} alt="" />{t('Settings')}
+                            </div>
+                        </div>
                     </div>
-                    {/* {getFullYear(userInfo?.createTime)}年{getMonth(userInfo?.createTime)}月加入 / {userInfo?.brief || '简短的自我介绍'} */}
-                    {
-                        userInfo && <div className="introduce">{t('Join in April 2022 / short self-introduction', { FullMonth: getMonth(userInfo?.createTime), FullYear: getFullYear(userInfo?.createTime) })}{userInfo?.brief || t('short self-introduction')}</div>
-                    }
 
-                </div>
-                {/* <div className="flex1"></div> */}
-                <div className="btnGroupRow">
-                    <div className="share pointer flexCenter" onClick={share} ><img src={shareIcon} alt="" />{t('Share')}</div>
-                    <div className="share pointer flexCenter" onClick={() => { navigate('/UserInfo') }}><img src={minSet} alt="" />{t('Settings')}</div>
-                    <div className="set pointer flexCenter" onClick={syncUserNftDataFun}><img src={refreshWhite} alt="" style={{ width: '20px', height: '20px' }} />{t('Refresh')}</div>
-                </div>
-            </div>
-            {/* <Pagination showSizeChanger defaultCurrent={1} total={50} onChange={onShowSizeChange} /> */}
-
-            <div className="tabs">
-                <div className={tabIndex === 0 ? "item pointer activeItem" : "pointer item"} onClick={() => { setTabIndex(0) }}>{t('Collection')}</div>
-                <div className={tabIndex === 1 ? "item pointer activeItem" : "pointer item"} onClick={() => { setTabIndex(1) }}>{t('Favorites')}</div>
-                <div className={tabIndex === 2 ? "item pointer activeItem" : "pointer item"} onClick={() => { setTabIndex(2) }}>{t('Rewards')}</div>
-            </div>
-
-            {/* 收藏 start */}
-            {
-                tabIndex === 0 && <div className="searchRow">
-                    <div className="tab">
-                        <div className={isDynamic ? 'item pointer flexCenter' : 'item activeItem pointer flexCenter'} onClick={() => { changeIsDynamic(false) }} >{t('Items')}</div>
-                        <div className={isDynamic ? 'item pointer activeItem flexCenter' : 'item pointer flexCenter'} onClick={() => { changeIsDynamic(true) }}>{t('Activities')}</div>
+                    <div className="tebBox">
+                        <div className={tabActive === 0 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(0) }}>物品</div>
+                        <div className={tabActive === 1 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(1) }}>收藏</div>
+                        <div className={tabActive === 2 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(2) }}>动态</div>
                     </div>
-                    <div className="searchedge">
-                        {
-                            !isDynamic && <>
-                                <Dropdown overlay={CollectionStateMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand16, expand16)}>
-                                    <div className="search">
-                                        <div className="searchBox">{CollectionStateMap[nftState].key}</div>
-                                        <img className={expand16 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
-                                    </div>
-                                </Dropdown>
-                                <Dropdown overlay={CollectionScreenMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand17, expand17)}>
-                                    <div className="search">
-                                        <div className="searchBox">{CollectionSortMap[nftSort].key}</div>
-                                        <img className={expand17 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
-                                    </div>
-                                </Dropdown>
-                                <div className="filter pointer" onClick={() => { setShowScreenModal(true) }}>
-                                    <img src={filter} alt="" />
-                                    {t('Filter')}
-                                </div>
-                            </>
-                        }
-                        {
-                            isDynamic && <>
-                                <Dropdown overlay={DynamicStateMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand18, expand18)}>
-                                    <div className="search">
-                                        <div className="searchBox">{DynamicStateMap[DynamicState].key}</div>
-                                        <img className={expand18 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
-                                    </div>
-                                </Dropdown>
-                                <Dropdown overlay={DynamicTypeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand19, expand19)}>
-                                    <div className="search">
-                                        {DynamicTypeMap[DynamicType].key}
-                                        <img className={expand19 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
-                                    </div>
-                                </Dropdown>
+                    <div className="line"></div>
 
-                            </>
-
-                        }
-                    </div>
-                </div>
-            }
-            {
-                tabIndex === 0 && !isDynamic && <>
-                    {
-                        userCurrentNft ? <>
-                            {/* <div className="goodsList">{userCurrentNft.result.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }}></Goods>)}</div> */}
-                            <div className="goodsList">{userCurrentNft.result.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }}></Goods>)}</div>
-                            <div className="LoadMore flexCenter" onClick={() => LoadMore(userCurrentNft!.cursor)}>{t('Load More')}  {'>'}</div>
-                        </> : <NoData />
-                    }
-                </>
-            }
-
-            {/* 动态 start */}
-            {
-                tabIndex === 0 && isDynamic && <div className="TableBox">
-                    {
-                        tableData.length > 0 ?
-                            <>
-                                <Table dataSource={tableData} pagination={false} rowKey="id" scroll={{ x: 'max-content' }}>
-                                    <Column
-                                        title={t('Type')}
-                                        render={item => (
-                                            <>
-                                                <div className="typeMain">{operateTtype[item.operateType]}</div>
-                                                <div className="typeSub">as fixed price</div>
-                                            </>
-                                        )}
-                                    />
-                                    <Column
-                                        align="center"
-                                        title={t('Items')}
-                                        render={item => (
-                                            <>
-                                                <div className="goodInfo">
-                                                    <img src={TableGoodsImg} alt="" />
-                                                    <div>
-                                                        <div className="protName pointer" onClick={() => { goProject(item.projectName, item.isAuthentication) }}>{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
-
-                                                        <div className="nft">{item.nftName}</div>
+                    <div className="tabContentBox">
+                        {/* 0:物品 */}
+                        {tabActive === 0 && <>
+                            <div className="bigContent">
+                                <div className="slider">
+                                    <div className="stateBox">
+                                        <div className="stateTitle">状态</div>
+                                        <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部（122） </div>
+                                        <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中（12）</div>
+                                        <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
+                                        <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏（12） </div>
+                                    </div>
+                                    <div className="seriesBox">
+                                        <div className="seriesTitle">
+                                            系列
+                                        </div>
+                                        <div className="seriesSearch">
+                                            <div className="searchBox">
+                                                <div className="search" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
+                                                    <img src={Search} alt="" />
+                                                    <input type="text" placeholder="集合名称" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="seriesBox">
+                                            <div className="seriesItem">
+                                                <div className="seriesLeft">
+                                                    <div className="imgBox">
+                                                        <img src={demoTestImg} alt="" />
+                                                    </div>
+                                                    <div className="infoBox">
+                                                        <div className="seriesTitle">集合名称</div>
+                                                        <div className="seriesPries">0.01ETH</div>
                                                     </div>
                                                 </div>
-                                            </>
-                                        )}
-                                    />
-                                    <Column
-                                        align="center"
-                                        title={t('Price')}
-                                        render={item => (
-                                            <>
-                                                <div className="goodPrice">
-                                                    <div className="Uprice">{item.uorderPrice}</div>
-                                                    <div className="bnbprice">{item.num} {item.coinName}</div>
+                                                <div className="seriesRight">
+                                                    <div className="number">2</div>
+                                                    <img src={viewIcon} alt="" />
                                                 </div>
-                                            </>
-                                        )}
-                                    />
-                                    <Column
-                                        align="center"
-                                        title={t('From')}
-                                        render={item => (
-                                            <div className="color33 pointer" onClick={() => { goSomeone(item.formAddress) }}>
-                                                {
-                                                    item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
-                                                }
                                             </div>
-                                        )}
-                                    />
-                                    <Column
-                                        align="center"
-                                        title={t('To')}
-                                        render={item => (
-                                            <div className="color33 pointer" onClick={() => { goSomeone(item.toAddress) }}>
-                                                {
-                                                    item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
-
-                                                }
-                                            </div>
-                                        )}
-                                    />
-                                    <Column
-                                        align="right"
-                                        title={t('Time')}
-                                        render={item => (
-                                            <div className="color33">
-                                                {HowLongAgo(item.createTime)}
-                                            </div>
-                                        )}
-                                    />
-                                </Table>
-                            </> :
-                            <NoData></NoData>
-                    }
-
-                </div>
-            }
-
-
-            {/* 喜爱 start */}
-            {
-                tabIndex === 1 && <>
-                    {userLikeList.length > 0 ?
-                        <div className="goodsList">{userLikeList.map((item, index) => <Goods key={index} NftInfo={{ ...item, isLike: 1 }}></Goods>)}</div>
-                        :
-                        <NoData></NoData>
-                    }
-                </>
-            }
-            {/* 喜爱 end */}
-
-
-            {/* 奖励 start */}
-            {
-                tabIndex === 2 && <div className="searchRow">
-                    <div className="tab">
-                        <div className='item activeItem flexCenter'>{t('Fees')}</div>
-                    </div>
-                </div>
-            }
-            {
-                tabIndex === 2 && <div className="rewardInfo">
-                    <div className="PleaseForward">
-                        {t('Please share your refferal link:')}
-                    </div>
-                    <div className="copyLink">
-                        {window.location.origin + '?address=' + AddrHandle(web3React.account as string)}
-                        <img src={minCopyIcon} onClick={invitation} alt="" />
-                    </div>
-                    <div className="ruleLabel">
-                        {t('Reward rules')}：
-                    </div>
-                    <div className="ruleSub">
-                        {t('invited')}
-                    </div>
-                    <div className="explain">{t('invitedRules')}</div>
-                    <div className="rewardLabel">{t('Rewards:')}</div>
-                    {
-                        AwardList.map((item, index) => <>
-                            <div className="rewardToken">{item.coinName}：</div>
-                            <div className="rewardRow" key={index}>
-                                {/* <div className="rewardToken">{item.coinName}：</div> */}
-                                <div className="Cumulative" onClick={() => { setShowReceRecord(true) }}>
-                                    <div className="label">{t('The cumulative rewards')}：</div>
-                                    <div className="value underline">{item.totalAmountString}</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="Cumulative">
-                                    <div className="label">{t('Unclaimed')}：</div>
-                                    <div className="value">{item.amountString}</div>
+                                <div className="content">
+                                    <div className="goodsList">
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                    </div>
                                 </div>
-                                <div className="receiveBtn flexCenter" onClick={() => { drawFun(item.id, item.amount) }}>{t('Claim')}</div>
                             </div>
-                        </>)
-                    }
+                        </>}
+                        {/* 1：收藏 */}
+                        {tabActive === 1 && <>
+                            <div className="bigContent">
+                                <div className="content">
+                                    <div className="goodsList">
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                    </div>
+                                </div>
+                            </div>
+                        </>}
+                        {/* 2：动态 */}
+                        {tabActive === 2 && <>
+                            <div className="bigContent">
+                                <div className="slider">
+                                    <div className="typeTitle">类别</div>
+                                    <div className="typeBox">
+                                        <div className="flexCenter kindTitle activeType"> <img src={typeItem1} alt="" /> 全部类型</div>
+                                        <div className="flexCenter putType"> <img src={typeItem2} alt="" /> 上架</div>
+                                        <div className="flexCenter cancelType"> <img src={typeItem3} alt="" /> 取消</div>
+                                        <div className="flexCenter successfulType"> <img src={typeItem4} alt="" /> 成交</div>
+                                        <div className="flexCenter managepriceType"> <img src={typeItem5} alt="" /> 调价</div>
+                                    </div>
+                                </div>
+                                <div className="content">
+                                    <div className="goodsList">
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                    </div>
+                                </div>
+                            </div>
+                        </>}
+                    </div>
+
+
+
                 </div>
-            }
-            {/* 奖励 end */}
+            </div>
 
             <ReceRecord isShow={showReceRecord} close={() => { setShowReceRecord(false) }}></ReceRecord>
             {/* 筛选弹窗 */}

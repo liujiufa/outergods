@@ -1,0 +1,435 @@
+.SaleNFTModal {
+    .ant-modal-content {
+        background: #E0E1FF !important;
+        border-radius: 50px !important;
+
+        .ant-modal-body {
+            padding: 40px 80px;
+        }
+    }
+
+    .confirmModalTop {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+
+        .openLeftIcon {
+            position: absolute;
+            left: -57px;
+            top: 35px;
+            width: 30px;
+            height: 30px;
+        }
+
+
+        .closeIcon {
+            position: absolute;
+            right: -40px;
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .NFTInfoBox {
+        .NFTInfo {
+            display: flex;
+            // justify-content: space-between;
+            align-items: center;
+
+            .leftBox {
+                margin-right: 20px;
+
+                img {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 16px;
+                }
+            }
+
+            .rightBox {
+                .NFTName {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 900;
+                    font-size: 22px;
+                    line-height: 31px;
+                    /* identical to box height */
+                    letter-spacing: 0.1em;
+                    color: #000000;
+                    margin-bottom: 10px;
+                }
+
+                .projectName {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 20px;
+                    line-height: 28px;
+                    /* identical to box height */
+                    letter-spacing: 0.1em;
+                    color: rgba(0, 0, 0, 0.6);
+                }
+            }
+        }
+
+        .saleKind {
+            .saleKindTitle {
+                margin: 40px 0px 10px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 22px;
+                letter-spacing: 0.1em;
+                color: #000000;
+            }
+
+            .dropDownBox {
+                width: 180px;
+
+                .MarketSearchRow {
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                    margin: auto;
+
+                    .search {
+                        width: 100%;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 20px;
+                        color: #788CFF;
+                        height: 36px;
+                        border: 1px solid #788CFF;
+                        box-sizing: border-box;
+                        border-radius: 50px;
+                        padding: 6px 15px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-right: 24px;
+
+
+                        .searchBox {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            font-size: 14px;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            margin-right: 3px;
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 16px;
+                            line-height: 22px;
+                            letter-spacing: 0.1em;
+                            color: #000000;
+
+                            .coinName {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                width: 60px;
+                                font-family: 'PingFang SC';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 16px;
+                                line-height: 22px;
+                                letter-spacing: 0.1em;
+                                color: #000000;
+                            }
+                        }
+                    }
+
+                    .filter {
+                        margin-left: 30px;
+                        background: linear-gradient(269.72deg, #9C75FF 0.22%, #7485FF 99.76%);
+                        border-radius: 18px;
+                        width: 120px;
+                        height: 36px;
+                        padding: 6px 15px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        color: #FFFFFF;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+
+        .price {
+            .priceTitle {
+                margin: 20px 0px 10px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 22px;
+                letter-spacing: 0.1em;
+                color: #000000;
+            }
+
+            .dropDownBox {
+                max-width: 500px;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .left {
+                    width: 180px;
+
+                    .MarketSearchRow {
+                        width: 100%;
+                        display: flex;
+                        justify-content: flex-end;
+                        margin: auto;
+
+                        .search {
+                            width: 100%;
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 20px;
+                            color: #788CFF;
+                            height: 36px;
+                            border: 1px solid #788CFF;
+                            box-sizing: border-box;
+                            border-radius: 50px;
+                            padding: 6px 15px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            margin-right: 24px;
+
+
+                            .searchBox {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                font-size: 14px;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                margin-right: 3px;
+                                font-family: 'PingFang SC';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 16px;
+                                line-height: 22px;
+                                letter-spacing: 0.1em;
+                                color: #000000;
+
+                                .coinName {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    width: 60px;
+                                    font-family: 'PingFang SC';
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    font-size: 16px;
+                                    line-height: 22px;
+                                    letter-spacing: 0.1em;
+                                    color: #000000;
+                                }
+                            }
+                        }
+
+                        .filter {
+                            margin-left: 30px;
+                            background: linear-gradient(269.72deg, #9C75FF 0.22%, #7485FF 99.76%);
+                            border-radius: 18px;
+                            width: 120px;
+                            height: 36px;
+                            padding: 6px 15px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            color: #FFFFFF;
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+                .right {
+                    flex: 1;
+
+                    input {
+
+                        width: 100%;
+                        height: 36px;
+                        padding: 0 15px;
+                        background: transparent;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-size: 16px;
+                        line-height: 22px;
+                        letter-spacing: 0.1em;
+                        color: #000;
+                        border: 1px solid rgba(0, 0, 0, 0.2);
+                        border-radius: 50px;
+                    }
+
+                    input::-webkit-input-placeholder {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 22px;
+                        letter-spacing: 0.1em;
+                        color: rgba(0, 0, 0, 0.8);
+                    }
+                }
+            }
+        }
+
+        .deadTime {
+
+            .deadTimeTitle {
+                margin: 20px 0px 10px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 22px;
+                letter-spacing: 0.1em;
+                color: #000000;
+            }
+
+            .dropDownBox {
+                width: 180px;
+
+                .MarketSearchRow {
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                    margin: auto;
+
+                    .search {
+                        width: 100%;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 20px;
+                        color: #788CFF;
+                        height: 36px;
+                        border: 1px solid #788CFF;
+                        box-sizing: border-box;
+                        border-radius: 50px;
+                        padding: 6px 15px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-right: 24px;
+
+
+                        .searchBox {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            font-size: 14px;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            margin-right: 3px;
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 16px;
+                            line-height: 22px;
+                            letter-spacing: 0.1em;
+                            color: #000000;
+
+                            .coinName {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                width: 60px;
+                                font-family: 'PingFang SC';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 16px;
+                                line-height: 22px;
+                                letter-spacing: 0.1em;
+                                color: #000000;
+                            }
+                        }
+                    }
+
+                    .filter {
+                        margin-left: 30px;
+                        background: linear-gradient(269.72deg, #9C75FF 0.22%, #7485FF 99.76%);
+                        border-radius: 18px;
+                        width: 120px;
+                        height: 36px;
+                        padding: 6px 15px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        color: #FFFFFF;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+
+        .fee {
+            max-width: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .feeTitle {
+                margin: 20px 0px 10px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                letter-spacing: 0.1em;
+                color: rgba(0, 0, 0, 0.8);
+            }
+        }
+
+        .feeTip {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 17px;
+            /* identical to box height */
+            letter-spacing: 0.1em;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+    }
+
+    .ManageModalFooter {
+        margin: 30px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .confirmBtn {
+            height: 50px;
+            width: 100%;
+            background: linear-gradient(90deg, #7385FF 1.21%, #9E73FF 98.99%);
+            border-radius: 25px;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            text-align: center;
+            letter-spacing: 0.1em;
+            color: #FFFFFF;
+            max-width: 500px;
+        }
+    }
+}
