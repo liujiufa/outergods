@@ -1,29 +1,29 @@
 
 import { Tooltip, Menu, Dropdown } from 'antd'
-import BinancePng from '../assets/image/nftDetails/binance.png'
-import TipsPng from '../assets/image/nftDetails/tips.png'
-import CopyPng from '../assets/image/nftDetails/copy.png'
-import UsdtPng from '../assets/image/nftDetails/usdt.png'
-import SharePng from '../assets/image/nftDetails/share.png'
-import FabulousPng from '../assets/image/nftDetails/fabulous.png'
-import RefreshPng from '../assets/image/nftDetails/refresh.png'
-import NFTImage from '../assets/image/4.png'
-import demoTestImg from '../assets/image/demoTestImg.png'
-import authentication from '../assets/image/authentication.png'
-import openIcon from '../assets/image/openIconWhite.png'
-import switchIcon from '../assets/image/switchIcon.png'
-import '../assets/style/NFTDetails.scss'
+import BinancePng from '../../../assets/image/nftDetails/binance.png'
+import TipsPng from '../../../assets/image/nftDetails/tips.png'
+import CopyPng from '../../../assets/image/nftDetails/copy.png'
+import UsdtPng from '../../../assets/image/nftDetails/usdt.png'
+import SharePng from '../../../assets/image/nftDetails/share.png'
+import FabulousPng from '../../../assets/image/nftDetails/fabulous.png'
+import RefreshPng from '../../../assets/image/nftDetails/refresh.png'
+import NFTImage from '../../../assets/image/4.png'
+import demoTestImg from '../../../assets/image/demoTestImg.png'
+import authentication from '../../../assets/image/authentication.png'
+import openIcon from '../../../assets/image/openIconWhite.png'
+import switchIcon from '../../../assets/image/switchIcon.png'
+import './NFTDetailsL.scss'
 import { Fragment, useState } from 'react'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import Goods, { NftInfo } from '../components/HotspotCard'
-import ManageModal from '../components/ManageModal'
+import Goods, { NftInfo } from '../../../components/HotspotCard'
+import ManageModal from '../../../components/ManageModal'
 
 
 const TABS = ["描述",
     "属性",
     "信息"]
 
-export default function NFTDetails() {
+export default function NFTDetailsL() {
     const [tabIndex, setTabIndex] = useState(0)
     const [expand1, setExpand1] = useState(true)
     const [manageModal, setManageModal] = useState(false)
