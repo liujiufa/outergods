@@ -32,7 +32,7 @@
                 margin-left: 20px;
                 max-width: 100%;
                 flex: 1;
-                overflow: hidden;
+                // overflow: hidden;
 
                 .userName {
                     color: #fff;
@@ -99,14 +99,21 @@
                     }
                 }
 
-                .outlinkBox {
-                    margin: 15px 0px;
+                .media-group {
                     display: flex;
-                    justify-content: flex-start;
+                    justify-content: space-between;
                     align-items: center;
+                    width: 100%;
 
-                    .linkItem {
-                        margin-right: 15px;
+                    .outlinkBox {
+                        margin: 15px 0px;
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+
+                        .linkItem {
+                            margin-right: 15px;
+                        }
                     }
                 }
 
@@ -234,7 +241,7 @@
                 overflow: auto;
 
                 .slider {
-                    width: 300px;
+                    min-width: 300px;
                     padding: 30px 30px 30px 0px;
 
                     .typeTitle {
@@ -247,6 +254,12 @@
                     }
 
                     .stateBox {
+
+                        .nft-type {
+                            display: flex;
+                            justify-content: space-around;
+                        }
+
                         .stateTitle {
                             font-family: 'PingFang SC';
                             font-style: normal;
@@ -828,6 +841,234 @@
         }
     }
 }
+
+
+#Personal {
+
+    & .l-hidden {
+        display: none;
+    }
+
+    & .m-hidden {
+        display: flex;
+    }
+
+    & .l-hidden-block {
+        display: none;
+    }
+
+    & .m-hidden-block {
+        display: block;
+    }
+}
+
+@media (max-width: 750px) {
+    .userInfo {
+        margin: 20px 16px 20px !important;
+    }
+
+    #Personal {
+
+        & .l-hidden {
+            display: flex;
+        }
+
+        & .m-hidden {
+            display: none;
+        }
+
+        & .l-hidden-block {
+            display: block;
+        }
+
+        & .m-hidden-block {
+            display: none;
+        }
+
+        .shareBox {
+            margin-right: 12px;
+        }
+
+        .nft-type {
+            width: 100%;
+            flex-flow: row wrap;
+        }
+
+        .stateItem {
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 8px 5%;
+        }
+ 
+
+    .ant-collapse,
+    .ant-collapse-content,
+    .ant-collapse-item {
+        border: 0 none;
+    }
+
+    margin-bottom: 40px;
+
+    .ant-collapse-content-box {
+        padding: 0 16px;
+    }
+
+    .itemBigBox {
+        margin-top: 25px;
+        width: 100%;
+        overflow: hidden;
+        background: #FFFFFF;
+        box-shadow: 4px 11px 53px rgba(198, 207, 231, 0.6);
+        border-radius: 17px;
+
+
+        & .ant-space-vertical {
+            width: 100%;
+        }
+
+        .titleBox {
+            padding: 45px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FFFFFF;
+            box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
+
+            .titleItem {
+                width: 150px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                letter-spacing: 0.1em;
+                color: #000000;
+            }
+
+            .type,
+            .date {
+                width: 100px;
+            }
+        }
+
+        .contentBox {
+            padding: 16px;
+            width: 100%;
+
+            .itemBox {
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                text-align: left;
+                width: 100%;
+
+                .item {
+                    align-items: center;
+                    flex-direction: column;
+                    width: 150px;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: #000000;
+                    display: block;
+                    flex: 1;
+
+                    .leftBox {
+                        margin-right: 8px;
+                    }
+
+                    .top {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: #000000;
+                    }
+
+                    .bottom {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 22px;
+                        color: rgba(0, 0, 0, 0.6);
+                    }
+
+                    .right {
+                        .bottom {
+                            color: rgba(0, 0, 0, 0.8);
+                        }
+                    }
+                }
+
+                .projectName {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+
+                    img {
+                        margin-right: 8px;
+                    }
+                }
+
+                .drap-icon {
+                    width: 24px;
+                }
+
+                .type,
+                .date {
+                    width: 100px;
+                }
+            }
+
+            .group {
+                margin-top: 20px;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .text {
+                    font-weight: 700;
+                    font-size: 12px;
+                    text-align: center;
+                    letter-spacing: 0.1em;
+                    color: #000000;
+                }
+
+                .type {
+                    font-weight: 400;
+                    font-size: 12px;
+                    letter-spacing: 0.1em;
+                    color: rgba(0, 0, 0, 0.6);
+                    margin-top: 8px;
+
+                }
+
+                .type-date {
+                    font-weight: 400;
+                }
+            }
+        
+        }
+    }
+
+    }
+}
+
+
+
+
 
 @media (max-width: 425px) {
     .userInfo {

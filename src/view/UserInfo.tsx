@@ -63,46 +63,50 @@ export default function UserInfo(): JSX.Element {
         })
     }
     return (
-        <div className="userInfoPage">
-            <div className="userInfoContent">
-                <div className="setting">设置</div>
-                <div className="userInfoTitle">{t('Profile')}</div>
-                <div className="line"></div>
-                <div className="mainLabel">{t('Basic information')}</div>
-                {/* <div className="mainLabelTips">您可以从<span>“我的NFT”</span>中选择一个NFT作为你的头像</div> */}
-                <div className="mainLabelTips">{t('avatar1', { NFT: "NFT" })}</div>
-                <div className="headerLabel">{t('avatar')}</div>
-                <div className="userHeader">
-                    <img src={LaunchLogo} alt="" />
+        <div id="userinfo" className="userInfoPage">
+            <div className="userInfoContainer">
+                <div className="userInfoContent">
+                    <div className="setting">设置</div>
+                    <div className="userInfoTitle">{t('Profile')}</div>
+                    <div className="line"></div>
+                    <div className="mainLabel">{t('Basic information')}</div>
+                    {/* <div className="mainLabelTips">您可以从<span>“我的NFT”</span>中选择一个NFT作为你的头像</div> */}
+                    <div className="mainLabelTips">{t('avatar1', { NFT: "NFT" })}</div>
+                    <div className="headerLabel">{t('avatar')}</div>
+                    <div className="userHeader">
+                        <img src={LaunchLogo} alt="" />
+                    </div>
+                    <div className="InfoLabel">{t('USERNAME')}</div>
+                    <div className="putBox">
+                        <input type="text" name="userName" value={userInfo.userName} placeholder={t('Your Username')} onChange={changeInfo} />
+                    </div>
+                    <div className="InfoLabel">{t('E-mail')}</div>
+                    <div className="putBox">
+                        <input type="text" name="email" value={userInfo.email} placeholder={t('Your E-mail')} onChange={changeInfo} />
+                    </div>
+                    <div className="InfoLabel">{t('INTRO')}</div>
+                    <div className="putBox">
+                        <input type="text" name="brief" value={userInfo.brief} onChange={changeInfo} placeholder={t('selfIntro')} />
+                    </div>
+                    <div className="mainLabel" style={{ marginTop: 40 }}>{t('Social links')}</div>
+                    <div className="mainLabelTips">{ }</div>
+                    <div className="InfoLabel"><img src={twitterIcon} alt="" />{t('TWITTER')}</div>
+                    <div className="putBox">
+                        <input type="text" name="tweet" value={userInfo.tweet} onChange={changeInfo} placeholder={t('Link')} />
+                    </div>
+                    <div className="InfoLabel"><img src={youtubeIcon} alt="" />{t('YOUTUBE')}</div>
+                    <div className="putBox">
+                        <input type="text" name="youtube" value={userInfo.youtube} onChange={changeInfo} placeholder={t('Link')} />
+                    </div>
+                    <div className="InfoLabel"><img src={facebookIcon} alt="" />{t('FACEBOOK')}</div>
+                    <div className="putBox">
+                        <input type="text" name="faceBook" value={userInfo.faceBook} onChange={changeInfo} placeholder={t('Link')} />
+                    </div>
+                    <div className="submit flexCenter" onClick={submit}>{t('Save')}</div>
                 </div>
-                <div className="InfoLabel">{t('USERNAME')}</div>
-                <div className="putBox">
-                    <input type="text" name="userName" value={userInfo.userName} placeholder={t('Your Username')} onChange={changeInfo} />
-                </div>
-                <div className="InfoLabel">{t('E-mail')}</div>
-                <div className="putBox">
-                    <input type="text" name="email" value={userInfo.email} placeholder={t('Your E-mail')} onChange={changeInfo} />
-                </div>
-                <div className="InfoLabel">{t('INTRO')}</div>
-                <div className="putBox">
-                    <input type="text" name="brief" value={userInfo.brief} onChange={changeInfo} placeholder={t('selfIntro')} />
-                </div>
-                <div className="mainLabel" style={{ marginTop: 40 }}>{t('Social links')}</div>
-                <div className="mainLabelTips">{ }</div>
-                <div className="InfoLabel"><img src={twitterIcon} alt="" />{t('TWITTER')}</div>
-                <div className="putBox">
-                    <input type="text" name="tweet" value={userInfo.tweet} onChange={changeInfo} placeholder={t('Link')} />
-                </div>
-                <div className="InfoLabel"><img src={youtubeIcon} alt="" />{t('YOUTUBE')}</div>
-                <div className="putBox">
-                    <input type="text" name="youtube" value={userInfo.youtube} onChange={changeInfo} placeholder={t('Link')} />
-                </div>
-                <div className="InfoLabel"><img src={facebookIcon} alt="" />{t('FACEBOOK')}</div>
-                <div className="putBox">
-                    <input type="text" name="faceBook" value={userInfo.faceBook} onChange={changeInfo} placeholder={t('Link')} />
-                </div>
-                <div className="submit flexCenter" onClick={submit}>{t('Save')}</div>
             </div>
+
+            <div className="right"></div>
         </div>
 
     )

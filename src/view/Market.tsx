@@ -9,7 +9,7 @@ import { createAddMessageAction } from '../store/actions'
 import ScreenModal, { ScreenDataType } from '../components/ScreenModal'
 import ConfirmModal from '../components/ConfirmModal'
 import NoData from '../components/NoData'
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown, Collapse, Space } from 'antd';
 import { useTranslation } from 'react-i18next'
 
 import '../assets/style/Market.scss'
@@ -17,6 +17,10 @@ import openIcon from '../assets/image/openIconWhite.png'
 import filter from '../assets/image/filter.png'
 import demoTestImg from '../assets/image/demoTestImg.png'
 import authentication from '../assets/image/authentication.png'
+import DownOutlined from '@ant-design/icons/lib/icons/DownOutlined';
+import { UpOutlined } from '@ant-design/icons';
+
+
 import ConfirmBuyNFTModal from '../components/ConfirmBuyNFTModal'
 
 
@@ -25,6 +29,8 @@ export default function Market(): JSX.Element {
   const [expand14, setExpand14] = useState(true);
   const [expand15, setExpand15] = useState(true);
   const [tabActive, setTabActive] = useState(0);
+  const [activeKey, setActiveKey] = useState("");
+
   const dispatch = useDispatch();
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
@@ -146,7 +152,7 @@ export default function Market(): JSX.Element {
   }
 
   return (
-    <div className="MarketPage">
+    <div id="market" className="MarketPage">
       {/* <TransactionTips></TransactionTips> */}
       <div className="contentBox">
         <div className="tabBox">
@@ -209,7 +215,7 @@ export default function Market(): JSX.Element {
                 </div>
               </Dropdown>
             </div>
-            <div className="itemBigBox">
+            <div className="itemBigBox contentBoxL">
               <div className="titleBox">
                 <div className="titleItem type">类型</div>
                 <div className="titleItem">物品</div>
@@ -251,6 +257,8 @@ export default function Market(): JSX.Element {
             </div>
           </div>
         }
+
+
 
         {/*  旧 */}
         {/* {

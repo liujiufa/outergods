@@ -28,6 +28,7 @@ import outLinkIcon5 from '../assets/image/outLinkIcon5.png'
 import outLinkIcon6 from '../assets/image/outLinkIcon6.png'
 import outLinkIcon7 from '../assets/image/outLinkIcon7.png'
 import openIcon from '../assets/image/openIconWhite.png'
+import FilterBack from '../assets/image/filter-back.png'
 
 import go from '../assets/image/go.png'
 interface detialType {
@@ -104,7 +105,7 @@ export default function Launch(): JSX.Element {
     const minutes = diffTime.minutes(); //分钟
     const seconds = diffTime.seconds();
     return (
-        <div className="ProjectDetail">
+        <div id="launch" className="ProjectDetail">
             <div className="banner">
                 <img src={bannerDemo} alt="" />
                 <div className="dataItems">
@@ -134,10 +135,7 @@ export default function Launch(): JSX.Element {
                 </div>
             </div>
             <div className="contentBox">
-                <div className="logoAvtor">
-                    <img src={avtorImg} alt="" />
-                </div>
-                <div className="outLinkBox">
+                <div className="outLinkBox l-hidden">
                     <div className="linkItem">
                         <img src={outLinkIcon1} alt="" />
                     </div>
@@ -167,12 +165,55 @@ export default function Launch(): JSX.Element {
                         <img src={outLinkIcon7} alt="" />
                     </div>
                 </div>
-                <div className="personalBox">
+                <div className="logoAvtor l-hidden">
+                    <img src={avtorImg} alt="" />
+                    <div className="personalBox ">
+                        <div className="name">Rat3</div>
+                        <div className="address">创作者 <span> 678789....hguio</span></div>
+                    </div>
+
+                </div>
+                <div className="logoAvtor m-hidden">
+                    <img src={avtorImg} alt="" />
+                </div>
+                <div className="outLinkBox m-hidden">
+                    <div className="linkItem">
+                        <img src={outLinkIcon1} alt="" />
+                    </div>
+                    <div className="linkItem">
+                        <img src={outLinkIcon2} alt="" />
+                    </div>
+                    <div className="linkItem">
+                        <img src={outLinkIcon3} alt="" />
+                    </div>
+                    <div className="linkItem">
+                        <img src={outLinkIcon4} alt="" />
+                    </div>
+                    <div className="linkItem">
+                        <img src={outLinkIcon5} alt="" />
+                    </div>
+                    <div className="linkItem copyItem" onClick={() => { }}>
+                        <img src={outLinkIcon6} alt="" />
+                        {true && <>
+                            <div className='copyLinkBox'>
+                                <div className="title">复制链接</div>
+                                <div className="outLink">在Facebook上分享</div>
+                                <div className="outLink">在Twitter上分享</div>
+                            </div>
+                        </>}
+                    </div>
+                    <div className="linkItem">
+                        <img src={outLinkIcon7} alt="" />
+                    </div>
+                </div>
+                <div className="personalBox m-hidden-block">
                     <div className="name">Rat3</div>
                     <div className="address">创作者 <span> 678789....hguio</span></div>
                     <div className="detail">"Because every person knows what he likes, every person thinks he is an expert on user interfaces.,--Paul Hecke“因为每个人都知道自己喜欢什么，所以每个人都觉得自己是用户界面专家。”</div>
                     <div className="detailBtn">+扩展</div>
                 </div>
+                <div className="detail l-hidden">"Because every person knows what he likes, every person thinks he is an expert on user interfaces.,--Paul Hecke“因为每个人都知道自己喜欢什么，所以每个人都觉得自己是用户界面专家。”</div>
+
 
                 <div className="tebBox">
                     <div className={tabActive === 0 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(0) }}>物品</div>
@@ -182,7 +223,7 @@ export default function Launch(): JSX.Element {
                 {/* 物品容器 */}
                 <div className="container">
                     <div className="header">
-                        <div className="leftBox">
+                        <div className="leftBox m-hidden">
                             <div className="filterBtn"><img src={filterOpenIcon} alt="" /></div>
                             <div className="searchBox">
                                 <div className="search" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
@@ -209,7 +250,7 @@ export default function Launch(): JSX.Element {
                         </div>
                     </div>
                     <div className="bigContent">
-                        <div className="slider">
+                        <div className="slider  m-hidden-block">
                             <div className="settingPut">
                                 <div className="title">已上架</div>
                                 <div className="right"><Switch defaultChecked onChange={onChange} /></div>
@@ -256,6 +297,8 @@ export default function Launch(): JSX.Element {
                                 <Goods></Goods>
                                 <Goods></Goods>
                                 <Goods></Goods>
+
+                                <div className="mobile-filter l-hidden">过滤 <img src={FilterBack} alt="" /></div>
                             </div>
                         </div>
                     </div>

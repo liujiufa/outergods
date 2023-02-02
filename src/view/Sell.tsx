@@ -58,7 +58,7 @@ interface OrderDetailType {
   userAddress: string
 }
 
-export default function Goods(): JSX.Element {
+export default function Sell(): JSX.Element {
   // 控制图标上下
   const [expand21, setExpand21] = useState(true);
   const dispatch = useDispatch();

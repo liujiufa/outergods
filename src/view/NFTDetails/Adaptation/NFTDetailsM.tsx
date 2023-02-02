@@ -17,13 +17,20 @@ import { Fragment, useState } from 'react'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import Goods, { NftInfo } from '../../../components/HotspotCard'
 import ManageModal from '../../../components/ManageModal'
-
+import defaultCard from '../../../assets/image/defaultCard.png'
+import { useWeb3React } from '@web3-react/core'
+import { AddrHandle } from '../../../utils/tool'
 
 const TABS = ["描述",
     "属性",
     "信息"]
 
-export default function NFTDetailsM() {
+export default function NFTDetailsM({
+    OrderDetail,
+    CopyLink,
+    attrOrInfo
+}: any) {
+    const web3React = useWeb3React()
     const [tabIndex, setTabIndex] = useState(0)
     const [expand1, setExpand1] = useState(true)
     const [manageModal, setManageModal] = useState(false)
@@ -57,15 +64,15 @@ export default function NFTDetailsM() {
         <div className="NFTDetailsPage">
             <div className="contentBox">
                 <div className="tabBox">
-                   
+
                     <div className='right'>
                         <h4 className='title'>
-                            NFT名称
+                            {OrderDetail && OrderDetail?.name}
                         </h4>
                         <div className="project">
                             <div className="name">
                                 <img src={NFTImage} alt="" className="logo" />
-                                <div className="project-name">项目名称</div>
+                                <div className="project-name">{OrderDetail && OrderDetail.normalizedMetadata.name}</div>
                             </div>
                             <span className="icon">
                                 <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>CHAIN</span>} color="#FFF" key="coin">
@@ -84,12 +91,23 @@ export default function NFTDetailsM() {
                             </div>
                             <div className="address">
                                 <div className="account">
-                                    OxaD12....DGHD  <img src={CopyPng} alt="" className="copy" />
+                                    {web3React.account?.slice(0, 6)}...{web3React.account?.slice(web3React.account.length - 4)} <img onClick={CopyLink} src={CopyPng} alt="" className="copy" />
                                 </div>
                             </div>
                         </div>
                         <div className='left'>
-                            <img src={NFTImage} alt="" />
+                            {
+                                OrderDetail && <img
+                                    id="nftImg"
+                                    src={OrderDetail.normalizedMetadata.image || defaultCard}
+                                    onError={(e: any) => {
+                                        // 替换的图片
+                                        e.target.src = defaultCard;
+                                        // 控制不要一直触发错误
+                                        e.onError = null;
+                                    }}
+                                    alt="" />
+                            }
                         </div>
                         <div className="buy">
                             <div className="buy-left">
@@ -121,7 +139,9 @@ export default function NFTDetailsM() {
                                 {
                                     !tabIndex ? <div className='nft-details-describe-group'>
                                         <div className="nft-details-describe">
-                                            项目介绍项目介绍项目介绍项目介绍项目介绍项目介绍项目介绍项目介绍项目介绍项目介绍项目介绍项目介绍项目介绍项目介绍项目介绍
+                                            {
+                                                OrderDetail && OrderDetail.normalizedMetadata?.description
+                                            }
                                         </div>
                                         <div className="nft-details-card">
                                             {
@@ -141,19 +161,21 @@ export default function NFTDetailsM() {
                                         </div>
                                     </div> : (tabIndex === 1 ? <div className='nft-details-attribute-group'>
                                         {
-                                            [0, 1, 2, 4, 5].map((item, idx) =>
-                                                <div className={`nft-details-attribute-item ${!((idx + 1) % 3) ? "nft-details-attribute-item-right" : ""}`}>
-                                                    <div className="nft-details-attribute-title">
-                                                        部位
+
+                                            attrOrInfo ? <>{
+                                                OrderDetail && OrderDetail.metadata && Object.keys(OrderDetail.metadata).map((item, idx) =>
+                                                    <div className={`nft-details-attribute-item ${!((idx + 1) % 3) ? "nft-details-attribute-item-right" : ""}`}>
+
+                                                        <div className="nft-details-attribute-title">
+                                                            {item}
+                                                        </div>
+                                                        <div className="nft-details-attribute-content">
+                                                            5788 ({OrderDetail && OrderDetail.metadata[item]})持有这个
+                                                        </div>
                                                     </div>
-                                                    <div className="nft-details-attribute-title">
-                                                        属性
-                                                    </div>
-                                                    <div className="nft-details-attribute-content">
-                                                        5788 (89%)持有这个
-                                                    </div>
-                                                </div>
-                                            )
+                                                )
+                                            }
+                                            </> : null
                                         }
                                     </div> : (tabIndex === 2 ?
                                         <div className="nft-details-info-group">
@@ -162,7 +184,7 @@ export default function NFTDetailsM() {
                                                     合约地址
                                                 </div>
                                                 <div className="nft-details-info-item-content">
-                                                    Ox242v....2432G
+                                                    {AddrHandle(OrderDetail?.tokenAddress, 10, 6)}
                                                 </div>
                                             </div>
                                             <div className="nft-details-info-item">
@@ -170,7 +192,7 @@ export default function NFTDetailsM() {
                                                     代币ID
                                                 </div>
                                                 <div className="nft-details-info-item-content">
-                                                    34232
+                                                    {OrderDetail && (OrderDetail.tokenId.length > 16 ? AddrHandle(OrderDetail.tokenId, 10, 6) : OrderDetail.tokenId)}
                                                 </div>
                                             </div>
                                             <div className="nft-details-info-item">
