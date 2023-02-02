@@ -9,7 +9,7 @@ import { createAddMessageAction } from '../store/actions'
 import ScreenModal, { ScreenDataType } from '../components/ScreenModal'
 import ConfirmModal from '../components/ConfirmModal'
 import NoData from '../components/NoData'
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown, Collapse, Space } from 'antd';
 import { useTranslation } from 'react-i18next'
 
 import '../assets/style/Market.scss'
@@ -17,6 +17,10 @@ import openIcon from '../assets/image/openIconWhite.png'
 import filter from '../assets/image/filter.png'
 import demoTestImg from '../assets/image/demoTestImg.png'
 import authentication from '../assets/image/authentication.png'
+import DownOutlined from '@ant-design/icons/lib/icons/DownOutlined';
+import { UpOutlined } from '@ant-design/icons';
+
+
 
 
 export default function Market(): JSX.Element {
@@ -24,6 +28,8 @@ export default function Market(): JSX.Element {
   const [expand14, setExpand14] = useState(true);
   const [expand15, setExpand15] = useState(true);
   const [tabActive, setTabActive] = useState(1);
+  const [activeKey, setActiveKey] = useState("");
+
   const dispatch = useDispatch();
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
@@ -136,7 +142,7 @@ export default function Market(): JSX.Element {
   }
 
   return (
-    <div className="MarketPage">
+    <div id="Market" className="MarketPage">
       {/* <TransactionTips></TransactionTips> */}
       <div className="contentBox">
         <div className="tabBox">
@@ -188,7 +194,7 @@ export default function Market(): JSX.Element {
                 </div>
               </Dropdown>
             </div>
-            <div className="itemBigBox">
+            <div className="itemBigBox itemBigBoxL">
               <div className="titleBox">
                 <div className="titleItem type">类型</div>
                 <div className="titleItem">物品</div>
@@ -197,7 +203,7 @@ export default function Market(): JSX.Element {
                 <div className="titleItem">到</div>
                 <div className="titleItem date">日期</div>
               </div>
-              <div className="contentBox">
+              <div className="contentBox ">
                 <div className="itemBox">
                   <div className="item type">
                     <div className="top">上架</div>
@@ -228,8 +234,79 @@ export default function Market(): JSX.Element {
                 </div>
               </div>
             </div>
+            <div className="itemBigBox itemBigBoxM">
+
+              <div className="contentBox">
+
+                <Space direction="vertical">
+                  <Collapse activeKey={activeKey} expandIcon={() => <></>} collapsible="icon" defaultActiveKey={['1']}>
+                    <Collapse.Panel header={
+                      <div className="itemBox">
+                        <div className="item type">
+                          <div className="top">上架</div>
+                          <div className="bottom">一口价</div>
+                        </div>
+                        <div className='group'>
+                          <div className="item projectName">
+                            <div className="leftBox">
+                              <img src={demoTestImg} alt="" />
+                            </div>
+                            <div className="right">
+                              <div className="top">项目名称 <img src={authentication} alt="" /></div>
+                              <div className="bottom">NFT名称</div>
+                            </div>
+                          </div>
+                          <div className="item">
+                            <div className="top">$234.87</div>
+                            <div className="bottom">0.32 BNB</div>
+                          </div>
+                          <div className='drap-icon' onClick={() => {
+                            if (activeKey === "1") {
+                              setActiveKey("")
+                            } else {
+                              setActiveKey("1")
+                            }
+                          }} >
+                            {
+                              activeKey !== "1" ? <DownOutlined /> : <UpOutlined />
+                            }
+                          </div>
+                        </div>
+
+                      </div>
+                    } key="1">
+                      <div className="group">
+                        <div className="item">
+                          <div className="text">
+                            Ox2423...sdw7
+                          </div>
+                          <div className="type">从</div>
+                        </div>
+                        <div className="item">
+                          <div className="text">
+                            Ox2423...12FF
+                          </div>
+                          <div className="type">到</div>
+
+                        </div>
+                        <div className="item date">
+                          <div className="text type-date">
+
+                            5分钟前
+                          </div>
+                          <div className="type">日期</div>
+
+                        </div>
+                      </div>
+                    </Collapse.Panel>
+                  </Collapse>
+                </Space>
+              </div>
+            </div>
           </div>
         }
+
+
 
         {/*  旧 */}
         {/* {

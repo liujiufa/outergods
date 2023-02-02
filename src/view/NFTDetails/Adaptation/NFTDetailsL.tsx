@@ -307,7 +307,7 @@ export default function NFTDetailsL() {
             <CancelSaleModal isShow={false} close={() => { setManageModal(false) }} ></CancelSaleModal>
             <ConfirmBuyModal isShow={false} close={() => { setManageModal(false) }} ></ConfirmBuyModal>
             <SaleNFTModal isShow={false} close={() => { setManageModal(false) }} ></SaleNFTModal>
-            <StepSaleNFTModal isShow={true} close={() => { setManageModal(false) }} ></StepSaleNFTModal>
+            <StepSaleNFTModal isShow={false} close={() => { setManageModal(false) }} ></StepSaleNFTModal>
         </div>
     )
 }

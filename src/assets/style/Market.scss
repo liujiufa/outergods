@@ -203,6 +203,16 @@
                 }
             }
         }
+
+
+    }
+
+    .itemBigBoxL {
+        display: none;
+    }
+
+    .itemBigBoxM {
+        display: block;
     }
 }
 
@@ -245,7 +255,102 @@
     }
 }
 
-@media (max-width:1024px) {}
+// @media (max-width:1024px) {
+#Market {
+
+    .ant-collapse,
+    .ant-collapse-content,
+    .ant-collapse-item {
+        border: 0 none;
+    }
+
+    .ant-collapse-content-box {
+        padding: 0 16px;
+    }
+
+    .activeBox {
+        
+        & .ant-space-vertical {
+            width: 100%;
+        }
+
+        .contentBoxL {
+            display: none;
+        }
+
+        .contentBoxM {
+            display: block;
+        }
+
+        .itemBox {
+            text-align: left;
+            display: block;
+            border: 0 none;
+            padding: 0;
+            width: 100%;
+
+
+            .item {
+                display: block;
+                flex: 1;
+
+                .leftBox {
+                    margin-right: 8px;
+                }
+
+                .bottom {
+                    font-size: 14px;
+                }
+
+                .right {
+                    .bottom {
+                        color: rgba(0, 0, 0, 0.8);
+                    }
+                }
+            }
+
+            .projectName {
+                display: flex;
+            }
+
+            .drap-icon {
+                width: 24px;
+            }
+        }
+
+        .group {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .text {
+                font-weight: 700;
+                font-size: 12px;
+                text-align: center;
+                letter-spacing: 0.1em;
+                color: #000000;
+            }
+
+            .type {
+                font-weight: 400;
+                font-size: 12px;
+                letter-spacing: 0.1em;
+                color: rgba(0, 0, 0, 0.6);
+                margin-top: 8px;
+
+            }
+
+            .type-date {
+                font-weight: 400;
+            }
+        }
+    }
+
+}
+
+// }
 
 @media (max-width:768px) {
     .LoadMore {
