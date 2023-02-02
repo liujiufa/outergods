@@ -14,6 +14,10 @@ import NotLike from '../assets/image/like.png'
 import Like from '../assets/image/Collection.png'
 import defaultCard from '../assets/image/defaultCard.png'
 import testNFT from '../assets/image/testNFT.png'
+import NftCardImagePng from '../assets/image/nftCardImage.png'
+import NFT1Png from '../assets/image/nftGroup/nft1.png'
+
+
 export interface NftItem {
   animation_url: null
   attributes: []
@@ -73,16 +77,62 @@ export default function HotspotCard(props: any) {
   function goDetial() {
 
   }
+
+  const list = [{
+    title: "总交易量",
+    amount: "1110.1",
+    isMoney: true
+  }, {
+    title: "地板价",
+    amount: "0.005",
+    isMoney: true
+
+  }, {
+    title: "项目",
+    amount: "111"
+  }, {
+    title: "已上架",
+    amount: "111"
+  }, {
+    title: "持有者",
+    amount: "111"
+  }]
   return (
     /* onClick={()=>{navigate('/Goods')}} */
-    <div className="HotspotCard pointer">
-      <div className="imgBox" >
+    <div className="HotspotCard pointer" >
+      <div className="imgBox" style={{ borderRadius: "8px 8px 45px 0px" }}>
         {false && <div className="buyBtn flexCenter">购买</div>}
         <Img url={testNFT}></Img>
       </div>
       <div className="bottonBox">
         <div className="cardName" onClick={goProject}>XXXXXXXXX</div>
-        <div className="cardTokenId">Mystery Box</div>
+        <div className="cardTokenId home-nft">Mystery Box
+          <div className="hover-show-card">
+            <img className="hover-show-card-img" src={NftCardImagePng} />
+            <div className="hover-show-card-content">
+              <div className="hover-show-card-content-top">
+                <img src={NFT1Png} />
+                <div className="hover-show-card-content-nft-name">
+                  Mystery Box
+                </div>
+              </div>
+              <div className="hover-show-card-content-bottom">
+                {
+                  list.map((item) => <div className="hover-show-card-content-item">
+
+                    <div className="hover-show-card-content-amount">
+                      {`${!!item?.isMoney ? "$" : ""}${item.amount}`}
+                    </div>
+                    <div className="hover-show-card-content-name">
+                      {item.title}
+                    </div>
+                  </div>)
+                }
+
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="box">
           <div className="cardPrice">
             <img src={BNBIcon} alt="" /> 0.01 BNB <span>($0.45)</span>
