@@ -272,8 +272,8 @@ export default function Personal(): JSX.Element {
                             <div className="bigContent">
                                 <div className="slider">
                                     <div className="stateBox">
-                                        <div className="stateTitle m-hidden">状态</div>
-                                        <div className='m-hidden'>
+                                        <div className="stateTitle m-hidden-block">状态</div>
+                                        <div className='m-hidden-block'>
                                             <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部（122） </div>
                                             <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中（12）</div>
                                             <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
@@ -345,7 +345,7 @@ export default function Personal(): JSX.Element {
                         {/* 2：动态 */}
                         {tabActive === 2 && <>
                             <div className="bigContent">
-                                <div className="slider m-hidden">
+                                <div className="slider m-hidden-block">
                                     <div className="typeTitle">类别</div>
                                     <div className="typeBox">
                                         <div className="flexCenter kindTitle activeType"> <img src={typeItem1} alt="" /> 全部类型</div>
