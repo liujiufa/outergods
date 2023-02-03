@@ -62,7 +62,6 @@ export default function HotspotCard(props: any) {
   let [LikeNum, setLikeNum] = useState<number>(0)
   let { t } = useTranslation();
 
-
   function LikeFun(e: React.MouseEvent<HTMLElement>) {
     e.stopPropagation()
     userGiveLike(props.NftInfo.tokenId, props.NftInfo.tokenAddress).then(res => {
@@ -75,6 +74,7 @@ export default function HotspotCard(props: any) {
       // console.log(res,'点赞')
     })
   }
+
   function goProject() {
     if (props.NftInfo && props.NftInfo.name && props.NftInfo.isAuthentication) {
       navigate('/project?projectName=' + props.NftInfo.name)
@@ -95,55 +95,55 @@ export default function HotspotCard(props: any) {
     }
   }
 
-
   const list = [{
     title: "总交易量",
     amount: "1110.1",
     isMoney: true
-  }, {
+  },
+  {
     title: "地板价",
     amount: "0.005",
     isMoney: true
-
-  }, {
+  },
+  {
     title: "项目",
     amount: "111"
-  }, {
+  },
+  {
     title: "已上架",
     amount: "111"
-  }, {
+  },
+  {
     title: "持有者",
     amount: "111"
   }]
 
-
   return (
-    /* onClick={()=>{navigate('/Goods')}} */
     <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }}>
-      <div className="imgBox" style={{ borderRadius: "8px 8px 45px 0px" }} onMouseEnter={(e) => { BuyNFTFun(e) }} onMouseLeave={() => { setActiveBuyMenu(false) }}>
+      <div className="imgBox" style={{ borderRadius: "20px 20px 45px 0px" }} onMouseEnter={(e) => { BuyNFTFun(e) }} onMouseLeave={() => { setActiveBuyMenu(false) }}>
+        {/* {activeBuyMenu && <div className="buyBtn flexCenter">购买</div>} */}
         {activeBuyMenu && <div className="buyBtn flexCenter" onClick={() => { props.buyBtnFun() }}>购买</div>}
-        <Img url={testNFT}></Img>
+        <Img url={props.NftInfo?.normalized_metadata?.image}></Img>
       </div>
       <div className="bottonBox">
         <div className="box">
-          <div className="cardName" onClick={goProject}>XXXXXXXXX</div>
+          <div className="cardName" onClick={goProject}>{props.NftInfo?.normalized_metadata?.name || "XXXXXXXXX"}</div>
           <div className="Collection pointer nowrap" onClick={LikeFun}><img src={isLike ? Like : NotLike} alt="" /> {LikeNum}</div>
         </div>
 
-        <div className="cardTokenId home-nft">Mystery Box
+        <div className="cardTokenId home-nft">{props.NftInfo?.name || "XXXXXXXXX"}
           <div className="hover-show-card">
             <img className="hover-show-card-img" src={NftCardImagePng} />
             <div className="hover-show-card-content">
               <div className="hover-show-card-content-top">
                 <img src={NFT1Png} />
                 <div className="hover-show-card-content-nft-name">
-                  Mystery Box
+                  {props.NftInfo?.name || "XXXXXXXXX"}
                 </div>
               </div>
               <div className="hover-show-card-content-bottom">
                 {
                   list.map((item) => <div className="hover-show-card-content-item">
-
                     <div className="hover-show-card-content-amount">
                       {`${!!item?.isMoney ? "$" : ""}${item.amount}`}
                     </div>
@@ -152,7 +152,6 @@ export default function HotspotCard(props: any) {
                     </div>
                   </div>)
                 }
-
               </div>
             </div>
           </div>
@@ -164,7 +163,7 @@ export default function HotspotCard(props: any) {
           <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
         </div> : <div className="cardBottomBox">
           <div className="cardPrice">
-            <img src={BNBIcon} alt="" /> 0.01 BNB <span>($0.45)</span>
+            <img src={BNBIcon} alt="" /> {props.NftInfo?.FloorPriceDouble || '0'} BNB <span>({props.NftInfo?.uprice || 0})</span>
           </div>
         </div>
       }

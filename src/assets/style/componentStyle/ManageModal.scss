@@ -38,6 +38,7 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        margin-bottom: 35px;
 
         .NFTLeft {
             width: 150px;
@@ -75,6 +76,35 @@
                 letter-spacing: 0.1em;
                 color: rgba(0, 0, 0, 0.6);
             }
+        }
+    }
+
+    .item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        .title {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 20px;
+            /* identical to box height */
+            letter-spacing: 0.1em;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .value {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 20px;
+            /* identical to box height */
+            text-align: right;
+            letter-spacing: 0.1em;
+            color: #000000;
         }
     }
 

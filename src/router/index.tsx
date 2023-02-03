@@ -17,7 +17,6 @@ export default function Router() {
     <Suspense fallback={<PageLoding></PageLoding>}>
       <Routes>
         <Route path="/*" element={<MainLayout />}>
-          {/* <Route index element={<Home />}></Route> */}
           <Route index element={<Main />}></Route>
           <Route path="Market" element={<Market />}></Route>  {/** */}
           <Route path="Launch" element={<Launch />}></Route>   {/** */}

@@ -43,8 +43,6 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import authentication from '../assets/image/authentication.png'
 
 const { Column } = Table;
-
-
 interface userInfoType {
     userName: string | null,
     brief: string | null,
@@ -135,11 +133,8 @@ export default function Personal(): JSX.Element {
 
     function multiFilter(array: [], filters: any) {
         const filterKeys = Object.keys(filters)
-        // filters all elements passing the criteria
         return array.filter((item) => {
-            // dynamically validate all filter criteria
             return filterKeys.every(key => {
-                //ignore when the filter is empty Anne
                 if (!filters[key].length) return true
                 return !!~filters[key].indexOf(item[key])
             })
@@ -149,6 +144,7 @@ export default function Personal(): JSX.Element {
     function filterByName2(aim: NftInfo[], name: string, status: number) {
         return aim.filter(item => item.name == name || item.status == status)
     }
+
     useEffect(() => {
         if (web3React.account && state.token) {
             getNfts(
@@ -185,13 +181,12 @@ export default function Personal(): JSX.Element {
     function goPath(goods: any) {
         /* 状态正常去挂卖 */
         if (goods.status === 0) {
-            return navigate(`/Sell?ID=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}`)
+            return navigate(`/NFTDetails?ID=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
         }
         /* 挂卖中去商品详情页改价，撤单 */
         if (goods.status === 1) {
             return navigate('/Goods?orderId=' + goods.orderId)
         }
-        // console.log('卡牌状态异常')
     }
     function copyUserAddr() {
         if (web3React.account) {
@@ -323,12 +318,11 @@ export default function Personal(): JSX.Element {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="content ">
+                                <div className="content">
                                     {userCurrentNft ? <>
                                         <div className="goodsList">{userCurrentNft.result.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal"></Goods>)}</div>
                                         <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
                                     </> : <NoData />}
-                                    {/* <Goods></Goods> */}
                                 </div>
                             </div>
                         </>}

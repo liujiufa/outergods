@@ -34,14 +34,12 @@ const TABS = ["描述",
 export default function NFTDetailsL({
     OrderDetail,
     CopyLink,
-    attrOrInfo,
-    NFTTypeDetail
+    attrOrInfo
 }: any) {
     const web3React = useWeb3React()
     const [tabIndex, setTabIndex] = useState(0)
     const [expand1, setExpand1] = useState(true)
     const [manageModal, setManageModal] = useState(false)
-    const [saleNFTModal, setSaleNFTModal] = useState(false)
     const [nftData, setNftData] = useState([{
         title: "总市值",
         price: "0.55",
@@ -60,6 +58,7 @@ export default function NFTDetailsL({
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
     }
+
 
     let typeMenu = (
         <Menu onClick={() => handleDropDown(setExpand1, expand1)}>
@@ -113,40 +112,30 @@ export default function NFTDetailsL({
                             </div>
                             {
                                 !!web3React.account && <div className="address">
+
                                     <div className="account">
                                         {web3React.account?.slice(0, 6)}...{web3React.account?.slice(web3React.account.length - 4)} <img onClick={CopyLink} src={CopyPng} alt="" className="copy" />
                                     </div>
+
                                 </div>}
                         </div>
-
-                        {/* 出售 */}
-                        {
-                            NFTTypeDetail === "0" && <div className="sale flexCenter" onClick={() => { setSaleNFTModal(true) }}>
-                                出售
-                            </div>
-                        }
-
-                        {/* 立即购买 */}
-                        {
-                            NFTTypeDetail === "1" && <div className="buy">
-                                <div className="buy-left">
-                                    <div className="buy-left-top">一口价</div>
-                                    <div className="buy-left-bottom">
-                                        <img src={UsdtPng} className="buy-left-bottom-coin" />
-                                        <div className="coin-group">
-                                            0.55 USDT
-                                            <div className="coin-group-price">
-                                                ($77.61)
-                                            </div>
+                        <div className="buy">
+                            <div className="buy-left">
+                                <div className="buy-left-top">一口价</div>
+                                <div className="buy-left-bottom">
+                                    <img src={UsdtPng} className="buy-left-bottom-coin" />
+                                    <div className="coin-group">
+                                        0.55 USDT
+                                        <div className="coin-group-price">
+                                            ($77.61)
                                         </div>
                                     </div>
                                 </div>
-                                <div className="buy-right">
-                                    <div className="buy-right-button">立即购买</div>
-                                </div>
                             </div>
-                        }
-
+                            <div className="buy-right">
+                                <div className="buy-right-button">立即购买</div>
+                            </div>
+                        </div>
                         <div className="right-nft-details">
                             <div className="right-nft-details-tabs">
                                 {
@@ -340,11 +329,12 @@ export default function NFTDetailsL({
                         </div>
                     </div>
                 </div>
+
             </div>
             <ManageModal isShow={false} close={() => { setManageModal(false) }} ></ManageModal>
             <CancelSaleModal isShow={false} close={() => { setManageModal(false) }} ></CancelSaleModal>
             <ConfirmBuyModal isShow={false} close={() => { setManageModal(false) }} ></ConfirmBuyModal>
-            <SaleNFTModal isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} ></SaleNFTModal>
+            <SaleNFTModal isShow={false} close={() => { setManageModal(false) }} ></SaleNFTModal>
             <StepSaleNFTModal isShow={false} close={() => { setManageModal(false) }} ></StepSaleNFTModal>
         </div>
     )

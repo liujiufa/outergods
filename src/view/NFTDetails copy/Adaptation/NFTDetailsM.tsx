@@ -17,31 +17,23 @@ import { Fragment, useState } from 'react'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import Goods, { NftInfo } from '../../../components/HotspotCard'
 import ManageModal from '../../../components/ManageModal'
-import CancelSaleModal from '../../../components/CancelSaleModal'
-import ConfirmBuyModal from '../../../components/ConfirmBuyModal'
-import SaleNFTModal from '../../../components/SaleNFTModal'
-import StepSaleNFTModal from '../../../components/StepSaleNFTModal'
-
 import defaultCard from '../../../assets/image/defaultCard.png'
 import { useWeb3React } from '@web3-react/core'
 import { AddrHandle } from '../../../utils/tool'
 
 const TABS = ["描述",
     "属性",
-    "信息"
-]
+    "信息"]
 
-export default function NFTDetailsL({
+export default function NFTDetailsM({
     OrderDetail,
     CopyLink,
-    attrOrInfo,
-    NFTTypeDetail
+    attrOrInfo
 }: any) {
     const web3React = useWeb3React()
     const [tabIndex, setTabIndex] = useState(0)
     const [expand1, setExpand1] = useState(true)
     const [manageModal, setManageModal] = useState(false)
-    const [saleNFTModal, setSaleNFTModal] = useState(false)
     const [nftData, setNftData] = useState([{
         title: "总市值",
         price: "0.55",
@@ -61,32 +53,18 @@ export default function NFTDetailsL({
         fun(!value);
     }
 
+
     let typeMenu = (
         <Menu onClick={() => handleDropDown(setExpand1, expand1)}>
             <Menu.Item>全部</Menu.Item>
         </Menu>
     );
 
-    console.log("web3React.account", web3React.account)
-
     return (
         <div className="NFTDetailsPage">
             <div className="contentBox">
                 <div className="tabBox">
-                    <div className='left'>
-                        {
-                            OrderDetail && <img
-                                id="nftImg"
-                                src={OrderDetail.normalizedMetadata.image || defaultCard}
-                                onError={(e: any) => {
-                                    // 替换的图片
-                                    e.target.src = defaultCard;
-                                    // 控制不要一直触发错误
-                                    e.onError = null;
-                                }}
-                                alt="" />
-                        }
-                    </div>
+
                     <div className='right'>
                         <h4 className='title'>
                             {OrderDetail && OrderDetail?.name}
@@ -111,42 +89,43 @@ export default function NFTDetailsL({
                             <div className="name">
                                 <div className="name">持有者</div>
                             </div>
-                            {
-                                !!web3React.account && <div className="address">
-                                    <div className="account">
-                                        {web3React.account?.slice(0, 6)}...{web3React.account?.slice(web3React.account.length - 4)} <img onClick={CopyLink} src={CopyPng} alt="" className="copy" />
-                                    </div>
-                                </div>}
-                        </div>
-
-                        {/* 出售 */}
-                        {
-                            NFTTypeDetail === "0" && <div className="sale flexCenter" onClick={() => { setSaleNFTModal(true) }}>
-                                出售
+                            <div className="address">
+                                <div className="account">
+                                    {web3React.account?.slice(0, 6)}...{web3React.account?.slice(web3React.account.length - 4)} <img onClick={CopyLink} src={CopyPng} alt="" className="copy" />
+                                </div>
                             </div>
-                        }
-
-                        {/* 立即购买 */}
-                        {
-                            NFTTypeDetail === "1" && <div className="buy">
-                                <div className="buy-left">
-                                    <div className="buy-left-top">一口价</div>
-                                    <div className="buy-left-bottom">
-                                        <img src={UsdtPng} className="buy-left-bottom-coin" />
-                                        <div className="coin-group">
-                                            0.55 USDT
-                                            <div className="coin-group-price">
-                                                ($77.61)
-                                            </div>
+                        </div>
+                        <div className='left'>
+                            {
+                                OrderDetail && <img
+                                    id="nftImg"
+                                    src={OrderDetail.normalizedMetadata.image || defaultCard}
+                                    onError={(e: any) => {
+                                        // 替换的图片
+                                        e.target.src = defaultCard;
+                                        // 控制不要一直触发错误
+                                        e.onError = null;
+                                    }}
+                                    alt="" />
+                            }
+                        </div>
+                        <div className="buy">
+                            <div className="buy-left">
+                                <div className="buy-left-top">一口价</div>
+                                <div className="buy-left-bottom">
+                                    <img src={UsdtPng} className="buy-left-bottom-coin" />
+                                    <div className="coin-group">
+                                        0.55 USDT
+                                        <div className="coin-group-price">
+                                            ($77.61)
                                         </div>
                                     </div>
                                 </div>
-                                <div className="buy-right">
-                                    <div className="buy-right-button">立即购买</div>
-                                </div>
                             </div>
-                        }
-
+                            <div className="buy-right">
+                                <div className="buy-right-button">立即购买</div>
+                            </div>
+                        </div>
                         <div className="right-nft-details">
                             <div className="right-nft-details-tabs">
                                 {
@@ -340,12 +319,9 @@ export default function NFTDetailsL({
                         </div>
                     </div>
                 </div>
+
             </div>
             <ManageModal isShow={false} close={() => { setManageModal(false) }} ></ManageModal>
-            <CancelSaleModal isShow={false} close={() => { setManageModal(false) }} ></CancelSaleModal>
-            <ConfirmBuyModal isShow={false} close={() => { setManageModal(false) }} ></ConfirmBuyModal>
-            <SaleNFTModal isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} ></SaleNFTModal>
-            <StepSaleNFTModal isShow={false} close={() => { setManageModal(false) }} ></StepSaleNFTModal>
         </div>
     )
 }

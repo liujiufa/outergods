@@ -120,22 +120,6 @@
 
                 }
 
-                .sale {
-                    margin-top: 40px;
-                    height: 50px;
-                    width: 100%;
-                    background: linear-gradient(90deg, #7385FF 1.21%, #9E73FF 98.99%);
-                    border-radius: 25px;
-                    font-family: 'PingFang SC';
-                    font-style: normal;
-                    font-weight: 400;
-                    font-size: 16px;
-                    line-height: 22px;
-                    text-align: center;
-                    letter-spacing: 0.1em;
-                    color: #FFFFFF;
-                }
-
                 .buy {
                     width: 100%;
                     margin-top: 20px;
@@ -659,9 +643,7 @@
 
 @media (max-width:1280px) {
     #NFTDetails {
-
-        .right,
-        .left {
+        .right, .left {
             width: 100%;
         }
 
@@ -677,7 +659,7 @@
             width: 80%;
         }
     }
-
+    
 }
 
 @media (max-width:1024px) {}

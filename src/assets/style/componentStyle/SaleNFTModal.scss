@@ -433,3 +433,33 @@
         }
     }
 }
+
+.coinMenu {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .coinKind {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        letter-spacing: 0.1em;
+        color: #000000;
+        padding: 4px 0px;
+        margin: 0px auto;
+
+        img {
+            margin-right: 12px;
+        }
+
+        >div {
+            width: 30px;
+        }
+    }
+}

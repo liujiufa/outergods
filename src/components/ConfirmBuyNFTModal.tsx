@@ -254,19 +254,19 @@ export default function ScreenModal(props: any) {
           <div className="projectTitle">项目名称</div>
         </div>
       </div>
-      <div className="address">
+      <div className="address item">
         <div className="title">合约地址</div>
         <div className="value">Ox242v....2432G</div>
       </div>
-      <div className="coinID">
+      <div className="coinID item">
         <div className="title">代币ID</div>
         <div className="value">34232</div>
       </div>
-      <div className="clain">
+      <div className="clain item">
         <div className="title">链</div>
         <div className="value">ETH</div>
       </div>
-      <div className="reward">
+      <div className="reward item">
         <div className="title">创作者收益<img src={feedesIcon} alt="" /></div>
         <div className="value">10%</div>
       </div>

@@ -38,6 +38,8 @@ interface ProjectType {
 export default function ScreenModal(props: any) {
   // 控制图标上下
   const [expand1, setExpand1] = useState(true);
+  const [expand2, setExpand2] = useState(true);
+  const [expand3, setExpand3] = useState(true);
   let [ProjectList, setProjectList] = useState<ProjectType[]>([])
   let [ScreenInfo, setScreenInfo] = useState({
     min: 0,
@@ -71,81 +73,81 @@ export default function ScreenModal(props: any) {
       })
     }
   }
+
   let typeMap = [
-    {
-      key: t('All'),
-      value: -1
-    },
     {
       key: t('Fixed Price'),
       value: 0
     }
   ]
+  let [typeIndex, setTypeIndex] = useState(0)
   const typeMenu = (
-    <Menu>
-      <Menu.Item>全部</Menu.Item>
-      <Menu.Item>全部</Menu.Item>
+    <Menu onClick={() => handleDropDown(setExpand2, expand2)}>
+      {
+        typeMap.map((item, index) => <Menu.Item key={index} onClick={() => { setTypeIndex(index) }}>
+          {item.key}
+        </Menu.Item>)
+      }
     </Menu>
   );
+
   const coinType = (
     <Menu>
-      <Menu.Item>
-        <img src={ETHCoinIcon} alt="" />ETH
+      <Menu.Item className='coinMenu'>
+        <div className="coinKind">
+          <img src={ETHCoinIcon} alt="" /> <div>ETH</div>
+        </div>
       </Menu.Item>
-      <Menu.Item>
-        <img src={BTCIcon} alt="" />BTC
+      <Menu.Item className='coinMenu'>
+        <div className="coinKind">
+          <img src={BTCIcon} alt="" /> <div>BTC</div>
+        </div>
       </Menu.Item>
-      <Menu.Item>
-        <img src={USDTIcon} alt="" />USDT
+      <Menu.Item className='coinMenu'>
+        <div className="coinKind">
+          <img src={USDTIcon} alt="" /> <div>USDT</div>
+        </div>
       </Menu.Item>
     </Menu>
   );
-  let [typeIndex, setTypeIndex] = useState(0)
-  let sortMap = [
+  let [coinTypeIndex, setCoinTypeIndex] = useState(0)
+
+
+
+
+  let dayMap = [
     {
-      key: t('Newest'),
-      value: 1
+      key: t('7 Days'),
+      value: 7
     },
     {
-      key: t('Price: High to Low'),
-      value: 2
+      key: "14天",
+      value: 14
     },
     {
-      key: t('Price: Low to High'),
-      value: 3
+      key: "30天",
+      value: 30
+    },
+    {
+      key: "60天",
+      value: 60
+    },
+    {
+      key: "90天",
+      value: 90
     }
   ]
-  let [sortIndex, setSortIndex] = useState(0)
+  let [dayIndex, setDayIndex] = useState(0)
+  const dayMenu = (
+    <Menu onClick={() => handleDropDown(setExpand3, expand3)}>
+      {
+        dayMap.map((item, index) => <Menu.Item key={index} onClick={() => { setDayIndex(index) }}>
+          {item.key}
+        </Menu.Item>)
+      }
+    </Menu>
+  );
 
-  let goodTypeMap = [
-    {
-      key: t('All'),
-      value: -1
-    },
-    {
-      key: 'NFT',
-      value: 2
-    },
-    {
-      key: t('Blind Box'),
-      value: 1
-    }
-  ]
-  let [goodTypeIndex, setGoodTypeIndex] = useState(0)
-
-  function submit() {
-    props.changeScreen({
-      bidType: typeMap[typeIndex].value,
-      type: goodTypeMap[goodTypeIndex].value,
-      projectName: ScreenInfo.projectName,
-      minPrice: ScreenInfo.min,
-      maxPrice: ScreenInfo.max,
-      sortType: sortMap[sortIndex].value,
-      currentPage: 1,
-      pageSize: 10
-    }, typeIndex, sortIndex)
-    props.close()
-  }
   const { run } = useDebounceFn(changeProjectSearch)
   function changeProjectSearch(e: React.ChangeEvent<HTMLInputElement>) {
 
@@ -174,9 +176,9 @@ export default function ScreenModal(props: any) {
           <div className="saleKindTitle">出售方式</div>
           <div className="dropDownBox">
             <div className="MarketSearchRow">
-              <Dropdown overlay={typeMenu} trigger={['click']} >
+              <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)} >
                 <div className="search">
-                  <div className="searchBox">全部</div>
+                  <div className="searchBox">一口价</div>
                   <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                 </div>
               </Dropdown>
@@ -188,10 +190,10 @@ export default function ScreenModal(props: any) {
           <div className="dropDownBox">
             <div className="left">
               <div className="MarketSearchRow">
-                <Dropdown overlay={coinType} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
+                <Dropdown overlay={coinType} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand2, expand2)}>
                   <div className="search">
                     <div className="searchBox"><img src={ETHCoinIcon} alt="" /><div className="coinName"> ETH</div></div>
-                    <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
+                    <img className={expand2 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                   </div>
                 </Dropdown>
               </div>
@@ -206,10 +208,10 @@ export default function ScreenModal(props: any) {
           <div className="deadTimeTitle">过期时间</div>
           <div className="dropDownBox">
             <div className="MarketSearchRow">
-              <Dropdown overlay={typeMenu} trigger={['click']} >
+              <Dropdown overlay={dayMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand3, expand3)}>
                 <div className="search">
                   <div className="searchBox">7天</div>
-                  <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
+                  <img className={expand3 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                 </div>
               </Dropdown>
             </div>

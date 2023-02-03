@@ -78,13 +78,10 @@ export default function NFTDetails() {
     let [projectId, setProjectId] = useState('')
     let [ProjectOrder, setProjectOrder] = useState([])
     let [showSellModal, setShowSellModal] = useState<boolean>(false)
+
     let ID = params.get('ID')
     let tokenAddress = params.get('tokenAddress')
     let owner_of = params.get('owner_of')
-    // 0：出售
-    let NFTDetailType = params.get('NFTDetailType')
-    console.log(NFTDetailType, "0");
-
     console.log(owner_of == web3React.account, (owner_of), (web3React.account));
     useEffect(() => {
         if (ID && state.token && tokenAddress) {
@@ -190,6 +187,10 @@ export default function NFTDetails() {
     }
     function FullScreen() {
         setShowFullScreen(true)
+        // const full = document.getElementById('nftImg')
+        // if(full){
+        //     full.requestFullscreen()
+        // }
     }
     function goProject() {
         if (OrderDetail) {
@@ -227,7 +228,7 @@ export default function NFTDetails() {
     return (
         <Container id="NFTDetails">
             <L>
-                <NFTDetailsL OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} NFTTypeDetail={NFTDetailType} />
+                <NFTDetailsL OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} />
             </L>
             <M>
                 <NFTDetailsM OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} />

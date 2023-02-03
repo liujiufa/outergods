@@ -118,14 +118,12 @@ export default function Sell(): JSX.Element {
   useEffect(() => {
     if (tokenId && OrderDetail && OrderDetail.tokenAddress) {
       getNftOrderState(tokenId, DynamicStateMap[DynamicState].value, OrderDetail.tokenAddress).then(res => {
-        // console.log(res,"nft动态")
         setTableData(res.data)
       })
     }
   }, [tokenId, OrderDetail, DynamicState])
   useEffect(() => {
     if (projectId && state.token) {
-      // console.log(projectId)
       getOrderByProject(projectId).then(res => {
         setProjectOrder(res.data)
         // console.log(res,"获取系列相关商品")
@@ -231,7 +229,7 @@ export default function Sell(): JSX.Element {
     }
   }
   return (
-    <div>
+    <>
       <div className="GoodsDetial">
         <div className="DetialImg DetialImg1 flexCenter">
           <div className="GoodsImg">
@@ -353,7 +351,6 @@ export default function Sell(): JSX.Element {
                     </a>
                   </div>
                 }
-
                 <div className="attrRow">
                   <div>{t('TOKEN ID')}</div>
                   <div className="attrValue">{OrderDetail && (OrderDetail.tokenId.length > 16 ? AddrHandle(OrderDetail.tokenId, 10, 6) : OrderDetail.tokenId)}</div>
@@ -365,110 +362,106 @@ export default function Sell(): JSX.Element {
               </>
           }
         </div>
-      </div>
-      <div className="dynamicOrTable">
-        <div className="tab">
-          <div className="item activeItem flexCenter">{t('Activities')}</div>
-          {/* <div className="item flexCenter">图表</div> */}
+        <div className="dynamicOrTable">
+          <div className="tab">
+            <div className="item activeItem flexCenter">{t('Activities')}</div>
+          </div>
+          <Dropdown overlay={DynamicStateMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand21, expand21)}>
+            <div className="search">
+              {DynamicStateMap[DynamicState].key}
+              <img className={expand21 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
+            </div>
+          </Dropdown>
         </div>
-        <Dropdown overlay={DynamicStateMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand21, expand21)}>
-          <div className="search">
-            {DynamicStateMap[DynamicState].key}
-            <img className={expand21 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
-          </div>
-        </Dropdown>
-      </div>
-      {/* 表格 start*/}
-      <div className="TableBox">
-        <Table dataSource={tableData} pagination={false} rowKey="id" scroll={{ x: 'max-content' }}>
-          <Column
-            title={t('Type')}
-            render={item => (
-              <>
-                <div className="typeMain">Listing</div>
-                <div className="typeSub">as fixed price</div>
-              </>
-            )}
-          />
-          <Column
-            align="center"
-            title={t('Items')}
-            render={item => (
-              <>
-                <div className="goodInfo">
-                  <img src={TableGoodsImg} alt="" />
-                  <div>
-                    <div className="protName pointer" onClick={() => { goProjectFun(item.projectName, item.isAuthentication) }}>{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
-                    <div className="nft">{item.nftName}</div>
+        {/* 表格 start*/}
+        <div className="TableBox">
+          <Table dataSource={tableData} pagination={false} rowKey="id" scroll={{ x: 'max-content' }}>
+            <Column
+              title={t('Type')}
+              render={item => (
+                <>
+                  <div className="typeMain">Listing</div>
+                  <div className="typeSub">as fixed price</div>
+                </>
+              )}
+            />
+            <Column
+              align="center"
+              title={t('Items')}
+              render={item => (
+                <>
+                  <div className="goodInfo">
+                    <img src={TableGoodsImg} alt="" />
+                    <div>
+                      <div className="protName pointer" onClick={() => { goProjectFun(item.projectName, item.isAuthentication) }}>{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                      <div className="nft">{item.nftName}</div>
+                    </div>
                   </div>
+                </>
+              )}
+            />
+            <Column
+              align="center"
+              title={t('Price')}
+              render={item => (
+                <>
+                  <div className="goodPrice">
+                    <div className="Uprice">${item.uorderPrice}</div>
+                    <div className="bnbprice">{item.num} {item.coinName}</div>
+                  </div>
+                </>
+              )}
+            />
+            <Column
+              align="center"
+              title={t('From')}
+              render={item => (
+                <div className="color33 pointer" onClick={() => { goSomeone(item.formAddress) }}>
+                  {item.formAddress}
                 </div>
-              </>
-            )}
-          />
-          <Column
-            align="center"
-            title={t('Price')}
-            render={item => (
-              <>
-                <div className="goodPrice">
-                  <div className="Uprice">${item.uorderPrice}</div>
-                  <div className="bnbprice">{item.num} {item.coinName}</div>
+              )}
+            />
+            <Column
+              align="center"
+              title={t('To')}
+              render={item => (
+                <div className="color33 pointer" onClick={() => { goSomeone(item.toAddress) }}>
+                  {item.toAddress ? item.toAddress : "-"}
                 </div>
-              </>
-            )}
-          />
-          <Column
-            align="center"
-            title={t('From')}
-            render={item => (
-              <div className="color33 pointer" onClick={() => { goSomeone(item.formAddress) }}>
-                {item.formAddress}
-              </div>
-            )}
-          />
-          <Column
-            align="center"
-            title={t('To')}
-            render={item => (
-              <div className="color33 pointer" onClick={() => { goSomeone(item.toAddress) }}>
-                {item.toAddress ? item.toAddress : "-"}
-              </div>
-            )}
-          />
-          <Column
-            align="right"
-            title={t('Time')}
-            render={item => (
-              <div className="color33">
-                {HowLongAgo(item.createTime)}
-              </div>
-            )}
-          />
-        </Table>
+              )}
+            />
+            <Column
+              align="right"
+              title={t('Time')}
+              render={item => (
+                <div className="color33">
+                  {HowLongAgo(item.createTime)}
+                </div>
+              )}
+            />
+          </Table>
+        </div>
+        {/* 表格 end*/}
+        {
+          OrderDetail && <div className="other">{t('View Collection')}</div>
+        }
+        {
+          ProjectOrder.length > 0 ? <>
+            <div className="otherRow">
+              {
+                ProjectOrder.map((item, index) => <GoodsCard key={index} NftInfo={item}></GoodsCard>)
+              }
+            </div>
+            <div className="LoadMore flexCenter">{t('View Collection')}  {'>'}</div>
+          </> : <NoData></NoData>
+        }
+        {
+          OrderDetail && <SellModal isShow={showSellModal} close={() => { setShowSellModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress }} ></SellModal>
+        }
+        {
+          OrderDetail && showFullScreen && <FullScreenCom close={() => { setShowFullScreen(false) }} image={OrderDetail.image as string}></FullScreenCom>
+        }
       </div>
-      {/* 表格 end*/}
-      {
-        OrderDetail && <div className="other">{t('View Collection')}</div>
-      }
-      {
-        ProjectOrder.length > 0 ? <>
-          <div className="otherRow">
-            {
-              ProjectOrder.map((item, index) => <GoodsCard key={index} NftInfo={item}></GoodsCard>)
-            }
-          </div>
-          <div className="LoadMore flexCenter">{t('View Collection')}  {'>'}</div>
-        </>
-          :
-          <NoData></NoData>
-      }
-
-      {
-        OrderDetail && <SellModal isShow={showSellModal} close={() => { setShowSellModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress }} ></SellModal>
-      }
-      {
-        OrderDetail && showFullScreen && <FullScreenCom close={() => { setShowFullScreen(false) }} image={OrderDetail.image as string}></FullScreenCom>
-      }
-    </div>
+    </>
   )
 }
