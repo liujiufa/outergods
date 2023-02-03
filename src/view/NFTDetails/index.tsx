@@ -16,7 +16,6 @@ import { AddrHandle } from "../../utils/tool"
 import NFTDetailsL from "./Adaptation/NFTDetailsL"
 import NFTDetailsM from "./Adaptation/NFTDetailsM"
 
-
 const Container = styled.div`
     width: 100%;
 `

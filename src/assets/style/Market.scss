@@ -366,6 +366,28 @@
 }
 
 @media (max-width:768px) {
+
+    #market.MarketPage {
+        .contentBox {
+            .tabBox {
+                margin: 24px 12px 12px;
+                height: 36px;
+
+                .tabContent {
+                    height: 36px;
+
+                    .tabItem {
+                        font-size: 16px;
+                    }
+                    .tabItemActive {
+                        font-weight: 700;
+                        color: #FFF;
+                    }
+                }
+            }
+        }
+    }
+
     .LoadMore {
         margin: 50px auto !important;
     }
@@ -375,6 +397,8 @@
         grid-row-gap: 15px;
         grid-column-gap: 15px;
     }
+
+
 }
 
 @media (max-width:425px) {
