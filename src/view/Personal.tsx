@@ -323,14 +323,12 @@ export default function Personal(): JSX.Element {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="content m-hidden">
-                                    <div>
-                                        {userCurrentNft ? <>
-                                            <div className="goodsList">{userCurrentNft.result.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal"></Goods>)}</div>
-                                            <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
-                                        </> : <NoData />}
-                                        {/* <Goods></Goods> */}
-                                    </div>
+                                <div className="content ">
+                                    {userCurrentNft ? <>
+                                        <div className="goodsList">{userCurrentNft.result.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal"></Goods>)}</div>
+                                        <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
+                                    </> : <NoData />}
+                                    {/* <Goods></Goods> */}
                                 </div>
                             </div>
                         </>}
