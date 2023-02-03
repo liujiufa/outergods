@@ -184,43 +184,47 @@ const MainLayout: React.FC = () => {
                         <div className="unLink"></div>
                     </div>
                 </div>
-                <div className="search" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
-                    <img src={Search} alt="" />
-                    <input type="text" onChange={(e) => { run(e) }} onFocus={FocusFun} placeholder={t('Search by Collection、User、Address')} />
-                    {
-                        showSearchRes && (addrList.length !== 0 || projectList.length !== 0) && <div className="searchResult">
-                            <div className="LabelRow">{t('User')}</div>
-                            {
-                                addrList.map((item, index) => <div className="resItem" onClick={() => { goSomeone(item.userAddress) }} key={index}><div className="radius"><img src={item.headImg} alt="" /></div>{item.userAddress}</div>)
-                            }
-                            <div className="LabelRow">{t('Project')}</div>
-                            {
-                                projectList.map((item, index) => <div className="resItem" onClick={() => { goProject(item.name) }} key={index}><div className="radius"><img src={item.img} alt="" /></div>{item.name}</div>)
-                            }
-                        </div>
-                    }
+                <div className="l-hidden-block mobile-header-right">
+                    <img src={Search} alt="" className="l-hidden mobile-search-icon" />
+                    <div className="search m-hidden" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
+                        <img src={Search} alt="" />
+                        <input type="text" onChange={(e) => { run(e) }} onFocus={FocusFun} placeholder={t('Search by Collection、User、Address')} />
+                        {
+                            showSearchRes && (addrList.length !== 0 || projectList.length !== 0) && <div className="searchResult">
+                                <div className="LabelRow">{t('User')}</div>
+                                {
+                                    addrList.map((item, index) => <div className="resItem" onClick={() => { goSomeone(item.userAddress) }} key={index}><div className="radius"><img src={item.headImg} alt="" /></div>{item.userAddress}</div>)
+                                }
+                                <div className="LabelRow">{t('Project')}</div>
+                                {
+                                    projectList.map((item, index) => <div className="resItem" onClick={() => { goProject(item.name) }} key={index}><div className="radius"><img src={item.img} alt="" /></div>{item.name}</div>)
+                                }
+                            </div>
+                        }
 
-                </div>
-                <div className="Chain">
-                    <img src={BNBIcon} alt="" />
-                    <span className="ChainName">BNB Chain</span>
-                </div>
-                <Dropdown overlay={menu} placement="bottomCenter" overlayStyle={{ zIndex: 99999 }} getPopupContainer={getparent} trigger={['click']}>
-                    <div className="Lang">
-                        <img src={langIcon} alt="" />
-                        {i18n.language === 'zh' ? 'ZH' : (i18n.language === 'en' ? 'EN' : '한국어')}
                     </div>
-                </Dropdown>
-                {
-                    web3React.active ? <Dropdown overlay={personalMenu} trigger={['click']} getPopupContainer={getparent} overlayClassName='MenuList' overlayStyle={{ padding: '10px 12px', zIndex: 99999 }}>
-                        <img className="walletIcon" src={prevPersonal} alt="" />
+                    <div className="Chain">
+                        <img src={BNBIcon} alt="" />
+                        <span className="ChainName">BNB Chain</span>
+                    </div>
+                    <Dropdown overlay={menu} placement="bottomCenter" overlayStyle={{ zIndex: 99999 }} getPopupContainer={getparent} trigger={['click']}>
+                        <div className="Lang">
+                            <img src={langIcon} alt="" />
+                            {i18n.language === 'zh' ? 'ZH' : (i18n.language === 'en' ? 'EN' : '한국어')}
+                        </div>
                     </Dropdown>
-                        :
-                        <img className="walletIcon" onClick={() => { ConnectWallet(injected, ChainId.BSC) }} src={wallet} alt="" />
-                }
-                <Dropdown overlay={HeadMenu} trigger={['click']} getPopupContainer={getparent} overlayStyle={{ zIndex: 99999 }}>
-                    <img className="HeadMenu" src={menuIcon} alt="" />
-                </Dropdown>
+                    {
+                        web3React.active ? <Dropdown overlay={personalMenu} trigger={['click']} getPopupContainer={getparent} overlayClassName='MenuList' overlayStyle={{ padding: '10px 12px', zIndex: 99999 }}>
+                            <img className="walletIcon" src={prevPersonal} alt="" />
+                        </Dropdown>
+                            :
+                            <img className="walletIcon" onClick={() => { ConnectWallet(injected, ChainId.BSC) }} src={wallet} alt="" />
+                    }
+                    <Dropdown overlay={HeadMenu} trigger={['click']} getPopupContainer={getparent} overlayStyle={{ zIndex: 99999 }}>
+                        <img className="HeadMenu" src={menuIcon} alt="" />
+                    </Dropdown>
+                </div>
+
             </Header>
 
             <Layout className="Content">

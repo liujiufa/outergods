@@ -667,6 +667,7 @@
             width: 100%;
             display: flex;
             justify-content: space-around;
+            align-items: center;
         }
 
         & .l-hidden {
@@ -701,6 +702,9 @@
             }
         }
 
+        .linkItem {
+            margin-right: 0;
+        }
         .detail {
             margin-top: 12px;
             font-weight: 400;

@@ -224,7 +224,7 @@ export default function Market(): JSX.Element {
                 <div className="titleItem">到</div>
                 <div className="titleItem date">日期</div>
               </div>
-              <div className="contentBox">
+              <div className="itemContentBox">
                 <div className="itemBox">
                   <div className="item type">
                     <div className="top">上架</div>
