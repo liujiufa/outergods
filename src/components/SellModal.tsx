@@ -41,6 +41,7 @@ export default function SellModal(props: PropsType) {
   let { t } = useTranslation();
 
   useEffect(() => {
+    console.log(props.data.tokenAddress, "授权交易场address");
     if (props.data.tokenId && web3React.account) {
       Contracts.example.getapproveMarket(web3React.account, props.data.tokenAddress).then((res: boolean) => {
         setApproveAddr(res)
@@ -142,7 +143,6 @@ export default function SellModal(props: PropsType) {
     dispatch(createSetLodingAction(true))
     Contracts.example.Sign((web3React.account as string).toLowerCase(), "askdljalksnmzxncajkwhdiaowhdajkhsdjkahsdkjhakjwhjdkahwjkdhajkdhakjsdhjkahsdjkawhdjkahsjmcnbzmxbcjiwahjdah" + props.data.tokenId).then((res: string) => {
       console.log(res);
-
       createOrder({
         tokenId: props.data.tokenId,
         tokenAddress: props.data.tokenAddress,
@@ -190,6 +190,7 @@ export default function SellModal(props: PropsType) {
   }
   /* 出售前把nft授权给交易场 */
   function approveFun() {
+    console.log(props.data.tokenAddress, "授权交易场address");
     Contracts.example.approveMarket(web3React.account as string, props.data.tokenAddress).then((res: any) => {
       Contracts.example.getapproveMarket(web3React.account as string, props.data.tokenAddress).then((res: any) => {
         // console.log(res)

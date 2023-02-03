@@ -80,16 +80,21 @@ export default function HotspotCard(props: any) {
       navigate('/project?projectName=' + props.NftInfo.name)
     }
   }
+
   function HotspotCardFun(e: any) {
     // e.stopPropagation()
     if (props.tag === "Personal") {
       setActiveMenu(true)
     }
   }
+
   function BuyNFTFun(e: any) {
     e.stopPropagation()
-    setActiveBuyMenu(true)
+    if (props.tag === "Market") {
+      setActiveBuyMenu(true)
+    }
   }
+
 
   const list = [{
     title: "总交易量",

@@ -105,24 +105,6 @@ const MainLayout: React.FC = () => {
                     <span className="dropText">{t('Profile')}</span>
                 </div>
             </Menu.Item>
-            <Menu.Item key="1" onClick={() => { navigate('/Personal?type=0') }}>
-                <div className="box">
-                    <img src={CollectionIcon} alt="" />
-                    <span className="dropText">{t('Collected')}</span>
-                </div>
-            </Menu.Item>
-            <Menu.Item key="2" onClick={() => { navigate('/Personal?type=1') }}>
-                <div className="box">
-                    <img src={like} alt="" />
-                    <span className="dropText">{t('Favorites')}</span>
-                </div>
-            </Menu.Item>
-            <Menu.Item key="3" onClick={() => { navigate('/Personal?type=2') }}>
-                <div className="box">
-                    <img src={rewardIcon} alt="" />
-                    <span className="dropText">{t('Rewards')}</span>
-                </div>
-            </Menu.Item>
             <Menu.Item key="4" onClick={LogOut}>
                 <div className="box">
                     <img src={LogOutIcon} alt="" />

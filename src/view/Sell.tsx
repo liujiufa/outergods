@@ -89,7 +89,7 @@ export default function Sell(): JSX.Element {
   useEffect(() => {
     if (ID && state.token && tokenAddress) {
       getNftUserInfoDetail(tokenAddress, ID).then(res => {
-        console.log(res, "nft详情")
+        // console.log(res, "nft详情")
         setTokenId(res.data.tokenId)
         // setTokenId(res.data.tokenId)
         if (res.data.metadata) {
@@ -104,6 +104,8 @@ export default function Sell(): JSX.Element {
           res.data.normalizedMetadata = JSON.parse(res.data.normalizedMetadata)
         }
         setOrderDetail(res.data)
+        console.log(res.data, 'NFT详情');
+
         if (state.token) {
           getUserOrder(res.data.userAddress).then(res => {
             setUserOrder(res.data)
