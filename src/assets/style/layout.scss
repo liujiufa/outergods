@@ -88,6 +88,12 @@
         }
     }
 
+    .mobile-header-right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+
     .search {
         flex: 1;
         border-radius: 22px;
@@ -310,7 +316,7 @@
 
             .mobile-header-right {
                 display: flex;
-                justify-content: start;
+                justify-content: flex-end;
                 align-items: center;
             }
         }
