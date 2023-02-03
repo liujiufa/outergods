@@ -15,9 +15,12 @@ import { stateType } from "../../store/reducer"
 import { AddrHandle } from "../../utils/tool"
 import NFTDetailsL from "./Adaptation/NFTDetailsL"
 import NFTDetailsM from "./Adaptation/NFTDetailsM"
+
+
 const Container = styled.div`
     width: 100%;
 `
+
 const L = styled.div`
     width: 100%;
     display: block;

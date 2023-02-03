@@ -43,6 +43,7 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import authentication from '../assets/image/authentication.png'
 
 const { Column } = Table;
+
 interface userInfoType {
     userName: string | null,
     brief: string | null,
@@ -210,7 +211,7 @@ export default function Personal(): JSX.Element {
                         </div>
                         <div className="Info">
                             <div className="userName">
-                                <div title={userInfo?.userName || t('Username')}>{userInfo?.userName || t('Username')}</div>
+                                <div className='name' title={userInfo?.userName || t('Username')}>{userInfo?.userName || t('Username')}</div>
                                 <div className="level flexCenter">VIP0</div>
                             </div>
                             <div className="userAddress flexCenter pointer" onClick={copyUserAddr} >

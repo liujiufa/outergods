@@ -682,7 +682,36 @@
 
 @media (max-width:1024px) {}
 
-@media (max-width:768px) {}
+@media (max-width:768px) {
+
+    #NFTDetails {
+        .coin-group {
+            font-size: 16px;
+
+            .coin-group-price {
+                font-size: 14px;
+            }
+        }
+
+        .buy-right-button {
+            font-size: 14px;
+            padding: 8px 16px;
+        }
+
+        .sanlian {
+            margin-top: 24px;
+        }
+
+        .nft-details-card {
+            padding: 12px 24px;
+        }
+
+        .itemBigBox {
+            margin-top: 30px;
+        }
+    }
+
+}
 
 @media (max-width:425px) {}
 

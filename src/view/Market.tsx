@@ -45,6 +45,7 @@ export default function Market(): JSX.Element {
     fun(!value);
   }
 
+  
   /* 修改筛选条件 */
   function changeScreen(ScreenData: getOrderType, typeIndex?: number, sortIndex?: number) {
     // console.log(ScreenData)

@@ -16,7 +16,7 @@ import NFTPng from '../assets/image/nft.png'
 
 import styled from "styled-components"
 import { FlexCCBox, FlexSBCBox, FlexSCBox } from "../components/FlexBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, Dropdown } from "antd";
 import ProjectGroup from "../components/ProjectGroup";
 import Goods from '../components/HotspotCard'
@@ -73,8 +73,7 @@ const SlideItemPC = styled(SwiperSlide) <{ idx: number, posi: number }>`
     -webkit-align-items: center;
     align-items: center;
 	transition: 300ms;
-	/* transform: ${({ idx, posi }) => `scale(${idx}) translateX(${posi}px) !important`}; */
-	/* transform: scale(0.7) !important; */
+	transform: ${({ idx, posi }) => `translateX(${posi}px) !important`};
     background: #FFFFFF;
     border-radius: 12px;
     font-size: 24px;
@@ -340,15 +339,58 @@ export default function Main() {
     const [nftIdo, setNftIdo] = useState<any[]>([BgPng, Bg1Png, Bg2Png, BgPng, Bg1Png, BgPng, Bg2Png])
     const [expand1, setExpand1] = useState(true)
     const [activeIndex, setActiveIndex] = useState(0)
+    const [idxGroup, setIdxGroup] = useState<{ index: number; posi: number; }[]>([])
+    
 
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
     }
+
     const typeMenu = (
         <Menu onClick={() => handleDropDown(setExpand1, expand1)}>
             <Menu.Item>全部</Menu.Item>
         </Menu>
     );
+
+    useEffect(() => {
+
+
+        const list = nftIdo.map((item, idx) => idx)
+
+        const activeIdx = list.findIndex(item => item === activeIndex)
+
+        const findIndex = (activeIdx + 1) === list.length ? 0 : activeIdx
+
+        let listLeft = list.filter((item, idx)=> findIndex < idx)
+        let listRight = list.filter((item, idx)=> findIndex > idx)
+
+        const listGroup = listLeft.concat(listRight);
+
+        listLeft = listGroup.slice(0, 3)
+        listRight = listGroup.slice(3).reverse()
+
+        console.log("listLeft", listLeft)
+        console.log("listRight", listRight)
+
+        const idxGroup1 = listLeft.map((item, idx)=> {
+            return ({
+                index: item,
+                posi: idx+1
+            })
+        })
+
+        const idxGroup2 = listRight.map((item, idx)=> {
+            return ({
+                index: item,
+                posi: -(idx+1)
+            })
+        })
+
+        const idxGroup = idxGroup1.concat(idxGroup2)
+        setIdxGroup(idxGroup)
+    }, [nftIdo, activeIndex])
+
+
     return (
         <Container>
 
@@ -375,21 +417,20 @@ export default function Main() {
                     >
                         {
                             nftIdo.map((item, idx) => <SlideItemPC idx={
-                                1 - (idx === activeIndex ? 0 : (
-                                    // 0.6 - (
-                                        (idx > activeIndex) && (idx <= activeIndex + 3) ? idx - activeIndex : (nftIdo.length - idx + ((nftIdo.length - idx) < idx ? (nftIdo.length - idx) : activeIndex)) % nftIdo.length
-                                    // ) / 10
-                                    )
-                                )
+                            //    0.5 + Math.abs(idxGroup.filter(option=> option.index === idx)[0]?.posi ?? 8 )  / 16
+                               idxGroup.filter(option=> option.index === idx)[0]?.posi ?? 0 
                             }
-                                posi={(idx === activeIndex) ? 0 : (
-                                        (idx > activeIndex) && (idx <= activeIndex + 3) ? (500 + (idx - activeIndex) * 100) :
-                                            (-500 + ((nftIdo.length - idx + ((nftIdo.length - idx) < idx ? (nftIdo.length - idx) : activeIndex)) % nftIdo.length) * -100)
-                                    )}
+                                posi={
+                                    !idxGroup.filter(option=> option.index === idx)[0]?.posi ? 0 : (
+                                        idxGroup.filter(option=> option.index === idx)[0]?.posi > 0 ? ( (1 - idxGroup.filter(option=> option.index === idx)[0]?.posi) * 50) :
+                                        (( 1 + idxGroup.filter(option=> option.index === idx)[0]?.posi) * 50) 
+                                    )
+                                }
                                 onClick={(event) => {
                                     console.log("IDX", idx, activeIndex)
                                 }} >
                                 <SliderContainer >
+                                    {idx}
                                     <img src={item} />
                                 </SliderContainer>
                             </SlideItemPC>)
