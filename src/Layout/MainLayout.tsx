@@ -202,7 +202,7 @@ const MainLayout: React.FC = () => {
                         <div className="unLink"></div>
                     </div>
                 </div>
-                <div className="l-hidden-block mobile-header-right">
+                <div className="mobile-header-right">
                     <img src={Search} alt="" className="l-hidden mobile-search-icon" />
                     <div className="search m-hidden" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
                         <img src={Search} alt="" />
