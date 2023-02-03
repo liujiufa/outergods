@@ -90,6 +90,7 @@ export default function Personal(): JSX.Element {
     let [tabIndex, setTabIndex] = useState<number>(0)
     let [showScreenModal, setShowScreenModal] = useState<boolean>(false)
     let [showReceRecord, setShowReceRecord] = useState<boolean>(false)
+    let [shareActive, setShareActive] = useState<boolean>(false)
     let [nftState, setNftstate] = useState(0)
     let [nftSort, setNftSort] = useState(0)
     const [activeKey, setActiveKey] = useState("");
@@ -149,7 +150,7 @@ export default function Personal(): JSX.Element {
         return aim.filter(item => item.name == name || item.status == status)
     }
     useEffect(() => {
-        if (web3React.account) {
+        if (web3React.account && state.token) {
             getNfts(
                 {
                     "address": web3React.account,
@@ -158,7 +159,7 @@ export default function Personal(): JSX.Element {
                     "pageSize": 10
                 }
             ).then((res) => {
-                console.log(res.data, '优化同步');
+                console.log(res.data.result, '优化同步');
                 // let Arr = res.data.result.filter((item: any) => !item.normalized_metadata)
                 // console.log(JSON.parse(res.data.result[0].metadata), '处理', Arr);
                 // setUsetNft(res.data.result)
@@ -200,6 +201,9 @@ export default function Personal(): JSX.Element {
             dispatch(createAddMessageAction(t('Please connect your wallet')))
         }
     }
+    function shareActiveFun() {
+        setShareActive(!shareActive)
+    }
 
     return (
         <div id="Personal" >
@@ -224,15 +228,17 @@ export default function Personal(): JSX.Element {
                                     <div className="linkItem"><img src={facebookIcon} alt="" /></div>
                                 </div>
                                 <div className="btnGroupRow l-hidden">
-                                    <div className="share pointer flexCenter shareBox" >
+                                    <div className="share pointer flexCenter shareBox" onClick={() => { shareActiveFun() }}>
                                         <img src={shareIcon} alt="" />{t('Share')}
-                                        {true && <>
-                                            <div className='copyLinkBox'>
-                                                <div className="title">复制链接</div>
-                                                <div className="outLink">在Facebook上分享</div>
-                                                <div className="outLink">在Twitter上分享</div>
-                                            </div>
-                                        </>}
+                                        {shareActive &&
+                                            <>
+                                                <div className='copyLinkBox'>
+                                                    <div className="title">复制链接</div>
+                                                    <div className="outLink">在Facebook上分享</div>
+                                                    <div className="outLink">在Twitter上分享</div>
+                                                </div>
+                                            </>
+                                        }
                                     </div>
                                     <div className="share pointer flexCenter" onClick={() => { navigate('/UserInfo') }}>
                                         <img src={minSet} alt="" />{t('Settings')}
@@ -242,9 +248,9 @@ export default function Personal(): JSX.Element {
                             <div className="introduce">{t('Join in April 2022 / short self-introduction', { FullMonth: getMonth(userInfo?.createTime), FullYear: getFullYear(userInfo?.createTime) })}{userInfo?.brief || t('short self-introduction')}</div>
                         </div>
                         <div className="btnGroupRow m-hidden">
-                            <div className="share pointer flexCenter shareBox" >
+                            <div className="share pointer flexCenter shareBox" onClick={() => { shareActiveFun() }} >
                                 <img src={shareIcon} alt="" />{t('Share')}
-                                {true && <>
+                                {shareActive && <>
                                     <div className='copyLinkBox'>
                                         <div className="title">复制链接</div>
                                         <div className="outLink">在Facebook上分享</div>

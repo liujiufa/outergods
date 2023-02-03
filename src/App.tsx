@@ -55,8 +55,9 @@ function App() {
       // userAddress: '0x89916247B18DF309FfA55318bfF235F3c34324b3',
       userPower: 0
     }).then((res: any) => {
+      console.log(res);
       if (res.code !== 200) {
-        // addMessage(res.msg)
+        addMessage(res.msg)
       }
       dispatch(createLoginSuccessAction(res.data.token, web3React.account as string))
     })

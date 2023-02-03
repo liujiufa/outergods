@@ -17,13 +17,13 @@ export default function Router() {
     <Suspense fallback={<PageLoding></PageLoding>}>
       <Routes>
         <Route path="/*" element={<MainLayout />}>
-          <Route index element={<Home />}></Route>
+          {/* <Route index element={<Home />}></Route> */}
+          <Route index element={<Main />}></Route>
           <Route path="Market" element={<Market />}></Route>  {/** */}
           <Route path="Launch" element={<Launch />}></Route>   {/** */}
           <Route path="Personal" element={<Personal />}></Route>  {/** */}
           <Route path="UserInfo" element={<UserInfo />}></Route>   {/** */}
           <Route path="NFTDetails" element={<NFTDetails />}></Route>  {/** */}
-          <Route path="Main" element={<Main />}></Route>
           <Route path="Sell" element={<Sell />}></Route>
           {/* <Route path="StartRes2"  element={<StartRes2/>}></Route>
             <Route path="StartRes3"  element={<StartRes3/>}></Route> */}
