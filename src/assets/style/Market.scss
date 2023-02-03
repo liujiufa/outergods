@@ -1,48 +1,46 @@
-#market {
+#market.MarketPage {
     background: #F5F5F5;
-    .MarketPage {
-        background: linear-gradient(233.91deg, rgba(210, 253, 253, 0.3) 9.69%, rgba(194, 177, 255, 0.3) 38.49%, rgba(109, 131, 255, 0.18) 68.83%, rgba(56, 255, 243, 0.249) 83.42%);
-        // filter: blur(263.5px);
-        min-height: calc(100vh - 171px);
+    background: linear-gradient(233.91deg, rgba(210, 253, 253, 0.3) 9.69%, rgba(194, 177, 255, 0.3) 38.49%, rgba(109, 131, 255, 0.18) 68.83%, rgba(56, 255, 243, 0.249) 83.42%);
+    // filter: blur(263.5px);
+    min-height: calc(100vh - 171px);
 
-        .contentBox {
-            max-width: 1440px;
-            margin: 0px auto;
+    .contentBox {
+        max-width: 1440px;
+        margin: 0px auto;
 
-            .tabBox {
-                margin: 70px 20px 50px;
+        .tabBox {
+            margin: 70px 20px 50px;
+            display: flex;
+            align-items: center;
+            height: 50px;
+            width: 216px;
+            background: linear-gradient(315deg, #8E99FF80 50%, #AE8CFF80 50%);
+            box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(2.5px);
+            /* Note: backdrop-filter has minimal browser support */
+            border-radius: 30px;
+            padding: 1px;
+
+            .tabContent {
                 display: flex;
-                align-items: center;
-                height: 50px;
-                width: 216px;
-                background: linear-gradient(315deg, #8E99FF80 50%, #AE8CFF80 50%);
-                box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.25);
-                backdrop-filter: blur(2.5px);
-                /* Note: backdrop-filter has minimal browser support */
+                justify-content: space-between;
+                width: 100%;
+                height: 100%;
+                background: #F5F5F5;
                 border-radius: 30px;
+                display: flex;
                 padding: 1px;
 
-                .tabContent {
-                    display: flex;
-                    justify-content: space-between;
-                    width: 100%;
-                    height: 100%;
-                    background: #F5F5F5;
+                .tabItem {
+                    width: 102px;
+                    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.25);
+                    backdrop-filter: blur(2.5px);
+                    /* Note: backdrop-filter has minimal browser support */
                     border-radius: 30px;
-                    display: flex;
-                    padding: 1px;
+                }
 
-                    .tabItem {
-                        width: 102px;
-                        box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.25);
-                        backdrop-filter: blur(2.5px);
-                        /* Note: backdrop-filter has minimal browser support */
-                        border-radius: 30px;
-                    }
-
-                    .tabItemActive {
-                        background: linear-gradient(90deg, rgba(118, 131, 255, 0.8) 10.15%, rgba(158, 114, 255, 0.8) 100%);
-                    }
+                .tabItemActive {
+                    background: linear-gradient(90deg, rgba(118, 131, 255, 0.8) 10.15%, rgba(158, 114, 255, 0.8) 100%);
                 }
             }
         }
@@ -149,7 +147,7 @@
             }
         }
 
-        .contentBox {
+        .itemContentBox {
             padding: 20px 45px;
 
             .itemBox {
@@ -255,7 +253,7 @@
                 margin-left: 15px;
             }
         }
-        
+
     }
 }
 
@@ -269,7 +267,7 @@
         }
 
         margin-bottom: 40px;
-       
+
         .ant-collapse-content-box {
             padding: 0 16px;
         }
@@ -285,16 +283,16 @@
             & .contentBoxL {
                 display: none;
             }
-    
+
             & .contentBoxM {
                 display: block;
             }
-    
+
             & .ant-space-vertical {
                 width: 100%;
             }
 
-            .contentBox {
+            .itemContentBox {
                 padding: 16px;
             }
 

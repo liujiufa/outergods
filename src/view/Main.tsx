@@ -58,12 +58,9 @@ const SwiperPC = styled(Item)`
 const SwiperBoxPC = styled(Swiper)`
     display: flex;
     width: 100%;
-    .swiper-slide-active,.swiper-slide-duplicate-active{
-        transform: scale(0.98) !important;
-	}
 `
 
-const SlideItemPC = styled(SwiperSlide)<{idx: number}>`
+const SlideItemPC = styled(SwiperSlide) <{ idx: number, posi: number }>`
     text-align: center;
     font-size: 18px;
     display: block;
@@ -76,14 +73,13 @@ const SlideItemPC = styled(SwiperSlide)<{idx: number}>`
     -webkit-align-items: center;
     align-items: center;
 	transition: 300ms;
-	transform: ${({idx})=> `scale(${idx}) !important`};
+	/* transform: ${({ idx, posi }) => `scale(${idx}) translateX(${posi}px) !important`}; */
 	/* transform: scale(0.7) !important; */
     background: #FFFFFF;
     border-radius: 12px;
     font-size: 24px;
     color: #000000;
     cursor: pointer;
-    
 `
 
 const SliderContainer = styled.div`
@@ -367,19 +363,32 @@ export default function Main() {
                         loopFillGroupWithBlank={true}
                         className="mySwiper"
                         id="swiper-nft-pc"
-                        slideToClickedSlide
-                        onSlideChangeTransitionEnd={(s) => {
-                            console.log("s", s)
-                        }}
-                        onTouchEnd={(swiper) =>{
-                            console.log("swiper",swiper)
+                        // slideToClickedSlide
+                        onSlideChangeTransitionEnd={(swiper) => {
+                            console.log("swiper", swiper.activeIndex)
                             setActiveIndex(swiper.activeIndex % nftIdo.length)
+
+                        }}
+                        onTouchEnd={(swiper) => {
+                            console.log("swiper", swiper.activeIndex)
                         }}
                     >
                         {
-                            nftIdo.map((item, idx) => <SlideItemPC idx={1 - Math.abs((idx - activeIndex) ? 0.4 : 0) } onClick={(event) => {
-                                console.log("item", item, event, idx)
-                            }} >
+                            nftIdo.map((item, idx) => <SlideItemPC idx={
+                                1 - (idx === activeIndex ? 0 : (
+                                    // 0.6 - (
+                                        (idx > activeIndex) && (idx <= activeIndex + 3) ? idx - activeIndex : (nftIdo.length - idx + ((nftIdo.length - idx) < idx ? (nftIdo.length - idx) : activeIndex)) % nftIdo.length
+                                    // ) / 10
+                                    )
+                                )
+                            }
+                                posi={(idx === activeIndex) ? 0 : (
+                                        (idx > activeIndex) && (idx <= activeIndex + 3) ? (500 + (idx - activeIndex) * 100) :
+                                            (-500 + ((nftIdo.length - idx + ((nftIdo.length - idx) < idx ? (nftIdo.length - idx) : activeIndex)) % nftIdo.length) * -100)
+                                    )}
+                                onClick={(event) => {
+                                    console.log("IDX", idx, activeIndex)
+                                }} >
                                 <SliderContainer >
                                     <img src={item} />
                                 </SliderContainer>
