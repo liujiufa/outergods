@@ -372,3 +372,27 @@ export function getNfts(data: any) {
         data
     })
 }
+
+
+/**
+ * 首页  热门项目
+ * @returns 
+ */
+export function getHoTProject() {
+    return axois.request({
+        url: `/user/home/getHoTProject`,
+        method: 'get'
+    })
+}
+
+/**
+ * 首页  最新成交NFT
+ * @returns 
+ */
+ export function getTradeLast() {
+    return axois.request({
+        url: `/user/home/getTradeLast`,
+        method: 'get'
+    })
+}
+

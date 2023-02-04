@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 import BgPng from '../assets/image/main/bg.png'
 import Bg1Png from '../assets/image/main/bg1.png'
@@ -16,23 +17,44 @@ import NFTPng from '../assets/image/nft.png'
 
 import styled from "styled-components"
 import { FlexCCBox, FlexSBCBox, FlexSCBox } from "../components/FlexBox";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Menu, Dropdown } from "antd";
 import ProjectGroup from "../components/ProjectGroup";
 import Goods from '../components/HotspotCard'
 
+import '../assets/style/Main.scss'
+import { Navigation, Pagination } from "swiper";
+import { getHoTProject, getTradeLast } from "../API";
+
+
 const Container = styled.div`
     width: 100%;
-    background: #F5F5F5;
     position: relative;
     top: 0;
     left: 0;
     overflow: hidden;
+    padding-bottom: 80px;
+    @media (max-width: 750px) {
+        padding-bottom: 12px;
+    }
+`
+
+const Bg = styled.div`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    background: #F5F5F5;
 `
 
 const NFTContent = styled.div`
     width: 100%;
     padding: 0 8%;
+    @media (max-width: 1080px) {
+        padding: 0 8px;
+    }
 `
 
 
@@ -94,7 +116,6 @@ const SliderContainer = styled.div`
     }
 `
 
-
 const Title = styled(FlexCCBox)`
     margin-top: 60px;
     width: 100%;
@@ -106,8 +127,13 @@ const Title = styled(FlexCCBox)`
         font-weight: 700;
         font-size: 40px;
     }
+    @media (max-width: 750px) {
+        font-size: 16px;
+        span {
+            font-size: 16px;
+        }
+    }
 `
-
 
 const SellBox = styled(FlexCCBox)`
     background-image: url(${SellPng});
@@ -120,6 +146,13 @@ const SellBox = styled(FlexCCBox)`
     color: #FFFFFF;
     text-shadow: 2px 4px 0px #00097E;
     padding-bottom: 12px;
+    @media (max-width: 750px) {
+        width: 120px;
+        height: 28px;
+        font-size: 14px;
+        text-shadow: 1px 2px 0px #00097E;
+        padding-bottom: 6px;
+    }
 `
 
 const TipsGroup = styled(FlexSBCBox)`
@@ -129,6 +162,13 @@ const TipsGroup = styled(FlexSBCBox)`
     box-shadow: 15px 3px 82px rgba(198, 207, 231, 0.45);
     border-radius: 126px;
     padding: 16px 32px;
+    @media (max-width: 750px) {
+        margin-top: 24px;
+        width: 96%;
+        padding: 4px 8px;
+        border-radius: 24px;
+        box-shadow: 4px 3px 21px rgba(198, 207, 231, 0.45);
+    }
 `
 
 const TipsGroupLeft = styled(FlexSCBox)`
@@ -143,8 +183,13 @@ const TipsGroupType = styled(FlexCCBox)`
     color: #4381FF;
     padding:  4px 16px;
     margin-right: 24px;
+    @media (max-width: 750px) {
+        padding: 2px 8px;
+        font-size: 12px;
+        zoom: 0.87;
+        margin-right: 8px;
+    }
 `
-
 
 const TipsGroupText = styled(FlexCCBox)`
     font-weight: 400;
@@ -165,12 +210,22 @@ const TipsGroupText = styled(FlexCCBox)`
         font-weight: 400;
         font-size: 16px;
     };
+
+    @media (max-width: 750px) {
+        &, & span, & .num, & .type {
+            font-size: 12px;
+            zoom: 0.87;
+        }
+    }
 `
 
 const TipsGroupTime = styled(FlexCCBox)`
     font-weight: 400;
     font-size: 18px;
     color: #000000;
+    @media (max-width: 750px) {
+        font-size: 12px;
+    }
 `
 
 const NFTTitle = styled(FlexCCBox)`
@@ -179,6 +234,10 @@ const NFTTitle = styled(FlexCCBox)`
     /* identical to box height */
     color: #000000;
     margin-top: 60px;
+    @media (max-width: 750px) {
+        font-size: 20px;
+        margin: 16px 0 8px;
+    }
 `
 
 const NFTViceTitle = styled(FlexCCBox)`
@@ -187,12 +246,15 @@ const NFTViceTitle = styled(FlexCCBox)`
     text-align: center;
     color: rgba(0, 0, 0, 0.6);
     margin-top: 16px;
+    @media (max-width: 750px) {
+        font-size: 14px;
+        margin: 0 0 8px;
+    }
 `
 
 const GroupMenu = styled(FlexCCBox)`
     justify-content: flex-end;
 `
-
 
 const SearchGroup = styled(FlexSBCBox)`
     font-family: 'PingFang SC';
@@ -217,16 +279,25 @@ const SearchBox = styled(FlexCCBox)`
     margin-right: 3px;
 `
 
-const GroupProject = styled(Group)`
+const GroupProject = styled(Swiper)`
     width: 100%;
-    flex-flow: row wrap;
-    justify-content: start;
     margin: 24px auto 0;
+    @media (max-width: 750px) {
+        margin: 0 auto;
+    }
 `
 
-const GroupItem = styled(FlexCCBox)`
-    width: 16.6%;
-    padding: 16px;
+const GroupItem = styled(SwiperSlide)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 8px;
+    min-width: 200px;
+    border-radius: 12px;
+    background-color: transparent;
+    @media (max-width: 750px) {
+        min-width: 120px;
+    }
 `
 
 
@@ -235,6 +306,9 @@ const UserList = styled(Group)`
     flex-flow: row wrap;
     justify-content: start;
     margin: 24px auto 0;
+    @media (max-width: 750px) {
+        margin: 0 auto;
+    }
 `
 
 const UserItem = styled(Group)`
@@ -267,6 +341,9 @@ const UserAmount = styled(Group)`
 const OtherItem = styled(FlexCCBox)`
     width: 25%;
     padding: 24px;
+    @media (max-width: 750px) {
+        padding: 6px;
+    }
 `
 
 const OtherContent = styled.div`
@@ -287,6 +364,11 @@ const OtherText = styled(FlexSCBox)`
     font-weight: 700;
     font-size: 18px;
     color: rgba(0, 0, 0, 0.7);
+    @media (max-width: 750px) {
+        font-size: 12px;
+        zoom: 0.87;
+        padding: 4px;
+    }
 `
 
 const Bg1 = styled.div`
@@ -298,6 +380,7 @@ const Bg1 = styled.div`
     width: 50vw;
     height: 50vw;
     transform: translateX(-20vw);
+    z-index: -1;
 `
 
 const Bg2 = styled.div`
@@ -309,6 +392,7 @@ const Bg2 = styled.div`
     width: 50vw;
     height: 50vw;
     transform: translateX(20vw);
+    z-index: -1;
 `
 
 const Bg3 = styled.div`
@@ -320,6 +404,7 @@ const Bg3 = styled.div`
     width: 50vw;
     height: 50vw;
     transform: translateX(-20vw);
+    z-index: -1;
 `
 
 const Bg4 = styled.div`
@@ -331,6 +416,7 @@ const Bg4 = styled.div`
     width: 80vw;
     height: 80vw;
     transform: translateX(-50%);
+    z-index: -1;
 `
 
 
@@ -340,7 +426,7 @@ export default function Main() {
     const [expand1, setExpand1] = useState(true)
     const [activeIndex, setActiveIndex] = useState(0)
     const [idxGroup, setIdxGroup] = useState<{ index: number; posi: number; }[]>([])
-    
+    const [hostList, setHostList] = useState<any[]>([])
 
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
@@ -361,8 +447,8 @@ export default function Main() {
 
         const findIndex = (activeIdx + 1) === list.length ? 0 : activeIdx
 
-        let listLeft = list.filter((item, idx)=> findIndex < idx)
-        let listRight = list.filter((item, idx)=> findIndex > idx)
+        let listLeft = list.filter((item, idx) => findIndex < idx)
+        let listRight = list.filter((item, idx) => findIndex > idx)
 
         const listGroup = listLeft.concat(listRight);
 
@@ -372,23 +458,42 @@ export default function Main() {
         console.log("listLeft", listLeft)
         console.log("listRight", listRight)
 
-        const idxGroup1 = listLeft.map((item, idx)=> {
+        const idxGroup1 = listLeft.map((item, idx) => {
             return ({
                 index: item,
-                posi: idx+1
+                posi: idx + 1
             })
         })
 
-        const idxGroup2 = listRight.map((item, idx)=> {
+        const idxGroup2 = listRight.map((item, idx) => {
             return ({
                 index: item,
-                posi: -(idx+1)
+                posi: -(idx + 1)
             })
         })
 
         const idxGroup = idxGroup1.concat(idxGroup2)
         setIdxGroup(idxGroup)
     }, [nftIdo, activeIndex])
+
+    const init = useCallback(
+      async () => {
+        Promise.all([getHoTProject(), getTradeLast()]).then((res)=>{
+           const [res1, res2] = res
+           const [hostProject, tradeLast] = [res1.data, res2.data]
+           console.log("hostProject, tradeLast", tradeLast)
+           setHostList([0, 0, 0, 0, hostProject[0], 0 ])
+        })
+        // getHoTProject
+        // getTradeLast
+      },
+      []
+    )
+
+    useEffect(() => {
+        init()
+    }, [])
+    
 
 
     return (
@@ -417,13 +522,13 @@ export default function Main() {
                     >
                         {
                             nftIdo.map((item, idx) => <SlideItemPC idx={
-                            //    0.5 + Math.abs(idxGroup.filter(option=> option.index === idx)[0]?.posi ?? 8 )  / 16
-                               idxGroup.filter(option=> option.index === idx)[0]?.posi ?? 0 
+                                //    0.5 + Math.abs(idxGroup.filter(option=> option.index === idx)[0]?.posi ?? 8 )  / 16
+                                idxGroup.filter(option => option.index === idx)[0]?.posi ?? 0
                             }
                                 posi={
-                                    !idxGroup.filter(option=> option.index === idx)[0]?.posi ? 0 : (
-                                        idxGroup.filter(option=> option.index === idx)[0]?.posi > 0 ? ( (1 - idxGroup.filter(option=> option.index === idx)[0]?.posi) * 50) :
-                                        (( 1 + idxGroup.filter(option=> option.index === idx)[0]?.posi) * 50) 
+                                    !idxGroup.filter(option => option.index === idx)[0]?.posi ? 0 : (
+                                        idxGroup.filter(option => option.index === idx)[0]?.posi > 0 ? ((1 - idxGroup.filter(option => option.index === idx)[0]?.posi) * 50) :
+                                            ((1 + idxGroup.filter(option => option.index === idx)[0]?.posi) * 50)
                                     )
                                 }
                                 onClick={(event) => {
@@ -472,10 +577,17 @@ export default function Main() {
                             </SearchGroup>
                         </Dropdown>
                     </GroupMenu>
-                    <GroupProject>
+                    <GroupProject
+                        slidesPerView={6}
+                        spaceBetween={0}
+                        navigation={true}
+                        modules={[Navigation]}
+
+                        className="mySwiper1"
+                    >
                         {
-                            [1, 2, 3, 4, 5, 6, 7, 8].map((item) => <GroupItem>
-                                <ProjectGroup />
+                            hostList.map((item) => <GroupItem>
+                                <ProjectGroup data={item} />
                             </GroupItem>)
                         }
                     </GroupProject>
@@ -499,34 +611,49 @@ export default function Main() {
                             </SearchGroup>
                         </Dropdown>
                     </GroupMenu>
-                    <GroupProject>
+                    <GroupProject
+                        slidesPerView={6}
+                        spaceBetween={0}
+                        navigation={true}
+                        modules={[ Navigation]}
+
+                        className="mySwiper2"
+                    >
                         {
-                            [1, 2, 3, 4, 5, 6, 7, 8].map((item) => <GroupItem>
+                            [1, 2, 3, 4, 5, 6].map((item) => <GroupItem>
                                 <Goods />
                             </GroupItem>)
                         }
                     </GroupProject>
-                    <Group>
-                        <NFTTitle>最佳卖家</NFTTitle>
-                    </Group>
-                    <UserList>
-                        {
-                            [1, 2, 3, 4, 5, 6, 7, 8].map((item) => <UserItem>
-                                <UserContent >
-                                    <UserImg src={NFT1Png} />
-                                    <UserName>Otto</UserName>
-                                    <UserAmount>156 ETH</UserAmount>
-                                </UserContent>
-                            </UserItem>)
-                        }
-                    </UserList>
+                    <div style={{ display: "none" }}>
+                        <Group>
+                            <NFTTitle>最佳卖家</NFTTitle>
+                        </Group>
+                        <UserList>
+                            {
+                                [1, 2, 3, 4, 5, 6].map((item) => <UserItem>
+                                    <UserContent >
+                                        <UserImg src={NFT1Png} />
+                                        <UserName>Otto</UserName>
+                                        <UserAmount>156 ETH</UserAmount>
+                                    </UserContent>
+                                </UserItem>)
+                            }
+                        </UserList>
+                    </div>
 
                     <Group>
                         <NFTTitle>最新</NFTTitle>
                     </Group>
-                    <GroupProject>
+                    <GroupProject
+                        slidesPerView={6}
+                        spaceBetween={0}
+                        navigation={true}
+                        modules={[Navigation]}
+                        className="mySwiper3"
+                    >
                         {
-                            [1, 2, 3, 4, 5, 6, 7, 8].map((item) => <GroupItem>
+                            [1, 2, 3, 4, 5, 6].map((item) => <GroupItem>
                                 <Goods />
                             </GroupItem>)
                         }
@@ -550,11 +677,12 @@ export default function Main() {
                 </NFTContent>
 
             </Group>
+            <Bg />
             <Bg1 />
             <Bg2 />
             <Bg3 />
             <Bg4 />
-        </Container>
+        </Container >
 
     )
 }
