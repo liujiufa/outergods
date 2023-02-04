@@ -15,6 +15,7 @@ import projectImg from '../assets/image/projectImg.png'
 import feedesIcon from '../assets/image/feedesIcon.png'
 import { Modal } from 'antd';
 import { useTranslation } from 'react-i18next'
+import StepSaleNFTModal from './StepSaleNFTModal'
 
 interface PropsType {
   isShow: boolean,
@@ -40,6 +41,7 @@ export default function ScreenModal(props: any) {
   const [expand1, setExpand1] = useState(true);
   const [expand2, setExpand2] = useState(true);
   const [expand3, setExpand3] = useState(true);
+  const [stepSaleNFTModal, setStepSaleNFTModal] = useState(false);
   let [ProjectList, setProjectList] = useState<ProjectType[]>([])
   let [ScreenInfo, setScreenInfo] = useState({
     min: 0,
@@ -59,7 +61,6 @@ export default function ScreenModal(props: any) {
     fun(!value);
   }
   function changeScreenInfo(e: React.ChangeEvent<HTMLInputElement> | string) {
-    // console.log(e)
     if (typeof e === 'string') {
       setScreenInfo({
         ...ScreenInfo,
@@ -72,6 +73,11 @@ export default function ScreenModal(props: any) {
         [name as string]: e.target.value
       })
     }
+  }
+
+  let [price, setPrice] = useState<string>('')
+  function ChangeNum(e: React.ChangeEvent<HTMLInputElement>) {
+    setPrice(e.target.value)
   }
 
   let typeMap = [
@@ -90,31 +96,35 @@ export default function ScreenModal(props: any) {
       }
     </Menu>
   );
-
+  let tokenMap = [
+    {
+      key: 'ETH',
+      icon: ETHCoinIcon,
+      value: 'ETH'
+    },
+    {
+      key: 'BTC',
+      icon: BTCIcon,
+      value: 'BTC'
+    },
+    {
+      key: 'USDT',
+      icon: USDTIcon,
+      value: 'USDT'
+    },
+  ]
+  let [tokenIndex, setTokenIndex] = useState(0)
   const coinType = (
-    <Menu>
-      <Menu.Item className='coinMenu'>
-        <div className="coinKind">
-          <img src={ETHCoinIcon} alt="" /> <div>ETH</div>
-        </div>
-      </Menu.Item>
-      <Menu.Item className='coinMenu'>
-        <div className="coinKind">
-          <img src={BTCIcon} alt="" /> <div>BTC</div>
-        </div>
-      </Menu.Item>
-      <Menu.Item className='coinMenu'>
-        <div className="coinKind">
-          <img src={USDTIcon} alt="" /> <div>USDT</div>
-        </div>
-      </Menu.Item>
+    <Menu onClick={() => handleDropDown(setExpand2, expand2)}>
+      {
+        tokenMap.map((item, index) => <Menu.Item key={index} onClick={() => { setTokenIndex(index) }} className="coinMenu">
+          <div className="coinKind">
+            <img src={item.icon} alt="" /> <div>{item.key}</div>
+          </div>
+        </Menu.Item>)
+      }
     </Menu>
   );
-  let [coinTypeIndex, setCoinTypeIndex] = useState(0)
-
-
-
-
   let dayMap = [
     {
       key: t('7 Days'),
@@ -150,7 +160,6 @@ export default function ScreenModal(props: any) {
 
   const { run } = useDebounceFn(changeProjectSearch)
   function changeProjectSearch(e: React.ChangeEvent<HTMLInputElement>) {
-
     getProjectByName(e.target.value).then(res => {
       setProjectList(res.data)
       // console.log('项目名称搜索结果',res)
@@ -178,7 +187,7 @@ export default function ScreenModal(props: any) {
             <div className="MarketSearchRow">
               <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)} >
                 <div className="search">
-                  <div className="searchBox">一口价</div>
+                  <div className="searchBox">{typeMap[typeIndex].key}</div>
                   <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                 </div>
               </Dropdown>
@@ -192,14 +201,14 @@ export default function ScreenModal(props: any) {
               <div className="MarketSearchRow">
                 <Dropdown overlay={coinType} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand2, expand2)}>
                   <div className="search">
-                    <div className="searchBox"><img src={ETHCoinIcon} alt="" /><div className="coinName"> ETH</div></div>
+                    <div className="searchBox"><img src={tokenMap[tokenIndex].icon} alt="" /><div className="coinName">{tokenMap[tokenIndex].key}</div></div>
                     <img className={expand2 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                   </div>
                 </Dropdown>
               </div>
             </div>
             <div className="right">
-              <input type="number" placeholder='0.00' />
+              <input type="number" value={price} onChange={ChangeNum} placeholder='0.00' />
             </div>
           </div>
         </div>
@@ -210,7 +219,7 @@ export default function ScreenModal(props: any) {
             <div className="MarketSearchRow">
               <Dropdown overlay={dayMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand3, expand3)}>
                 <div className="search">
-                  <div className="searchBox">7天</div>
+                  <div className="searchBox">{dayMap[dayIndex].key}</div>
                   <img className={expand3 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                 </div>
               </Dropdown>
@@ -219,18 +228,15 @@ export default function ScreenModal(props: any) {
         </div>
 
         <div className="fee">
-          <div className="feeTitle">手续费 8%</div>
+          <div className="feeTitle">{t('Fees 8%')}</div>
           <img src={feedesIcon} />
         </div>
         <div className="feeTip">
-          费用说明：平台收取5%，创作者收取3%
+          {t('Fees: 5% for platforms and 3% for creators')}
         </div>
-
-
         <div className="ManageModalFooter">
-          {false ? <div className="confirmBtn flexCenter">出售</div> : <div className="confirmBtn flexCenter">出售</div>}
+          {true ? <div className="confirmBtn flexCenter" onClick={() => { props.saleFun(price, typeMap[typeIndex].value, tokenMap[tokenIndex].value, dayMap[dayIndex].value) }}>出售</div> : <div className="confirmBtn flexCenter">出售</div>}
         </div>
-
       </div>
 
       {/* 步骤 */}
@@ -242,6 +248,7 @@ export default function ScreenModal(props: any) {
 
         </div>
       </div>
+      {/* <StepSaleNFTModal isShow={stepSaleNFTModal} close={() => { setStepSaleNFTModal(false) }} ></StepSaleNFTModal> */}
     </Modal>
   )
 }

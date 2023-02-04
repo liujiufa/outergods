@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Menu, Dropdown } from 'antd';
 import { getProjectByName } from '../API'
 import { useDebounceFn } from 'ahooks'
@@ -20,6 +20,8 @@ import lockedIcon from '../assets/image/lockedIcon.png'
 import paddingIcon from '../assets/image/paddingIcon.png'
 import { Modal } from 'antd';
 import { useTranslation } from 'react-i18next'
+import { useWeb3React } from '@web3-react/core'
+import { Contracts } from '../web3'
 
 interface PropsType {
   isShow: boolean,
@@ -41,9 +43,11 @@ interface ProjectType {
   img: string
 }
 export default function ScreenModal(props: any) {
-  // 控制图标上下
-  const [expand1, setExpand1] = useState(true);
+  const [stepState, setStepState] = useState(true);
+  let [approveAddr, setApproveAddr] = useState<boolean>(false)
   let [ProjectList, setProjectList] = useState<ProjectType[]>([])
+  const web3React = useWeb3React()
+
   let [ScreenInfo, setScreenInfo] = useState({
     min: 0,
     max: 0,
@@ -57,77 +61,21 @@ export default function ScreenModal(props: any) {
     pageSize: 10
   })
   let { t } = useTranslation();
-  // 下拉图标旋转
-  const handleDropDown = (fun: any, value: boolean) => {
-    fun(!value);
-  }
-  function changeScreenInfo(e: React.ChangeEvent<HTMLInputElement> | string) {
-    // console.log(e)
-    if (typeof e === 'string') {
-      setScreenInfo({
-        ...ScreenInfo,
-        projectName: e
-      })
-    } else {
-      let name = e.target.getAttribute('name')
-      setScreenInfo({
-        ...ScreenInfo,
-        [name as string]: e.target.value
-      })
-    }
-  }
-  let typeMap = [
-    {
-      key: t('All'),
-      value: -1
-    },
-    {
-      key: t('Fixed Price'),
-      value: 0
-    }
-  ]
-  const typeMenu = (
-    <Menu>
-      <Menu.Item>全部</Menu.Item>
-      <Menu.Item>全部</Menu.Item>
-    </Menu>
-  );
-  const coinType = (
-    <Menu>
-      <Menu.Item>
-        <img src={ETHCoinIcon} alt="" />ETH
-      </Menu.Item>
-      <Menu.Item>
-        <img src={BTCIcon} alt="" />BTC
-      </Menu.Item>
-      <Menu.Item>
-        <img src={USDTIcon} alt="" />USDT
-      </Menu.Item>
-    </Menu>
-  );
-  let [typeIndex, setTypeIndex] = useState(0)
-  let sortMap = [
-    {
-      key: t('Newest'),
-      value: 1
-    },
-    {
-      key: t('Price: High to Low'),
-      value: 2
-    },
-    {
-      key: t('Price: Low to High'),
-      value: 3
-    }
-  ]
   const { run } = useDebounceFn(changeProjectSearch)
   function changeProjectSearch(e: React.ChangeEvent<HTMLInputElement>) {
-
     getProjectByName(e.target.value).then(res => {
       setProjectList(res.data)
       // console.log('项目名称搜索结果',res)
     })
   }
+
+  useEffect(() => {
+    if (props.data.tokenId && web3React.account) {
+      Contracts.example.getapproveMarket(web3React.account, props.data.tokenAddress).then((res: boolean) => {
+        setApproveAddr(res)
+      })
+    }
+  }, [props.data.tokenId, web3React.account])
 
   return (
     <Modal visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={790} className="StepSaleNFTModal">
@@ -137,7 +85,7 @@ export default function ScreenModal(props: any) {
       <div className="goodsTitle">
         出售你的物品
       </div>
-      <div className="stepBox">
+      <div className="stepBox" onClick={() => { setStepState(!stepState) }}>
         <div className="step">
           <div className="title">1.许可NFT</div>
           <div className="coinBox">
@@ -145,11 +93,15 @@ export default function ScreenModal(props: any) {
             <img src={openIconBlack} alt="" />
           </div>
         </div>
-        {false ? <div className='approveBox'>
+        {stepState ? <div className='approveBox'>
           <div className="approveTip">我们需要您许可市场访问您的NFT。这是一个一次性的操作。</div>
-          <div className="approveBtn flexCenter">
-            <img src={lockedIcon} alt="" /> 许可
-          </div>
+          {
+            approveAddr ? <div className="approveBtn flexCenter" onClick={() => { }}>
+              <img src={lockedIcon} alt="" /> 许可
+            </div> : <div className="approveBtn flexCenter" onClick={() => { }}>
+              <img src={lockedIcon} alt="" /> 许可
+            </div>
+          }
         </div> : <div className="lineBox"><div className='line'></div></div>}
         <div className="step">
           <div className="title">2.确认上架</div>
@@ -158,7 +110,7 @@ export default function ScreenModal(props: any) {
             <img src={openIconBlack} alt="" />
           </div>
         </div>
-        {true && <div className='approveBox'>
+        {!stepState && <div className='approveBox'>
           <div className="approveTip">用您的出售信息完成签名请求。</div>
           {true ? <div className="approveBtn flexCenter">
             签名
@@ -167,8 +119,6 @@ export default function ScreenModal(props: any) {
           </div>}
         </div>}
       </div>
-
-
     </Modal >
   )
 }

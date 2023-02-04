@@ -106,6 +106,7 @@ export default function NFTDetails() {
                     res.data.metadata = obj
                     res.data.normalizedMetadata = JSON.parse(res.data.normalizedMetadata)
                 }
+                console.log(res.data);
                 setOrderDetail(res.data)
                 if (state.token) {
                     getUserOrder(res.data.userAddress).then(res => {
