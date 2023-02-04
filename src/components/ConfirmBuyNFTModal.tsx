@@ -37,12 +37,11 @@ interface ProjectType {
   img: string
 }
 export default function ScreenModal(props: any) {
+  console.log(props.NFTInfo, "NFT详情购买");
   const web3React = useWeb3React()
   const dispatch = useDispatch();
   let [showBuySuccess, setShowBuySuccess] = useState<boolean>(false)
-
   let [approveNum, setApproveNum] = useState<string>('0')
-
   let [ProjectList, setProjectList] = useState<ProjectType[]>([])
   let [ScreenInfo, setScreenInfo] = useState({
     min: 0,
@@ -87,19 +86,6 @@ export default function ScreenModal(props: any) {
     }
   ]
   let [typeIndex, setTypeIndex] = useState(0)
-  const typeMenu = (
-    <Menu>
-      <Menu.Item>
-        <img src={ETHCoinIcon} alt="" />ETH
-      </Menu.Item>
-      <Menu.Item>
-        <img src={BTCIcon} alt="" />BTC
-      </Menu.Item>
-      <Menu.Item>
-        <img src={USDTIcon} alt="" />USDT
-      </Menu.Item>
-    </Menu>
-  );
   let IsSuitMap = [
     {
       key: t('All'),
@@ -144,21 +130,6 @@ export default function ScreenModal(props: any) {
       value: 1
     }
   ]
-  let [goodTypeIndex, setGoodTypeIndex] = useState(0)
-
-  function submit() {
-    props.changeScreen({
-      bidType: typeMap[typeIndex].value,
-      type: goodTypeMap[goodTypeIndex].value,
-      projectName: ScreenInfo.projectName,
-      minPrice: ScreenInfo.min,
-      maxPrice: ScreenInfo.max,
-      sortType: sortMap[sortIndex].value,
-      currentPage: 1,
-      pageSize: 10
-    }, typeIndex, sortIndex)
-    props.close()
-  }
   const { run } = useDebounceFn(changeProjectSearch)
   function changeProjectSearch(e: React.ChangeEvent<HTMLInputElement>) {
 
@@ -169,6 +140,8 @@ export default function ScreenModal(props: any) {
   }
 
   async function buyOrder() {
+    console.log("_______deede________");
+    
     if (props.NFTInfo) {
       let Balance
       if (props.NFTInfo.coinName !== 'BNB') {
@@ -229,12 +202,8 @@ export default function ScreenModal(props: any) {
   useEffect(() => {
     console.log(props.NFTInfo, '-------');
     if (web3React.account && props.NFTInfo?.payTokenAddress) {
-      console.log("BNB12");
       if (props.NFTInfo?.coinName !== "BNB") {
-        console.log("BNB");
         Contracts.example.TOKENallowance(web3React.account, contractAddress.Market, props?.NFTInfo?.payTokenAddress as string).then((res: string) => {
-          console.log(res);
-
           setApproveNum(new BigNumber(res).div(10 ** 18).toString())
         })
       }

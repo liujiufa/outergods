@@ -98,6 +98,11 @@ export default function ScreenModal(props: any) {
   );
   let tokenMap = [
     {
+      key: 'USDT',
+      icon: USDTIcon,
+      value: 'USDT'
+    },
+    {
       key: 'ETH',
       icon: ETHCoinIcon,
       value: 'ETH'
@@ -106,12 +111,7 @@ export default function ScreenModal(props: any) {
       key: 'BTC',
       icon: BTCIcon,
       value: 'BTC'
-    },
-    {
-      key: 'USDT',
-      icon: USDTIcon,
-      value: 'USDT'
-    },
+    }
   ]
   let [tokenIndex, setTokenIndex] = useState(0)
   const coinType = (

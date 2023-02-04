@@ -11,7 +11,17 @@ import USDTIcon from '../assets/image/USDT.png'
 import projectImg from '../assets/image/projectImg.png'
 import { Modal } from 'antd';
 import { useTranslation } from 'react-i18next'
-
+import { createAddMessageAction, createSetLodingAction } from '../store/actions'
+import { useSelector, useDispatch } from "react-redux";
+import { updateOrderPrice } from '../API'
+import { useWeb3React } from '@web3-react/core'
+import { useNavigate } from "react-router-dom";
+import { stateType } from '../store/reducer'
+import { JudgmentNumber } from '../utils/tool'
+import { Contracts } from '../web3'
+import BigNumber from 'big.js'
+BigNumber.NE = -40
+BigNumber.PE = 40
 interface PropsType {
   isShow: boolean,
   close: Function,
@@ -32,14 +42,10 @@ interface ProjectType {
   img: string
 }
 export default function ScreenModal(props: any) {
+  console.log(props);
+
   // 控制图标上下
   const [expand1, setExpand1] = useState(true);
-  const [expand7, setExpand7] = useState(true);
-  const [expand8, setExpand8] = useState(true);
-  const [expand9, setExpand9] = useState(true);
-
-
-  let [ProjectList, setProjectList] = useState<ProjectType[]>([])
   let [ScreenInfo, setScreenInfo] = useState({
     min: 0,
     max: 0,
@@ -52,7 +58,44 @@ export default function ScreenModal(props: any) {
     currentPage: 1,
     pageSize: 10
   })
+
+
+  const web3React = useWeb3React()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   let { t } = useTranslation();
+
+  let state = useSelector<stateType, stateType>(state => state);
+  let [price, setPrice] = useState('')
+  function changePrice() {
+    if (new BigNumber(price).lte(0)) {
+      return dispatch(createAddMessageAction(t('Please enter the price')))
+    }
+    if (JudgmentNumber(price)) {
+      return dispatch(createAddMessageAction(t('Please enter legal precision')))
+    }
+    dispatch(createSetLodingAction(true))
+    Contracts.example.Sign(web3React.account as string, "askdljalksnmzxncajkwhdiaowhdajkhsdjkahsdkjhakjwhjdkahwjkdhajkdhakjsdhjkahsdjkawhdjkahsjmcnbzmxbcjiwahjdah" + props.tokenId).then((res: string) => {
+      updateOrderPrice({
+        id: props.orderId,
+        price: price,
+        encipheredMessage: "askdljalksnmzxncajkwhdiaowhdajkhsdjkahsdkjhakjwhjdkahwjkdhajkdhakjsdhjkahsdjkawhdjkahsjmcnbzmxbcjiwahjdah" + props.tokenId,
+        encipheredData: res
+      }).then(res => {
+        // console.log(res)
+        navigate(-1)
+        dispatch(createAddMessageAction(t('Modification succeeded')))
+      }).catch(() => {
+        dispatch(createAddMessageAction(t('Modification succeeded')))
+      })
+    }).finally(() => {
+      dispatch(createSetLodingAction(false))
+    })
+  }
+  function inputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setPrice(e.target.value)
+  }
+
   // 下拉图标旋转
   const handleDropDown = (fun: any, value: boolean) => {
     fun(!value);
@@ -83,86 +126,36 @@ export default function ScreenModal(props: any) {
     }
   ]
   let [typeIndex, setTypeIndex] = useState(0)
-  const typeMenu = (
-    <Menu>
-      <Menu.Item>
-        <img src={ETHCoinIcon} alt="" />ETH
-      </Menu.Item>
-      <Menu.Item>
-        <img src={BTCIcon} alt="" />BTC
-      </Menu.Item>
-      <Menu.Item>
-        <img src={USDTIcon} alt="" />USDT
-      </Menu.Item>
+
+  let tokenMap = [
+    {
+      key: 'USDT',
+      icon: USDTIcon,
+      value: 'USDT'
+    },
+    {
+      key: 'ETH',
+      icon: ETHCoinIcon,
+      value: 'ETH'
+    },
+    {
+      key: 'BTC',
+      icon: BTCIcon,
+      value: 'BTC'
+    }
+  ]
+  let [tokenIndex, setTokenIndex] = useState(0)
+  const coinType = (
+    <Menu onClick={() => handleDropDown(setExpand1, expand1)}>
+      {
+        tokenMap.map((item, index) => <Menu.Item key={index} onClick={() => { setTokenIndex(index) }} className="coinMenu">
+          <div className="coinKind">
+            <img src={item.icon} alt="" /> <div>{item.key}</div>
+          </div>
+        </Menu.Item>)
+      }
     </Menu>
   );
-  let IsSuitMap = [
-    {
-      key: t('All'),
-      value: 0
-    },
-    {
-      key: t('Bundle'),
-      value: 1
-    },
-    {
-      key: t('Single Item'),
-      value: 2
-    }
-  ]
-  let sortMap = [
-    {
-      key: t('Newest'),
-      value: 1
-    },
-    {
-      key: t('Price: High to Low'),
-      value: 2
-    },
-    {
-      key: t('Price: Low to High'),
-      value: 3
-    }
-  ]
-  let [sortIndex, setSortIndex] = useState(0)
-
-  let goodTypeMap = [
-    {
-      key: t('All'),
-      value: -1
-    },
-    {
-      key: 'NFT',
-      value: 2
-    },
-    {
-      key: t('Blind Box'),
-      value: 1
-    }
-  ]
-  let [goodTypeIndex, setGoodTypeIndex] = useState(0)
-
-  function submit() {
-    props.changeScreen({
-      bidType: typeMap[typeIndex].value,
-      type: goodTypeMap[goodTypeIndex].value,
-      projectName: ScreenInfo.projectName,
-      minPrice: ScreenInfo.min,
-      maxPrice: ScreenInfo.max,
-      sortType: sortMap[sortIndex].value,
-      currentPage: 1,
-      pageSize: 10
-    }, typeIndex, sortIndex)
-    props.close()
-  }
-  const { run } = useDebounceFn(changeProjectSearch)
-  function changeProjectSearch(e: React.ChangeEvent<HTMLInputElement>) {
-
-    getProjectByName(e.target.value).then(res => {
-      setProjectList(res.data)
-      // console.log('项目名称搜索结果',res)
-    })
-  }
 
   return (
     <Modal visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={566} className="ManageModal">
@@ -175,23 +168,23 @@ export default function ScreenModal(props: any) {
         <div className="dropDownBox">
           <div className="left">
             <div className="MarketSearchRow">
-              <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
+              <Dropdown overlay={coinType} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
                 <div className="search">
-                  <div className="searchBox"><img src={ETHCoinIcon} alt="" /><div className="coinName"> ETH</div></div>
+                  <div className="searchBox"><img src={tokenMap[tokenIndex].icon} alt="" /><div className="coinName">{tokenMap[tokenIndex].key}</div></div>
                   <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                 </div>
               </Dropdown>
             </div>
           </div>
           <div className="right">
-            <input type="number" placeholder='0.00' />
+            <input type="number" onChange={inputChange} placeholder='0.00' />
           </div>
         </div>
       </div>
-      <div className="bottomTip">费用说明：平台收取5%，创作者收取3%</div>
-
+      <div className="Service">{t('Fees 8%')}</div>
+      <div className="bottomTip">{t('Fees: 5% for platforms and 3% for creators')}</div>
       <div className="ManageModalFooter">
-        <div className="enterBtn flexCenter">更新</div>
+        <div className="enterBtn flexCenter" onClick={changePrice}>更新</div>
       </div>
     </Modal>
   )

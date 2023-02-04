@@ -92,9 +92,7 @@ export default function NFTDetails() {
     useEffect(() => {
         if (ID && state.token && tokenAddress) {
             getNftUserInfoDetail(tokenAddress, ID).then(res => {
-                console.log(res, "nft详情")
                 setTokenId(res.data.tokenId)
-                // setTokenId(res.data.tokenId)
                 if (res.data.metadata) {
                     res.data.metadata = JSON.parse(res.data.metadata)
                     let obj: { [key: string]: string; } = {}
@@ -106,7 +104,7 @@ export default function NFTDetails() {
                     res.data.metadata = obj
                     res.data.normalizedMetadata = JSON.parse(res.data.normalizedMetadata)
                 }
-                console.log(res.data);
+                console.log(res.data, 'NFT详情');
                 setOrderDetail(res.data)
                 if (state.token) {
                     getUserOrder(res.data.userAddress).then(res => {

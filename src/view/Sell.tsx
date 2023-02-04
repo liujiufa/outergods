@@ -183,16 +183,11 @@ export default function Sell(): JSX.Element {
   }
   function setHead() {
     updateUserImage(OrderDetail?.tokenId as string).then(res => {
-      // console.log("设置头像",res)
       dispatch(createAddMessageAction(t('Set successfully')))
     })
   }
   function FullScreen() {
     setShowFullScreen(true)
-    // const full = document.getElementById('nftImg')
-    // if(full){
-    //     full.requestFullscreen()
-    // }
   }
   function goProject() {
     if (OrderDetail) {
