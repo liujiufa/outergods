@@ -41,14 +41,13 @@ export default function SellModal(props: PropsType) {
   let { t } = useTranslation();
 
   useEffect(() => {
-    console.log(props.data.tokenAddress, "授权交易场address");
-    if (props.data.tokenId && web3React.account) {
+    if (web3React.account) {
       Contracts.example.getapproveMarket(web3React.account, props.data.tokenAddress).then((res: boolean) => {
         setApproveAddr(res)
         // console.log(res,"721授权的地址")
       })
     }
-  }, [props.data.tokenId, web3React.account])
+  }, [web3React.account])
   let typeMap = [
     {
       key: t('Fixed Price'),

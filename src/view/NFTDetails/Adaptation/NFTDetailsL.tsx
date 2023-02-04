@@ -16,11 +16,12 @@ import './NFTDetailsL.scss'
 import { Fragment, useState } from 'react'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import Goods, { NftInfo } from '../../../components/HotspotCard'
+import { useSearchParams, useNavigate } from "react-router-dom";
 import ManageModal from '../../../components/ManageModal'
 import CancelSaleModal from '../../../components/CancelSaleModal'
 import ConfirmBuyModal from '../../../components/ConfirmBuyModal'
 import SaleNFTModal from '../../../components/SaleNFTModal'
-import StepSaleNFTModal from '../../../components/StepSaleNFTModal'
+import SaleModal from '../../../components/SaleModal'
 
 import defaultCard from '../../../assets/image/defaultCard.png'
 import { useWeb3React } from '@web3-react/core'
@@ -30,13 +31,13 @@ const TABS = ["描述",
     "属性",
     "信息"
 ]
-
 export default function NFTDetailsL({
     OrderDetail,
     CopyLink,
     attrOrInfo,
     NFTTypeDetail
 }: any) {
+
     const web3React = useWeb3React()
     const [tabIndex, setTabIndex] = useState(0)
     const [expand1, setExpand1] = useState(true)
@@ -57,6 +58,12 @@ export default function NFTDetailsL({
         range: "-254"
 
     }])
+    const [params] = useSearchParams();
+
+    let ID = params.get('ID')
+    let tokenAddress = params.get('tokenAddress')
+    let owner_of = params.get('owner_of')
+
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
     }
@@ -66,8 +73,6 @@ export default function NFTDetailsL({
             <Menu.Item>全部</Menu.Item>
         </Menu>
     );
-
-    console.log("web3React.account", web3React.account)
 
     return (
         <div className="NFTDetailsPage">
@@ -344,8 +349,7 @@ export default function NFTDetailsL({
             <ManageModal isShow={false} close={() => { setManageModal(false) }} ></ManageModal>
             <CancelSaleModal isShow={false} close={() => { setManageModal(false) }} ></CancelSaleModal>
             <ConfirmBuyModal isShow={false} close={() => { setManageModal(false) }} ></ConfirmBuyModal>
-            <SaleNFTModal isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} ></SaleNFTModal>
-            <StepSaleNFTModal isShow={false} close={() => { setManageModal(false) }} ></StepSaleNFTModal>
+            {OrderDetail && <SaleModal isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress }}></SaleModal>}
         </div>
     )
 }

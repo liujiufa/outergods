@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
-
 import React, { useEffect, useState } from 'react'
 import GoodsCard, { NftInfo } from '../components/HotspotCard'
 import SellModal from '../components/SellModal'
@@ -31,7 +30,6 @@ import TableGoodsImg from '../assets/image/TableGoodsImg.png'
 import defaultCard from '../assets/image/defaultCard.png'
 import '../assets/style/GoodsDetial.scss'
 const { Column } = Table;
-
 
 interface NormalizedMetadataType {
   attributes: []
