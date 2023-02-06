@@ -180,10 +180,10 @@ export default function NFTDetailsL({
             })
         }
     }, [ID, state.token, tokenAddress, tokenId])
+
     useEffect(() => {
         if (tokenId && OrderNFTDetail && OrderNFTDetail.tokenAddress) {
             getNftOrderState(tokenId, -1, OrderNFTDetail.tokenAddress).then(res => {
-                console.log(res, "nft动态1")
                 setTableData(res.data)
             })
         }
@@ -237,6 +237,21 @@ export default function NFTDetailsL({
                                     </div>
                                 </div>}
                         </div>
+
+                        {/* <div className='left'>
+                            {
+                                OrderDetail && <img
+                                    id="nftImg"
+                                    src={OrderDetail.normalizedMetadata.image || defaultCard}
+                                    onError={(e: any) => {
+                                        // 替换的图片
+                                        e.target.src = defaultCard;
+                                        // 控制不要一直触发错误
+                                        e.onError = null;
+                                    }}
+                                    alt="" />
+                            }
+                        </div> */}
 
                         {/* 出售 */}
                         {

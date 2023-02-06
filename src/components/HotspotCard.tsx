@@ -169,7 +169,7 @@ export default function HotspotCard(props: any) {
           <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
         </div> : <div className="cardBottomBox">
           <div className="cardPrice">
-          <img src={BNBIcon} alt="" /> {props.NftInfo?.floorPrice || '0'} USDT <span>({props.NftInfo?.uprice || 0})</span>
+          <img src={BNBIcon} alt="" /> {decimalNum(props.NftInfo?.floorPrice || '0', 2)} USDT <span>({decimalNum(props.NftInfo?.uprice || 0, 2)})</span>
           </div>
         </div>
       }

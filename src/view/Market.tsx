@@ -237,10 +237,10 @@ export default function Market(): JSX.Element {
             TradeOrder.length > 0 ?
               <>
                 <div className="goodsList">
-                  {TradeOrder.map((item, index) => 
-                                <div className="usernft">
-                  <Goods key={index} NftInfo={item} buyBtnFun={() => { buyBtnFun(item) }} tag="Market" goPath={() => { goPath(item) }}></Goods>
-                  </div>
+                  {TradeOrder.map((item, index) =>
+                    <div className="usernft">
+                      <Goods key={index} NftInfo={{...item, floorPrice: item.price}} buyBtnFun={() => { buyBtnFun(item) }} tag="Market" goPath={() => { goPath(item) }}></Goods>
+                    </div>
                   )}
                 </div>
                 <div className="LoadMore pointer flexCenter" onClick={LoadMore}>{t('Load More')}  {'>'}</div>
