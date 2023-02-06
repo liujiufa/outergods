@@ -460,6 +460,7 @@ export default function Main() {
     const [activeIndex, setActiveIndex] = useState(0)
     const [idxGroup, setIdxGroup] = useState<{ index: number; posi: number; }[]>([])
     const [hostList, setHostList] = useState<any[]>([])
+    const [tradeList, setTradeList] = useState<any[]>([])
 
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
@@ -508,10 +509,16 @@ export default function Main() {
 
     const init = useCallback(
         async () => {
-            Promise.all([getHoTProject(), getTradeLast()]).then((res) => {
-                const [res1, res2] = res
-                const [hostProject, tradeLast] = [res1.data, res2.data]
+            Promise.all([getHoTProject()]).then((res) => {
+                const [res1] = res
+                const [hostProject] = [res1.data]
                 setHostList([0, 0, 0, 0, hostProject[0], 0])
+            })
+            Promise.all([getTradeLast()]).then((res) => {
+                const [res1] = res
+                const [tradeLast] = [res1.data]
+                console.log("tradeLast", tradeLast)
+                setTradeList([0, 0, 0, tradeLast[0], tradeLast[1], 0])
             })
         },
         []
@@ -633,8 +640,10 @@ export default function Main() {
                     <GroupProject
                     >
                         {
-                            [1, 2, 3, 4, 5, 6].map((item) => <GroupItem>
-                                <Goods />
+                            tradeList.map((item) => <GroupItem>
+                                {
+                                    !!item ? <Goods NftInfo={{ ...item, priceJson: JSON.parse(item.priceJson || JSON.stringify("")), uprice: item.uorderPrice, metadata: JSON.parse(item.metaData || JSON.stringify("")) }} /> : <Goods />
+                                }
                             </GroupItem>)
                         }
                     </GroupProject>
@@ -661,8 +670,10 @@ export default function Main() {
                     <GroupProject
                     >
                         {
-                            [1, 2, 3, 4, 5, 6].map((item) => <GroupItem>
-                                <Goods />
+                            tradeList.map((item) => <GroupItem>
+                                {
+                                    !!item ? <Goods NftInfo={{ ...item, uprice: item.uorderPrice, metadata: JSON.parse(item.metaData || JSON.stringify("")) }} /> : <Goods />
+                                }
                             </GroupItem>)
                         }
                     </GroupProject>

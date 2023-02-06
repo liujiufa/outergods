@@ -19,6 +19,7 @@ import testNFT from '../assets/image/testNFT.png'
 import NftCardImagePng from '../assets/image/nftCardImage.png'
 import NFT1Png from '../assets/image/nftGroup/nft1.png'
 import moreBtnIcon from '../assets/image/moreBtnIcon.png'
+import { decimalNum } from '../utils/decimalNum';
 
 
 export interface NftItem {
@@ -120,6 +121,9 @@ export default function HotspotCard(props: any) {
     amount: "111"
   }]
 
+
+  console.log("PROPS", props)
+
   return (
     <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }} onClick={(e) => { props.goPath(); e.stopPropagation(); }}>
       <div className="imgBox" style={{ borderRadius: "20px 20px 45px 0px" }} onMouseEnter={(e) => { BuyNFTFun(e) }} onMouseLeave={() => { setActiveBuyMenu(false) }}>
@@ -136,7 +140,7 @@ export default function HotspotCard(props: any) {
         {/* <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }}> */}
         <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }}>
           {props.NftInfo?.name || "XXXXXXXXX"}
-          <div className="hover-show-card">
+          <div className="hover-show-card"  style={{display: "none"}}>
             <img className="hover-show-card-img" src={NftCardImagePng} />
             <div className="hover-show-card-content">
               <div className="hover-show-card-content-top">
@@ -167,7 +171,7 @@ export default function HotspotCard(props: any) {
           <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
         </div> : <div className="cardBottomBox">
           <div className="cardPrice">
-            <img src={BNBIcon} alt="" /> {props.NftInfo?.FloorPriceDouble || '0'} BNB <span>({props.NftInfo?.uprice || 0})</span>
+            <img src={BNBIcon} alt="" /> {props.NftInfo?.FloorPriceDouble || '0'} {props.NftInfo?.coinName || "BNB"} <span>({decimalNum(props.NftInfo?.uprice || 0, 2)})</span>
           </div>
         </div>
       }

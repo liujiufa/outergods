@@ -100,8 +100,11 @@
 .goodsList {
     width: 100%;
     max-width: 1440px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
     margin: 40px auto 40px;
-    justify-content: center;
     .usernft {
         width: 25%;
         padding: 16px;
