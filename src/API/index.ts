@@ -156,7 +156,7 @@ export function getOrderByProject(projectId: string) {
         method: 'get'
     })
 }
-/* 获取收藏的nft详情 */
+/* 获取nft详情 */
 export function getNftUserInfoDetail(tokenAddress: string, tokenId: string) {
     return axois.request({
         url: `/user/uUser/getNftUserInfoDetail/${tokenAddress}/${tokenId}`,
@@ -192,6 +192,7 @@ interface createOrderType {
 }
 /* 创建订单 */
 export function createOrder(data: createOrderType) {
+    console.log(data,"创建订单");
     return axois.request({
         url: `/user/nNftOrder/createOrder`,
         method: 'post',
@@ -209,6 +210,8 @@ interface upPrice {
 }
 /* 获取项目详情 */
 export function updateOrderPrice(data: upPrice) {
+    console.log(data);
+    
     return axois.request({
         url: `/user/nNftOrder/updateOrderPrice`,
         method: 'post',

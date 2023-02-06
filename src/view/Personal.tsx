@@ -184,9 +184,9 @@ export default function Personal(): JSX.Element {
         if (goods.status === 0) {
             return navigate(`/NFTDetails?ID=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
         }
-        /* 挂卖中去商品详情页改价，撤单 */
+        /* 挂卖中去商品详情页改价 */
         if (goods.status === 1) {
-            return navigate('/Goods?orderId=' + goods.orderId)
+            return navigate(`/NFTDetails?ID=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=1`)
         }
     }
     function copyUserAddr() {

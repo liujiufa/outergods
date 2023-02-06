@@ -120,7 +120,7 @@ export default function ScreenModal(props: any) {
         encipheredMessage: "askdljalksnmzxncajkwhdiaowhdajkhsdjkahsdkjhakjwhjdkahwjkdhajkdhakjsdhjkahsdjkawhdjkahsjmcnbzmxbcjiwahjdah" + props.data.tokenId,
         encipheredData: res
       }).then((res: any) => {
-        // console.log(res,"挂单结果")
+        console.log(res,"挂单结果")
         if (res.code === 200) {
           navigate('/Market')
           dispatch(createAddMessageAction(t('Listed')))
@@ -179,7 +179,7 @@ export default function ScreenModal(props: any) {
           </div>
           {!stepState && <div className='approveBox'>
             <div className="approveTip">用您的出售信息完成签名请求。</div>
-            {true ? <div className="approveBtn flexCenter">
+            {true ? <div className="approveBtn flexCenter" onClick={() => { saleStepFun2() }}>
               签名
             </div> : <div className="approveBtn paddingBtn flexCenter">
               <img src={paddingIcon} alt="" /> 等待交易

@@ -119,15 +119,15 @@ export default function HotspotCard(props: any) {
   }]
 
   return (
-    <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }}>
+    <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }} onClick={() => { props.goPath() }}>
       <div className="imgBox" style={{ borderRadius: "20px 20px 45px 0px" }} onMouseEnter={(e) => { BuyNFTFun(e) }} onMouseLeave={() => { setActiveBuyMenu(false) }}>
         {/* {activeBuyMenu && <div className="buyBtn flexCenter">购买</div>} */}
-        {activeBuyMenu && <div className="buyBtn flexCenter" onClick={() => { props.buyBtnFun() }}>购买</div>}
-        <Img url={props.NftInfo?.normalized_metadata?.image}></Img>
+        {activeBuyMenu && <div className="buyBtn flexCenter" onClick={(e) => { e.stopPropagation(); props.buyBtnFun() }}>购买</div>}
+        <Img url={props.NftInfo?.normalized_metadata?.image || props.NftInfo?.metadata?.image}></Img>
       </div>
       <div className="bottonBox">
         <div className="box">
-          <div className="cardName" onClick={goProject}>{props.NftInfo?.normalized_metadata?.name || "XXXXXXXXX"}</div>
+          <div className="cardName" onClick={goProject}>{props.NftInfo?.normalized_metadata?.name || props.NftInfo?.metadata?.name || "XXXXXXXXX"}</div>
           <div className="Collection pointer nowrap" onClick={LikeFun}><img src={isLike ? Like : NotLike} alt="" /> {LikeNum}</div>
         </div>
 

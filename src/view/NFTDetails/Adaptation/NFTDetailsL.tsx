@@ -22,6 +22,7 @@ import CancelSaleModal from '../../../components/CancelSaleModal'
 import ConfirmBuyModal from '../../../components/ConfirmBuyModal'
 import SaleNFTModal from '../../../components/SaleNFTModal'
 import SaleModal from '../../../components/SaleModal'
+import ConfirmBuyNFTModal from '../../../components/ConfirmBuyNFTModal'
 
 import defaultCard from '../../../assets/image/defaultCard.png'
 import { useWeb3React } from '@web3-react/core'
@@ -37,12 +38,17 @@ export default function NFTDetailsL({
     attrOrInfo,
     NFTTypeDetail
 }: any) {
+    console.log(OrderDetail, 'NFT详情---------');
 
+    let [showPriceChange, setShowPriceChange] = useState<boolean>(false)
     const web3React = useWeb3React()
     const [tabIndex, setTabIndex] = useState(0)
     const [expand1, setExpand1] = useState(true)
     const [manageModal, setManageModal] = useState(false)
     const [saleNFTModal, setSaleNFTModal] = useState(false)
+    let [buyNFTModal, setBuyNFTModal] = useState<boolean>(false)
+    let [showEnterCancel, setShowEnterCancel] = useState<boolean>(false)
+    let [currentTradeOrder, setCurrentTradeOrder] = useState<NftInfo>()
     const [nftData, setNftData] = useState([{
         title: "总市值",
         price: "0.55",
@@ -66,6 +72,10 @@ export default function NFTDetailsL({
 
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
+    }
+    // 确认购买
+    const buyBtnFun = () => {
+        setBuyNFTModal(true)
     }
 
     let typeMenu = (
@@ -126,28 +136,67 @@ export default function NFTDetailsL({
 
                         {/* 出售 */}
                         {
-                            NFTTypeDetail === "0" && <div className="sale flexCenter" onClick={() => { setSaleNFTModal(true) }}>
+                            NFTTypeDetail === "0" && (owner_of?.toLocaleLowerCase() === web3React.account?.toLocaleLowerCase()) && <div className="sale flexCenter" onClick={() => { setSaleNFTModal(true) }}>
                                 出售
                             </div>
                         }
 
-                        {/* 立即购买 */}
+                        {/* 调价 */}
                         {
-                            NFTTypeDetail === "1" && <div className="buy">
+                            NFTTypeDetail === "1" && (owner_of?.toLocaleLowerCase() === web3React.account?.toLocaleLowerCase()) && <div className="buy">
                                 <div className="buy-left">
                                     <div className="buy-left-top">一口价</div>
                                     <div className="buy-left-bottom">
                                         <img src={UsdtPng} className="buy-left-bottom-coin" />
                                         <div className="coin-group">
-                                            0.55 USDT
+                                            {OrderDetail?.nnftOrder?.price || '-'} {OrderDetail?.nnftOrder?.coinName}
                                             <div className="coin-group-price">
-                                                ($77.61)
+                                                (${OrderDetail?.nnftOrder?.uorderPrice || '-'})
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="buy-right managePrice">
+                                    <div className="buy-right-button flexCenter" onClick={() => { setShowPriceChange(true) }}>调整价格</div>
+                                    <div className="cancelBtn flexCenter" onClick={() => { setShowEnterCancel(true) }}>取消</div>
+                                </div>
+                            </div>
+                        }
+
+                        {/* 未上架（别人未上架） */}
+                        {
+                            NFTTypeDetail === "0" && (owner_of?.toLocaleLowerCase() !== web3React.account?.toLocaleLowerCase()) && <div className="buy">
+                                <div className="buy-left">
+                                    <div className="buy-left-top">未上架</div>
+                                    <div className="buy-left-bottom">
+                                        <div className="coin-group">
+                                            -
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="buy-right">
+                                    <div className="buy-right-button noSale" >立即购买</div>
+                                </div>
+                            </div>
+                        }
+
+                        {/* 立即购买(别人已上架) */}
+                        {
+                            NFTTypeDetail === "1" && (owner_of?.toLocaleLowerCase() !== web3React.account?.toLocaleLowerCase()) && <div className="buy">
+                                <div className="buy-left">
+                                    <div className="buy-left-top">一口价</div>
+                                    <div className="buy-left-bottom">
+                                        <img src={UsdtPng} className="buy-left-bottom-coin" />
+                                        <div className="coin-group">
+                                            {OrderDetail?.nnftOrder?.price || '-'} {OrderDetail?.nnftOrder?.coinName}
+                                            <div className="coin-group-price">
+                                                (${OrderDetail?.nnftOrder?.uorderPrice || '-'})
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="buy-right">
-                                    <div className="buy-right-button">立即购买</div>
+                                    <div className="buy-right-button" onClick={() => { buyBtnFun() }}>立即购买</div>
                                 </div>
                             </div>
                         }
@@ -189,14 +238,14 @@ export default function NFTDetailsL({
                                         {
 
                                             attrOrInfo ? <>{
-                                                OrderDetail && OrderDetail.metadata && Object.keys(OrderDetail.metadata).map((item, idx) =>
+                                                OrderDetail && OrderDetail.normalizedMetadata && Object.keys(OrderDetail.normalizedMetadata?.attributes[0]).map((item, idx) =>
                                                     <div className={`nft-details-attribute-item ${!((idx + 1) % 3) ? "nft-details-attribute-item-right" : ""}`}>
 
                                                         <div className="nft-details-attribute-title">
                                                             {item}
                                                         </div>
                                                         <div className="nft-details-attribute-content">
-                                                            5788 ({OrderDetail && OrderDetail.metadata[item]})持有这个
+                                                            ({OrderDetail && OrderDetail?.normalizedMetadata?.attributes[0][item]})
                                                         </div>
                                                     </div>
                                                 )
@@ -346,10 +395,14 @@ export default function NFTDetailsL({
                     </div>
                 </div>
             </div>
-            <ManageModal isShow={false} close={() => { setManageModal(false) }} ></ManageModal>
-            <CancelSaleModal isShow={false} close={() => { setManageModal(false) }} ></CancelSaleModal>
+            {/* <ManageModal isShow={true} close={() => { setManageModal(false) }} ></ManageModal> */}
+            {OrderDetail && <ManageModal isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
+            {/* <CancelSaleModal isShow={false} close={() => { setManageModal(false) }} ></CancelSaleModal> */}
+            {OrderDetail && <CancelSaleModal isShow={showEnterCancel} tokenId={OrderDetail?.nnftUser?.tokenId} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowEnterCancel(false) }}></CancelSaleModal>}
             <ConfirmBuyModal isShow={false} close={() => { setManageModal(false) }} ></ConfirmBuyModal>
             {OrderDetail && <SaleModal isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress }}></SaleModal>}
+            {OrderDetail && <ConfirmBuyNFTModal NFTInfo={OrderDetail?.nnftOrder} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} ></ConfirmBuyNFTModal>}
+
         </div>
     )
 }

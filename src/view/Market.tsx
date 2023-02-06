@@ -45,7 +45,7 @@ export default function Market(): JSX.Element {
     fun(!value);
   }
 
-  
+
   /* 修改筛选条件 */
   function changeScreen(ScreenData: getOrderType, typeIndex?: number, sortIndex?: number) {
     // console.log(ScreenData)
@@ -101,7 +101,6 @@ export default function Market(): JSX.Element {
       }
     </Menu>
   );
-
   /* 筛选条件改变重新加载第一页数据 */
   useEffect(() => {
     getTradeOrder({
@@ -128,6 +127,7 @@ export default function Market(): JSX.Element {
 
   const buyBtnFun = (item: any) => {
     setBuyNFTModal(true)
+    console.log(item, "购买");
     setCurrentTradeOrder(item)
   }
 
@@ -150,6 +150,12 @@ export default function Market(): JSX.Element {
         setTradeOrder([...TradeOrder, ...res.data])
       }
     })
+  }
+
+  /* 判断跳转到出售页面还是正在出售页面 */
+  function goPath(goods: any) {
+    /* 状态正常去挂卖 */
+    return navigate(`/NFTDetails?ID=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.userAddress}&&NFTDetailType=1`)
   }
 
   return (
@@ -183,21 +189,11 @@ export default function Market(): JSX.Element {
               {t('Filter')}
             </div>
           </div>
-          {/* <>
-            <div className="goodsList">
-              <Goods></Goods>
-              <Goods></Goods>
-              <Goods></Goods>
-              <Goods></Goods>
-            </div>
-            <div className="LoadMore pointer flexCenter" onClick={LoadMore}>{t('Load More')}  {'>'}</div>
-          </> 
-          */}
           {
             TradeOrder.length > 0 ?
               <>
                 <div className="goodsList">
-                  {TradeOrder.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { navigate('/Goods?type=Market&orderId=' + item.orderId) }} buyBtnFun={() => { buyBtnFun(item) }} tag="Market"></Goods>)}
+                  {TradeOrder.map((item, index) => <Goods key={index} NftInfo={item} buyBtnFun={() => { buyBtnFun(item) }} tag="Market" goPath={() => { goPath(item) }}></Goods>)}
                 </div>
                 <div className="LoadMore pointer flexCenter" onClick={LoadMore}>{t('Load More')}  {'>'}</div>
               </> :
