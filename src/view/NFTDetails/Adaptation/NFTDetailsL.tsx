@@ -42,6 +42,8 @@ export default function NFTDetailsL({
 
     let [showPriceChange, setShowPriceChange] = useState<boolean>(false)
     const web3React = useWeb3React()
+
+    console.log("web3React", web3React)
     const [tabIndex, setTabIndex] = useState(0)
     const [expand1, setExpand1] = useState(true)
     const [manageModal, setManageModal] = useState(false)
