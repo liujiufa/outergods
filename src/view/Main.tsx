@@ -279,24 +279,26 @@ const SearchBox = styled(FlexCCBox)`
     margin-right: 3px;
 `
 
-const GroupProject = styled(Swiper)`
+const GroupProject = styled(FlexSCBox)`
     width: 100%;
     margin: 24px auto 0;
+    overflow: auto;
+    padding: 0 12px;
     @media (max-width: 750px) {
         margin: 0 auto;
     }
 `
 
-const GroupItem = styled(SwiperSlide)`
+const GroupItem = styled(FlexCCBox)`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 16px 8px;
+    padding: 16px 4px;
     min-width: 200px;
     border-radius: 12px;
     background-color: transparent;
     @media (max-width: 750px) {
-        min-width: 120px;
+        min-width: 178px;
     }
 `
 
@@ -455,9 +457,6 @@ export default function Main() {
         listLeft = listGroup.slice(0, 3)
         listRight = listGroup.slice(3).reverse()
 
-        console.log("listLeft", listLeft)
-        console.log("listRight", listRight)
-
         const idxGroup1 = listLeft.map((item, idx) => {
             return ({
                 index: item,
@@ -481,11 +480,8 @@ export default function Main() {
         Promise.all([getHoTProject(), getTradeLast()]).then((res)=>{
            const [res1, res2] = res
            const [hostProject, tradeLast] = [res1.data, res2.data]
-           console.log("hostProject, tradeLast", tradeLast)
            setHostList([0, 0, 0, 0, hostProject[0], 0 ])
         })
-        // getHoTProject
-        // getTradeLast
       },
       []
     )
@@ -500,7 +496,6 @@ export default function Main() {
         <Container>
 
             <SwiperPC >
-
                 {
                     !!nftIdo.length && <SwiperBoxPC
                         slidesPerView={7}
@@ -512,9 +507,7 @@ export default function Main() {
                         id="swiper-nft-pc"
                         // slideToClickedSlide
                         onSlideChangeTransitionEnd={(swiper) => {
-                            console.log("swiper", swiper.activeIndex)
                             setActiveIndex(swiper.activeIndex % nftIdo.length)
-
                         }}
                         onTouchEnd={(swiper) => {
                             console.log("swiper", swiper.activeIndex)
@@ -578,12 +571,6 @@ export default function Main() {
                         </Dropdown>
                     </GroupMenu>
                     <GroupProject
-                        slidesPerView={6}
-                        spaceBetween={0}
-                        navigation={true}
-                        modules={[Navigation]}
-
-                        className="mySwiper1"
                     >
                         {
                             hostList.map((item) => <GroupItem>
@@ -612,12 +599,6 @@ export default function Main() {
                         </Dropdown>
                     </GroupMenu>
                     <GroupProject
-                        slidesPerView={6}
-                        spaceBetween={0}
-                        navigation={true}
-                        modules={[ Navigation]}
-
-                        className="mySwiper2"
                     >
                         {
                             [1, 2, 3, 4, 5, 6].map((item) => <GroupItem>
@@ -646,11 +627,6 @@ export default function Main() {
                         <NFTTitle>最新</NFTTitle>
                     </Group>
                     <GroupProject
-                        slidesPerView={6}
-                        spaceBetween={0}
-                        navigation={true}
-                        modules={[Navigation]}
-                        className="mySwiper3"
                     >
                         {
                             [1, 2, 3, 4, 5, 6].map((item) => <GroupItem>
