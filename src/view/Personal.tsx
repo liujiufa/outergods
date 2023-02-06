@@ -97,6 +97,7 @@ export default function Personal(): JSX.Element {
     const [activeKey, setActiveKey] = useState("");
     let [pageNum, setPageNum] = useState<number>(1)
     let [tableData, setTableData] = useState<any>([])
+    
     let type = params.get('type')
     let operateTtype = [
         t('Listing'),
@@ -303,14 +304,14 @@ export default function Personal(): JSX.Element {
                                             <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
                                             <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏（12） </div>
                                         </div>
-                                        {/* 
+
                                         <div className='nft-type l-hidden'>
                                             <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部（122） </div>
                                             <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中（12）</div>
                                             <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
                                             <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏（12） </div>
                                         </div>
-                                         */}
+
                                     </div>
                                     <div className="seriesBox">
                                         <div className="seriesTitle m-hidden">
@@ -345,7 +346,14 @@ export default function Personal(): JSX.Element {
                                 </div>
                                 <div className="content">
                                     {userCurrentNft ? <>
-                                        <div className="goodsList">{userCurrentNft.result.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal"></Goods>)}</div>
+                                        <div className="goodsList">{
+                                            userCurrentNft.result.concat(  userCurrentNft.result).map((item, index) =>
+                                                <div className="userNft">
+                                                    <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal">
+
+                                                    </Goods>
+                                                </div>
+                                            )}</div>
                                         <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
                                     </> : <NoData />}
                                 </div>
@@ -403,6 +411,7 @@ export default function Personal(): JSX.Element {
                                                 <div className="top">{operateTtype[item.operateType]}</div>
                                                 <div className="bottom">一口价</div>
                                             </div>
+
                                             <div className="item projectName">
                                                 <div className="leftBox">
                                                     <img src={item.projectLogo} alt="" />

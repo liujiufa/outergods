@@ -78,6 +78,7 @@ export default function Launch(): JSX.Element {
     let [tabActive, setTabActive] = useState<number>(0)
     let [expand1, setExpand1] = useState<boolean>(false)
     let [expand2, setExpand2] = useState<boolean>(false)
+    let [isShare, setIsShare] = useState<boolean>(false)
     let [successfulModal, setSuccessfulModal] = useState<boolean>(false)
     let [LaunchDetial, setLaunchDetial] = useState<detialType | null>(null)
     let [ProjectDetail, setProjectDetail] = useState<any | null>(null)
@@ -199,9 +200,11 @@ export default function Launch(): JSX.Element {
                     <div className="linkItem">
                         <img src={outLinkIcon5} alt="" />
                     </div>
-                    <div className="linkItem copyItem" onClick={() => { LoadMore(ProjectDetail?.nftData?.cursor) }}>
+                    <div className="linkItem copyItem" onClick={() => {
+                        setIsShare(!isShare)
+                     }}>
                         <img src={outLinkIcon6} alt="" />
-                        {false && <>
+                        {isShare && <>
                             <div className='copyLinkBox'>
                                 <div className="title">复制链接</div>
                                 <div className="outLink">在Facebook上分享</div>
@@ -263,7 +266,7 @@ export default function Launch(): JSX.Element {
                 <div className="detail l-hidden">{t('Project Description')}：{ProjectDetail?.description}</div>
 
 
-                <div className="tebBox">
+                <div className="tabBox">
                     <div className={tabActive === 0 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(0) }}>物品</div>
                     <div className={tabActive === 1 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(1) }}>动态</div>
                 </div>
@@ -298,7 +301,7 @@ export default function Launch(): JSX.Element {
                         </div>
                     </div>
                     <div className="bigContent">
-                        <div className="slider  m-hidden-block" style={{ display: tabActive === 0 ? "none" : "block" }}>
+                        <div className={`slider m-hidden-block ${ tabActive === 1 ? "isHidden" : "" }`}>
                             <div className="settingPut">
                                 <div className="title">已上架</div>
                                 <div className="right"><Switch defaultChecked onChange={onChange} /></div>

@@ -33,6 +33,7 @@ export default function NFTDetailsM({
     const web3React = useWeb3React()
     const [tabIndex, setTabIndex] = useState(0)
     const [expand1, setExpand1] = useState(true)
+    const [isShare, setIsShare] = useState(false)
     const [manageModal, setManageModal] = useState(false)
     const [nftData, setNftData] = useState([{
         title: "总市值",
@@ -108,6 +109,32 @@ export default function NFTDetailsM({
                                     }}
                                     alt="" />
                             }
+                        </div>
+                        <div className="sanlian">
+                            <div className="sanlian-container">
+                                <div className="sanlian-content">
+                                    <div className="shareBox">
+                                        <img src={SharePng} alt="" onClick={() => {
+                                            setIsShare(!isShare)
+                                        }} />
+                                        {isShare && <>
+                                            <div className='copyLinkBox'>
+                                                <div className="title">复制链接</div>
+                                                <div className="outLink">在Facebook上分享</div>
+                                                <div className="outLink">在Twitter上分享</div>
+                                            </div>
+                                        </>}
+                                    </div>
+                                    <div className="sanlian-box">
+                                        <img src={FabulousPng} alt="" />
+                                        <div className="sanlian-text">
+                                            100
+                                        </div>
+                                    </div>
+                                    <img src={RefreshPng} alt="" />
+
+                                </div>
+                            </div>
                         </div>
                         <div className="buy">
                             <div className="buy-left">
@@ -220,30 +247,7 @@ export default function NFTDetailsM({
                         </div>
                     </div>
                 </div>
-                <div className="sanlian">
-                    <div className="sanlian-container">
-                        <div className="sanlian-content">
-                            <div className="shareBox">
-                                <img src={SharePng} alt="" />
-                                {true && <>
-                                    <div className='copyLinkBox'>
-                                        <div className="title">复制链接</div>
-                                        <div className="outLink">在Facebook上分享</div>
-                                        <div className="outLink">在Twitter上分享</div>
-                                    </div>
-                                </>}
-                            </div>
-                            <div className="sanlian-box">
-                                <img src={FabulousPng} alt="" />
-                                <div className="sanlian-text">
-                                    100
-                                </div>
-                            </div>
-                            <img src={RefreshPng} alt="" />
 
-                        </div>
-                    </div>
-                </div>
                 {/* 动态 */}
                 <div className='activeBox'>
                     <div className="itemBigBox">
@@ -311,10 +315,12 @@ export default function NFTDetailsM({
                         </div>
                         <div className="contentBox">
                             <div className="goodsList">
-                                <Goods></Goods>
-                                <Goods></Goods>
-                                <Goods></Goods>
-                                <Goods></Goods>
+                                {
+                                    [1, 2, 3, 4].map((item)=><div className="goods-item">
+                                    <Goods></Goods>
+    
+                                    </div>)
+                                }
                             </div>
                         </div>
                     </div>

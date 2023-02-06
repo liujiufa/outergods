@@ -23,7 +23,6 @@ import ProjectGroup from "../components/ProjectGroup";
 import Goods from '../components/HotspotCard'
 
 import '../assets/style/Main.scss'
-import { Navigation, Pagination } from "swiper";
 import { getHoTProject, getTradeLast } from "../API";
 
 
@@ -34,6 +33,7 @@ const Container = styled.div`
     left: 0;
     overflow: hidden;
     padding-bottom: 80px;
+    background-color: #F5F5F5;
     @media (max-width: 750px) {
         padding-bottom: 12px;
     }
@@ -122,6 +122,8 @@ const Title = styled(FlexCCBox)`
     font-weight: 700;
     font-size: 40px;
     color: rgba(0, 0, 0, 0.6);
+    font-family: 'PingFang SC Bold';
+
     span {
         color: #7C8FFB;
         font-weight: 700;
@@ -255,6 +257,7 @@ const NFTViceTitle = styled(FlexCCBox)`
 
 const GroupMenu = styled(FlexCCBox)`
     justify-content: flex-end;
+    padding: 0 12px;
 `
 
 const SearchGroup = styled(FlexSBCBox)`
@@ -303,25 +306,37 @@ const GroupItem = styled(FlexCCBox)`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 12px 12px;
+    padding: 12px;
     min-width: 200px;
     border-radius: 12px;
     background-color: transparent;
     @media (max-width: 750px) {
         min-width: 178px;
+        padding: 6px;
     }
 `
 
-
 const UserList = styled(Group)`
     width: 100%;
-    flex-flow: row wrap;
+    /* flex-flow: row wrap; */
     justify-content: start;
     margin: 24px auto 0;
     @media (max-width: 750px) {
         margin: 0 auto;
     }
 `
+
+const OtherList = styled(UserList)`
+    width: 100%;
+    overflow: auto;
+    justify-content: start;
+    margin: 24px auto 0;
+    @media (max-width: 750px) {
+        margin: 0 auto;
+        padding-bottom: 24px;
+    }
+`
+
 
 const UserItem = styled(Group)`
     width: 12.5%;
@@ -354,7 +369,9 @@ const OtherItem = styled(FlexCCBox)`
     width: 25%;
     padding: 24px;
     @media (max-width: 750px) {
-        padding: 6px;
+        width: 50%;
+        padding: 8px;
+        min-width: 50vw;
     }
 `
 
@@ -364,6 +381,10 @@ const OtherContent = styled.div`
     box-shadow: 52px 53px 141px rgba(182, 195, 228, 0.4);
     border-radius: 20px;
     overflow-y: hidden;
+    @media (max-width: 750px) {
+        border-radius: 8px;
+        box-shadow: 13px 12px 30px rgba(182, 195, 228, 0.4);
+    }
 `
 
 const OtherImg = styled.img`
@@ -486,20 +507,20 @@ export default function Main() {
     }, [nftIdo, activeIndex])
 
     const init = useCallback(
-      async () => {
-        Promise.all([getHoTProject(), getTradeLast()]).then((res)=>{
-           const [res1, res2] = res
-           const [hostProject, tradeLast] = [res1.data, res2.data]
-           setHostList([0, 0, 0, 0, hostProject[0], 0 ])
-        })
-      },
-      []
+        async () => {
+            Promise.all([getHoTProject(), getTradeLast()]).then((res) => {
+                const [res1, res2] = res
+                const [hostProject, tradeLast] = [res1.data, res2.data]
+                setHostList([0, 0, 0, 0, hostProject[0], 0])
+            })
+        },
+        []
     )
 
     useEffect(() => {
         init()
     }, [])
-    
+
 
 
     return (
@@ -524,10 +545,11 @@ export default function Main() {
                         }}
                     >
                         {
-                            nftIdo.map((item, idx) => <SlideItemPC idx={
-                                //    0.5 + Math.abs(idxGroup.filter(option=> option.index === idx)[0]?.posi ?? 8 )  / 16
-                                idxGroup.filter(option => option.index === idx)[0]?.posi ?? 0
-                            }
+                            nftIdo.map((item, idx) => <SlideItemPC
+                                idx={
+                                    //    0.5 + Math.abs(idxGroup.filter(option=> option.index === idx)[0]?.posi ?? 8 )  / 16
+                                    idxGroup.filter(option => option.index === idx)[0]?.posi ?? 0
+                                }
                                 posi={
                                     !idxGroup.filter(option => option.index === idx)[0]?.posi ? 0 : (
                                         idxGroup.filter(option => option.index === idx)[0]?.posi > 0 ? ((1 - idxGroup.filter(option => option.index === idx)[0]?.posi) * 50) :
@@ -549,7 +571,7 @@ export default function Main() {
             <Group>
                 <NFTContent>
                     <Title>
-                        XXX是<span>WEB3</span>的NFT市场，欢迎来进行交易和收藏
+                        <span>HABITAT</span>-面向<span>WEB3</span>的NFT交易创新平台
                     </Title>
                     <Group>
                         <SellBox >出售</SellBox>
@@ -650,7 +672,7 @@ export default function Main() {
                     <Group>
                         <NFTViceTitle>了解基础知识</NFTViceTitle>
                     </Group>
-                    <UserList>
+                    <OtherList >
                         {
                             [1, 2, 3, 4].map((item) => <OtherItem>
                                 <OtherContent>
@@ -659,7 +681,7 @@ export default function Main() {
                                 </OtherContent>
                             </OtherItem>)
                         }
-                    </UserList>
+                    </OtherList>
                 </NFTContent>
 
             </Group>

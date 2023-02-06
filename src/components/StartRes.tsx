@@ -31,7 +31,7 @@ export default function NoData() {
         <Col span={20} className='Container'>
           {type==='0'?
           <div className="content"><h1>How to Easily Setup a MetaMask Wallet</h1>
-        <div className="text">Looking to kick off your NFT collection, but not sure where to begin? The first thing you’ll need is a crypto wallet, which will store your method of payment and allow you to access your new NFT. A crypto wallet allows you to purchase, send and receive your NFTs, as well as interact with blockchain-integrated websites—commonly known as decentralized applications (or dapps, for short)—like OuterGods. </div>
+        <div className="text">Looking to kick off your NFT collection, but not sure where to begin? The first thing you’ll need is a crypto wallet, which will store your method of payment and allow you to access your new NFT. A crypto wallet allows you to purchase, send and receive your NFTs, as well as interact with blockchain-integrated websites—commonly known as decentralized applications (or dapps, for short)—like Habitat NFT. </div>
         <div className="subTitle">Step 1: Install MetaMask</div>
         <div className="text">You can go ahead and install the MetaMask wallet. Once you have downloaded the extension, you can simply add it to your browser.</div>
         <div className="text">You can toggle the extension by accessing your browser’s settings. When you head to “More Tools”, you will find “Extensions”. Once you click it, you will be directed to this screen.</div>

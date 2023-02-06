@@ -232,7 +232,6 @@
 
                 .right-nft-details {
                     margin-top: 40px;
-                    height: 270px;
 
                     .right-nft-details-tabs {
                         display: flex;
@@ -491,7 +490,6 @@
 
                 .titleBox {
                     padding: 45px;
-                    height: 100px;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
@@ -671,11 +669,12 @@
                     .goodsList {
                         width: 100%;
                         margin: 40px auto 40px;
-                        display: grid;
-                        grid-template-columns: repeat(auto-fill, 277px);
-                        justify-content: space-between;
-                        grid-row-gap: 30px;
-                        grid-column-gap: 30px;
+                        display: flex;
+                        justify-content: start;
+                        .goods-item {
+                            width: 25%;
+                            padding: 24px;
+                        }
                     }
                 }
             }
@@ -712,12 +711,57 @@
 @media (max-width:768px) {
 
     #NFTDetails {
+
+        .contentBox {
+            padding: 20px 12px 24px;
+        }
+
         .coin-group {
             font-size: 16px;
 
             .coin-group-price {
                 font-size: 14px;
             }
+        }
+
+        .titleBox{
+            padding: 8px 16px;
+        }
+
+        .itemBigBox {
+            border-radius: 16px;
+        }
+
+        .sanlian-container{
+            width: 100%;
+            .sanlian-content {
+                width: 64%;
+                padding: 8px 24px;
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+                .sanlian-text {
+                    margin-left: 4px;
+                }
+            }
+        }
+
+        .goodsList {
+            width: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: start;
+            flex-wrap: wrap;
+
+            .goods-item {
+                width: 50%;
+                padding: 0 8px 8px;
+            }
+        }
+
+        .buy {
+            border-radius: 12px;
         }
 
         .buy-right-button {
@@ -737,8 +781,16 @@
             margin-top: 30px;
         }
 
-        .left {
+        .right {
+            width: 100%;
+        }
+
+        .left {            
+            width: 100%;
             margin-top: 12px; 
+            img {
+                width: 80%;
+            }
         }
     }
 
