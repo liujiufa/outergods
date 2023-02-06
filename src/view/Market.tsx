@@ -306,25 +306,25 @@ export default function Market(): JSX.Element {
               <div className="contentBox">
                 <Space direction="vertical">
                   <Collapse activeKey={activeKey} expandIcon={() => <></>} defaultActiveKey={['1']}>
-                    <Collapse.Panel header={
+                    {dynamicInfo.length > 0 && dynamicInfo.map((item: any, index: number) => <Collapse.Panel header={
                       <div className="itemBox">
                         <div className="item type">
-                          <div className="top">上架</div>
+                          <div className="top">{operateTtype[item.operateType]}</div>
                           <div className="bottom">一口价</div>
                         </div>
                         <div className='group'>
                           <div className="item projectName">
                             <div className="leftBox">
-                              <img src={demoTestImg} alt="" />
+                              <img src={item.projectLogo} alt="" />
                             </div>
                             <div className="right">
-                              <div className="top">项目名称 <img src={authentication} alt="" /></div>
-                              <div className="bottom">NFT名称</div>
+                              <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                              <div className="bottom">{item.nftName}</div>
                             </div>
                           </div>
                           <div className="item">
-                            <div className="top">$234.87</div>
-                            <div className="bottom">0.32 BNB</div>
+                            <div className="top">{item.uorderPrice}</div>
+                            <div className="bottom">{item.num} {item.coinName}</div>
                           </div>
                           <div className='drap-icon' onClick={() => {
                             if (activeKey === "1") {
@@ -343,26 +343,30 @@ export default function Market(): JSX.Element {
                     } key="1">
                       <div className="group">
                         <div className="item">
-                          <div className="text">
-                            Ox2423...sdw7
+                          <div className="text" onClick={() => { goSomeone(item.formAddress) }}>
+                            {
+                              item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
+                            }
                           </div>
                           <div className="type">从</div>
                         </div>
                         <div className="item">
-                          <div className="text">
-                            Ox2423...12FF
+                          <div className="text" onClick={() => { goSomeone(item.toAddress) }}>
+                            {
+                              item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
+                            }
                           </div>
                           <div className="type">到</div>
 
                         </div>
                         <div className="item date">
                           <div className="text type-date">
-                            5分钟前
+                            {HowLongAgo(item.createTime)}
                           </div>
                           <div className="type">日期</div>
                         </div>
                       </div>
-                    </Collapse.Panel>
+                    </Collapse.Panel>)}
                   </Collapse>
                 </Space>
               </div>

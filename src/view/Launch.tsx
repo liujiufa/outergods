@@ -10,6 +10,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from 'react-i18next'
 import Goods, { NftInfo } from '../components/HotspotCard'
 import { HowLongAgo, AddrHandle } from '../utils/tool'
+import { createAddMessageAction, createSetLodingAction } from '../store/actions'
+
+import NoData from '../components/NoData'
 import SuccessfulModal from '../components/SuccessfulModal'
 import ReportModal from '../components/ReportModal'
 import bannerDemo from '../assets/image/bannerDemo.png'
@@ -59,13 +62,17 @@ interface ProjectDetailType {
     telegraphGroupUrl?: string
     webUrl?: string
     floorPrice: number
+    floorPriceDouble: number
     tradeNum: number
+    createFee: number
     tradeAmount: number
     description: string
     isAuthentication: number | null
 }
 export default function Launch(): JSX.Element {
     const [params] = useSearchParams();
+    const dispatch = useDispatch();
+
     let state = useSelector<stateType, stateType>(state => state);
     let [startTime, setstartTime] = useState<number>(0)
     let [tabActive, setTabActive] = useState<number>(0)
@@ -73,11 +80,10 @@ export default function Launch(): JSX.Element {
     let [expand2, setExpand2] = useState<boolean>(false)
     let [successfulModal, setSuccessfulModal] = useState<boolean>(false)
     let [LaunchDetial, setLaunchDetial] = useState<detialType | null>(null)
-    let [ProjectDetail, setProjectDetail] = useState<ProjectDetailType | null>(null)
+    let [ProjectDetail, setProjectDetail] = useState<any | null>(null)
     let [ProjectOrder, setProjectOrder] = useState<NftInfo[]>([])
 
     let [tableData, setTableData] = useState([])
-    let [newTime, setNewTime] = useState(dayjs().valueOf())
     let { t } = useTranslation()
     let id = params.get('id')
     let projectName = params.get('projectName')
@@ -91,27 +97,12 @@ export default function Launch(): JSX.Element {
     }
     dayjs.extend(duration)
     useEffect(() => {
-        let time = setInterval(() => {
-            if (startTime) {
-                setNewTime(dayjs().valueOf())
-            }
-        }, 1000)
-        return () => {
-            clearInterval(time)
-        }
-    }, [startTime])
-    useEffect(() => {
-        if (state.token && id) {
-            getPlatformBaseDetail(id).then(res => {
-                setLaunchDetial(res.data)
-                setstartTime(res.data.castStartTime)
-                console.log(res, "发射台详情")
-            })
-        }
-    }, [state.token])
-    useEffect(() => {
         if (state.token && projectName) {
-            getNftProjectDetail(projectName).then(res => {
+            getNftProjectDetail({
+                "projectName": projectName,
+                "pageSize": 10,
+                "cursor": "",
+            }).then(res => {
                 console.log(res.data, "项目详情")
                 setProjectDetail(res.data)
                 getTradeOrderState(res.data.name).then(res => {
@@ -121,11 +112,6 @@ export default function Launch(): JSX.Element {
             })
         }
     }, [state.token, projectName])
-    function goLaunchDetial() {
-        if (LaunchDetial) {
-            navigate('/' + LaunchDetial.routingName + '?id=' + LaunchDetial.id)
-        }
-    }
 
     const typeMenu = (
         <Menu>
@@ -139,39 +125,60 @@ export default function Launch(): JSX.Element {
         console.log(`switch to ${checked}`);
     };
 
+    function goPath(goods: any) {
+        /* 状态正常去挂卖 */
+        if (goods.status === 0) {
+            return navigate(`/NFTDetails?ID=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
+        }
+        /* 挂卖中去商品详情页改价 */
+        if (goods.status === 1) {
+            return navigate(`/NFTDetails?ID=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=1`)
+        }
+    }
+    function LoadMore(fig: string) {
+        console.log("加载更多", fig)
+        dispatch(createSetLodingAction(true))
+        getNftProjectDetail({
+            "projectName": projectName,
+            "pageSize": 10,
+            "cursor": fig,
+        }).then(res => {
+            console.log(res.data, '下一页');
+            setProjectDetail(res.data)
+            dispatch(createSetLodingAction(false))
+        })
+        // dispatch(createAddMessageAction(t('No more')))
+    }
+
+
     const navigate = useNavigate();
-    const diffTime = dayjs.duration(startTime - newTime);
-    // const day = diffTime.days(); //天
-    const hours = diffTime.hours(); //小时
-    const minutes = diffTime.minutes(); //分钟
-    const seconds = diffTime.seconds();
     return (
         <div id="launch" className="ProjectDetail">
             <div className="banner">
-                <img src={bannerDemo} alt="" />
+                <img src={ProjectDetail?.backImgUrl} alt="" />
                 <div className="dataItems">
                     <div className="item">
-                        <div className="top">$1110.1</div>
+                        <div className="top">{ProjectDetail?.tradeNum}</div>
                         <div className="bottom">总交易量</div>
                     </div>
                     <div className="item">
-                        <div className="top">$0.005</div>
+                        <div className="top">{ProjectDetail?.floorPriceDouble}</div>
                         <div className="bottom">地板价</div>
                     </div>
                     <div className="item">
-                        <div className="top">10%</div>
+                        <div className="top">{ProjectDetail?.createFee}%</div>
                         <div className="bottom">创作者收益</div>
                     </div>
                     <div className="item">
-                        <div className="top">111</div>
+                        <div className="top">{ProjectDetail?.thingNum}</div>
                         <div className="bottom">物品</div>
                     </div>
                     <div className="item">
-                        <div className="top">111</div>
+                        <div className="top">{ProjectDetail?.shelvesNum}</div>
                         <div className="bottom">已上架</div>
                     </div>
                     <div className="item">
-                        <div className="top">111</div>
+                        <div className="top">{ProjectDetail?.holdNum}</div>
                         <div className="bottom">持有者</div></div>
                 </div>
             </div>
@@ -192,7 +199,7 @@ export default function Launch(): JSX.Element {
                     <div className="linkItem">
                         <img src={outLinkIcon5} alt="" />
                     </div>
-                    <div className="linkItem copyItem" onClick={() => { }}>
+                    <div className="linkItem copyItem" onClick={() => { LoadMore(ProjectDetail?.nftData?.cursor) }}>
                         <img src={outLinkIcon6} alt="" />
                         {false && <>
                             <div className='copyLinkBox'>
@@ -207,15 +214,15 @@ export default function Launch(): JSX.Element {
                     </div>
                 </div>
                 <div className="logoAvtor l-hidden">
-                    <img src={avtorImg} alt="" />
+                    <img src={ProjectDetail?.img} alt="" />
                     <div className="personalBox ">
-                        <div className="name">Rat3</div>
-                        <div className="address">创作者 <span> 678789....hguio</span></div>
+                        <div className="name">{ProjectDetail?.name}</div>
+                        <div className="address">创作者 <span> {ProjectDetail?.createAddress}</span></div>
                     </div>
 
                 </div>
                 <div className="logoAvtor m-hidden">
-                    <img src={avtorImg} alt="" />
+                    <img src={ProjectDetail?.img} alt="" />
                 </div>
                 <div className="outLinkBox m-hidden">
                     <div className="linkItem">
@@ -248,12 +255,12 @@ export default function Launch(): JSX.Element {
                     </div>
                 </div>
                 <div className="personalBox m-hidden-block">
-                    <div className="name">Rat3</div>
-                    <div className="address">创作者 <span> 678789....hguio</span></div>
-                    <div className="detail">"Because every person knows what he likes, every person thinks he is an expert on user interfaces.,--Paul Hecke“因为每个人都知道自己喜欢什么，所以每个人都觉得自己是用户界面专家。”</div>
+                    <div className="name">{ProjectDetail?.name}</div>
+                    <div className="address">创作者 <span> {ProjectDetail?.createAddress}</span></div>
+                    <div className="detail">{t('Project Description')}：{ProjectDetail?.description}</div>
                     <div className="detailBtn">+扩展</div>
                 </div>
-                <div className="detail l-hidden">"Because every person knows what he likes, every person thinks he is an expert on user interfaces.,--Paul Hecke“因为每个人都知道自己喜欢什么，所以每个人都觉得自己是用户界面专家。”</div>
+                <div className="detail l-hidden">{t('Project Description')}：{ProjectDetail?.description}</div>
 
 
                 <div className="tebBox">
@@ -334,12 +341,20 @@ export default function Launch(): JSX.Element {
                         <div className="content">
                             <div className="goodsNumber">1,000个物品</div>
                             <div className="goodsList">
-                                {
-                                    [1, 2, 3, 4].map((item) => <div className="goodsItem">
-                                        <Goods></Goods>
-                                    </div>)
-                                }
+                                <div className="content">
+                                    {ProjectDetail ? <>
+                                        <div className="goodsList">{ProjectDetail.nftData.result.map((item: any, index: number) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal"></Goods>)}</div>
+                                        <div className="LoadMore flexCenter" onClick={() => { }}>{t('Load More')}  {'>'}</div>
+                                    </> : <NoData />}
+                                </div>
 
+
+                                {/* <div className="content">
+                                    {userCurrentNft ? <>
+                                        <div className="goodsList">{userCurrentNft.result.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal"></Goods>)}</div>
+                                        <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
+                                    </> : <NoData />}
+                                </div> */}
                                 <div className="mobile-filter l-hidden">过滤 <img src={FilterBack} alt="" /></div>
                             </div>
                         </div>

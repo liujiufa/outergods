@@ -356,11 +356,12 @@ export default function Personal(): JSX.Element {
                             <div className="bigContent">
                                 <div className="content">
                                     <div className="goodsList">
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                        <Goods></Goods>
+                                        {
+                                            userNft.length > 0 ? <>
+                                                <div className="goodsList">{userNft.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }}></Goods>)}</div>
+                                                <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
+                                            </> : <NoData />
+                                        }
                                     </div>
                                 </div>
                             </div>
