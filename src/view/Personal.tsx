@@ -86,7 +86,7 @@ export default function Personal(): JSX.Element {
     let state = useSelector<stateType, stateType>(state => state);
     let [userInfo, setUserInfo] = useState<userInfoType | any>(null)
     let [userNft, setUsetNft] = useState<NftInfo[]>([])
-    let [userCurrentNft, setUserCurrentNft] = useState<NftCurrentType>()
+    let [userCurrentNft, setUserCurrentNft] = useState<NftCurrentType | null>()
     const navigate = useNavigate();
     let [tabIndex, setTabIndex] = useState<number>(0)
     let [showScreenModal, setShowScreenModal] = useState<boolean>(false)
@@ -97,7 +97,7 @@ export default function Personal(): JSX.Element {
     const [activeKey, setActiveKey] = useState("");
     let [pageNum, setPageNum] = useState<number>(1)
     let [tableData, setTableData] = useState<any>([])
-    
+
     let type = params.get('type')
     let operateTtype = [
         t('Listing'),
@@ -152,6 +152,7 @@ export default function Personal(): JSX.Element {
 
     useEffect(() => {
         if (web3React.account && state.token) {
+            dispatch(createSetLodingAction(true))
             getNfts(
                 {
                     "address": web3React.account,
@@ -159,13 +160,17 @@ export default function Personal(): JSX.Element {
                     "cursor": "",
                     "pageSize": 10
                 }
-            ).then((res) => {
-                console.log(res.data.result, '优化同步');
-                // let Arr = res.data.result.filter((item: any) => !item.normalized_metadata)
-                // console.log(JSON.parse(res.data.result[0].metadata), '处理', Arr);
-                // setUsetNft(res.data.result)
-                setUserCurrentNft(res.data)
+            ).then((res: any) => {
+                if (res.code === 200) {
+                    dispatch(createSetLodingAction(false))
+                    console.log(res.data,"wuping");
+
+                    setUserCurrentNft(res.data)
+                }
+
             })
+        } else {
+            setUserCurrentNft(null)
         }
     }, [web3React.account, state.token])
 
@@ -347,7 +352,7 @@ export default function Personal(): JSX.Element {
                                 <div className="content">
                                     {userCurrentNft ? <>
                                         <div className="goodsList">{
-                                            userCurrentNft.result.concat(  userCurrentNft.result).map((item, index) =>
+                                            userCurrentNft.result.concat(userCurrentNft.result).map((item, index) =>
                                                 <div className="userNft">
                                                     <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal">
 

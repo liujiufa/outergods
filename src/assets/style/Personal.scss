@@ -774,6 +774,8 @@
 
 @media (max-width: 900px) {
     #Personal {
+        min-height: calc(100vh - 147px);
+
         .topBox {
             padding: 24px 12px 12px;
         }

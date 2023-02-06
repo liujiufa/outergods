@@ -1,5 +1,6 @@
 
 import { Tooltip, Menu, Dropdown } from 'antd'
+import copy from "copy-to-clipboard"
 import BinancePng from '../../../assets/image/nftDetails/binance.png'
 import TipsPng from '../../../assets/image/nftDetails/tips.png'
 import CopyPng from '../../../assets/image/nftDetails/copy.png'
@@ -20,6 +21,7 @@ import Goods, { NftInfo } from '../../../components/HotspotCard'
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { getNftOrderState, getNftUserInfoDetail, getUserOrder } from '../../../API'
 import { stateType } from '../../../store/reducer'
+import { createAddMessageAction } from "../../../store/actions"
 
 import ManageModal from '../../../components/ManageModal'
 import CancelSaleModal from '../../../components/CancelSaleModal'
@@ -69,6 +71,7 @@ export default function NFTDetailsL({
     const web3React = useWeb3React()
     let { t } = useTranslation()
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     let [tokenId, setTokenId] = useState('')
     let [DynamicState, setDynamicState] = useState(0)
@@ -142,6 +145,10 @@ export default function NFTDetailsL({
         if (address) {
             navigate('/Someone?address=' + address)
         }
+    }
+    function CopyAddressFun(value: string) {
+        copy(value)
+        dispatch(createAddMessageAction(t('Copy successful')))
     }
 
     let typeMenu = (
@@ -217,7 +224,6 @@ export default function NFTDetailsL({
                                     <img className='first' src={BinancePng} alt="" />
                                 </Tooltip>
                                 <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>TIPS</span>} color="#FFF" key="tips">
-
                                     <img src={TipsPng} alt="" />
                                 </Tooltip>
                             </span>
@@ -228,9 +234,9 @@ export default function NFTDetailsL({
                                 <div className="name">持有者</div>
                             </div>
                             {
-                                !!web3React.account && <div className="address">
+                                <div className="address">
                                     <div className="account">
-                                        {web3React.account?.slice(0, 6)}...{web3React.account?.slice(web3React.account.length - 4)} <img onClick={CopyLink} src={CopyPng} alt="" className="copy" />
+                                        {owner_of?.slice(0, 6)}...{owner_of?.slice(owner_of.length - 4)} <img onClick={() => { CopyAddressFun(owner_of as string) }} src={CopyPng} alt="" className="copy" />
                                     </div>
                                 </div>}
                         </div>
@@ -337,16 +343,15 @@ export default function NFTDetailsL({
                                         </div>
                                     </div> : (tabIndex === 1 ? <div className='nft-details-attribute-group'>
                                         {
-
                                             attrOrInfo ? <>{
-                                                OrderDetail && OrderDetail.normalizedMetadata && Object.keys(OrderDetail.normalizedMetadata?.attributes[0]).map((item, idx) =>
+                                                OrderDetail && OrderDetail?.normalizedMetadata && OrderDetail?.normalizedMetadata?.attributes.length > 0 && Object.keys(OrderDetail?.normalizedMetadata?.attributes[0]).map((item, idx) =>
                                                     <div className={`nft-details-attribute-item ${!((idx + 1) % 3) ? "nft-details-attribute-item-right" : ""}`}>
 
                                                         <div className="nft-details-attribute-title">
                                                             {item}
                                                         </div>
                                                         <div className="nft-details-attribute-content">
-                                                            ({OrderDetail && OrderDetail?.normalizedMetadata?.attributes[0][item]})
+                                                            ({OrderDetail && OrderDetail?.normalizedMetadata?.attributes.length > 0 && OrderDetail?.normalizedMetadata?.attributes[0][item]})
                                                         </div>
                                                     </div>
                                                 )
@@ -494,9 +499,8 @@ export default function NFTDetailsL({
                         <div className="contentBox">
                             <div className="goodsList">
                                 {
-                                    [1, 2, 3, 4].map((item)=><div className="goods-item">
-                                    <Goods></Goods>
-    
+                                    [1, 2, 3, 4].map((item) => <div className="goods-item">
+                                        <Goods></Goods>
                                     </div>)
                                 }
                             </div>
@@ -508,6 +512,7 @@ export default function NFTDetailsL({
             {OrderDetail && <ManageModal isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
             {/* <CancelSaleModal isShow={false} close={() => { setManageModal(false) }} ></CancelSaleModal> */}
             {OrderDetail && <CancelSaleModal isShow={showEnterCancel} tokenId={OrderDetail?.nnftUser?.tokenId} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowEnterCancel(false) }}></CancelSaleModal>}
+            <ConfirmBuyModal isShow={false} close={() => { setManageModal(false) }} ></ConfirmBuyModal>
             <ConfirmBuyModal isShow={false} close={() => { setManageModal(false) }} ></ConfirmBuyModal>
             {OrderDetail && <SaleModal isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress }}></SaleModal>}
             {OrderDetail && <ConfirmBuyNFTModal NFTInfo={OrderDetail?.nnftOrder} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} ></ConfirmBuyNFTModal>}

@@ -120,7 +120,7 @@ export default function ScreenModal(props: any) {
         encipheredMessage: "askdljalksnmzxncajkwhdiaowhdajkhsdjkahsdkjhakjwhjdkahwjkdhajkdhakjsdhjkahsdjkawhdjkahsjmcnbzmxbcjiwahjdah" + props.data.tokenId,
         encipheredData: res
       }).then((res: any) => {
-        console.log(res,"挂单结果")
+        console.log(res, "挂单结果")
         if (res.code === 200) {
           navigate('/Market')
           dispatch(createAddMessageAction(t('Listed')))
@@ -144,7 +144,7 @@ export default function ScreenModal(props: any) {
   }, [web3React.account])
   return (
     <>
-      <SaleNFTModal isShow={props.isShow && !stepSaleNFTModal} close={() => { props.close() }} saleFun={saleStepFun1}></SaleNFTModal>
+      <SaleNFTModal isShow={props.isShow && !stepSaleNFTModal} close={() => { props.close() }} saleData={props.data} saleFun={saleStepFun1}></SaleNFTModal>
       <Modal visible={stepSaleNFTModal} destroyOnClose={true} centered closable={false} footer={null} width={790} className="StepSaleNFTModal">
         <div className="confirmModalTop">
           <img src={closeIcon} className="closeIcon" alt="" onClick={() => { setStepSaleNFTModal(false) }} />

@@ -110,6 +110,7 @@
 
 .activeBox {
     padding: 16px;
+
     .itemBigBox {
         margin-top: 25px;
         width: 100%;
@@ -193,7 +194,6 @@
                     display: flex;
                     flex-direction: row;
                     align-items: center;
-
                     img {
                         margin-right: 8px;
                     }
@@ -245,7 +245,7 @@
 
         .MarketSearchRow {
             padding: 0 20px;
-            
+
             .search {
                 margin-left: 15px;
             }
@@ -263,19 +263,27 @@
 @media (max-width:768px) {
 
     #market.MarketPage {
+        min-height: calc(100vh - 147px);
+
+        .ant-collapse {
+            background-color: #fff;
+        }
+
         .goodsList {
             padding: 0 16px;
             margin: 16px 0;
         }
-        
+
         .MarketSearchRow {
             display: flex;
             justify-content: space-between;
             margin: 0;
+
             .search {
                 margin-left: 0;
             }
         }
+
         .contentBox {
             .tabBox {
                 margin: 24px 16px 12px;
@@ -303,18 +311,29 @@
             border: 0 none;
         }
 
-        margin-bottom: 40px;
+        .ant-collapse-header {
+            padding: 4px 16px;
+        }
+
+        margin-bottom: 0;
 
         .ant-collapse-content-box {
-            padding: 0 16px;
+            padding: 0 16px 4px;
         }
 
         .activeBox {
-            
+
             .itemBigBox {
                 background: #FFFFFF;
                 box-shadow: 4px 11px 53px rgba(198, 207, 231, 0.6);
                 border-radius: 17px;
+            }
+
+            .separate {
+                background: rgba(0, 0, 0, 0.1);
+                height: 1px;
+                width: 100%;
+                margin-top: 8px;
             }
 
             & .contentBoxL {
@@ -337,7 +356,6 @@
                 text-align: left;
                 display: block;
                 border: 0 none;
-                padding: 0;
                 width: 100%;
 
                 .item {
@@ -361,6 +379,11 @@
 
                 .projectName {
                     display: flex;
+                    flex: 3;
+                }
+
+                .price {
+                    flex: 2;
                 }
 
                 .drap-icon {
@@ -369,7 +392,7 @@
             }
 
             .group {
-                margin-top: 20px;
+                margin-top: 4px;
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
