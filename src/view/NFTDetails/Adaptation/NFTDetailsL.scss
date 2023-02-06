@@ -712,6 +712,7 @@
 
     #NFTDetails {
         min-height: calc(100vh - 147px);
+        overflow: auto;
 
         .contentBox {
             padding: 20px 12px 24px;

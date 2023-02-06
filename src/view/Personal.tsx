@@ -364,11 +364,11 @@ export default function Personal(): JSX.Element {
                             <div className="bigContent">
                                 <div className="content">
                                     <div className="goodsList">
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                        <Goods></Goods>
+                                        {
+                                            [1, 2, 3, 4, 5].map((item) => <div className="userNft">
+                                                <Goods></Goods>
+                                            </div>)
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -400,7 +400,8 @@ export default function Personal(): JSX.Element {
                                     popupClassName="popup-select-filter"
                                 />
                                 {/* <div className="content m-hidden">
-                                    <div className="goodsList">
+                 
+                 <div className="goodsList">
                                         <Goods></Goods>
                                         <Goods></Goods>
                                         <Goods></Goods>

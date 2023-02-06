@@ -570,12 +570,15 @@
                     }
 
                     .goodsList {
-                        max-width: 100%;
-                        display: grid;
-                        grid-template-columns: repeat(auto-fill, 330px);
-                        justify-content: space-between;
-                        grid-row-gap: 30px;
-                        grid-column-gap: 30px;
+                        width: 100%;
+                        display: flex;
+                        justify-content: start;
+                        flex-wrap: wrap;
+                        .userNft {
+                            box-sizing: border-box;
+                            width: 25%;
+                            padding: 16px;
+                        }
                     }
 
 
@@ -737,10 +740,6 @@
     width: 100%;
     max-width: 1410px;
     margin: 44px auto 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 330px);
-    grid-row-gap: 30px;
-    grid-column-gap: 30px;
     justify-content: center;
 }
 
@@ -775,6 +774,7 @@
 @media (max-width: 900px) {
     #Personal {
         min-height: calc(100vh - 147px);
+        overflow: auto;
 
         .topBox {
             padding: 24px 12px 12px;
@@ -1033,8 +1033,15 @@
         min-height: calc(100vh - 12px);
 
         .goodsList {
-            grid-template-columns: repeat(auto-fill, 160px) !important;
-            justify-content: space-around;
+            display: flex;
+            justify-content: start;
+            flex-wrap: wrap;
+            width: 100%;
+
+            .userNft {
+                width: 50%;
+                padding: 4px;
+            }
         }
     }
 
@@ -1294,14 +1301,11 @@
 
     }
 
-    .popup-select-filter  {
-        padding: 0;
-    }
-
     .popup-select-filter {
         background: #E7E7FF;
         box-shadow: 5px 13px 62px rgba(141, 147, 163, 0.3);
         border-radius: 10px;
+        padding: 0;
     }
 
     .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
