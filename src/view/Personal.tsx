@@ -15,7 +15,7 @@ import '../assets/style/Personal.scss'
 import { Contracts } from '../web3'
 import Goods, { NftInfo } from '../components/HotspotCard'
 import { useTranslation } from 'react-i18next'
-
+import { useViewport } from '../components/viewportContext'
 import CollectionScreenModal from '../components/CollectionScreenModal'
 import ReceRecord from '../components/ReceRecord'
 import NoData from '../components/NoData'
@@ -79,6 +79,7 @@ export default function Personal(): JSX.Element {
     const [params] = useSearchParams();
     const web3React = useWeb3React()
     const dispatch = useDispatch();
+    const { width } = useViewport()
     let { t } = useTranslation();
     const [tabActive, setTabActive] = useState(0);
     let state = useSelector<stateType, stateType>(state => state);
@@ -271,7 +272,7 @@ export default function Personal(): JSX.Element {
                     <div className="tabContentBox">
                         {/* 0:物品 */}
                         {tabActive === 0 && <>
-                            <div className="bigContent">
+                            <div className="bigContent m-bigContent">
                                 <div className="slider">
                                     <div className="stateBox">
                                         <div className="stateTitle m-hidden-block">状态</div>
@@ -281,12 +282,14 @@ export default function Personal(): JSX.Element {
                                             <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
                                             <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏（12） </div>
                                         </div>
+                                        {/* 
                                         <div className='nft-type l-hidden'>
                                             <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部（122） </div>
                                             <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中（12）</div>
                                             <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
                                             <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏（12） </div>
                                         </div>
+                                         */}
                                     </div>
                                     <div className="seriesBox">
                                         <div className="seriesTitle m-hidden">
@@ -343,8 +346,8 @@ export default function Personal(): JSX.Element {
                         </>}
                         {/* 2：动态 */}
                         {tabActive === 2 && <>
-                            <div className="bigContent">
-                                <div className="slider m-hidden-block">
+                            <div className="bigContent m-bigContent actionContent">
+                                <div className="slider m-hidden-block actionSlider">
                                     <div className="typeTitle">类别</div>
                                     <div className="typeBox">
                                         <div className="flexCenter kindTitle activeType"> <img src={typeItem1} alt="" /> 全部类型</div>
@@ -354,16 +357,57 @@ export default function Personal(): JSX.Element {
                                         <div className="flexCenter managepriceType"> <img src={typeItem5} alt="" /> 调价</div>
                                     </div>
                                 </div>
-                                <div className="content m-hidden">
+                                {/* <div className="content m-hidden">
                                     <div className="goodsList">
                                         <Goods></Goods>
                                         <Goods></Goods>
                                         <Goods></Goods>
                                         <Goods></Goods>
                                     </div>
-                                </div>
+                                </div> */}
 
-                                <div className="itemBigBox l-hidden">
+                                {width >= 768 && <div className="itemContentBigBox">
+                                    <div className="titleBox">
+                                        <div className="titleItem type">类型</div>
+                                        <div className="titleItem">物品</div>
+                                        <div className="titleItem">价格</div>
+                                        <div className="titleItem">从</div>
+                                        <div className="titleItem">到</div>
+                                        <div className="titleItem date">日期</div>
+                                    </div>
+                                    <div className="itemContentBox">
+                                        <div className="itemBox">
+                                            <div className="item type">
+                                                <div className="top">上架</div>
+                                                <div className="bottom">一口价</div>
+                                            </div>
+                                            <div className="item projectName">
+                                                <div className="leftBox">
+                                                    <img src={demoTestImg} alt="" />
+                                                </div>
+                                                <div className="right">
+                                                    <div className="top">项目名称 <img src={authentication} alt="" /></div>
+                                                    <div className="bottom">NFT名称</div>
+                                                </div>
+                                            </div>
+                                            <div className="item">
+                                                <div className="top">$234.87</div>
+                                                <div className="bottom">0.32 BNB</div>
+                                            </div>
+                                            <div className="item">
+                                                Ox2423...sdw7
+                                            </div>
+                                            <div className="item">
+                                                Ox2423...12FF
+                                            </div>
+                                            <div className="item date">
+                                                5分钟前
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>}
+
+                                {width < 768 && <div className="itemBigBox ">
                                     <div className="contentBox">
                                         <Space direction="vertical">
                                             <Collapse activeKey={activeKey} expandIcon={() => <></>} defaultActiveKey={['1']}>
@@ -418,18 +462,16 @@ export default function Personal(): JSX.Element {
                                                         </div>
                                                         <div className="item date">
                                                             <div className="text type-date">
-
                                                                 5分钟前
                                                             </div>
                                                             <div className="type">日期</div>
-
                                                         </div>
                                                     </div>
                                                 </Collapse.Panel>
                                             </Collapse>
                                         </Space>
                                     </div>
-                                </div>
+                                </div>}
                             </div>
                         </>}
                     </div>
