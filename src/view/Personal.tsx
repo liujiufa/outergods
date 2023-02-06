@@ -41,6 +41,7 @@ import typeItem4 from '../assets/image/typeItem4.png'
 import typeItem5 from '../assets/image/typeItem5.png'
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import authentication from '../assets/image/authentication.png'
+import NotCertified from '../assets/image/NotCertified.png'
 
 const { Column } = Table;
 
@@ -95,6 +96,7 @@ export default function Personal(): JSX.Element {
     let [nftSort, setNftSort] = useState(0)
     const [activeKey, setActiveKey] = useState("");
     let [pageNum, setPageNum] = useState<number>(1)
+    let [tableData, setTableData] = useState<any>([])
     let type = params.get('type')
     let operateTtype = [
         t('Listing'),
@@ -201,6 +203,25 @@ export default function Personal(): JSX.Element {
     function shareActiveFun() {
         setShareActive(!shareActive)
     }
+    function goSomeone(address: string) {
+        if (address) {
+            navigate('/Someone?address=' + address)
+        }
+    }
+
+    useEffect(() => {
+        if (web3React.account && state.token) {
+            // console.log(DynamicType,DynamicState)
+            getNftUserState({
+                userAddress: web3React.account,
+                status: -1,
+                type: 2
+            }).then(res => {
+                console.log(res.data, "动态")
+                setTableData(res.data)
+            })
+        }
+    }, [web3React.account, state.token])
 
     return (
         <div id="Personal" >
@@ -376,34 +397,38 @@ export default function Personal(): JSX.Element {
                                         <div className="titleItem date">日期</div>
                                     </div>
                                     <div className="itemContentBox">
-                                        <div className="itemBox">
+                                        {tableData.length > 0 && tableData.map((item: any, index: number) => <div key={index} className="itemBox">
                                             <div className="item type">
-                                                <div className="top">上架</div>
+                                                <div className="top">{operateTtype[item.operateType]}</div>
                                                 <div className="bottom">一口价</div>
                                             </div>
                                             <div className="item projectName">
                                                 <div className="leftBox">
-                                                    <img src={demoTestImg} alt="" />
+                                                    <img src={item.projectLogo} alt="" />
                                                 </div>
                                                 <div className="right">
-                                                    <div className="top">项目名称 <img src={authentication} alt="" /></div>
-                                                    <div className="bottom">NFT名称</div>
+                                                    <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                                    <div className="bottom">{item.nftName}</div>
                                                 </div>
                                             </div>
                                             <div className="item">
-                                                <div className="top">$234.87</div>
-                                                <div className="bottom">0.32 BNB</div>
+                                                <div className="top">{item.uorderPrice}</div>
+                                                <div className="bottom">{item.num} {item.coinName}</div>
                                             </div>
-                                            <div className="item">
-                                                Ox2423...sdw7
+                                            <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
+                                                {
+                                                    item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
+                                                }
                                             </div>
-                                            <div className="item">
-                                                Ox2423...12FF
+                                            <div className="item" onClick={() => { goSomeone(item.toAddress) }}>
+                                                {
+                                                    item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
+                                                }
                                             </div>
                                             <div className="item date">
-                                                5分钟前
+                                                {HowLongAgo(item.createTime)}
                                             </div>
-                                        </div>
+                                        </div>)}
                                     </div>
                                 </div>}
 
@@ -411,25 +436,25 @@ export default function Personal(): JSX.Element {
                                     <div className="contentBox">
                                         <Space direction="vertical">
                                             <Collapse activeKey={activeKey} expandIcon={() => <></>} defaultActiveKey={['1']}>
-                                                <Collapse.Panel header={
+                                                {tableData.length > 0 && tableData.map((item: any, index: number) => <Collapse.Panel header={
                                                     <div className="itemBox">
                                                         <div className="item type">
-                                                            <div className="top">上架</div>
+                                                            <div className="top">{operateTtype[item.operateType]}</div>
                                                             <div className="bottom">一口价</div>
                                                         </div>
                                                         <div className='group'>
                                                             <div className="item projectName">
                                                                 <div className="leftBox">
-                                                                    <img src={demoTestImg} alt="" />
+                                                                    <img src={item.projectLogo} alt="" />
                                                                 </div>
                                                                 <div className="right">
-                                                                    <div className="top">项目名称 <img src={authentication} alt="" /></div>
-                                                                    <div className="bottom">NFT名称</div>
+                                                                    <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                                                    <div className="bottom">{item.nftName}</div>
                                                                 </div>
                                                             </div>
                                                             <div className="item">
-                                                                <div className="top">$234.87</div>
-                                                                <div className="bottom">0.32 BNB</div>
+                                                                <div className="top">{item.uorderPrice}</div>
+                                                                <div className="bottom">{item.num} {item.coinName}</div>
                                                             </div>
                                                             <div className='drap-icon' onClick={() => {
                                                                 if (activeKey === "1") {
@@ -448,26 +473,30 @@ export default function Personal(): JSX.Element {
                                                 } key="1">
                                                     <div className="group">
                                                         <div className="item">
-                                                            <div className="text">
-                                                                Ox2423...sdw7
+                                                            <div className="text" onClick={() => { goSomeone(item.formAddress) }}>
+                                                                {
+                                                                    item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
+                                                                }
                                                             </div>
                                                             <div className="type">从</div>
                                                         </div>
                                                         <div className="item">
-                                                            <div className="text">
-                                                                Ox2423...12FF
+                                                            <div className="text" onClick={() => { goSomeone(item.toAddress) }}>
+                                                                {
+                                                                    item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
+                                                                }
                                                             </div>
                                                             <div className="type">到</div>
 
                                                         </div>
                                                         <div className="item date">
                                                             <div className="text type-date">
-                                                                5分钟前
+                                                                {HowLongAgo(item.createTime)}
                                                             </div>
                                                             <div className="type">日期</div>
                                                         </div>
                                                     </div>
-                                                </Collapse.Panel>
+                                                </Collapse.Panel>)}
                                             </Collapse>
                                         </Space>
                                     </div>

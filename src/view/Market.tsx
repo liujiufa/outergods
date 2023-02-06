@@ -11,18 +11,30 @@ import ConfirmModal from '../components/ConfirmModal'
 import NoData from '../components/NoData'
 import { Menu, Dropdown, Collapse, Space } from 'antd';
 import { useTranslation } from 'react-i18next'
+import { getTradeOrderState } from '../API'
+import { HowLongAgo, AddrHandle } from '../utils/tool'
 
 import '../assets/style/Market.scss'
 import openIcon from '../assets/image/openIconWhite.png'
 import filter from '../assets/image/filter.png'
 import demoTestImg from '../assets/image/demoTestImg.png'
 import authentication from '../assets/image/authentication.png'
-import DownOutlined from '@ant-design/icons/lib/icons/DownOutlined';
-import { UpOutlined } from '@ant-design/icons';
+import NotCertified from '../assets/image/NotCertified.png'
 
 
 import ConfirmBuyNFTModal from '../components/ConfirmBuyNFTModal'
-
+interface dynamic {
+  nftName: string,
+  num: number,
+  operateType: number
+  formAddress: string
+  toAddress: string
+  createTime: number
+  orderId: number
+  id: number
+  coinName: string
+  projectLogo: string
+}
 
 export default function Market(): JSX.Element {
   // 控制图标上下
@@ -31,6 +43,7 @@ export default function Market(): JSX.Element {
   const [tabActive, setTabActive] = useState(0);
   const [activeKey, setActiveKey] = useState("");
 
+  let [dynamicInfo, setSynamicInfo] = useState<dynamic[]>([])
   const dispatch = useDispatch();
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
@@ -40,6 +53,11 @@ export default function Market(): JSX.Element {
   let [TradeOrder, setTradeOrder] = useState<NftInfo[]>([])
   let [currentTradeOrder, setCurrentTradeOrder] = useState<NftInfo>()
   let [pageNum, setPageNum] = useState<number>(1)
+  let operateTtype = [
+    "挂单",
+    "出售",
+    "转出"
+  ]
   // 下拉图标旋转
   const handleDropDown = (fun: any, value: boolean) => {
     fun(!value);
@@ -157,6 +175,29 @@ export default function Market(): JSX.Element {
     /* 状态正常去挂卖 */
     return navigate(`/NFTDetails?ID=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.userAddress}&&NFTDetailType=1`)
   }
+  function goSomeone(address: string) {
+    navigate('/Someone?address=' + address)
+  }
+
+  useEffect(() => {
+    getTradeOrderState('Market').then(res => {
+      console.log(res.data, "最近动态")
+      if (res.data.length !== 0) {
+        setSynamicInfo(res.data)
+      }
+    })
+    let Time = setInterval(() => {
+      getTradeOrderState('Market').then(res => {
+        if (res.data.length !== 0) {
+          setSynamicInfo(res.data)
+          // console.log(res,"最近动态")
+        }
+      })
+    }, 3000)
+    return () => {
+      clearInterval(Time)
+    }
+  }, [])
 
   return (
     <div id="market" className="MarketPage">
@@ -222,34 +263,40 @@ export default function Market(): JSX.Element {
                 <div className="titleItem date">日期</div>
               </div>
               <div className="itemContentBox">
-                <div className="itemBox">
-                  <div className="item type">
-                    <div className="top">上架</div>
-                    <div className="bottom">一口价</div>
-                  </div>
-                  <div className="item projectName">
-                    <div className="leftBox">
-                      <img src={demoTestImg} alt="" />
+                {dynamicInfo &&
+                  dynamicInfo.map((item: any, index: number) => <div key={index} className="itemBox">
+                    <div className="item type">
+                      <div className="top">{operateTtype[item.operateType]}</div>
+                      <div className="bottom">一口价</div>
                     </div>
-                    <div className="right">
-                      <div className="top">项目名称 <img src={authentication} alt="" /></div>
-                      <div className="bottom">NFT名称</div>
+                    <div className="item projectName">
+                      <div className="leftBox">
+                        <img src={item.projectLogo} alt="" />
+                      </div>
+                      <div className="right">
+                        <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                        <div className="bottom">{item.nftName}</div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="item">
-                    <div className="top">$234.87</div>
-                    <div className="bottom">0.32 BNB</div>
-                  </div>
-                  <div className="item">
-                    Ox2423...sdw7
-                  </div>
-                  <div className="item">
-                    Ox2423...12FF
-                  </div>
-                  <div className="item date">
-                    5分钟前
-                  </div>
-                </div>
+                    <div className="item">
+                      <div className="top">{item.uorderPrice}</div>
+                      <div className="bottom">{item.num} {item.coinName}</div>
+                    </div>
+                    <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
+                      {
+                        item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
+                      }
+                    </div>
+                    <div className="item" onClick={() => { goSomeone(item.toAddress) }}>
+                      {
+                        item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
+                      }
+                    </div>
+                    <div className="item date">
+                      {HowLongAgo(item.createTime)}
+                    </div>
+                  </div>)
+                }
               </div>
             </div>
           </div>

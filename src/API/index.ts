@@ -77,7 +77,6 @@ interface NftStateType {
 }
 /* 获取用户nft 动态 */
 export function getNftUserState(data: NftStateType) {
-    // console.log(data);
     return axois.request({
         url: `/user/uUser/getNftUserState/${data.userAddress}/${data.status}/${data.type}`,
         method: 'get'
