@@ -49,6 +49,9 @@ export default function Market(): JSX.Element {
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
   const navigate = useNavigate();
+
+
+
   let [showScreenModal, setShowScreenModal] = useState<boolean>(false)
   let [buyNFTModal, setBuyNFTModal] = useState<boolean>(false)
   let [TradeOrder, setTradeOrder] = useState<NftInfo[]>([])
@@ -63,7 +66,6 @@ export default function Market(): JSX.Element {
   const handleDropDown = (fun: any, value: boolean) => {
     fun(!value);
   }
-
 
   /* 修改筛选条件 */
   function changeScreen(ScreenData: getOrderType, typeIndex?: number, sortIndex?: number) {

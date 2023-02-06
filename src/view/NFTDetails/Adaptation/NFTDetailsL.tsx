@@ -13,10 +13,14 @@ import authentication from '../../../assets/image/authentication.png'
 import openIcon from '../../../assets/image/openIconWhite.png'
 import switchIcon from '../../../assets/image/switchIcon.png'
 import './NFTDetailsL.scss'
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
+import { useSelector, useDispatch } from "react-redux";
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import Goods, { NftInfo } from '../../../components/HotspotCard'
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { getNftOrderState, getNftUserInfoDetail, getUserOrder } from '../../../API'
+import { stateType } from '../../../store/reducer'
+
 import ManageModal from '../../../components/ManageModal'
 import CancelSaleModal from '../../../components/CancelSaleModal'
 import ConfirmBuyModal from '../../../components/ConfirmBuyModal'
@@ -26,12 +30,33 @@ import ConfirmBuyNFTModal from '../../../components/ConfirmBuyNFTModal'
 
 import defaultCard from '../../../assets/image/defaultCard.png'
 import { useWeb3React } from '@web3-react/core'
-import { AddrHandle } from '../../../utils/tool'
+import { AddrHandle, HowLongAgo } from '../../../utils/tool'
+import { useTranslation } from 'react-i18next'
+
+import NotCertified from '../../../assets/image/NotCertified.png'
 
 const TABS = ["描述",
     "属性",
     "信息"
 ]
+
+interface OrderDetailType {
+    projectName: string,
+    nftName: string
+    image: string
+    description: string
+    tokenAddress: string
+    isAuthentication: number | null
+    tokenId: string
+    metadata: {
+        [key: string]: string;
+    },
+    browseNum: number
+    giveNum: number
+    price: number,
+    id: number,
+    userAddress: string
+}
 export default function NFTDetailsL({
     OrderDetail,
     CopyLink,
@@ -42,15 +67,21 @@ export default function NFTDetailsL({
 
     let [showPriceChange, setShowPriceChange] = useState<boolean>(false)
     const web3React = useWeb3React()
+    let { t } = useTranslation()
+    const navigate = useNavigate();
 
-    console.log("web3React", web3React)
+    let [tokenId, setTokenId] = useState('')
+    let [DynamicState, setDynamicState] = useState(0)
+    let state = useSelector<stateType, stateType>(state => state);
     const [tabIndex, setTabIndex] = useState(0)
     const [expand1, setExpand1] = useState(true)
     const [manageModal, setManageModal] = useState(false)
     const [saleNFTModal, setSaleNFTModal] = useState(false)
+    let [tableData, setTableData] = useState([])
     let [buyNFTModal, setBuyNFTModal] = useState<boolean>(false)
     let [showEnterCancel, setShowEnterCancel] = useState<boolean>(false)
     let [currentTradeOrder, setCurrentTradeOrder] = useState<NftInfo>()
+    let [OrderNFTDetail, setOrderNFTDetail] = useState<OrderDetailType | undefined>(undefined)
     const [nftData, setNftData] = useState([{
         title: "总市值",
         price: "0.55",
@@ -66,12 +97,40 @@ export default function NFTDetailsL({
         range: "-254"
 
     }])
+    let [UserOrder, setUserOrder] = useState<NftInfo[]>([])
     const [params] = useSearchParams();
-
+    let DynamicStateMap = [
+        {
+            key: "全部",
+            value: -1
+        },
+        {
+            key: t('Listing'),
+            value: 0
+        },
+        {
+            key: t('Sale'),
+            value: 1
+        },
+        {
+            key: t('Cancel an order'),
+            value: 2
+        },
+        {
+            key: t('Send'),
+            value: 3
+        }
+    ];
     let ID = params.get('ID')
     let tokenAddress = params.get('tokenAddress')
     let owner_of = params.get('owner_of')
-
+    let operateTtype = [
+        t('Listing'),
+        t('Sale'),
+        t('Cancel an order'),
+        t('Send'),
+        t('change price'),
+    ]
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
     }
@@ -79,12 +138,52 @@ export default function NFTDetailsL({
     const buyBtnFun = () => {
         setBuyNFTModal(true)
     }
+    function goSomeone(address: string) {
+        if (address) {
+            navigate('/Someone?address=' + address)
+        }
+    }
 
     let typeMenu = (
         <Menu onClick={() => handleDropDown(setExpand1, expand1)}>
             <Menu.Item>全部</Menu.Item>
         </Menu>
     );
+    useEffect(() => {
+        if (ID && state.token) {
+            getNftUserInfoDetail(tokenAddress as string, tokenId).then(res => {
+                console.log(res, "nft详情")
+                setTokenId(res.data.tokenId)
+                // setTokenId(res.data.tokenId)
+                if (res.data.metadata) {
+                    res.data.metadata = JSON.parse(res.data.metadata)
+                    let obj: { [key: string]: string; } = {}
+                    Object.keys(res.data.metadata).filter((item) => item !== 'image').map((item) => {
+                        if (typeof res.data.metadata[item] === 'string') {
+                            obj[item] = res.data.metadata[item]
+                        }
+                    })
+                    res.data.metadata = obj
+                }
+                setOrderNFTDetail(res.data)
+                if (state.token) {
+                    getUserOrder(res.data.userAddress).then(res => {
+                        setUserOrder(res.data)
+                        // console.log(res,"获取卖家其他商品")
+                    })
+                }
+            })
+        }
+    }, [ID, state.token])
+
+    useEffect(() => {
+        if (tokenId && OrderNFTDetail && OrderNFTDetail.tokenAddress) {
+            getNftOrderState(tokenId, -1, OrderNFTDetail.tokenAddress).then(res => {
+                console.log(res, "nft动态")
+                setTableData(res.data)
+            })
+        }
+    }, [tokenId])
 
     return (
         <div className="NFTDetailsPage">
@@ -302,7 +401,7 @@ export default function NFTDetailsL({
                         <div className="sanlian-content">
                             <div className="shareBox">
                                 <img src={SharePng} alt="" />
-                                {true && <>
+                                {false && <>
                                     <div className='copyLinkBox'>
                                         <div className="title">复制链接</div>
                                         <div className="outLink">在Facebook上分享</div>
@@ -340,7 +439,7 @@ export default function NFTDetailsL({
                                 <div className="switch"><img src={switchIcon} alt="" /></div>
                             </div>
                         </div>
-                        {false && <div className="contentBox">
+                        <div className="contentBox">
                             <div className="itemBox NFTDetailsTitleBox">
                                 <div className="item type">类型</div>
                                 <div className="item">物品</div>
@@ -349,35 +448,41 @@ export default function NFTDetailsL({
                                 <div className="item">到</div>
                                 <div className="item date">日期</div>
                             </div>
-                            <div className="itemBox">
-                                <div className="item type">
-                                    <div className="top">上架</div>
-                                    <div className="bottom">一口价</div>
-                                </div>
-                                <div className="item projectName">
-                                    <div className="leftBox">
-                                        <img src={demoTestImg} alt="" />
+                            {tableData &&
+                                tableData.map((item: any, index: number) => <div key={index} className="itemBox">
+                                    <div className="item type">
+                                        <div className="top">{operateTtype[item.operateType]}</div>
+                                        <div className="bottom">{t('as fixed price')}</div>
                                     </div>
-                                    <div className="right">
-                                        <div className="top">项目名称 <img src={authentication} alt="" /></div>
-                                        <div className="bottom">NFT名称</div>
+                                    <div className="item projectName">
+                                        <div className="leftBox">
+                                            <img src={item.projectLogo} alt="" />
+                                        </div>
+                                        <div className="right">
+                                            <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                            <div className="bottom">{item.nftName}</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="item">
-                                    <div className="top">$234.87</div>
-                                    <div className="bottom">0.32 BNB</div>
-                                </div>
-                                <div className="item">
-                                    Ox2423...sdw7
-                                </div>
-                                <div className="item">
-                                    Ox2423...12FF
-                                </div>
-                                <div className="item date">
-                                    5分钟前
-                                </div>
-                            </div>
-                        </div>}
+                                    <div className="item">
+                                        <div className="top">{item.uorderPrice}</div>
+                                        <div className="bottom">{item.num} {item.coinName}</div>
+                                    </div>
+                                    <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
+                                        {
+                                            item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
+                                        }
+                                    </div>
+                                    <div className="item" onClick={() => { goSomeone(item.toAddress) }}>
+                                        {
+                                            item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
+                                        }
+                                    </div>
+                                    <div className="item date">
+                                        {HowLongAgo(item.createTime)}
+                                    </div>
+                                </div>)
+                            }
+                        </div>
                     </div>
                 </div>
                 {/* 来自这个项目 */}

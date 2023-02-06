@@ -75,9 +75,11 @@ export default function HotspotCard(props: any) {
     })
   }
 
-  function goProject() {
+  function goProject(e: any) {
+    e.stopPropagation();
+    console.log("12");
     if (props.NftInfo && props.NftInfo.name && props.NftInfo.isAuthentication) {
-      navigate('/project?projectName=' + props.NftInfo.name)
+      navigate('/Launch?projectName=' + props.NftInfo.name)
     }
   }
 
@@ -119,7 +121,7 @@ export default function HotspotCard(props: any) {
   }]
 
   return (
-    <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }} onClick={() => { props.goPath() }}>
+    <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }} onClick={(e) => { props.goPath(); e.stopPropagation(); }}>
       <div className="imgBox" style={{ borderRadius: "20px 20px 45px 0px" }} onMouseEnter={(e) => { BuyNFTFun(e) }} onMouseLeave={() => { setActiveBuyMenu(false) }}>
         {/* {activeBuyMenu && <div className="buyBtn flexCenter">购买</div>} */}
         {activeBuyMenu && <div className="buyBtn flexCenter" onClick={(e) => { e.stopPropagation(); props.buyBtnFun() }}>购买</div>}
@@ -127,11 +129,12 @@ export default function HotspotCard(props: any) {
       </div>
       <div className="bottonBox">
         <div className="box">
-          <div className="cardName" onClick={goProject}>{props.NftInfo?.normalized_metadata?.name || props.NftInfo?.metadata?.name || "XXXXXXXXX"}</div>
+          <div className="cardName" >{props.NftInfo?.normalized_metadata?.name || props.NftInfo?.metadata?.name || "XXXXXXXXX"}</div>
           <div className="Collection pointer nowrap" onClick={LikeFun}><img src={isLike ? Like : NotLike} alt="" /> {LikeNum}</div>
         </div>
 
-        <div className="cardTokenId home-nft">
+        {/* <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }}> */}
+        <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }}>
           {props.NftInfo?.name || "XXXXXXXXX"}
           <div className="hover-show-card">
             <img className="hover-show-card-img" src={NftCardImagePng} />
