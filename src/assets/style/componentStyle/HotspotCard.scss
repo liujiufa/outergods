@@ -100,19 +100,22 @@
         .home-nft {
             &:hover {
                 display: flex;
+                justify-content: start;
+                align-items: center;
 
                 .hover-show-card {
                     position: absolute;
                     top: 0;
                     left: 50%;
                     display: block;
-                    width: 200%;
+                    width: 120%;
                     z-index: 999;
-                    transform: translate(-50%, -50%);
+                    transform: translate(-50%, -4%);
                     background: #FFFFFF;
                     box-shadow: 38px 41px 159px rgba(141, 147, 163, 0.4);
                     border-radius: 20.6596px;
                     overflow: hidden;
+                    z-index: 999;
 
                     .hover-show-card-img {
                         width: 100%;
@@ -120,7 +123,7 @@
 
                     .hover-show-card-content {
                         width: 100%;
-                        padding: 0 32px 24px;
+                        padding: 0 16px 12px;
 
                         .hover-show-card-content-top {
                             position: relative;
@@ -156,10 +159,11 @@
 
                             .hover-show-card-content-item {
                                 flex: 1;
+                                padding: 0 4px;
 
                                 .hover-show-card-content-amount {
                                     font-weight: 700;
-                                    font-size: 16px;
+                                    font-size: 14px;
                                     text-align: center;
                                     color: #000000;
                                 }
@@ -167,7 +171,6 @@
                                 .hover-show-card-content-name {
                                     font-weight: 400;
                                     font-size: 12px;
-                                    margin-top: 12px;
                                     color: rgba(0, 0, 0, 0.5);
                                 }
                             }
@@ -181,7 +184,6 @@
 
         .hover-show-card {
             display: none;
-
         }
 
 
@@ -305,3 +307,8 @@
 @media (max-width:425px) {}
 
 @media (max-width:375px) {}
+
+
+.swiper {
+    overflow:inherit !important;
+}
