@@ -271,6 +271,11 @@ const SearchGroup = styled(FlexSBCBox)`
     box-sizing: border-box;
     border-radius: 18px;
     padding: 6px 15px;
+    @media (max-width: 750px) {
+        width: 80px;
+        padding: 4px 8px;
+        margin-left: 12px;
+    }
 `
 
 const SearchBox = styled(FlexCCBox)`
@@ -278,6 +283,9 @@ const SearchBox = styled(FlexCCBox)`
     overflow: hidden;
     white-space: nowrap;
     margin-right: 3px;
+    @media (max-width: 750px) {
+        font-size: 12px;
+    }
 `
 
 const GroupProject = styled(FlexSCBox)`
@@ -500,7 +508,7 @@ export default function Main() {
                 {
                     !!nftIdo.length && <SwiperBoxPC
                         slidesPerView={7}
-                        spaceBetween={16}
+                        spaceBetween={8}
                         centeredSlides={true}
                         loop={true}
                         loopFillGroupWithBlank={true}
