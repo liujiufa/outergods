@@ -50,7 +50,7 @@ export default function Market(): JSX.Element {
   let state = useSelector<stateType, stateType>(state => state);
   const navigate = useNavigate();
 
-  const list = [1, 2, 3, 4, 5]
+  const listData = [1, 2, 3, 4, 5]
 
   let [showScreenModal, setShowScreenModal] = useState<boolean>(false)
   let [buyNFTModal, setBuyNFTModal] = useState<boolean>(false)
@@ -310,67 +310,69 @@ export default function Market(): JSX.Element {
                     <Collapse activeKey={activeKey} expandIcon={() => <></>}>
 
                       {
-                        list.map((item, idx) =>
+                        listData.map((item, idx) =>
+                          <Fragment>
                             <Collapse.Panel header={
-                            <div className="itemBox">
-                              <div className="item type">
-                                <div className="top">上架</div>
-                                <div className="bottom">一口价</div>
-                              </div>
-                              <div className='group'>
-                                <div className="item projectName">
-                                  <div className="leftBox">
-                                    <img src={demoTestImg} alt="" />
+                              <div className="itemBox">
+                                <div className="item type">
+                                  <div className="top">上架</div>
+                                  <div className="bottom">一口价</div>
+                                </div>
+                                <div className='group'>
+                                  <div className="item projectName">
+                                    <div className="leftBox">
+                                      <img src={demoTestImg} alt="" />
+                                    </div>
+                                    <div className="right">
+                                      <div className="top">项目名称 <img src={authentication} alt="" /></div>
+                                      <div className="bottom">NFT名称</div>
+                                    </div>
                                   </div>
-                                  <div className="right">
-                                    <div className="top">项目名称 <img src={authentication} alt="" /></div>
-                                    <div className="bottom">NFT名称</div>
+                                  <div className="item price">
+                                    <div className="top">$234.87</div>
+                                    <div className="bottom">0.32 BNB</div>
+                                  </div>
+                                  <div className='drap-icon' onClick={() => {
+                                    if (activeKey === (idx + "")) {
+                                      setActiveKey("")
+                                      console.log("activeKey", "null")
+                                    } else {
+                                      setActiveKey(idx + "")
+                                      console.log("activeKey", (idx + ""))
+                                    }
+                                  }} >
+                                    {
+                                      activeKey !== (idx + "") ? <DownOutlined /> : <UpOutlined />
+                                    }
                                   </div>
                                 </div>
-                                <div className="item price">
-                                  <div className="top">$234.87</div>
-                                  <div className="bottom">0.32 BNB</div>
-                                </div>
-                                <div className='drap-icon' onClick={() => {
-                                  if (activeKey === (idx + "")) {
-                                    setActiveKey("")
-                                    console.log("activeKey", "null")
-                                  } else {
-                                    setActiveKey(idx + "")
-                                    console.log("activeKey", (idx + ""))
-                                  }
-                                }} >
-                                  {
-                                    activeKey !== (idx+"") ? <DownOutlined /> : <UpOutlined />
-                                  }
-                                </div>
-                              </div>
-
-                            </div>
-                          } key={idx+""}>
-                            <div className="group">
-                              <div className="item">
-                                <div className="text">
-                                  Ox2423...sdw7
-                                </div>
-                                <div className="type">从</div>
-                              </div>
-                              <div className="item">
-                                <div className="text">
-                                  Ox2423...12FF
-                                </div>
-                                <div className="type">到</div>
 
                               </div>
-                              <div className="item date">
-                                <div className="text type-date">
-                                  5分钟前
+                            } key={idx + ""}>
+                              <div className="group">
+                                <div className="item">
+                                  <div className="text">
+                                    Ox2423...sdw7
+                                  </div>
+                                  <div className="type">从</div>
                                 </div>
-                                <div className="type">日期</div>
+                                <div className="item">
+                                  <div className="text">
+                                    Ox2423...12FF
+                                  </div>
+                                  <div className="type">到</div>
+
+                                </div>
+                                <div className="item date">
+                                  <div className="text type-date">
+                                    5分钟前
+                                  </div>
+                                  <div className="type">日期</div>
+                                </div>
                               </div>
-                            </div>
-                            <div className="separate" style={{ display: list.length === (idx + 1) ? "none" : "block" }}></div>
-                          </Collapse.Panel>
+                            </Collapse.Panel>
+                            <div className="separate" style={{ display: listData.length === (idx + 1) ? "none" : "block" }}></div>
+                          </Fragment>
                         )
                       }
                     </Collapse>

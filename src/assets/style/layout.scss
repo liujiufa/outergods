@@ -218,12 +218,6 @@
 
     @media (max-width:1150px) {
 
-        .menu,
-        .Chain,
-        .Lang {
-            display: none;
-        }
-
         .HeadMenu {
             display: inline-block;
         }
@@ -238,8 +232,26 @@
             margin: 0 20px;
         }
 
+        .menu,
+        .ChainName,
+        .Lang {
+            display: none;
+        }
+
+        .Chain {
+            margin-right: 12px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .HeadMenu {
+            margin-left: 12px;
+        }
+
         .walletIcon {
             margin: 0;
+            width: 24px;
+            height: 24px;
         }
     }
 }
@@ -302,6 +314,13 @@
    
     .MainFooter {
         padding: 12px 0px !important;
+        .footerBox {
+            width: 120px;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
     }
 
     .layout {
@@ -312,9 +331,9 @@
             align-items: center;
 
             .mobile-search-icon {
-                width: 20px;
-                height: 20px;
-                margin-right: 16px;
+                width: 24px;
+                height: 24px;
+                margin-right: 12px;
             }
 
             .mobile-header-right {
@@ -351,6 +370,9 @@
     padding: 5px 0px;
     display: flex;
     align-items: center;
+    img {
+        width: 22px;
+    }
 }
 
 // 下拉菜单图标旋转

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import '../assets/style/Launch.scss'
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getPlatformBaseDetail, getNftProjectDetail, getTradeOrder, getTradeOrderState } from '../API'
 import { stateType } from '../store/reducer'
-import { Dropdown, Menu, Switch } from 'antd'
+import { Collapse, Dropdown, Menu, Space, Switch } from 'antd'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration' // import plugin
 import { useSelector, useDispatch } from "react-redux";
@@ -31,8 +31,11 @@ import outLinkIcon7 from '../assets/image/outLinkIcon7.png'
 import openIcon from '../assets/image/openIconWhite.png'
 import FilterBack from '../assets/image/filter-back.png'
 import NotCertified from '../assets/image/NotCertified.png'
+import demoTestImg from '../assets/image/demoTestImg.png'
 
 import go from '../assets/image/go.png'
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import list from 'antd/lib/list';
 interface detialType {
     name: string
     routingName: string
@@ -64,6 +67,19 @@ interface ProjectDetailType {
     description: string
     isAuthentication: number | null
 }
+
+interface dynamic {
+    nftName: string,
+    num: number,
+    operateType: number
+    formAddress: string
+    toAddress: string
+    createTime: number
+    orderId: number
+    id: number
+    coinName: string
+    projectLogo: string
+}
 export default function Launch(): JSX.Element {
     const [params] = useSearchParams();
     let state = useSelector<stateType, stateType>(state => state);
@@ -76,6 +92,9 @@ export default function Launch(): JSX.Element {
     let [LaunchDetial, setLaunchDetial] = useState<detialType | null>(null)
     let [ProjectDetail, setProjectDetail] = useState<ProjectDetailType | null>(null)
     let [ProjectOrder, setProjectOrder] = useState<NftInfo[]>([])
+    const [activeKey, setActiveKey] = useState("");
+    const listData = [1, 2, 3, 4, 5]
+    let [dynamicInfo, setSynamicInfo] = useState<dynamic[]>([])
 
     let [tableData, setTableData] = useState([])
     let [newTime, setNewTime] = useState(dayjs().valueOf())
@@ -195,7 +214,7 @@ export default function Launch(): JSX.Element {
                     </div>
                     <div className="linkItem copyItem" onClick={() => {
                         setIsShare(!isShare)
-                     }}>
+                    }}>
                         <img src={outLinkIcon6} alt="" />
                         {isShare && <>
                             <div className='copyLinkBox'>
@@ -294,7 +313,7 @@ export default function Launch(): JSX.Element {
                         </div>
                     </div>
                     <div className="bigContent">
-                        <div className={`slider m-hidden-block ${ Number(tabActive) === 1 ? "isHidden" : "" }`}>
+                        <div className={`slider m-hidden-block ${Number(tabActive) === 1 ? "isHidden" : ""}`}>
                             <div className="settingPut">
                                 <div className="title">已上架</div>
                                 <div className="right"><Switch defaultChecked onChange={onChange} /></div>
@@ -349,8 +368,8 @@ export default function Launch(): JSX.Element {
                     </div>
                 </div>}
                 {/* 动态 */}
-                {tabActive === 1 && <div className='actionBox'>
-                    {<div className="itemBigBox contentBoxL">
+                {tabActive === 1 && <div className='activeBox'>
+                    <div className="itemBigBox contentBoxL">
                         <div className="titleBox">
                             <div className="titleItem type">类型</div>
                             <div className="titleItem">物品</div>
@@ -360,8 +379,8 @@ export default function Launch(): JSX.Element {
                             <div className="titleItem date">日期</div>
                         </div>
                         <div className="itemContentBox">
-                            {tableData.length > 0 &&
-                                tableData.map((item: any, index: number) => <div key={index} className="itemBox">
+                            {dynamicInfo &&
+                                dynamicInfo.map((item: any, index: number) => <div key={index} className="itemBox">
                                     <div className="item type">
                                         <div className="top">{operateTtype[item.operateType]}</div>
                                         <div className="bottom">一口价</div>
@@ -395,8 +414,89 @@ export default function Launch(): JSX.Element {
                                 </div>)
                             }
                         </div>
-                    </div>}
-                </div>}
+                    </div>
+                    <div className="itemBigBox contentBoxM">
+                        <div className="contentBox">
+
+                            <Fragment>
+                                <Space direction="vertical">
+                                    <Collapse activeKey={activeKey} expandIcon={() => <></>}>
+
+                                        {
+                                            listData.map((item, idx) =>
+                                                <Fragment>
+                                                    <Collapse.Panel header={
+                                                        <div className="itemBox">
+                                                            <div className="item type">
+                                                                <div className="top">上架</div>
+                                                                <div className="bottom">一口价</div>
+                                                            </div>
+                                                            <div className='group'>
+                                                                <div className="item projectName">
+                                                                    <div className="leftBox">
+                                                                        <img src={demoTestImg} alt="" />
+                                                                    </div>
+                                                                    <div className="right">
+                                                                        <div className="top">项目名称 <img src={authentication} alt="" /></div>
+                                                                        <div className="bottom">NFT名称</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="item price">
+                                                                    <div className="top">$234.87</div>
+                                                                    <div className="bottom">0.32 BNB</div>
+                                                                </div>
+                                                                <div className='drap-icon' onClick={() => {
+                                                                    if (activeKey === (idx + "")) {
+                                                                        setActiveKey("")
+                                                                        console.log("activeKey", "null")
+                                                                    } else {
+                                                                        setActiveKey(idx + "")
+                                                                        console.log("activeKey", (idx + ""))
+                                                                    }
+                                                                }} >
+                                                                    {
+                                                                        activeKey !== (idx + "") ? <DownOutlined /> : <UpOutlined />
+                                                                    }
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    } key={idx + ""}>
+                                                        <div className="group">
+                                                            <div className="item">
+                                                                <div className="text">
+                                                                    Ox2423...sdw7
+                                                                </div>
+                                                                <div className="type">从</div>
+                                                            </div>
+                                                            <div className="item">
+                                                                <div className="text">
+                                                                    Ox2423...12FF
+                                                                </div>
+                                                                <div className="type">到</div>
+
+                                                            </div>
+                                                            <div className="item date">
+                                                                <div className="text type-date">
+                                                                    5分钟前
+                                                                </div>
+                                                                <div className="type">日期</div>
+                                                            </div>
+                                                        </div>
+                                                    </Collapse.Panel>
+                                                    <div className="separate" style={{ display: (listData.length === (idx + 1) )? "none" : "block" }}></div>
+                                                </Fragment>
+                                            )
+                                        }
+                                    </Collapse>
+
+                                </Space>
+                            </Fragment>
+
+                        </div>
+                    </div>
+                </div>
+                }
 
             </div>
             <SuccessfulModal isShow={false} close={() => { setSuccessfulModal(false) }} ></SuccessfulModal>
