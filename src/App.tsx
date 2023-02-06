@@ -12,6 +12,7 @@ import { Login } from './API'
 import { GetQueryString } from './utils/tool'
 import { createAddMessageAction, createLoginSuccessAction } from './store/actions'
 import { useConnectWallet } from './web3'
+import ViewportProvider from './components/viewportContext'
 import Loding from './components/loding'
 // import Home from './view/Home';
 let aa
@@ -66,15 +67,17 @@ function App() {
     dispatch(createAddMessageAction('添加提醒'))
   }
   return (
-    <div className="App">
-      <MessageBox>
-        {
-          state.message.map((item, index) => <MessageRow key={index}><Message>{item.message}</Message></MessageRow>)
-        }
-      </MessageBox>
-      <Routers></Routers>
-      {state.showLoding && <Loding></Loding>}
-    </div>
+    <ViewportProvider>
+      <div className="App">
+        <MessageBox>
+          {
+            state.message.map((item, index) => <MessageRow key={index}><Message>{item.message}</Message></MessageRow>)
+          }
+        </MessageBox>
+        <Routers></Routers>
+        {state.showLoding && <Loding></Loding>}
+      </div>
+    </ViewportProvider>
   );
 }
 
