@@ -78,7 +78,7 @@ export default function HotspotCard(props: any) {
   function goProject(e: any) {
     e.stopPropagation();
     console.log("12");
-    if (props.NftInfo && props.NftInfo.name && props.NftInfo.isAuthentication) {
+    if (props.NftInfo && props.NftInfo.name) {
       navigate('/Launch?projectName=' + props.NftInfo.name)
     }
   }
@@ -119,7 +119,6 @@ export default function HotspotCard(props: any) {
     title: "持有者",
     amount: "111"
   }]
-
   return (
     <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }} onClick={(e) => { props.goPath(); e.stopPropagation(); }}>
       <div className="imgBox" style={{ borderRadius: "20px 20px 45px 0px" }} onMouseEnter={(e) => { BuyNFTFun(e) }} onMouseLeave={() => { setActiveBuyMenu(false) }}>
@@ -135,7 +134,7 @@ export default function HotspotCard(props: any) {
 
         {/* <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }}> */}
         <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }}>
-          {props.NftInfo?.name || "XXXXXXXXX"}
+          {props.NftInfo?.name || props.NftInfo?.projectName || "XXXXXXXXX"}
           <div className="hover-show-card">
             <img className="hover-show-card-img" src={NftCardImagePng} />
             <div className="hover-show-card-content">
@@ -145,6 +144,7 @@ export default function HotspotCard(props: any) {
                   {props.NftInfo?.name || "XXXXXXXXX"}
                 </div>
               </div>
+              {/* 项目信息 */}
               <div className="hover-show-card-content-bottom">
                 {
                   list.map((item) => <div className="hover-show-card-content-item">
@@ -167,7 +167,7 @@ export default function HotspotCard(props: any) {
           <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
         </div> : <div className="cardBottomBox">
           <div className="cardPrice">
-            <img src={BNBIcon} alt="" /> {props.NftInfo?.FloorPriceDouble || '0'} BNB <span>({props.NftInfo?.uprice || 0})</span>
+            <img src={BNBIcon} alt="" /> {props.NftInfo?.floorPrice || '0'} USDT <span>({props.NftInfo?.uprice || 0})</span>
           </div>
         </div>
       }

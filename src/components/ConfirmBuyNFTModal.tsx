@@ -142,7 +142,6 @@ export default function ScreenModal(props: any) {
 
   async function buyOrder() {
     console.log("_______deede________");
-
     if (props.NFTInfo) {
       let Balance
       if (props.NFTInfo.coinName !== 'BNB') {
@@ -219,10 +218,10 @@ export default function ScreenModal(props: any) {
         <img src={closeIcon} alt="" onClick={() => props.close()} />
       </div>
       <div className="NFTInfo">
-        <div className="NFTLeft"><img src={NFTDemoImg} alt="" /></div>
+        <div className="NFTLeft"><img src={props?.NFTInfo?.metadata?.image || props?.NFTDetail?.normalizedMetadata?.image} alt="" /></div>
         <div className="NFTRight">
-          <div className="NFTTitle">{props?.NFTInfo?.nftName}</div>
-          <div className="projectTitle">项目名称</div>
+          <div className="NFTTitle">{props?.NFTInfo?.metadata?.name}</div>
+          <div className="projectTitle">{props?.NFTInfo?.projectName}</div>
         </div>
       </div>
       <div className="address item">
@@ -231,7 +230,7 @@ export default function ScreenModal(props: any) {
       </div>
       <div className="coinID item">
         <div className="title">代币ID</div>
-        <div className="value">34232</div>
+        <div className="value">{props?.NFTInfo?.tokenId}</div>
       </div>
       <div className="clain item">
         <div className="title">链</div>

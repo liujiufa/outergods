@@ -122,18 +122,22 @@ export default function Personal(): JSX.Element {
     }
     function LoadMore(fig: string) {
         console.log("加载更多", fig)
-        dispatch(createSetLodingAction(true))
-        getNfts({
-            "address": web3React.account,
-            "chain": "bsc%20testnet",
-            "cursor": fig,
-            "pageSize": 10
-        }).then((res) => {
-            console.log(res.data, '下一页');
-            setUserCurrentNft(res.data)
-            dispatch(createSetLodingAction(false))
-        })
-        // dispatch(createAddMessageAction(t('No more')))
+
+        {
+            dispatch(createSetLodingAction(true))
+            getNfts({
+                "address": web3React.account,
+                "chain": "bsc%20testnet",
+                "cursor": fig,
+                "pageSize": 10
+            }).then((res) => {
+                console.log(res.data, '下一页');
+                setUserCurrentNft(res.data)
+                dispatch(createSetLodingAction(false))
+            })
+        }
+
+        dispatch(createAddMessageAction(t('No more')))
     }
 
     function multiFilter(array: [], filters: any) {
@@ -164,7 +168,6 @@ export default function Personal(): JSX.Element {
                 if (res.code === 200) {
                     dispatch(createSetLodingAction(false))
                     console.log(res.data, "wuping");
-
                     setUserCurrentNft(res.data)
                 }
 
@@ -525,12 +528,8 @@ export default function Personal(): JSX.Element {
                             </div>
                         </>}
                     </div>
-
-
-
                 </div>
             </div>
-
             <ReceRecord isShow={showReceRecord} close={() => { setShowReceRecord(false) }}></ReceRecord>
             {/* 筛选弹窗 */}
             <CollectionScreenModal isShow={showScreenModal} close={() => { setShowScreenModal(false) }} changeScreen={changeScreen} ></CollectionScreenModal>
