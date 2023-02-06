@@ -95,7 +95,7 @@ const SlideItemPC = styled(SwiperSlide) <{ idx: number, posi: number }>`
     -webkit-align-items: center;
     align-items: center;
 	transition: 300ms;
-	transform: ${({ idx, posi }) => `translateX(${posi}px) !important`};
+	/* transform: ${({ idx, posi }) => `translateX(${posi}px) !important`}; */
     background: #FFFFFF;
     border-radius: 12px;
     font-size: 24px;
@@ -168,6 +168,7 @@ const TipsGroup = styled(FlexSBCBox)`
         padding: 4px 8px;
         border-radius: 24px;
         box-shadow: 4px 3px 21px rgba(198, 207, 231, 0.45);
+        zoom: 0.92;
     }
 `
 
@@ -499,7 +500,7 @@ export default function Main() {
                 {
                     !!nftIdo.length && <SwiperBoxPC
                         slidesPerView={7}
-                        spaceBetween={30}
+                        spaceBetween={16}
                         centeredSlides={true}
                         loop={true}
                         loopFillGroupWithBlank={true}
