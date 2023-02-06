@@ -388,10 +388,12 @@ export default function NFTDetailsL({
                         </div>
                         <div className="contentBox">
                             <div className="goodsList">
-                                <Goods></Goods>
-                                <Goods></Goods>
-                                <Goods></Goods>
-                                <Goods></Goods>
+                                {
+                                    [1, 2, 3, 4].map((item)=><div className="goods-item">
+                                    <Goods></Goods>
+    
+                                    </div>)
+                                }
                             </div>
                         </div>
                     </div>

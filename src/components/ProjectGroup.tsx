@@ -14,11 +14,11 @@ import { decimalNum } from '../utils/decimalNum'
 const Container = styled(FlexCCBox)`
     width: 100%;
     background: #FFFFFF;
-    box-shadow: 20px 22.2995px 107px rgba(198, 207, 231, 0.4);
+    box-shadow: 7px 9px 12px rgba(198, 207, 231, 0.4);
     padding: 16px;
     border-radius: 16px;
     @media (max-width: 750px) {
-        padding: 4px;
+        padding: 6px;
     }
 `
 
@@ -80,7 +80,7 @@ const AuthenticationGroup = styled.img`
         margin-top: 20%;
         @media (max-width: 750px) {
             margin-left: 4px;
-            margin-top: 24px;
+            margin-top: 32px;
         }
     }
 `
@@ -91,7 +91,7 @@ const NFTName = styled(FlexCCBox)`
     color: #000000;
     margin-top: 20%;
     @media (max-width: 750px) {
-        margin-top: 24px;
+        margin-top: 32px;
     }
 `
 

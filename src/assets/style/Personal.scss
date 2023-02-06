@@ -8,7 +8,7 @@
         margin: 0px auto;
 
         .topBox {
-            padding: 56px 0px 30px;
+            padding: 56px 12px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -199,6 +199,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 16px;
 
             >div {
                 height: 40px;
@@ -235,6 +236,8 @@
 
 
         .tabContentBox {
+            padding: 0 12px;
+
             .bigContent {
                 // height: 1000px;
                 padding-bottom: 30px;
@@ -575,6 +578,8 @@
                         grid-column-gap: 30px;
                     }
 
+                    
+
                     .LoadMore {
                         width: 120px;
                         height: 36px;
@@ -770,7 +775,7 @@
 @media (max-width: 900px) {
     #Personal {
         .topBox {
-            padding: 24px 0 12px;
+            padding: 24px 12px 12px;
         }
 
         .goodsList {
@@ -782,7 +787,9 @@
             flex-direction: column;
         }
 
-
+        .seriesSearch {
+            margin: 8px 0 12px;
+        }
 
         .userHeader {
             width: 84px;
@@ -798,7 +805,7 @@
         .Info {
 
             align-items: start;
-            margin: 0;
+            margin-left: 12px;
 
             .userName {
                 >.name {
@@ -1019,9 +1026,20 @@
 }
 
 @media (max-width: 750px) {
+
+    #Personal {
+        min-height: calc(100vh - 12px);
+        .goodsList {
+            grid-template-columns: repeat(auto-fill, 160px) !important;
+            justify-content: space-around;
+        }
+    }
+
     .userInfo {
         margin: 20px 16px 20px !important;
     }
+
+  
 
     #Personal {
 
@@ -1037,9 +1055,9 @@
             display: block;
         }
 
-        // & .m-hidden-block {
-        //     display: none;
-        // }
+        & .m-hidden-block {
+            display: none;
+        }
 
         .shareBox {
             margin-right: 12px;
@@ -1051,11 +1069,11 @@
         }
 
         .stateItem {
-            // width: 44%;
+            width: 44%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 11px 3%;
+            margin: 11px 0;
             font-size: 14px;
             padding: 8px 4px;
 
@@ -1071,8 +1089,6 @@
         .ant-collapse-item {
             border: 0 none;
         }
-
-        margin-bottom: 40px;
 
         .ant-collapse-content-box {
             padding: 0 16px;
@@ -1242,12 +1258,17 @@
     }
 
     .Personal .personalContent .tabContentBox .bigContent .slider {
-        padding: 30px 0px 30px 0px;
+        padding: 12px 0px 12px 0px;
     }
 
     .Personal .personalContent .tabContentBox .bigContent .content {
         padding: 0;
     }
+
+    .goodsList {
+        margin: 16px 0 24px;
+    }
+
 }
 
 
@@ -1300,6 +1321,4 @@
     }
 }
 
-@media (max-width: 375px) {
-    .goodsList {}
-}
+@media (max-width: 375px) {}

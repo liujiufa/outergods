@@ -246,7 +246,7 @@ export default function Market(): JSX.Element {
         {/* 动态 */}
         {
           tabActive === 1 && <div className='activeBox'>
-            <div className="MarketSearchRow">
+            <div className="MarketSearchRow" style={{padding: 0}}>
               <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand14, expand14)}>
                 <div className="search">
                   <div className="searchBox">{typeMap[typeIndex].key}</div>
