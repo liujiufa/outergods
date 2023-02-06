@@ -77,10 +77,10 @@ const AuthenticationGroup = styled.img`
         height: 18px;
         margin-left: 12px;
         border-radius: 50%;    
-        margin-top: 60px;
+        margin-top: 20%;
         @media (max-width: 750px) {
             margin-left: 4px;
-            margin-top: 16px;
+            margin-top: 24px;
         }
     }
 `
@@ -89,9 +89,9 @@ const NFTName = styled(FlexCCBox)`
     font-weight: 700;
     font-size: 16px;
     color: #000000;
-    margin-top: 60px;
+    margin-top: 20%;
     @media (max-width: 750px) {
-        margin-top: 16px;
+        margin-top: 24px;
     }
 `
 
@@ -122,13 +122,14 @@ const PriceAmount = styled.div`
 
 const PriceTitle = styled.div`
     width: 100%;
-    margin-top: 4px;
+    margin-top: 12px;
     font-weight: 700;
     font-size: 12px;
     color: rgba(0, 0, 0, 0.5);
     @media (max-width: 750px) {
         margin-top: 0;
         zoom: 0.87;
+        margin-top: 4px;
     }
 `
 
@@ -160,8 +161,8 @@ export default function ProjectGroup({
                                     <PriceAmount>${decimalNum(data?.floorPriceDouble, 4)}</PriceAmount>
                                     <PriceTitle>地板价</PriceTitle>
                                 </PriceContent>
-                            </PriceItem><PriceItem>
-
+                            </PriceItem>
+                            <PriceItem>
                                 <PriceContent>
                                     <PriceAmount>{data?.tradeNum ?? 0}</PriceAmount>
                                     <PriceTitle>交易量</PriceTitle>

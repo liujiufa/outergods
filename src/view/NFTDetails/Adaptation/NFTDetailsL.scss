@@ -685,25 +685,25 @@
 }
 
 @media (max-width:1280px) {
-    #NFTDetails {
+    // #NFTDetails {
 
-        .right,
-        .left {
-            width: 100%;
-        }
+    //     .right,
+    //     .left {
+    //         width: 100%;
+    //     }
 
-        .left {
-            margin-top: 36px;
-        }
+    //     .left {
+    //         margin-top: 36px;
+    //     }
 
-        .sanlian-container {
-            width: 100%;
-        }
+    //     .sanlian-container {
+    //         width: 100%;
+    //     }
 
-        .sanlian-content {
-            width: 80%;
-        }
-    }
+    //     .sanlian-content {
+    //         width: 80%;
+    //     }
+    // }
 
 }
 
@@ -735,6 +735,10 @@
 
         .itemBigBox {
             margin-top: 30px;
+        }
+
+        .left {
+            margin-top: 12px; 
         }
     }
 

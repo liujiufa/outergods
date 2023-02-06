@@ -257,8 +257,31 @@
     }
 }
 
-@media (max-width:1024px) {
-    #market {
+@media (max-width:1024px) {}
+
+@media (max-width:768px) {
+
+    #market.MarketPage {
+        .contentBox {
+            .tabBox {
+                margin: 24px 12px 12px;
+                height: 36px;
+
+                .tabContent {
+                    height: 36px;
+
+                    .tabItem {
+                        font-size: 16px;
+                    }
+
+                    .tabItemActive {
+                        font-weight: 700;
+                        color: #FFF;
+                    }
+                }
+            }
+
+        }
 
         .ant-collapse,
         .ant-collapse-content,
@@ -357,32 +380,6 @@
 
                 .type-date {
                     font-weight: 400;
-                }
-            }
-        }
-
-    }
-
-}
-
-@media (max-width:768px) {
-
-    #market.MarketPage {
-        .contentBox {
-            .tabBox {
-                margin: 24px 12px 12px;
-                height: 36px;
-
-                .tabContent {
-                    height: 36px;
-
-                    .tabItem {
-                        font-size: 16px;
-                    }
-                    .tabItemActive {
-                        font-weight: 700;
-                        color: #FFF;
-                    }
                 }
             }
         }
