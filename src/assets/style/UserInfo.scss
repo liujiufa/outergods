@@ -170,6 +170,7 @@
 @media (max-width:1024px) and (min-width:751px) {
 
     #userinfo {
+        min-height: calc(100vh - 147px);
         .right {
             display: none;
         }

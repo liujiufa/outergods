@@ -516,6 +516,7 @@
 
 @media (max-width:580px) {
     .GoodsDetial {
+        min-height: calc(100vh - 147px);
         .DetialImg {
             .GoodsImg {
                 display: flex;

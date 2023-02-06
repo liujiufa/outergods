@@ -294,7 +294,7 @@ export default function Launch(): JSX.Element {
                         </div>
                     </div>
                     <div className="bigContent">
-                        <div className={`slider m-hidden-block ${ tabActive === 1 ? "isHidden" : "" }`}>
+                        <div className={`slider m-hidden-block ${ Number(tabActive) === 1 ? "isHidden" : "" }`}>
                             <div className="settingPut">
                                 <div className="title">已上架</div>
                                 <div className="right"><Switch defaultChecked onChange={onChange} /></div>

@@ -711,6 +711,7 @@
 @media (max-width:768px) {
 
     #NFTDetails {
+        min-height: calc(100vh - 147px);
 
         .contentBox {
             padding: 20px 12px 24px;

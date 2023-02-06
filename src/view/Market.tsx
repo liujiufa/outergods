@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { getTradeOrder, getOrderType } from '../API'
 import TransactionTips from '../components/TransactionTips'
@@ -50,7 +50,7 @@ export default function Market(): JSX.Element {
   let state = useSelector<stateType, stateType>(state => state);
   const navigate = useNavigate();
 
-
+  const list = [1, 2, 3, 4, 5]
 
   let [showScreenModal, setShowScreenModal] = useState<boolean>(false)
   let [buyNFTModal, setBuyNFTModal] = useState<boolean>(false)
@@ -248,7 +248,7 @@ export default function Market(): JSX.Element {
         {/* 动态 */}
         {
           tabActive === 1 && <div className='activeBox'>
-            <div className="MarketSearchRow" style={{padding: 0}}>
+            <div className="MarketSearchRow" style={{ padding: 0 }}>
               <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand14, expand14)}>
                 <div className="search">
                   <div className="searchBox">{typeMap[typeIndex].key}</div>
@@ -304,67 +304,80 @@ export default function Market(): JSX.Element {
             </div>
             <div className="itemBigBox contentBoxM">
               <div className="contentBox">
-                <Space direction="vertical">
-                  <Collapse activeKey={activeKey} expandIcon={() => <></>} defaultActiveKey={['1']}>
-                    <Collapse.Panel header={
-                      <div className="itemBox">
-                        <div className="item type">
-                          <div className="top">上架</div>
-                          <div className="bottom">一口价</div>
-                        </div>
-                        <div className='group'>
-                          <div className="item projectName">
-                            <div className="leftBox">
-                              <img src={demoTestImg} alt="" />
-                            </div>
-                            <div className="right">
-                              <div className="top">项目名称 <img src={authentication} alt="" /></div>
-                              <div className="bottom">NFT名称</div>
-                            </div>
-                          </div>
-                          <div className="item">
-                            <div className="top">$234.87</div>
-                            <div className="bottom">0.32 BNB</div>
-                          </div>
-                          <div className='drap-icon' onClick={() => {
-                            if (activeKey === "1") {
-                              setActiveKey("")
-                            } else {
-                              setActiveKey("1")
-                            }
-                          }} >
-                            {
-                              activeKey !== "1" ? <DownOutlined /> : <UpOutlined />
-                            }
-                          </div>
-                        </div>
 
-                      </div>
-                    } key="1">
-                      <div className="group">
-                        <div className="item">
-                          <div className="text">
-                            Ox2423...sdw7
-                          </div>
-                          <div className="type">从</div>
-                        </div>
-                        <div className="item">
-                          <div className="text">
-                            Ox2423...12FF
-                          </div>
-                          <div className="type">到</div>
+                <Fragment>
+                  <Space direction="vertical">
+                    <Collapse activeKey={activeKey} expandIcon={() => <></>}>
 
-                        </div>
-                        <div className="item date">
-                          <div className="text type-date">
-                            5分钟前
-                          </div>
-                          <div className="type">日期</div>
-                        </div>
-                      </div>
-                    </Collapse.Panel>
-                  </Collapse>
-                </Space>
+                      {
+                        list.map((item, idx) =>
+                            <Collapse.Panel header={
+                            <div className="itemBox">
+                              <div className="item type">
+                                <div className="top">上架</div>
+                                <div className="bottom">一口价</div>
+                              </div>
+                              <div className='group'>
+                                <div className="item projectName">
+                                  <div className="leftBox">
+                                    <img src={demoTestImg} alt="" />
+                                  </div>
+                                  <div className="right">
+                                    <div className="top">项目名称 <img src={authentication} alt="" /></div>
+                                    <div className="bottom">NFT名称</div>
+                                  </div>
+                                </div>
+                                <div className="item price">
+                                  <div className="top">$234.87</div>
+                                  <div className="bottom">0.32 BNB</div>
+                                </div>
+                                <div className='drap-icon' onClick={() => {
+                                  if (activeKey === (idx + "")) {
+                                    setActiveKey("")
+                                    console.log("activeKey", "null")
+                                  } else {
+                                    setActiveKey(idx + "")
+                                    console.log("activeKey", (idx + ""))
+                                  }
+                                }} >
+                                  {
+                                    activeKey !== (idx+"") ? <DownOutlined /> : <UpOutlined />
+                                  }
+                                </div>
+                              </div>
+
+                            </div>
+                          } key={idx+""}>
+                            <div className="group">
+                              <div className="item">
+                                <div className="text">
+                                  Ox2423...sdw7
+                                </div>
+                                <div className="type">从</div>
+                              </div>
+                              <div className="item">
+                                <div className="text">
+                                  Ox2423...12FF
+                                </div>
+                                <div className="type">到</div>
+
+                              </div>
+                              <div className="item date">
+                                <div className="text type-date">
+                                  5分钟前
+                                </div>
+                                <div className="type">日期</div>
+                              </div>
+                            </div>
+                            <div className="separate" style={{ display: list.length === (idx + 1) ? "none" : "block" }}></div>
+                          </Collapse.Panel>
+                        )
+                      }
+                    </Collapse>
+
+                  </Space>
+                </Fragment>
+
               </div>
             </div>
           </div>
