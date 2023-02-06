@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import '../assets/style/Launch.scss'
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getPlatformBaseDetail, getNftProjectDetail, getTradeOrder, getTradeOrderState } from '../API'
 import { stateType } from '../store/reducer'
-import { Dropdown, Menu, Switch } from 'antd'
+import { Collapse, Dropdown, Menu, Space, Switch } from 'antd'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration' // import plugin
 import { useSelector, useDispatch } from "react-redux";
@@ -34,8 +34,11 @@ import outLinkIcon7 from '../assets/image/outLinkIcon7.png'
 import openIcon from '../assets/image/openIconWhite.png'
 import FilterBack from '../assets/image/filter-back.png'
 import NotCertified from '../assets/image/NotCertified.png'
+import demoTestImg from '../assets/image/demoTestImg.png'
 
 import go from '../assets/image/go.png'
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import list from 'antd/lib/list';
 interface detialType {
     name: string
     routingName: string
@@ -69,6 +72,19 @@ interface ProjectDetailType {
     description: string
     isAuthentication: number | null
 }
+
+interface dynamic {
+    nftName: string,
+    num: number,
+    operateType: number
+    formAddress: string
+    toAddress: string
+    createTime: number
+    orderId: number
+    id: number
+    coinName: string
+    projectLogo: string
+}
 export default function Launch(): JSX.Element {
     const [params] = useSearchParams();
     const dispatch = useDispatch();
@@ -83,6 +99,9 @@ export default function Launch(): JSX.Element {
     let [LaunchDetial, setLaunchDetial] = useState<detialType | null>(null)
     let [ProjectDetail, setProjectDetail] = useState<any | null>(null)
     let [ProjectOrder, setProjectOrder] = useState<NftInfo[]>([])
+    const [activeKey, setActiveKey] = useState("");
+    const listData = [1, 2, 3, 4, 5]
+    let [dynamicInfo, setSynamicInfo] = useState<dynamic[]>([])
 
     let [tableData, setTableData] = useState([])
     let { t } = useTranslation()
@@ -364,8 +383,8 @@ export default function Launch(): JSX.Element {
                     </div>
                 </div>}
                 {/* 动态 */}
-                {tabActive === 1 && <div className='actionBox'>
-                    {<div className="itemBigBox contentBoxL">
+                {tabActive === 1 && <div className='activeBox'>
+                    <div className="itemBigBox contentBoxL">
                         <div className="titleBox">
                             <div className="titleItem type">类型</div>
                             <div className="titleItem">物品</div>
@@ -375,7 +394,7 @@ export default function Launch(): JSX.Element {
                             <div className="titleItem date">日期</div>
                         </div>
                         <div className="itemContentBox">
-                            {tableData.length > 0 &&
+                            {tableData &&
                                 tableData.map((item: any, index: number) => <div key={index} className="itemBox">
                                     <div className="item type">
                                         <div className="top">{operateTtype[item.operateType]}</div>
@@ -410,8 +429,89 @@ export default function Launch(): JSX.Element {
                                 </div>)
                             }
                         </div>
-                    </div>}
-                </div>}
+                    </div>
+                    <div className="itemBigBox contentBoxM">
+                        <div className="contentBox">
+                            <Fragment>
+                                <Space direction="vertical">
+                                    <Collapse activeKey={activeKey} expandIcon={() => <></>}>
+                                        {
+                                            tableData.map((item: any, idx: any) =>
+                                                <Fragment>
+                                                    <Collapse.Panel header={
+                                                        <div className="itemBox">
+                                                            <div className="item type">
+                                                                <div className="top">{operateTtype[item.operateType]}</div>
+                                                                <div className="bottom">一口价</div>
+                                                            </div>
+                                                            <div className='group'>
+                                                                <div className="item projectName">
+                                                                    <div className="leftBox">
+                                                                        <img src={item.projectLogo} alt="" />
+                                                                    </div>
+                                                                    <div className="right">
+                                                                        <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                                                        <div className="bottom">{item.nftName}</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="item price">
+                                                                    <div className="top">{item.uorderPrice}</div>
+                                                                    <div className="bottom">{item.num} {item.coinName}</div>
+                                                                </div>
+                                                                <div className='drap-icon' onClick={() => {
+                                                                    if (activeKey === (idx + "")) {
+                                                                        setActiveKey("")
+                                                                        console.log("activeKey", "null")
+                                                                    } else {
+                                                                        setActiveKey(idx + "")
+                                                                        console.log("activeKey", (idx + ""))
+                                                                    }
+                                                                }} >
+                                                                    {
+                                                                        activeKey !== (idx + "") ? <DownOutlined /> : <UpOutlined />
+                                                                    }
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    } key={idx + ""}>
+                                                        <div className="group">
+                                                            <div className="item">
+                                                                <div className="text" onClick={() => { goSomeone(item.formAddress) }}>
+                                                                    {
+                                                                        item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
+                                                                    }
+                                                                </div>
+                                                                <div className="type" onClick={() => { goSomeone(item.toAddress) }}>从</div>
+                                                            </div>
+                                                            <div className="item">
+                                                                <div className="text">
+                                                                    {
+                                                                        item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
+                                                                    }
+                                                                </div>
+                                                                <div className="type">到</div>
+
+                                                            </div>
+                                                            <div className="item date">
+                                                                <div className="text type-date">
+                                                                    {HowLongAgo(item.createTime)}
+                                                                </div>
+                                                                <div className="type">日期</div>
+                                                            </div>
+                                                        </div>
+                                                    </Collapse.Panel>
+                                                    <div className="separate" style={{ display: (listData.length === (idx + 1)) ? "none" : "block" }}></div>
+                                                </Fragment>
+                                            )
+                                        }
+                                    </Collapse>
+                                </Space>
+                            </Fragment>
+                        </div>
+                    </div>
+                </div>
+                }
 
             </div>
             <SuccessfulModal isShow={false} close={() => { setSuccessfulModal(false) }} ></SuccessfulModal>

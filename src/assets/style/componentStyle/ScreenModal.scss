@@ -8,12 +8,11 @@
 }
 
 .modalTop {
-    height: 70px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: space-between;
-    margin: 0 30px;
-
+    margin: 0 8px;
+    padding-bottom: 30px;
 
     .title {
         color: #000000;
@@ -218,4 +217,64 @@
         letter-spacing: 0.1em;
         color: #FFFFFF;
     }
+}
+
+
+
+@media (max-width:750px) {
+
+    .ant-modal-root .ant-modal-content {
+        border-radius: 12px !important;
+    }
+
+    .habitat-modal {
+        width: 80% !important;
+    }
+
+    .ant-modal-body {
+        padding: 12px 8px !important;
+        max-height: 500px !important;
+        overflow: auto;
+    }
+
+    .habitat-modal {
+        .column {
+            padding: 0 8px 8px !important;
+        }
+
+        .modalTop {
+            padding-bottom: 8px !important;
+
+            .title {
+                font-size: 20px;
+            }
+
+            >img {
+                width: 24px;
+                height: 24px;
+            }
+
+        }
+
+        .ModalFooter {
+            width: 100%;
+            padding: 0 30px;
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+
+            .resetBtn,
+            .enterBtn {
+                margin: 0;
+            }
+
+            margin: 12px;
+        }
+
+        .columnLabel, .ScreenDropDown, .ScreenLabel {
+            margin-bottom: 8px !important;
+        }
+    }
+
+
 }

@@ -540,7 +540,7 @@
             }
         }
 
-        .actionBox {
+        .activeBox {
             margin: 20px 0px;
 
             .itemBigBox {
@@ -642,16 +642,122 @@
 
             }
 
-            .contentBoxL {
-                display: block;
-            }
 
-            .contentBoxM {
-                display: none;
-            }
         }
     }
 }
+
+.activeBox {
+    padding: 16px;
+
+    .itemBigBox {
+        margin-top: 25px;
+        width: 100%;
+        background: #FFFFFF;
+        box-shadow: 22px 26px 202px rgba(198, 207, 231, 0.5);
+        border-radius: 45px;
+        overflow: hidden;
+
+        .titleBox {
+            padding: 45px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FFFFFF;
+            box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
+
+            .titleItem {
+                width: 150px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                letter-spacing: 0.1em;
+                color: #000000;
+            }
+
+            .type,
+            .date {
+                width: 100px;
+            }
+        }
+
+        .itemContentBox {
+            padding: 20px 45px;
+
+            .itemBox {
+                padding: 25px 0px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+                .item {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    width: 150px;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: #000000;
+
+                    .top {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: #000000;
+                    }
+
+                    .bottom {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: rgba(0, 0, 0, 0.6);
+                    }
+                }
+
+                .projectName {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+
+                    img {
+                        margin-right: 8px;
+                    }
+                }
+
+                .type,
+                .date {
+                    width: 100px;
+                }
+            }
+        }
+
+
+    }
+
+    .contentBoxL {
+        display: block;
+    }
+
+    .contentBoxM {
+        display: none;
+    }
+}
+
 
 .projectNameLaunch {
     font-family: 'PingFang SC';
@@ -822,6 +928,165 @@
 
         .goodsItem {
             width: 50%;
+            padding: 6px;
+        }
+
+        min-height: calc(100vh - 147px);
+
+        .ant-collapse {
+            background-color: #fff;
+        }
+
+        .goodsList {
+            padding: 0 16px;
+            margin: 16px 0;
+        }
+
+        .MarketSearchRow {
+            display: flex;
+            justify-content: space-between;
+            margin: 0;
+
+            .search {
+                margin-left: 0;
+            }
+        }
+
+        .contentBox {
+            .tabBox {
+                margin: 24px 16px 12px;
+                height: 36px;
+
+                .tabContent {
+                    height: 36px;
+
+                    .tabItem {
+                        font-size: 16px;
+                    }
+
+                    .tabItemActive {
+                        font-weight: 700;
+                        color: #FFF;
+                    }
+                }
+            }
+
+        }
+
+        .ant-collapse,
+        .ant-collapse-content,
+        .ant-collapse-item {
+            border: 0 none;
+        }
+
+        .ant-collapse-header {
+            padding: 4px 16px;
+        }
+
+        margin-bottom: 0;
+
+        .ant-collapse-content-box {
+            padding: 0 16px 4px;
+        }
+
+        .activeBox {
+
+            .separate {
+                background: rgba(0, 0, 0, 0.1);
+                height: 1px;
+                width: 100%;
+                margin: 8px 0;
+            }
+
+            .itemBigBox {
+                background: #FFFFFF;
+                box-shadow: 4px 11px 53px rgba(198, 207, 231, 0.6);
+                border-radius: 17px;
+            }
+
+            & .contentBoxL {
+                display: none;
+            }
+
+            & .contentBoxM {
+                display: block;
+            }
+
+            & .ant-space-vertical {
+                width: 100%;
+            }
+
+            .itemContentBox {
+                padding: 16px;
+            }
+
+            .itemBox {
+                text-align: left;
+                display: block;
+                border: 0 none;
+                width: 100%;
+
+                .item {
+                    display: block;
+                    flex: 1;
+
+                    .leftBox {
+                        margin-right: 8px;
+                    }
+
+                    .bottom {
+                        font-size: 14px;
+                    }
+
+                    .right {
+                        .bottom {
+                            color: rgba(0, 0, 0, 0.8);
+                        }
+                    }
+                }
+
+                .projectName {
+                    display: flex;
+                    flex: 3;
+                }
+
+                .price {
+                    flex: 2;
+                }
+
+                .drap-icon {
+                    width: 24px;
+                }
+            }
+
+            .group {
+                margin-top: 4px;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .text {
+                    font-weight: 700;
+                    font-size: 12px;
+                    text-align: center;
+                    letter-spacing: 0.1em;
+                    color: #000000;
+                }
+
+                .type {
+                    font-weight: 400;
+                    font-size: 12px;
+                    letter-spacing: 0.1em;
+                    color: rgba(0, 0, 0, 0.6);
+                    margin-top: 8px;
+
+                }
+
+                .type-date {
+                    font-weight: 400;
+                }
+            }
         }
 
         .content {

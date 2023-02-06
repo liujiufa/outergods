@@ -194,7 +194,7 @@ export default function ScreenModal(props: PropsType) {
     setGoodTypeIndex(0)
   }
   return (
-    <Modal visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={959}>
+    <Modal className='habitat-modal' visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={959}>
       <div className="modalTop">
         <div className="title">{t('Filter')}</div>
         <img src={closeIcon} alt="" onClick={() => props.close()} />

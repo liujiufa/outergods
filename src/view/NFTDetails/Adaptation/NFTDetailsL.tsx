@@ -157,11 +157,10 @@ export default function NFTDetailsL({
         </Menu>
     );
     useEffect(() => {
-        if (ID && state.token) {
+        if (ID && state.token && tokenAddress && tokenId) {
             getNftUserInfoDetail(tokenAddress as string, tokenId).then(res => {
-                console.log(res, "nft详情")
+                console.log(res, "nft详情121212")
                 setTokenId(res.data.tokenId)
-                // setTokenId(res.data.tokenId)
                 if (res.data.metadata) {
                     res.data.metadata = JSON.parse(res.data.metadata)
                     let obj: { [key: string]: string; } = {}
@@ -176,17 +175,15 @@ export default function NFTDetailsL({
                 if (state.token) {
                     getUserOrder(res.data.userAddress).then(res => {
                         setUserOrder(res.data)
-                        // console.log(res,"获取卖家其他商品")
                     })
                 }
             })
         }
-    }, [ID, state.token])
-
+    }, [ID, state.token, tokenAddress, tokenId])
     useEffect(() => {
         if (tokenId && OrderNFTDetail && OrderNFTDetail.tokenAddress) {
             getNftOrderState(tokenId, -1, OrderNFTDetail.tokenAddress).then(res => {
-                console.log(res, "nft动态")
+                console.log(res, "nft动态1")
                 setTableData(res.data)
             })
         }

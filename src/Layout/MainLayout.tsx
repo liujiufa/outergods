@@ -105,6 +105,15 @@ const MainLayout: React.FC = () => {
                     <span className="dropText">{t('Profile')}</span>
                 </div>
             </Menu.Item>
+            <Menu.Item key="SubMenu" >
+                <div className="box" onClick={() => {
+                    console.log("zh111111", i18n.language === 'zh' ? 'en' : 'zh')
+                    changeLanguage({ key: i18n.language === 'zh' ? 'en' : 'zh' })
+                }}>
+                    <img src={langIcon} alt="" />
+                    <span className="dropText">{i18n.language === 'zh' ? '中文简体' : 'English'}</span>
+                </div>
+            </Menu.Item>
             <Menu.Item key="4" onClick={LogOut}>
                 <div className="box">
                     <img src={LogOutIcon} alt="" />
@@ -175,7 +184,8 @@ const MainLayout: React.FC = () => {
                         <div className="unLink"></div>
                     </div>
 
-                    <div className={focus('/Launch')} onClick={() => { navigate('/Launch?id=1') }}>
+                    {/* <div className={focus('/Launch')} onClick={() => { navigate('/Launch?id=1') }}> */}
+                    <div className={focus('/Launch')}>
                         Collections
                         <div className="unLink"></div>
                     </div>

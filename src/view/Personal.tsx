@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Table, Pagination, Collapse, Space } from 'antd';
+import { Table, Pagination, Collapse, Space, Select } from 'antd';
 import { NftUserType } from '../API'
 import { getUserInfo, getNftUserInfo, getNftUserState, getUserAwardList, getUserGiveLikeList, drawAward, syncUserNftData, getNfts } from '../API'
 import { createAddMessageAction, createSetLodingAction } from '../store/actions'
@@ -163,7 +163,7 @@ export default function Personal(): JSX.Element {
             ).then((res: any) => {
                 if (res.code === 200) {
                     dispatch(createSetLodingAction(false))
-                    console.log(res.data,"wuping");
+                    console.log(res.data, "wuping");
 
                     setUserCurrentNft(res.data)
                 }
@@ -392,15 +392,19 @@ export default function Personal(): JSX.Element {
                                         <div className="flexCenter managepriceType"> <img src={typeItem5} alt="" /> 调价</div>
                                     </div>
                                 </div>
-                                {/* <div className="content m-hidden">
-                                    <div className="goodsList">
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                    </div>
-                                </div> */}
 
+                                <Select
+                                    className='l-hidden'
+                                    defaultValue="all"
+                                    style={{ width: "100%" }}
+                                    options={[
+                                        { value: 'all', label: '全部类型' },
+                                        { value: 'putType', label: '上架' },
+                                        { value: 'cancelType', label: '取消' },
+                                        { value: 'successfulType', label: '成交' },
+                                        { value: 'managepriceType', label: '调价' },]}
+                                // popupClassName="popup-select-filter"
+                                />
                                 {width >= 768 && <div className="itemContentBigBox">
                                     <div className="titleBox">
                                         <div className="titleItem type">类型</div>
@@ -451,41 +455,42 @@ export default function Personal(): JSX.Element {
                                     <div className="contentBox">
                                         <Space direction="vertical">
                                             <Collapse activeKey={activeKey} expandIcon={() => <></>} defaultActiveKey={['1']}>
-                                                {tableData.length > 0 && tableData.map((item: any, index: number) => <Collapse.Panel header={
-                                                    <div className="itemBox">
-                                                        <div className="item type">
-                                                            <div className="top">{operateTtype[item.operateType]}</div>
-                                                            <div className="bottom">一口价</div>
-                                                        </div>
-                                                        <div className='group'>
-                                                            <div className="item projectName">
-                                                                <div className="leftBox">
-                                                                    <img src={item.projectLogo} alt="" />
+                                                {tableData.length > 0 ? tableData.map((item: any, index: number) => <Collapse.Panel
+                                                    header={
+                                                        <div className="itemBox">
+                                                            <div className="item type">
+                                                                <div className="top">{operateTtype[item.operateType]}</div>
+                                                                <div className="bottom">一口价</div>
+                                                            </div>
+                                                            <div className='group'>
+                                                                <div className="item projectName">
+                                                                    <div className="leftBox">
+                                                                        <img src={item.projectLogo} alt="" />
+                                                                    </div>
+                                                                    <div className="right">
+                                                                        <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                                                        <div className="bottom">{item.nftName}</div>
+                                                                    </div>
                                                                 </div>
-                                                                <div className="right">
-                                                                    <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
-                                                                    <div className="bottom">{item.nftName}</div>
+                                                                <div className="item">
+                                                                    <div className="top">{item.uorderPrice}</div>
+                                                                    <div className="bottom">{item.num} {item.coinName}</div>
+                                                                </div>
+                                                                <div className='drap-icon' onClick={() => {
+                                                                    if (activeKey === "1") {
+                                                                        setActiveKey("")
+                                                                    } else {
+                                                                        setActiveKey("1")
+                                                                    }
+                                                                }} >
+                                                                    {
+                                                                        activeKey !== "1" ? <DownOutlined /> : <UpOutlined />
+                                                                    }
                                                                 </div>
                                                             </div>
-                                                            <div className="item">
-                                                                <div className="top">{item.uorderPrice}</div>
-                                                                <div className="bottom">{item.num} {item.coinName}</div>
-                                                            </div>
-                                                            <div className='drap-icon' onClick={() => {
-                                                                if (activeKey === "1") {
-                                                                    setActiveKey("")
-                                                                } else {
-                                                                    setActiveKey("1")
-                                                                }
-                                                            }} >
-                                                                {
-                                                                    activeKey !== "1" ? <DownOutlined /> : <UpOutlined />
-                                                                }
-                                                            </div>
-                                                        </div>
 
-                                                    </div>
-                                                } key="1">
+                                                        </div>
+                                                    } key="1">
                                                     <div className="group">
                                                         <div className="item">
                                                             <div className="text" onClick={() => { goSomeone(item.formAddress) }}>
@@ -511,7 +516,8 @@ export default function Personal(): JSX.Element {
                                                             <div className="type">日期</div>
                                                         </div>
                                                     </div>
-                                                </Collapse.Panel>)}
+                                                </Collapse.Panel>
+                                                ) : <NoData />}
                                             </Collapse>
                                         </Space>
                                     </div>
