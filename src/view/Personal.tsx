@@ -372,9 +372,9 @@ export default function Personal(): JSX.Element {
                             <div className="bigContent">
                                 <div className="content">
                                     <div className="goodsList">
-                                        {
+                                    {
                                             userNft.length > 0 ? <>
-                                                <div className="goodsList">{userNft.map((item, index) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }}></Goods>)}</div>
+                                                <div className="goodsList">{userNft.map((item, index) =>   <div className="userNft"><Goods key={index} NftInfo={item} goPath={() => { goPath(item) }}></Goods> </div>)}</div>
                                                 <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
                                             </> : <NoData />
                                         }
@@ -408,6 +408,15 @@ export default function Personal(): JSX.Element {
                                         { value: 'managepriceType', label: '调价' },]}
                                 // popupClassName="popup-select-filter"
                                 />
+                                {/* <div className="content m-hidden">
+                                    <div className="goodsList">
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                        <Goods></Goods>
+                                    </div>
+                                </div> */}
+
                                 {width >= 768 && <div className="itemContentBigBox">
                                     <div className="titleBox">
                                         <div className="titleItem type">类型</div>

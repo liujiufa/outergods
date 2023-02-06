@@ -479,43 +479,11 @@
                         justify-content: start;
                         flex-wrap: wrap;
 
-                        .content {
-                            padding-left: 30px;
-                            flex: 1;
-                            justify-content: center;
-                            align-items: center;
-
-                            .goodsNumber {
-                                margin: 30px 0px;
-                                font-family: 'PingFang SC';
-                                font-style: normal;
-                                font-weight: 700;
-                                font-size: 18px;
-                                line-height: 25px;
-                                letter-spacing: 0.1em;
-                                color: #000000;
-                            }
-
-                            .goodsList {
-                                max-width: 100%;
-                                display: grid;
-                                grid-template-columns: repeat(auto-fill, 330px);
-                                justify-content: space-between;
-                                grid-row-gap: 30px;
-                                grid-column-gap: 30px;
-                            }
-
-                            .LoadMore {
-                                width: 120px;
-                                height: 36px;
-                                color: #788CFF;
-                                border: 1px solid #788CFF;
-                                box-sizing: border-box;
-                                border-radius: 18px;
-                                margin: 0px auto;
-                            }
+                        .goodsItem {
+                            width: 25%;
+                            padding: 16px;
+                            min-width: 160px;
                         }
-
 
                         .mobile-filter {
                             position: fixed;
@@ -928,8 +896,9 @@
 
         .goodsItem {
             width: 50%;
-            padding: 6px;
+            padding: 4px;
         }
+
 
         min-height: calc(100vh - 147px);
 
@@ -938,7 +907,7 @@
         }
 
         .goodsList {
-            padding: 0 16px;
+            padding: 0;
             margin: 16px 0;
         }
 
@@ -1098,7 +1067,7 @@
         }
 
         .contentBox {
-            padding: 0 16px;
+            padding: 0 12px;
         }
 
         .dataItems {
