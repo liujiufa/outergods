@@ -23,6 +23,7 @@ import NotCertified from '../assets/image/NotCertified.png'
 
 
 import ConfirmBuyNFTModal from '../components/ConfirmBuyNFTModal'
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 interface dynamic {
   nftName: string,
   num: number,
