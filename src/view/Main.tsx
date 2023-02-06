@@ -292,17 +292,18 @@ const GroupProject = styled(FlexSCBox)`
     width: 100%;
     margin: 24px auto 0;
     overflow: auto;
-    padding: 0 12px;
+    padding: 12px;
     @media (max-width: 750px) {
         margin: 0 auto;
     }
 `
 
 const GroupItem = styled(FlexCCBox)`
+    width: 16.6%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 16px 4px;
+    padding: 12px 12px;
     min-width: 200px;
     border-radius: 12px;
     background-color: transparent;

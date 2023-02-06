@@ -24,7 +24,7 @@ const Container = styled.div`
 const L = styled.div`
     width: 100%;
     display: block;
-    @media (max-width: 1280px) {
+    @media (max-width: 750px) {
         display: none;
     }
 `
@@ -32,7 +32,7 @@ const L = styled.div`
 const M = styled.div`
     width: 100%;
     display: none;
-    @media (max-width: 1280px) {
+    @media (max-width: 750px) {
         display: block;
     }
 `

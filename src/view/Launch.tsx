@@ -221,7 +221,7 @@ export default function Launch(): JSX.Element {
                 </div>
                 <div className="line"></div>
                 {/* 物品容器 */}
-                <div className="container">
+                <div className="container" >
                     <div className="header">
                         <div className="leftBox m-hidden">
                             <div className="filterBtn"><img src={filterOpenIcon} alt="" /></div>
@@ -250,7 +250,7 @@ export default function Launch(): JSX.Element {
                         </div>
                     </div>
                     <div className="bigContent">
-                        <div className="slider  m-hidden-block">
+                        <div className="slider  m-hidden-block" style={{ display: tabActive === 0 ? "none" : "block" }}>
                             <div className="settingPut">
                                 <div className="title">已上架</div>
                                 <div className="right"><Switch defaultChecked onChange={onChange} /></div>
@@ -293,10 +293,11 @@ export default function Launch(): JSX.Element {
                         <div className="content">
                             <div className="goodsNumber">1,000个物品</div>
                             <div className="goodsList">
-                                <Goods></Goods>
-                                <Goods></Goods>
-                                <Goods></Goods>
-                                <Goods></Goods>
+                                {
+                                    [1, 2, 3, 4].map((item) => <div className="goodsItem">
+                                        <Goods></Goods>
+                                    </div>)
+                                }
 
                                 <div className="mobile-filter l-hidden">过滤 <img src={FilterBack} alt="" /></div>
                             </div>

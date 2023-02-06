@@ -131,7 +131,8 @@ export default function HotspotCard(props: any) {
           <div className="Collection pointer nowrap" onClick={LikeFun}><img src={isLike ? Like : NotLike} alt="" /> {LikeNum}</div>
         </div>
 
-        <div className="cardTokenId home-nft">{props.NftInfo?.name || "XXXXXXXXX"}
+        <div className="cardTokenId home-nft">
+          {props.NftInfo?.name || "XXXXXXXXX"}
           <div className="hover-show-card">
             <img className="hover-show-card-img" src={NftCardImagePng} />
             <div className="hover-show-card-content">

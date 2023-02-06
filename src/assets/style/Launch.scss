@@ -476,11 +476,14 @@
 
                     .goodsList {
                         max-width: 100%;
-                        display: grid;
-                        grid-template-columns: repeat(auto-fill, 330px);
-                        justify-content: space-between;
-                        grid-row-gap: 30px;
-                        grid-column-gap: 30px;
+                        display: flex;
+                        justify-content: start;
+                        flex-grow: wrap;
+
+                        .goodsItem {
+                            width: 25%;
+                            padding: 16px;
+                        }
 
                         .mobile-filter {
                             position: fixed;
@@ -657,6 +660,10 @@
 
     #launch.ProjectDetail {
 
+        .contentBox {
+            padding: 0 16px;
+        }
+
         .dataItems {
             display: none;
         }
@@ -703,6 +710,7 @@
         .linkItem {
             margin-right: 0;
         }
+
         .detail {
             margin-top: 12px;
             font-weight: 400;

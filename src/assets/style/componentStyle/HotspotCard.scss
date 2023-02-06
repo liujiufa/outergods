@@ -2,13 +2,13 @@
     width: 100%;
     background: #FFFFFF;
     box-shadow: 20px 22.2995px 107px rgba(198, 207, 231, 0.4);
-    border-radius: 24px;
+    border-radius: 16px;
     box-sizing: border-box;
     // overflow: hidden;
     position: relative;
     top: 0;
     left: 0;
-    // overflow: hidden;
+    padding: 8px;
 
     .imgBox {
         position: relative;
@@ -90,7 +90,7 @@
             font-size: 16px;
             line-height: 22px;
             color: #000000;
-            margin: 5.8px 0;
+            // margin: 5.8px 0;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -190,8 +190,7 @@
     }
 
     .cardBottomBox {
-        padding: 0px 15px;
-        height: 42px;
+        padding: 4px 15px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -260,8 +259,6 @@
 @media (max-width:1440px) {
     .HotspotCard {
         width: 100%;
-
-
     }
 }
 
@@ -271,8 +268,8 @@
     .HotspotCard {
         width: 100%;
         margin: auto;
-
-
+        padding: 4px;
+        border-radius: 12px;
 
         .cardName {
             div {
