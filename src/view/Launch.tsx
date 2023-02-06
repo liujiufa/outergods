@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../assets/style/Launch.scss'
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { getPlatformBaseDetail } from '../API'
+import { getPlatformBaseDetail, getNftProjectDetail, getTradeOrder, getTradeOrderState } from '../API'
 import { stateType } from '../store/reducer'
 import { Dropdown, Menu, Switch } from 'antd'
 import dayjs from 'dayjs'
@@ -9,6 +9,7 @@ import duration from 'dayjs/plugin/duration' // import plugin
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from 'react-i18next'
 import Goods, { NftInfo } from '../components/HotspotCard'
+import { HowLongAgo, AddrHandle } from '../utils/tool'
 import SuccessfulModal from '../components/SuccessfulModal'
 import ReportModal from '../components/ReportModal'
 import bannerDemo from '../assets/image/bannerDemo.png'
@@ -29,6 +30,7 @@ import outLinkIcon6 from '../assets/image/outLinkIcon6.png'
 import outLinkIcon7 from '../assets/image/outLinkIcon7.png'
 import openIcon from '../assets/image/openIconWhite.png'
 import FilterBack from '../assets/image/filter-back.png'
+import NotCertified from '../assets/image/NotCertified.png'
 
 import go from '../assets/image/go.png'
 interface detialType {
@@ -47,6 +49,21 @@ interface detialType {
     id: number
     projectExplain: string
 }
+interface ProjectDetailType {
+    playerNum: number
+    rackingNum: number
+    name: 'string',
+    img: string
+    backImgUrl: string
+    twitterUrl?: string
+    telegraphGroupUrl?: string
+    webUrl?: string
+    floorPrice: number
+    tradeNum: number
+    tradeAmount: number
+    description: string
+    isAuthentication: number | null
+}
 export default function Launch(): JSX.Element {
     const [params] = useSearchParams();
     let state = useSelector<stateType, stateType>(state => state);
@@ -57,10 +74,22 @@ export default function Launch(): JSX.Element {
     let [isShare, setIsShare] = useState<boolean>(false)
     let [successfulModal, setSuccessfulModal] = useState<boolean>(false)
     let [LaunchDetial, setLaunchDetial] = useState<detialType | null>(null)
+    let [ProjectDetail, setProjectDetail] = useState<ProjectDetailType | null>(null)
+    let [ProjectOrder, setProjectOrder] = useState<NftInfo[]>([])
+
+    let [tableData, setTableData] = useState([])
     let [newTime, setNewTime] = useState(dayjs().valueOf())
     let { t } = useTranslation()
     let id = params.get('id')
-
+    let projectName = params.get('projectName')
+    let operateTtype = [
+        "挂单",
+        "出售",
+        "转出"
+    ]
+    function goSomeone(address: string) {
+        navigate('/Someone?address=' + address)
+    }
     dayjs.extend(duration)
     useEffect(() => {
         let time = setInterval(() => {
@@ -81,6 +110,18 @@ export default function Launch(): JSX.Element {
             })
         }
     }, [state.token])
+    useEffect(() => {
+        if (state.token && projectName) {
+            getNftProjectDetail(projectName).then(res => {
+                console.log(res.data, "项目详情")
+                setProjectDetail(res.data)
+                getTradeOrderState(res.data.name).then(res => {
+                    console.log(res, "项目NFT动态")
+                    setTableData(res.data)
+                })
+            })
+        }
+    }, [state.token, projectName])
     function goLaunchDetial() {
         if (LaunchDetial) {
             navigate('/' + LaunchDetial.routingName + '?id=' + LaunchDetial.id)
@@ -197,7 +238,7 @@ export default function Launch(): JSX.Element {
                     </div>
                     <div className="linkItem copyItem" onClick={() => { }}>
                         <img src={outLinkIcon6} alt="" />
-                        {true && <>
+                        {false && <>
                             <div className='copyLinkBox'>
                                 <div className="title">复制链接</div>
                                 <div className="outLink">在Facebook上分享</div>
@@ -224,7 +265,7 @@ export default function Launch(): JSX.Element {
                 </div>
                 <div className="line"></div>
                 {/* 物品容器 */}
-                <div className="container" >
+                {tabActive === 0 && <div className="container" >
                     <div className="header">
                         <div className="leftBox m-hidden">
                             <div className="filterBtn"><img src={filterOpenIcon} alt="" /></div>
@@ -306,7 +347,57 @@ export default function Launch(): JSX.Element {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>}
+                {/* 动态 */}
+                {tabActive === 1 && <div className='actionBox'>
+                    {<div className="itemBigBox contentBoxL">
+                        <div className="titleBox">
+                            <div className="titleItem type">类型</div>
+                            <div className="titleItem">物品</div>
+                            <div className="titleItem">价格</div>
+                            <div className="titleItem">从</div>
+                            <div className="titleItem">到</div>
+                            <div className="titleItem date">日期</div>
+                        </div>
+                        <div className="itemContentBox">
+                            {tableData.length > 0 &&
+                                tableData.map((item: any, index: number) => <div key={index} className="itemBox">
+                                    <div className="item type">
+                                        <div className="top">{operateTtype[item.operateType]}</div>
+                                        <div className="bottom">一口价</div>
+                                    </div>
+                                    <div className="item projectName">
+                                        <div className="leftBox">
+                                            <img src={item.projectLogo} alt="" />
+                                        </div>
+                                        <div className="right">
+                                            <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                            <div className="bottom">{item.nftName}</div>
+                                        </div>
+                                    </div>
+                                    <div className="item">
+                                        <div className="top">{item.uorderPrice}</div>
+                                        <div className="bottom">{item.num} {item.coinName}</div>
+                                    </div>
+                                    <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
+                                        {
+                                            item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
+                                        }
+                                    </div>
+                                    <div className="item" onClick={() => { goSomeone(item.toAddress) }}>
+                                        {
+                                            item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
+                                        }
+                                    </div>
+                                    <div className="item date">
+                                        {HowLongAgo(item.createTime)}
+                                    </div>
+                                </div>)
+                            }
+                        </div>
+                    </div>}
+                </div>}
+
             </div>
             <SuccessfulModal isShow={false} close={() => { setSuccessfulModal(false) }} ></SuccessfulModal>
             <ReportModal isShow={false} close={() => { setSuccessfulModal(false) }} ></ReportModal>
