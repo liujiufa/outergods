@@ -37,6 +37,8 @@ interface ProjectType {
   img: string
 }
 export default function ScreenModal(props: any) {
+  console.log(props.saleData);
+
   // 控制图标上下
   const [expand1, setExpand1] = useState(true);
   const [expand2, setExpand2] = useState(true);
@@ -102,16 +104,16 @@ export default function ScreenModal(props: any) {
       icon: USDTIcon,
       value: 'USDT'
     },
-    {
-      key: 'ETH',
-      icon: ETHCoinIcon,
-      value: 'ETH'
-    },
-    {
-      key: 'BTC',
-      icon: BTCIcon,
-      value: 'BTC'
-    }
+    // {
+    //   key: 'ETH',
+    //   icon: ETHCoinIcon,
+    //   value: 'ETH'
+    // },
+    // {
+    //   key: 'BTC',
+    //   icon: BTCIcon,
+    //   value: 'BTC'
+    // }
   ]
   let [tokenIndex, setTokenIndex] = useState(0)
   const coinType = (
@@ -175,10 +177,10 @@ export default function ScreenModal(props: any) {
       {/* NFT基本信息 */}
       <div className="NFTInfoBox">
         <div className="NFTInfo">
-          <div className="leftBox"><img src={NFTDemoImg} /></div>
+          <div className="leftBox"><img src={props.saleData.image} /></div>
           <div className="rightBox">
-            <div className="NFTName">XxxxXx#123 (NFT名称）</div>
-            <div className="projectName">项目(系列）名称</div>
+            <div className="NFTName">{props.saleData.nftName}</div>
+            <div className="projectName">{props.saleData.projectName}</div>
           </div>
         </div>
         <div className="saleKind">

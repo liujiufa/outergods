@@ -170,10 +170,11 @@ export function getTradeOrderState(projectName: string) {
     })
 }
 /* 获取项目详情 */
-export function getNftProjectDetail(projectName: string) {
+export function getNftProjectDetail(data: any) {
     return axois.request({
-        url: `/user/nNftProject/getNftProjectDetail/${projectName}`,
-        method: 'get'
+        url: `/user/nNftProject/getNftProjectDetail`,
+        method: 'post',
+        data
     })
 }
 interface createOrderType {
@@ -191,7 +192,7 @@ interface createOrderType {
 }
 /* 创建订单 */
 export function createOrder(data: createOrderType) {
-    console.log(data,"创建订单");
+    console.log(data, "创建订单");
     return axois.request({
         url: `/user/nNftOrder/createOrder`,
         method: 'post',
@@ -210,7 +211,6 @@ interface upPrice {
 /* 获取项目详情 */
 export function updateOrderPrice(data: upPrice) {
     console.log(data);
-    
     return axois.request({
         url: `/user/nNftOrder/updateOrderPrice`,
         method: 'post',
@@ -391,7 +391,7 @@ export function getHoTProject() {
  * 首页  最新成交NFT
  * @returns 
  */
- export function getTradeLast() {
+export function getTradeLast() {
     return axois.request({
         url: `/user/home/getTradeLast`,
         method: 'get'

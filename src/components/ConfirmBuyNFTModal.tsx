@@ -5,6 +5,7 @@ import { useDebounceFn } from 'ahooks'
 import { useSelector, useDispatch } from "react-redux";
 import { createAddMessageAction, createSetLodingAction } from '../store/actions'
 import { buyNftOrder } from '../API'
+import { AddrHandle } from '../utils/tool'
 import '../assets/style/componentStyle/ManageModal.scss'
 import closeIcon from '../assets/image/closeBlack.png'
 import openIcon from '../assets/image/openIconWhite.png'
@@ -141,7 +142,7 @@ export default function ScreenModal(props: any) {
 
   async function buyOrder() {
     console.log("_______deede________");
-    
+
     if (props.NFTInfo) {
       let Balance
       if (props.NFTInfo.coinName !== 'BNB') {
@@ -168,7 +169,8 @@ export default function ScreenModal(props: any) {
           let price = props.NFTInfo.coinName === 'BNB' ? props.NFTInfo.priceString : 0
           Contracts.example.makeOrder(web3React.account as string, res.data, price as string).then(() => {
             // navigate(-1)
-            setShowBuySuccess(true)
+            // setShowBuySuccess(true)
+            props.close()
             return dispatch(createAddMessageAction(t('Purchase successful')))
           }).finally(() => {
             dispatch(createSetLodingAction(false))
@@ -219,13 +221,13 @@ export default function ScreenModal(props: any) {
       <div className="NFTInfo">
         <div className="NFTLeft"><img src={NFTDemoImg} alt="" /></div>
         <div className="NFTRight">
-          <div className="NFTTitle">NFT名称</div>
+          <div className="NFTTitle">{props?.NFTInfo?.nftName}</div>
           <div className="projectTitle">项目名称</div>
         </div>
       </div>
       <div className="address item">
         <div className="title">合约地址</div>
-        <div className="value">Ox242v....2432G</div>
+        <div className="value">{AddrHandle(props?.NFTInfo?.tokenAddress)}</div>
       </div>
       <div className="coinID item">
         <div className="title">代币ID</div>

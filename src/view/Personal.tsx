@@ -86,7 +86,7 @@ export default function Personal(): JSX.Element {
     let state = useSelector<stateType, stateType>(state => state);
     let [userInfo, setUserInfo] = useState<userInfoType | any>(null)
     let [userNft, setUsetNft] = useState<NftInfo[]>([])
-    let [userCurrentNft, setUserCurrentNft] = useState<NftCurrentType>()
+    let [userCurrentNft, setUserCurrentNft] = useState<NftCurrentType | null>()
     const navigate = useNavigate();
     let [tabIndex, setTabIndex] = useState<number>(0)
     let [showScreenModal, setShowScreenModal] = useState<boolean>(false)
@@ -152,6 +152,7 @@ export default function Personal(): JSX.Element {
 
     useEffect(() => {
         if (web3React.account && state.token) {
+            dispatch(createSetLodingAction(true))
             getNfts(
                 {
                     "address": web3React.account,
@@ -159,13 +160,17 @@ export default function Personal(): JSX.Element {
                     "cursor": "",
                     "pageSize": 10
                 }
-            ).then((res) => {
-                console.log(res.data.result, '优化同步');
-                // let Arr = res.data.result.filter((item: any) => !item.normalized_metadata)
-                // console.log(JSON.parse(res.data.result[0].metadata), '处理', Arr);
-                // setUsetNft(res.data.result)
-                setUserCurrentNft(res.data)
+            ).then((res: any) => {
+                if (res.code === 200) {
+                    dispatch(createSetLodingAction(false))
+                    console.log(res.data, "wuping");
+
+                    setUserCurrentNft(res.data)
+                }
+
             })
+        } else {
+            setUserCurrentNft(null)
         }
     }, [web3React.account, state.token])
 
@@ -364,10 +369,11 @@ export default function Personal(): JSX.Element {
                             <div className="bigContent">
                                 <div className="content">
                                     <div className="goodsList">
-                                        {
-                                            [1, 2, 3, 4, 5].map((item) => <div className="userNft">
-                                                <Goods></Goods>
-                                            </div>)
+                                    {
+                                            userNft.length > 0 ? <>
+                                                <div className="goodsList">{userNft.map((item, index) =>   <div className="userNft"><Goods key={index} NftInfo={item} goPath={() => { goPath(item) }}></Goods> </div>)}</div>
+                                                <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
+                                            </> : <NoData />
                                         }
                                     </div>
                                 </div>
@@ -397,11 +403,10 @@ export default function Personal(): JSX.Element {
                                         { value: 'cancelType', label: '取消' },
                                         { value: 'successfulType', label: '成交' },
                                         { value: 'managepriceType', label: '调价' },]}
-                                    popupClassName="popup-select-filter"
+                                // popupClassName="popup-select-filter"
                                 />
                                 {/* <div className="content m-hidden">
-                 
-                 <div className="goodsList">
+                                    <div className="goodsList">
                                         <Goods></Goods>
                                         <Goods></Goods>
                                         <Goods></Goods>

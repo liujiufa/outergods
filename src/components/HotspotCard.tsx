@@ -124,7 +124,7 @@ export default function HotspotCard(props: any) {
     <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }} onClick={(e) => { props.goPath(); e.stopPropagation(); }}>
       <div className="imgBox" style={{ borderRadius: "20px 20px 45px 0px" }} onMouseEnter={(e) => { BuyNFTFun(e) }} onMouseLeave={() => { setActiveBuyMenu(false) }}>
         {/* {activeBuyMenu && <div className="buyBtn flexCenter">购买</div>} */}
-        {activeBuyMenu && <div className="buyBtn flexCenter" onClick={(e) => { e.stopPropagation(); props.buyBtnFun() }}>购买</div>}
+        {activeBuyMenu && (props.NftInfo?.userAddress).toLowerCase() !== (web3React.account)?.toLowerCase() && <div className="buyBtn flexCenter" onClick={(e) => { e.stopPropagation(); props.buyBtnFun() }}>购买</div>}
         <Img url={props.NftInfo?.normalized_metadata?.image || props.NftInfo?.metadata?.image}></Img>
       </div>
       <div className="bottonBox">
@@ -163,7 +163,7 @@ export default function HotspotCard(props: any) {
       </div>
       {
         activeMenu ? <div className='menuBox'>
-          <div className="left" onClick={() => { props.goPath() }}>出售</div>
+          <div className="left" onClick={() => { props.goPath() }}>{((props?.NftInfo?.owner_of).toLowerCase() === (web3React.account)?.toLowerCase() && props?.NftInfo?.status === 1) ? "取消出售" : "出售"}</div>
           <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
         </div> : <div className="cardBottomBox">
           <div className="cardPrice">
