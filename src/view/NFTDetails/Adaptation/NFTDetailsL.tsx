@@ -39,6 +39,7 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { useViewport } from '../../../components/viewportContext';
 
 import NotCertified from '../../../assets/image/NotCertified.png'
+import { decimalNum } from '../../../utils/decimalNum';
 
 const TABS = ["描述",
     "属性",
@@ -81,10 +82,12 @@ export default function NFTDetailsL({
     const [manageModal, setManageModal] = useState(false)
     const [saleNFTModal, setSaleNFTModal] = useState(false)
     let [tableData, setTableData] = useState([])
+    let [isShare, setIsShare] = useState<boolean>(false)
     let [buyNFTModal, setBuyNFTModal] = useState<boolean>(false)
     let [showEnterCancel, setShowEnterCancel] = useState<boolean>(false)
     let [currentTradeOrder, setCurrentTradeOrder] = useState<NftInfo>()
     let [OrderNFTDetail, setOrderNFTDetail] = useState<OrderDetailType | undefined>(undefined)
+
     const [nftData, setNftData] = useState([{
         title: "总市值",
         price: "0.55",
@@ -187,11 +190,11 @@ export default function NFTDetailsL({
         <div className="NFTDetailsPage">
             <div className="contentBox">
                 <div className="tabBox">
-                    <div className='left'>
+                    <div className='left m-hidden'>
                         {
-                            OrderDetail && <img
+                            <img
                                 id="nftImg"
-                                src={OrderDetail.normalizedMetadata.image || defaultCard}
+                                src={OrderDetail?.normalizedMetadata.image || defaultCard}
                                 onError={(e: any) => {
                                     // 替换的图片
                                     e.target.src = defaultCard;
@@ -203,14 +206,8 @@ export default function NFTDetailsL({
                     </div>
                     <div className='right'>
                         <h4 className='title'>
-                            {OrderDetail && OrderDetail?.name}
-                        </h4>
-                        <div className="project">
-                            <div className="name">
-                                <img src={NFTImage} alt="" className="logo" />
-                                <div className="project-name">{OrderDetail && OrderDetail.normalizedMetadata.name}</div>
-                            </div>
-                            <span className="icon">
+                            <div className='title-name'>{OrderDetail && OrderDetail?.name}</div>
+                            <span className="icon l-hidden">
                                 <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>CHAIN</span>} color="#FFF" key="coin">
                                     <img className='first' src={BinancePng} alt="" />
                                 </Tooltip>
@@ -218,6 +215,22 @@ export default function NFTDetailsL({
                                     <img src={TipsPng} alt="" />
                                 </Tooltip>
                             </span>
+
+                        </h4>
+                        <div className="project">
+                            <div className="name">
+                                <img src={NFTImage} alt="" className="logo" />
+                                <div className="project-name">{OrderDetail && OrderDetail.normalizedMetadata.name}</div>
+                            </div>
+                            <span className="icon m-hidden">
+                                <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>CHAIN</span>} color="#FFF" key="coin">
+                                    <img className='first' src={BinancePng} alt="" />
+                                </Tooltip>
+                                <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>TIPS</span>} color="#FFF" key="tips">
+                                    <img src={TipsPng} alt="" />
+                                </Tooltip>
+                            </span>
+
 
                         </div>
                         <div className="owner">
@@ -230,6 +243,46 @@ export default function NFTDetailsL({
                                         {owner_of?.slice(0, 6)}...{owner_of?.slice(owner_of.length - 4)} <img onClick={() => { CopyAddressFun(owner_of as string) }} src={CopyPng} alt="" className="copy" />
                                     </div>
                                 </div>}
+                        </div>
+
+                        <div className='left l-hidden'>
+                            {
+                                <img
+                                    id="nftImg"
+                                    src={OrderDetail?.normalizedMetadata.image || defaultCard}
+                                    onError={(e: any) => {
+                                        // 替换的图片
+                                        e.target.src = defaultCard;
+                                        // 控制不要一直触发错误
+                                        e.onError = null;
+                                    }}
+                                    alt="" />
+                            }
+                        </div>
+
+                        <div className="sanlian l-hidden">
+                            <div className="sanlian-container">
+                                <div className="sanlian-content">
+                                    <div className="shareBox">
+                                        <img onClick={() => { setIsShare(!isShare) }} src={SharePng} alt="" />
+                                        {isShare && <>
+                                            <div className='copyLinkBox'>
+                                                <div className="title">复制链接</div>
+                                                <div className="outLink">在Facebook上分享</div>
+                                                <div className="outLink">在Twitter上分享</div>
+                                            </div>
+                                        </>}
+                                    </div>
+                                    <div className="sanlian-box">
+                                        <img src={FabulousPng} alt="" />
+                                        <div className="sanlian-text">
+                                            100
+                                        </div>
+                                    </div>
+                                    <img src={RefreshPng} alt="" />
+
+                                </div>
+                            </div>
                         </div>
 
                         {/* 出售 */}
@@ -247,9 +300,9 @@ export default function NFTDetailsL({
                                     <div className="buy-left-bottom">
                                         <img src={UsdtPng} className="buy-left-bottom-coin" />
                                         <div className="coin-group">
-                                            {OrderDetail?.nnftOrder?.price || '-'} {OrderDetail?.nnftOrder?.coinName}
+                                            {decimalNum(OrderDetail?.nnftOrder?.price) || '-'} {OrderDetail?.nnftOrder?.coinName}
                                             <div className="coin-group-price">
-                                                (${OrderDetail?.nnftOrder?.uorderPrice || '-'})
+                                                (${decimalNum(OrderDetail?.nnftOrder?.uorderPrice) || '-'})
                                             </div>
                                         </div>
                                     </div>
@@ -286,9 +339,9 @@ export default function NFTDetailsL({
                                     <div className="buy-left-bottom">
                                         <img src={UsdtPng} className="buy-left-bottom-coin" />
                                         <div className="coin-group">
-                                            {OrderDetail?.nnftOrder?.price || '-'} {OrderDetail?.nnftOrder?.coinName}
+                                            {Number(decimalNum(OrderDetail?.nnftOrder?.price)) || '-'} {OrderDetail?.nnftOrder?.coinName}
                                             <div className="coin-group-price">
-                                                (${OrderDetail?.nnftOrder?.uorderPrice || '-'})
+                                                (${Number(decimalNum(OrderDetail?.nnftOrder?.uorderPrice))|| '-'})
                                             </div>
                                         </div>
                                     </div>
@@ -392,12 +445,12 @@ export default function NFTDetailsL({
                         </div>
                     </div>
                 </div>
-                <div className="sanlian">
+                <div className="sanlian m-hidden">
                     <div className="sanlian-container">
                         <div className="sanlian-content">
                             <div className="shareBox">
-                                <img src={SharePng} alt="" />
-                                {false && <>
+                                <img onClick={() => { setIsShare(!isShare) }} src={SharePng} alt="" />
+                                {isShare && <>
                                     <div className='copyLinkBox'>
                                         <div className="title">复制链接</div>
                                         <div className="outLink">在Facebook上分享</div>
@@ -508,15 +561,15 @@ export default function NFTDetailsL({
                                                                 <div className="bottom">{item.nftName}</div>
                                                             </div>
                                                         </div>
-                                                        <div className="item">
-                                                            <div className="top">{item.uorderPrice}</div>
-                                                            <div className="bottom">{item.num} {item.coinName}</div>
+                                                        <div className="item project-price">
+                                                            <div className="top">{Number(decimalNum(item.uorderPrice, 4))}</div>
+                                                            <div className="bottom">{Number(decimalNum(item.num, 4))} {item.coinName}</div>
                                                         </div>
                                                         <div className='drap-icon' onClick={() => {
-                                                            if (activeKey === "1") {
+                                                            if (activeKey === (index + "")) {
                                                                 setActiveKey("")
                                                             } else {
-                                                                setActiveKey("1")
+                                                                setActiveKey(index + "")
                                                             }
                                                         }} >
                                                             {
@@ -525,7 +578,7 @@ export default function NFTDetailsL({
                                                         </div>
                                                     </div>
                                                 </div>
-                                            } key="1">
+                                            } key={index + ""}>
                                             <div className="group">
                                                 <div className="item">
                                                     <div className="text" onClick={() => { goSomeone(item.formAddress) }}>

@@ -121,6 +121,8 @@ export default function HotspotCard(props: any) {
     amount: "111"
   }]
 
+  console.log("props", props)
+
   return (
     <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }} onClick={(e) => { props.goPath(); e.stopPropagation(); }}>
       <div className="imgBox" onMouseEnter={(e) => { BuyNFTFun(e) }} onMouseLeave={() => { setActiveBuyMenu(false) }}>
@@ -184,10 +186,9 @@ export default function HotspotCard(props: any) {
             {
               props.tag === "Market" &&
               <div className="cardPrice">
-                <img src={BNBIcon} alt="" /> {props.NftInfo?.floorPrice || props.NftInfo?.price || '0'} {props.NftInfo?.coinName} <span>({props.NftInfo?.uprice || 0})</span>
+                <img src={BNBIcon} alt="" /> {decimalNum(props.NftInfo?.floorPrice || props.NftInfo?.price || '0')} {props.NftInfo?.coinName} <span>({decimalNum(props.NftInfo?.uprice || 0)})</span>
               </div>
             }
-
           </div>
       }
     </div >

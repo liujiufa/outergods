@@ -31,13 +31,16 @@
                 width: 56%;
 
                 .title {
-                    font-weight: 700;
-                    font-size: 24px;
-                    /* identical to box height */
-                    letter-spacing: 0.1em;
-
-                    color: #000000;
+                    
                     width: 100%;
+                    .title-name {
+                        font-weight: 700;
+                        font-size: 24px;
+                        /* identical to box height */
+                        letter-spacing: 0.1em;
+    
+                        color: #000000;
+                    }
                 }
 
                 .project {
@@ -675,6 +678,8 @@
                         .goods-item {
                             width: 25%;
                             padding: 24px;
+                            background: #FFFFFF;
+                            box-shadow: 11.5523px 24px 66px rgba(198, 207, 231, 0.4);
                         }
                     }
                 }
@@ -785,10 +790,14 @@
                         display: flex;
                         flex-direction: row;
                         align-items: center;
-
+                        flex: 3;
                         img {
                             margin-right: 8px;
                         }
+                    }
+
+                    .project-price {
+                        flex: 2;
                     }
 
                     .drap-icon {
@@ -847,7 +856,6 @@
 
     .l-hidden {
         display: none;
-        width: 0;
     }
 }
 
@@ -882,12 +890,86 @@
         min-height: calc(100vh - 147px);
         overflow: auto;
 
-        .contentBox {
-            padding: 20px 12px 24px;
+        .contentBox .itemBigBox .contentBox .group {
+            margin-top: 8px;
         }
+
+        .ant-collapse-content-box {
+            padding: 0 16px 8px;
+        }
+
+        .activeBox {
+            padding: 16px 0;
+        }
+
+        .right-nft-details {
+            margin-top: 16px;
+        }
+
+        .managePrice {
+            display: block;
+            margin: 0 0 0 8px;
+        }
+
+        .itemBox > .item.type {
+            align-items: start;
+        }
+
+        .cancelBtn {
+            margin: 8px 0 0;
+        }
+
+        .nft-details-attribute-item {
+            padding: 8px;
+            .nft-details-attribute-title, .nft-details-attribute-content {
+                font-size: 12px;
+            }
+
+            .nft-details-attribute-content {
+                margin-top: 4px;
+            }
+        }
+
+        .right-nft-details-tabcontent {
+            margin-top: 12px;
+        }
+
+        > .itemBigBox {
+            margin-top: 12px;
+        }
+
+        .itemBigBox {
+            .contentBox {
+                padding: 20px 0 24px;
+            }
+        }
+
 
         .m-hidden {
             display: none;
+        }
+
+        .projectName {
+            .right {
+                flex: 2;
+            }
+
+            .bottom {
+                text-align: left;
+            }
+        }
+
+        .buy-left-bottom {
+            margin-top: 8px;
+            img {
+                margin-right: 6px;
+            }
+        }
+
+        .separate {
+            width: 100%;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.1);
         }
 
         .l-hidden {
@@ -895,15 +977,58 @@
         }
 
         .coin-group {
-            font-size: 16px;
+            font-size: 14px;
 
             .coin-group-price {
-                font-size: 14px;
+                font-size: 12px;
             }
+        }
+
+        .leftBox {
+            flex: 1;
+            img {
+                width: 100%;
+            }
+        }
+
+        .ant-collapse , .ant-collapse-item {
+            background-color: transparent;
+        }
+
+        .itemBox, .ant-collapse-content , .ant-collapse, .ant-collapse-item {
+            border: 0 none;
+        }
+
+        .owner {
+            margin-top: 8px;
+        }
+
+        .name {
+            .name {
+                margin-right: 0;
+            }
+        }
+
+        .icon {
+            img {
+                width: 24px;
+                height: 24px;
+            }
+
+            .first {
+                margin-right: 12px;
+            }
+        }
+        
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .titleBox {
             padding: 8px 16px;
+            height: 40px;
         }
 
         .itemBigBox {
@@ -938,6 +1063,8 @@
             .goods-item {
                 width: 50%;
                 padding: 0 8px 8px;
+                background: #FFFFFF;
+                box-shadow: 5px 12px 28px rgba(198, 207, 231, 0.4);
             }
         }
 

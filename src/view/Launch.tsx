@@ -210,27 +210,27 @@ export default function Launch(): JSX.Element {
                 <img src={ProjectDetail?.backImgUrl} alt="" />
                 <div className="dataItems">
                     <div className="item">
-                        <div className="top">{ProjectDetail?.tradeNum}</div>
+                        <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 4) || "--"}</div>
                         <div className="bottom">总交易量</div>
                     </div>
                     <div className="item">
-                        <div className="top">{ProjectDetail?.floorPriceDouble}</div>
+                        <div className="top">${decimalNum(ProjectDetail?.floorPrice , 4) || "--"}</div>
                         <div className="bottom">地板价</div>
                     </div>
                     <div className="item">
-                        <div className="top">{ProjectDetail?.createFee}%</div>
+                        <div className="top">{ProjectDetail?.createFee  || "--" }%</div>
                         <div className="bottom">创作者收益</div>
                     </div>
                     <div className="item">
-                        <div className="top">{ProjectDetail?.thingNum}</div>
+                        <div className="top">{ProjectDetail?.thingNum  || "--"}</div>
                         <div className="bottom">物品</div>
                     </div>
                     <div className="item">
-                        <div className="top">{ProjectDetail?.shelvesNum}</div>
+                        <div className="top">{ProjectDetail?.shelvesNum  || "--"}</div>
                         <div className="bottom">已上架</div>
                     </div>
                     <div className="item">
-                        <div className="top">{ProjectDetail?.holdNum}</div>
+                        <div className="top">{ProjectDetail?.holdNum  || "--"}</div>
                         <div className="bottom">持有者</div></div>
                 </div>
             </div>
@@ -268,14 +268,14 @@ export default function Launch(): JSX.Element {
                     </div>
                 </div>
                 <div className="logoAvtor l-hidden">
-                    <img src={ProjectDetail?.img} alt="" />
+                    <img className='logo-avtor-img' src={ProjectDetail?.img} alt="" />
                     <div className="personalBox ">
                         <div className="name">{ProjectDetail?.name}</div>
                         <div className="address">创作者 <span> {ProjectDetail?.createAddress}</span></div>
                     </div>
 
                 </div>
-                <div className="logoAvtor m-hidden">
+                <div className="logoAvtor logo-avtor-img m-hidden">
                     <img src={ProjectDetail?.img} alt="" />
                 </div>
                 <div className="outLinkBox m-hidden">

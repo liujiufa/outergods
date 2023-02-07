@@ -81,7 +81,7 @@ export default function NFTDetails() {
     let [projectId, setProjectId] = useState('')
     let [ProjectOrder, setProjectOrder] = useState([])
     let [showSellModal, setShowSellModal] = useState<boolean>(false)
-    let ID = params.get('ID')
+    let ID = params.get('tokenId')
     let tokenAddress = params.get('tokenAddress')
     let owner_of = params.get('owner_of')
     // 0：出售
@@ -92,6 +92,7 @@ export default function NFTDetails() {
     useEffect(() => {
         if (ID && state.token && tokenAddress) {
             getNftUserInfoDetail(tokenAddress, ID).then(res => {
+                console.log("res11111111111111111111111111111111111111111111", res)
                 setTokenId(res.data.tokenId)
                 if (res.data.metadata) {
                     res.data.metadata = JSON.parse(res.data.metadata)
@@ -229,14 +230,16 @@ export default function NFTDetails() {
         }
     }
 
+    console.log("OrderDetail", OrderDetail)
+
     return (
         <Container id="NFTDetails">
-             <L>
+             {/* <L> */}
                 <NFTDetailsL OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} NFTTypeDetail={NFTDetailType} />
-            </L>
-            <M>
+            {/* </L> */}
+            {/* <M>
                 <NFTDetailsM OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} />
-            </M>
+            </M> */}
         </Container>
     )
 }

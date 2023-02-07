@@ -28,9 +28,7 @@
         z-index: -1;
     }
 
-    .logo {
-
-    }
+    .logo {}
 
     .HeadMenu {
         display: none;
@@ -313,11 +311,13 @@
     .ant-layout-header {
         padding: 0 12px !important;
     }
-   
+
     .MainFooter {
         padding: 12px 0px !important;
+
         .footerBox {
             width: 120px;
+
             img {
                 width: 100%;
                 height: 100%;
@@ -338,24 +338,30 @@
                 margin-right: 12px;
             }
 
+            .HeadMenu {
+                width: 24px;
+                height: 24px;
+            }
+
             .mobile-header-right {
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
             }
         }
+
         .l-hidden {
             display: flex;
         }
-        
+
         .m-hidden {
             display: none;
         }
-        
+
         .l-hidden-block {
             display: block;
         }
-        
+
         .m-hidden-block {
             display: none;
         }
@@ -365,13 +371,14 @@
         }
     }
 
-   
+
 }
 
 .box {
     padding: 5px 0px;
     display: flex;
     align-items: center;
+
     img {
         width: 22px;
     }

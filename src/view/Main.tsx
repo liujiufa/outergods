@@ -19,7 +19,7 @@ import GasPng from '../assets/image/gas.png'
 
 import styled from "styled-components"
 import { FlexCCBox, FlexSBCBox, FlexSCBox } from "../components/FlexBox";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { Menu, Dropdown } from "antd";
 import ProjectGroup from "../components/ProjectGroup";
 import TransactionTips from '../components/TransactionTips'
@@ -478,7 +478,6 @@ export default function Main() {
 
     useEffect(() => {
 
-
         const list = nftIdo.map((item, idx) => idx)
 
         const activeIdx = list.findIndex(item => item === activeIndex)
@@ -516,7 +515,9 @@ export default function Main() {
             Promise.all([getHoTProject()]).then((res) => {
                 const [res1] = res
                 const [hostProject] = [res1.data]
-                setHostList([0, hostProject[0], 0, 0, 0,  0])
+                const hList = hostProject.slice(0, 5)
+                const hL = [0, 0, 0, 0, 0].map((item, idx)=> hList[idx] || item)
+                setHostList([0, ...hL])
             })
             Promise.all([getTradeLast()]).then((res) => {
                 const [res1] = res
@@ -553,7 +554,6 @@ export default function Main() {
         text: "区块链gas费是什么？",
         img: GasPng
     }]
-
 
     return (
         <Container>
