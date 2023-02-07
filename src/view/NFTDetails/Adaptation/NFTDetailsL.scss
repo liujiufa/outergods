@@ -612,7 +612,7 @@
 
                 .NFTDetailsTitleBox {}
 
-                .contentBox {
+                .contentBox1 {
                     padding: 20px 45px;
 
                     .itemBox {
@@ -730,7 +730,7 @@
                 }
             }
 
-            .contentBox {
+            .contentBox1 {
                 padding: 16px;
                 width: 100%;
 
@@ -890,7 +890,11 @@
         min-height: calc(100vh - 147px);
         overflow: auto;
 
-        .contentBox .itemBigBox .contentBox .group {
+        .contentBox {
+            padding: 24px 16px;
+        }
+
+        .contentBox .itemBigBox .contentBox1 .group {
             margin-top: 8px;
         }
 
@@ -939,7 +943,7 @@
         }
 
         .itemBigBox {
-            .contentBox {
+            .contentBox1 {
                 padding: 20px 0 24px;
             }
         }
@@ -1007,6 +1011,10 @@
             .name {
                 margin-right: 0;
             }
+        }
+
+        .sale {
+            margin-top: 16px;
         }
 
         .icon {

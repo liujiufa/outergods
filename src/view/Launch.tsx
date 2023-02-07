@@ -140,7 +140,8 @@ export default function Launch(): JSX.Element {
                 console.log(res.data, "项目详情")
                 setProjectDetail(res.data)
                 setNftList(res.data?.nftData?.result || [])
-                setTotal((res.data?.nftData?.total || "") + "")
+                setTotal((res.data?.nftData?.total || "")+"")
+                
                 setCursor(res.data?.nftData?.cursor || "");
                 dispatch(createSetLodingAction(false))
                 getTradeOrderState(res.data.name).then(res => {

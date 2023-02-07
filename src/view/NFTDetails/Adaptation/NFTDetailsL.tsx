@@ -489,7 +489,7 @@ export default function NFTDetailsL({
                                 <div className="switch"><img src={switchIcon} alt="" /></div>
                             </div>
                         </div>
-                        <div className="contentBox">
+                        <div className="contentBox1">
                             <div className="itemBox NFTDetailsTitleBox">
                                 <div className="item type">类型</div>
                                 <div className="item">物品</div>
@@ -539,7 +539,7 @@ export default function NFTDetailsL({
                 </div>}
                 {/* 小屏动态 */}
                 {width < 768 && <div className="itemBigBox ">
-                    <div className="contentBox">
+                    <div className="contentBox1">
                         <Space direction="vertical">
                             <Collapse activeKey={activeKey} expandIcon={() => <></>} defaultActiveKey={['1']}>
                                 {tableData.length > 0 ? tableData.map((item: any, index: number) =>
@@ -573,7 +573,7 @@ export default function NFTDetailsL({
                                                             }
                                                         }} >
                                                             {
-                                                                activeKey !== "1" ? <DownOutlined /> : <UpOutlined />
+                                                                activeKey !== (index + "")? <DownOutlined /> : <UpOutlined />
                                                             }
                                                         </div>
                                                     </div>
