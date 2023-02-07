@@ -264,7 +264,7 @@
                                 font-size: 14px;
                                 letter-spacing: 0.1em;
                                 color: #000000;
-                                
+
                             }
 
                             .nft-details-card {
@@ -671,12 +671,169 @@
                         margin: 40px auto 40px;
                         display: flex;
                         justify-content: start;
+
                         .goods-item {
                             width: 25%;
                             padding: 24px;
                         }
                     }
                 }
+            }
+        }
+
+
+        .itemBigBox {
+            margin-top: 25px;
+            width: 100%;
+            overflow: hidden;
+            background: #FFFFFF;
+            box-shadow: 4px 11px 53px rgba(198, 207, 231, 0.6);
+            border-radius: 17px;
+            
+
+            & .ant-space-vertical {
+                width: 100%;
+            }
+
+            .titleBox {
+                padding: 45px;
+                height: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: #FFFFFF;
+                box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
+
+                .titleItem {
+                    width: 150px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    /* identical to box height */
+                    letter-spacing: 0.1em;
+                    color: #000000;
+                }
+
+                .type,
+                .date {
+                    width: 100px;
+                }
+            }
+
+            .contentBox {
+                padding: 16px;
+                width: 100%;
+
+                .itemBox {
+                    align-items: center;
+                    justify-content: space-between;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                    text-align: left;
+                    width: 100%;
+
+                    .item {
+                        align-items: center;
+                        flex-direction: column;
+                        // width: 150px;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: #000000;
+                        display: block;
+                        // flex: 1;
+                        display: flex;
+                        justify-content: center;
+
+                        .leftBox {
+                            margin-right: 8px;
+                        }
+
+                        .top {
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 700;
+                            font-size: 16px;
+                            line-height: 22px;
+                            color: #000000;
+                        }
+
+                        .bottom {
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 22px;
+                            color: rgba(0, 0, 0, 0.6);
+                            text-align: center;
+                        }
+
+                        .right {
+                            .bottom {
+                                color: rgba(0, 0, 0, 0.8);
+                            }
+                        }
+                    }
+
+                    .projectName {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+
+                        img {
+                            margin-right: 8px;
+                        }
+                    }
+
+                    .drap-icon {
+                        width: 24px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    .type,
+                    .date {
+                        width: 100px;
+                        text-align: center;
+                    }
+                }
+
+                .group {
+                    margin-top: 20px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .text {
+                        font-weight: 700;
+                        font-size: 12px;
+                        text-align: center;
+                        letter-spacing: 0.1em;
+                        color: #000000;
+                    }
+
+                    .type {
+                        font-weight: 400;
+                        font-size: 12px;
+                        letter-spacing: 0.1em;
+                        color: rgba(0, 0, 0, 0.6);
+                        margin-top: 8px;
+
+                    }
+
+                    .type-date {
+                        font-weight: 400;
+                    }
+                }
+
             }
         }
     }
@@ -687,7 +844,7 @@
     .m-hidden {
         display: flex;
     }
-    
+
     .l-hidden {
         display: none;
         width: 0;
@@ -732,7 +889,7 @@
         .m-hidden {
             display: none;
         }
-    
+
         .l-hidden {
             display: flex;
         }
@@ -745,7 +902,7 @@
             }
         }
 
-        .titleBox{
+        .titleBox {
             padding: 8px 16px;
         }
 
@@ -753,15 +910,18 @@
             border-radius: 16px;
         }
 
-        .sanlian-container{
+        .sanlian-container {
             width: 100%;
+
             .sanlian-content {
                 width: 64%;
                 padding: 8px 24px;
+
                 img {
                     width: 20px;
                     height: 20px;
                 }
+
                 .sanlian-text {
                     margin-left: 4px;
                 }
@@ -806,9 +966,10 @@
             width: 100%;
         }
 
-        .left {            
+        .left {
             width: 100%;
-            margin-top: 12px; 
+            margin-top: 12px;
+
             img {
                 width: 80%;
             }

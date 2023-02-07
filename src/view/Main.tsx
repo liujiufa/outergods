@@ -5,12 +5,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 import BgPng from '../assets/image/main/bg.png'
 import Bg1Png from '../assets/image/main/bg1.png'
 import Bg2Png from '../assets/image/main/bg2.png'
 import SellPng from '../assets/image/main/sell.png'
-
 import openIcon from '../assets/image/openIconWhite.png'
 import NFT1Png from '../assets/image/nftGroup/nft1.png'
 import NFTPng from '../assets/image/nft.png'
@@ -20,6 +18,7 @@ import { FlexCCBox, FlexSBCBox, FlexSCBox } from "../components/FlexBox";
 import { useCallback, useEffect, useState } from "react";
 import { Menu, Dropdown } from "antd";
 import ProjectGroup from "../components/ProjectGroup";
+import TransactionTips from '../components/TransactionTips'
 import Goods from '../components/HotspotCard'
 
 import '../assets/style/Main.scss'
@@ -532,7 +531,6 @@ export default function Main() {
 
     return (
         <Container>
-
             <SwiperPC >
                 {
                     !!nftIdo.length && <SwiperBoxPC
@@ -584,13 +582,15 @@ export default function Main() {
                         <SellBox >出售</SellBox>
                     </Group>
                     <Group>
-                        <TipsGroup>
+                        {/* <TipsGroup>
                             <TipsGroupLeft>
                                 <TipsGroupType>SALE</TipsGroupType>
                                 <TipsGroupText><span>xxxx</span>以<span className="num">0.07BNB</span>的价格从<span>0xhdggg...hhfg</span> <span className="type">出售给</span> <span>0hhbj...sdhi</span></TipsGroupText>
                             </TipsGroupLeft>
                             <TipsGroupTime>一个小时前</TipsGroupTime>
-                        </TipsGroup>
+                        </TipsGroup> 
+                        */}
+                        <TransactionTips></TransactionTips>
                     </Group>
                     <Group>
                         <NFTTitle>热门项目</NFTTitle>

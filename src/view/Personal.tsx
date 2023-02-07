@@ -100,11 +100,11 @@ export default function Personal(): JSX.Element {
 
     let type = params.get('type')
     let operateTtype = [
-        t('Listing'),
-        t('Sale'),
-        t('Cancel an order'),
-        t('Send'),
-        t('No more'),
+        "上架",
+        "成交",
+        "取消",
+        "转出",
+        "调价",
     ]
     // 下拉图标旋转
     const handleDropDown = (fun: any, value: boolean) => {
@@ -194,11 +194,11 @@ export default function Personal(): JSX.Element {
     function goPath(goods: any) {
         /* 状态正常去挂卖 */
         if (goods.status === 0) {
-            return navigate(`/NFTDetails?ID=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
+            return navigate(`/NFTDetails?tokenId=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
         }
         /* 挂卖中去商品详情页改价 */
         if (goods.status === 1) {
-            return navigate(`/NFTDetails?ID=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=1`)
+            return navigate(`/NFTDetails?tokenId=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=1`)
         }
     }
     function copyUserAddr() {
@@ -408,14 +408,6 @@ export default function Personal(): JSX.Element {
                                         { value: 'managepriceType', label: '调价' },]}
                                 // popupClassName="popup-select-filter"
                                 />
-                                {/* <div className="content m-hidden">
-                                    <div className="goodsList">
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                        <Goods></Goods>
-                                    </div>
-                                </div> */}
 
                                 {width >= 768 && <div className="itemContentBigBox">
                                     <div className="titleBox">

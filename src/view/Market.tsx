@@ -58,9 +58,11 @@ export default function Market(): JSX.Element {
   let [currentTradeOrder, setCurrentTradeOrder] = useState<NftInfo>()
   let [pageNum, setPageNum] = useState<number>(1)
   let operateTtype = [
-    "挂单",
-    "出售",
-    "转出"
+    "上架",
+    "成交",
+    "取消",
+    "转出",
+    "调价",
   ]
   // 下拉图标旋转
   const handleDropDown = (fun: any, value: boolean) => {
