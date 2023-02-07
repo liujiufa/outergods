@@ -388,6 +388,18 @@ export function getHoTProject() {
 }
 
 /**
+ * 首页  畅销NFT
+ * @returns 
+ */
+ export function getBestSellerNft() {
+    return axois.request({
+        url: `/user/home/getBestSellerNft`,
+        method: 'post',
+        data: ""
+    })
+}
+
+/**
  * 首页  最新成交NFT
  * @returns 
  */

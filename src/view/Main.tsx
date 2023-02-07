@@ -14,6 +14,10 @@ import SellPng from '../assets/image/main/sell.png'
 import openIcon from '../assets/image/openIconWhite.png'
 import NFT1Png from '../assets/image/nftGroup/nft1.png'
 import NFTPng from '../assets/image/nft.png'
+import BuyNftPng from '../assets/image/buynft.png'
+import EncryWalletPng from '../assets/image/encryWallet.png'
+import GasPng from '../assets/image/gas.png'
+
 
 import styled from "styled-components"
 import { FlexCCBox, FlexSBCBox, FlexSCBox } from "../components/FlexBox";
@@ -23,7 +27,7 @@ import ProjectGroup from "../components/ProjectGroup";
 import Goods from '../components/HotspotCard'
 
 import '../assets/style/Main.scss'
-import { getHoTProject, getTradeLast } from "../API";
+import { getBestSellerNft, getHoTProject, getTradeLast } from "../API";
 
 
 const Container = styled.div`
@@ -459,9 +463,10 @@ export default function Main() {
     const [expand1, setExpand1] = useState(true)
     const [activeIndex, setActiveIndex] = useState(0)
     const [idxGroup, setIdxGroup] = useState<{ index: number; posi: number; }[]>([])
-    const [hostList, setHostList] = useState<any[]>([])
-    const [tradeList, setTradeList] = useState<any[]>([])
-
+    const [hostList, setHostList] = useState<any[]>([0, 0, 0, 0, 0, 0,])
+    const [tradeList, setTradeList] = useState<any[]>([0, 0, 0, 0, 0, 0,])
+    const [bestSellerNftList, setBestSellerNftList] = useState<any[]>([0, 0, 0, 0, 0, 0,])
+    
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
     }
@@ -512,14 +517,21 @@ export default function Main() {
             Promise.all([getHoTProject()]).then((res) => {
                 const [res1] = res
                 const [hostProject] = [res1.data]
-                setHostList([0, 0, 0, 0, hostProject[0], 0])
+                setHostList([0, hostProject[0], 0, 0, 0,  0])
             })
             Promise.all([getTradeLast()]).then((res) => {
                 const [res1] = res
                 const [tradeLast] = [res1.data]
-                console.log("tradeLast", tradeLast)
-                setTradeList([0, 0, 0, tradeLast[0], tradeLast[1], 0])
+                setTradeList(tradeLast.slice(0,  6))
             })
+            Promise.all([getBestSellerNft()]).then((res) => {
+                const [res1] = res
+                console.log("res1", res1)
+                const [bestSellerNft] = [res1.data]
+                console.log("bestSellerNft", bestSellerNft)
+                setBestSellerNftList([0, bestSellerNft[0], bestSellerNft[0], 0, 0,  0])
+            })
+            
         },
         []
     )
@@ -528,6 +540,20 @@ export default function Main() {
         init()
     }, [])
 
+    const otherList = [{
+        text: "什么是NFT？",
+        img: NFTPng
+    },{
+        text: "如何购买NFT？",
+        img: BuyNftPng
+    },{
+        text: "什么是加密钱包？",
+        img: EncryWalletPng
+    },
+    {
+        text: "区块链gas费是什么？",
+        img: GasPng
+    }]
 
 
     return (
@@ -640,7 +666,7 @@ export default function Main() {
                     <GroupProject
                     >
                         {
-                            tradeList.map((item) => <GroupItem>
+                            bestSellerNftList.map((item) => <GroupItem>
                                 {
                                     !!item ? <Goods NftInfo={{ ...item, priceJson: JSON.parse(item.priceJson || JSON.stringify("")), uprice: item.uorderPrice, metadata: JSON.parse(item.metaData || JSON.stringify("")) }} /> : <Goods />
                                 }
@@ -685,10 +711,10 @@ export default function Main() {
                     </Group>
                     <OtherList >
                         {
-                            [1, 2, 3, 4].map((item) => <OtherItem>
+                            otherList.map((item) => <OtherItem>
                                 <OtherContent>
-                                    <OtherImg src={NFTPng} />
-                                    <OtherText >什么是NFT？</OtherText>
+                                    <OtherImg src={item.img} />
+                                    <OtherText >{item.text}</OtherText>
                                 </OtherContent>
                             </OtherItem>)
                         }

@@ -39,6 +39,8 @@ import demoTestImg from '../assets/image/demoTestImg.png'
 import go from '../assets/image/go.png'
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import list from 'antd/lib/list';
+import { useWeb3React } from '@web3-react/core';
+import { decimalNum } from '../utils/decimalNum';
 interface detialType {
     name: string
     routingName: string
@@ -88,6 +90,9 @@ interface dynamic {
 export default function Launch(): JSX.Element {
     const [params] = useSearchParams();
     const dispatch = useDispatch();
+    const web3React = useWeb3React()
+
+    console.log("web3React", web3React)
 
     let state = useSelector<stateType, stateType>(state => state);
     let [startTime, setstartTime] = useState<number>(0)
@@ -98,8 +103,13 @@ export default function Launch(): JSX.Element {
     let [successfulModal, setSuccessfulModal] = useState<boolean>(false)
     let [LaunchDetial, setLaunchDetial] = useState<detialType | null>(null)
     let [ProjectDetail, setProjectDetail] = useState<any | null>(null)
+    let [nftList, setNftList] = useState<any[]>([])
+    let [total, setTotal] = useState("--")
+    
     let [ProjectOrder, setProjectOrder] = useState<NftInfo[]>([])
     const [activeKey, setActiveKey] = useState("");
+    const [cursor, setCursor] = useState("");
+
     const listData = [1, 2, 3, 4, 5]
     let [dynamicInfo, setSynamicInfo] = useState<dynamic[]>([])
 
@@ -107,6 +117,7 @@ export default function Launch(): JSX.Element {
     let { t } = useTranslation()
     let id = params.get('id')
     let projectName = params.get('projectName')
+    console.log("projectName", state, projectName)
     let operateTtype = [
         "挂单",
         "出售",
@@ -125,6 +136,10 @@ export default function Launch(): JSX.Element {
             }).then(res => {
                 console.log(res.data, "项目详情")
                 setProjectDetail(res.data)
+                setNftList(res.data?.nftData?.result || [])
+                setTotal((res.data?.nftData?.total || "")+"")
+                
+                setCursor(res.data?.nftData?.cursor || "");
                 getTradeOrderState(res.data.name).then(res => {
                     console.log(res, "项目NFT动态")
                     setTableData(res.data)
@@ -163,13 +178,28 @@ export default function Launch(): JSX.Element {
             "pageSize": 10,
             "cursor": fig,
         }).then(res => {
-            console.log(res.data, '下一页');
-            setProjectDetail(res.data)
             dispatch(createSetLodingAction(false))
+            setProjectDetail(ProjectDetail)
+            setTotal((res.data?.nftData?.total || "")+"")
+            const list = nftList.concat(res.data?.nftData?.result || [])
+            console.log("list", list)
+            let nftL: any = []
+            nftL = list.reduce((prev, item)=> {
+                console.log("item?.token_address?.toLocaleLowerCase()", item?.token_address?.toLocaleLowerCase())
+                if(!prev.some((option: any)=> (option?.token_address?.toLocaleLowerCase() === item?.token_address?.toLocaleLowerCase()) && (Number(option?.token_id) === Number(item?.token_id)) )){
+                    prev.push(item)
+                }
+                console.log("prev", prev)
+                return prev
+            }, [])
+            console.log("nftL.concat([])", nftL.concat([]))
+            setNftList(nftL.concat([]))
+            setCursor(res.data?.nftData?.cursor || "")
         })
         // dispatch(createAddMessageAction(t('No more')))
     }
 
+    console.log("nftList", nftList)
 
     const navigate = useNavigate();
     return (
@@ -361,15 +391,21 @@ export default function Launch(): JSX.Element {
                             </>}
                         </div>
                         <div className="content">
-                            <div className="goodsNumber">1,000个物品</div>
+                            <div className="goodsNumber">{decimalNum(total, 0, ",")}个物品</div>
                             <div className="goodsList">
                                 <div className="content">
-                                    {ProjectDetail ? <>
-                                        <div className="goodsList">{ProjectDetail.nftData.result.map((item: any, index: number) => <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal"></Goods>)}</div>
-                                        <div className="LoadMore flexCenter" onClick={() => { }}>{t('Load More')}  {'>'}</div>
+                                    {nftList.length ? <>
+                                        <div className="goodsList">{nftList.map((item: any, index: number) =>
+                                            <div className="goodsItem"><Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag={
+                                                item?.owner_of?.toLocaleLowerCase() === web3React?.account?.toLocaleLowerCase() ?
+                                                "Personal" : ""}></Goods></div>
+                                        )}</div>
+                                        {!!cursor && <div className="LoadMore flexCenter" onClick={() => {
+                                            console.log("cursor", cursor)
+                                            LoadMore(cursor)
+                                        }}>{t('Load More')}  {'>'}</div>}
                                     </> : <NoData />}
                                 </div>
-
 
                                 {/* <div className="content">
                                     {userCurrentNft ? <>

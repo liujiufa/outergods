@@ -201,10 +201,12 @@ export default function NFTDetails() {
             navigate('/project?projectName=' + OrderDetail.name)
         }
     }
+    
     function CopyLink() {
         copy(window.location.href)
         dispatch(createAddMessageAction(t('Copy successful')))
     }
+
     function syncUserNftDataFun() {
         dispatch(createSetLodingAction(true))
         syncUserNftData(web3React.account as string).then(() => { }, () => {
@@ -212,11 +214,13 @@ export default function NFTDetails() {
             dispatch(createAddMessageAction(t('Sync failed')))
         })
     }
+
     function goSomeone(address: string) {
         if (address) {
             navigate('/Someone?address=' + address)
         }
     }
+
     function goProjectFun(projectName: string, isAuthentication: number | null) {
         if (!isAuthentication) {
             dispatch(createAddMessageAction(t('Not certified')))
@@ -228,12 +232,12 @@ export default function NFTDetails() {
 
     return (
         <Container id="NFTDetails">
-            {/* <L> */}
+            <L>
                 <NFTDetailsL OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} NFTTypeDetail={NFTDetailType} />
-            {/* </L> */}
-            {/* <M>
+            </L>
+            <M>
                 <NFTDetailsM OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} />
-            </M> */}
+            </M>
         </Container>
     )
 }
