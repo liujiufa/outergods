@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next'
 import { useWeb3React } from '@web3-react/core'
 import { Contracts } from '../web3'
 import { contractAddress } from '../config'
+import defaultCard from '../assets/image/defaultCard.png'
 import BigNumber from 'big.js'
 BigNumber.NE = -40
 BigNumber.PE = 40
@@ -218,7 +219,7 @@ export default function ScreenModal(props: any) {
         <img src={closeIcon} alt="" onClick={() => props.close()} />
       </div>
       <div className="NFTInfo">
-        <div className="NFTLeft"><img src={props?.NFTInfo?.metadata?.image || props?.NFTDetail?.normalizedMetadata?.image} alt="" /></div>
+        <div className="NFTLeft"><img src={props?.NFTInfo?.metadata?.image || props?.NFTDetail?.normalizedMetadata?.image || defaultCard} alt="" /></div>
         <div className="NFTRight">
           <div className="NFTTitle">{props?.NFTInfo?.metadata?.name}</div>
           <div className="projectTitle">{props?.NFTInfo?.projectName}</div>
@@ -234,7 +235,7 @@ export default function ScreenModal(props: any) {
       </div>
       <div className="clain item">
         <div className="title">链</div>
-        <div className="value">ETH</div>
+        <div className="value">BSC</div>
       </div>
       <div className="reward item">
         <div className="title">创作者收益<img src={feedesIcon} alt="" /></div>

@@ -237,10 +237,10 @@ export default function Market(): JSX.Element {
             TradeOrder.length > 0 ?
               <>
                 <div className="goodsList">
-                  {TradeOrder.map((item, index) => 
-                                <div className="usernft">
-                  <Goods key={index} NftInfo={item} buyBtnFun={() => { buyBtnFun(item) }} tag="Market" goPath={() => { goPath(item) }}></Goods>
-                  </div>
+                  {TradeOrder.map((item, index) =>
+                    <div className="usernft">
+                      <Goods key={index} NftInfo={{ ...item, floorPrice: item.price }} buyBtnFun={() => { buyBtnFun(item) }} tag="Market" goPath={() => { goPath(item) }}></Goods>
+                    </div>
                   )}
                 </div>
                 <div className="LoadMore pointer flexCenter" onClick={LoadMore}>{t('Load More')}  {'>'}</div>
@@ -308,11 +308,9 @@ export default function Market(): JSX.Element {
             </div>
             <div className="itemBigBox contentBoxM">
               <div className="contentBox">
-
                 <Fragment>
                   <Space direction="vertical">
                     <Collapse activeKey={activeKey} expandIcon={() => <></>}>
-
                       {
                         dynamicInfo.length > 0 && dynamicInfo.map((item: any, idx: number) =>
                           <Fragment>
