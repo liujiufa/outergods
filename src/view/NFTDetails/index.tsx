@@ -89,7 +89,6 @@ export default function NFTDetails() {
     useEffect(() => {
         if (tokenId && state.token && tokenAddress) {
             getNftUserInfoDetail(tokenAddress, tokenId).then(res => {
-                setTokenId(res.data.tokenId)
                 if (res.data.metadata) {
                     res.data.metadata = JSON.parse(res.data.metadata)
                     let obj: { [key: string]: string; } = {}
@@ -230,8 +229,8 @@ export default function NFTDetails() {
 
     return (
         <Container id="NFTDetails">
-             {/* <L> */}
-                <NFTDetailsL OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} NFTTypeDetail={NFTDetailType} />
+            {/* <L> */}
+            <NFTDetailsL OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} NFTTypeDetail={NFTDetailType} />
             {/* </L> */}
             {/* <M>
                 <NFTDetailsM OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} />

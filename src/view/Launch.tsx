@@ -105,7 +105,7 @@ export default function Launch(): JSX.Element {
     let [ProjectDetail, setProjectDetail] = useState<any | null>(null)
     let [nftList, setNftList] = useState<any[]>([])
     let [total, setTotal] = useState("--")
-    
+
     let [ProjectOrder, setProjectOrder] = useState<NftInfo[]>([])
     const [activeKey, setActiveKey] = useState("");
     const [cursor, setCursor] = useState("");
@@ -140,9 +140,9 @@ export default function Launch(): JSX.Element {
                 console.log(res.data, "项目详情")
                 setProjectDetail(res.data)
                 setNftList(res.data?.nftData?.result || [])
-                setTotal((res.data?.nftData?.total || "")+"")
-                
+                setTotal((res.data?.nftData?.total || "") + "")
                 setCursor(res.data?.nftData?.cursor || "");
+                dispatch(createSetLodingAction(false))
                 getTradeOrderState(res.data.name).then(res => {
                     console.log(res, "项目NFT动态")
                     setTableData(res.data)
@@ -183,13 +183,13 @@ export default function Launch(): JSX.Element {
         }).then(res => {
             dispatch(createSetLodingAction(false))
             setProjectDetail(ProjectDetail)
-            setTotal((res.data?.nftData?.total || "")+"")
+            setTotal((res.data?.nftData?.total || "") + "")
             const list = nftList.concat(res.data?.nftData?.result || [])
             console.log("list", list)
             let nftL: any = []
-            nftL = list.reduce((prev, item)=> {
+            nftL = list.reduce((prev, item) => {
                 console.log("item?.token_address?.toLocaleLowerCase()", item?.token_address?.toLocaleLowerCase())
-                if(!prev.some((option: any)=> (option?.token_address?.toLocaleLowerCase() === item?.token_address?.toLocaleLowerCase()) && (Number(option?.token_id) === Number(item?.token_id)) )){
+                if (!prev.some((option: any) => (option?.token_address?.toLocaleLowerCase() === item?.token_address?.toLocaleLowerCase()) && (Number(option?.token_id) === Number(item?.token_id)))) {
                     prev.push(item)
                 }
                 console.log("prev", prev)
@@ -215,23 +215,23 @@ export default function Launch(): JSX.Element {
                         <div className="bottom">总交易量</div>
                     </div>
                     <div className="item">
-                        <div className="top">${decimalNum(ProjectDetail?.floorPrice , 4) || "--"}</div>
+                        <div className="top">${decimalNum(ProjectDetail?.floorPrice, 4) || "--"}</div>
                         <div className="bottom">地板价</div>
                     </div>
                     <div className="item">
-                        <div className="top">{ProjectDetail?.createFee  || "--" }%</div>
+                        <div className="top">{ProjectDetail?.createFee || "--"}%</div>
                         <div className="bottom">创作者收益</div>
                     </div>
                     <div className="item">
-                        <div className="top">{ProjectDetail?.thingNum  || "--"}</div>
+                        <div className="top">{ProjectDetail?.thingNum || "--"}</div>
                         <div className="bottom">物品</div>
                     </div>
                     <div className="item">
-                        <div className="top">{ProjectDetail?.shelvesNum  || "--"}</div>
+                        <div className="top">{ProjectDetail?.shelvesNum || "--"}</div>
                         <div className="bottom">已上架</div>
                     </div>
                     <div className="item">
-                        <div className="top">{ProjectDetail?.holdNum  || "--"}</div>
+                        <div className="top">{ProjectDetail?.holdNum || "--"}</div>
                         <div className="bottom">持有者</div></div>
                 </div>
             </div>
@@ -401,7 +401,7 @@ export default function Launch(): JSX.Element {
                                         <div className="goodsList">{nftList.map((item: any, index: number) =>
                                             <div className="goodsItem"><Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag={
                                                 item?.owner_of?.toLocaleLowerCase() === web3React?.account?.toLocaleLowerCase() ?
-                                                "Personal" : ""}></Goods></div>
+                                                    "Personal" : ""}></Goods></div>
                                         )}</div>
                                         {!!cursor && <div className="LoadMore flexCenter" onClick={() => {
                                             console.log("cursor", cursor)
