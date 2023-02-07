@@ -136,7 +136,7 @@ export default function HotspotCard(props: any) {
 
         {/* <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }}> */}
         <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }}>
-        {props.NftInfo?.name || props.NftInfo?.projectName || "XXXXXXXXX"}
+          {props.NftInfo?.name || props.NftInfo?.projectName || "XXXXXXXXX"}
           <div className="hover-show-card">
             <img className="hover-show-card-img" src={NftCardImagePng} />
             <div className="hover-show-card-content">
@@ -164,14 +164,31 @@ export default function HotspotCard(props: any) {
         </div>
       </div>
       {
-        activeMenu ? <div className='menuBox'>
-          <div className="left" onClick={() => { props.goPath() }}>{((props?.NftInfo?.owner_of).toLowerCase() === (web3React.account)?.toLowerCase() && props?.NftInfo?.status === 1) ? "取消出售" : "出售"}</div>
-          <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
-        </div> : <div className="cardBottomBox">
-          <div className="cardPrice">
-          <img src={BNBIcon} alt="" /> {decimalNum(props.NftInfo?.floorPrice || '0', 2)} USDT <span>({decimalNum(props.NftInfo?.uprice || 0, 2)})</span>
+        activeMenu ?
+          <div className='menuBox'>
+            <div className="left" onClick={() => { props.goPath() }}>{((props?.NftInfo?.owner_of).toLowerCase() === (web3React.account)?.toLowerCase() && props?.NftInfo?.status === 1) ? "取消出售" : "出售"}</div>
+            <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
+          </div> :
+          <div className="cardBottomBox">
+            {/* 个人中心 */}
+            {
+              props.tag === "Personal" && (props.NftInfo?.status === 1 ?
+                <div className="cardPrice">
+                  <img src={BNBIcon} alt="" /> {props.NftInfo?.floorPrice || props.NftInfo?.price || '0'} {props.NftInfo?.coinName} <span>({props.NftInfo?.uprice || 0})</span>
+                </div> :
+                <div className="cardPrice">
+                  Not sold
+                </div>)
+            }
+            {/* 交易市场 */}
+            {
+              props.tag === "Market" &&
+              <div className="cardPrice">
+                <img src={BNBIcon} alt="" /> {props.NftInfo?.floorPrice || props.NftInfo?.price || '0'} {props.NftInfo?.coinName} <span>({props.NftInfo?.uprice || 0})</span>
+              </div>
+            }
+
           </div>
-        </div>
       }
     </div >
   )
