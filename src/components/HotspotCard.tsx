@@ -166,9 +166,15 @@ export default function HotspotCard(props: any) {
           <div className="left" onClick={() => { props.goPath() }}>{((props?.NftInfo?.owner_of).toLowerCase() === (web3React.account)?.toLowerCase() && props?.NftInfo?.status === 1) ? "取消出售" : "出售"}</div>
           <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
         </div> : <div className="cardBottomBox">
-          <div className="cardPrice">
-            <img src={BNBIcon} alt="" /> {props.NftInfo?.floorPrice || '0'} USDT <span>({props.NftInfo?.uprice || 0})</span>
-          </div>
+          {
+            props.NftInfo?.status === 1 ?
+              <div className="cardPrice">
+                <img src={BNBIcon} alt="" /> {props.NftInfo?.floorPrice || props.NftInfo?.price || '0'} {props.NftInfo?.coinName} <span>({props.NftInfo?.uprice || 0})</span>
+              </div> :
+              <div className="cardPrice">
+                Not sold
+              </div>
+          }
         </div>
       }
     </div >
