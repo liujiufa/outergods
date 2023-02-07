@@ -29,14 +29,14 @@ export default function TransactionTips() {
 
   useEffect(() => {
     getTradeOrderState('Market').then(res => {
-      if (res.data.length !==0) {
+      if (res.data.length !== 0) {
         setSynamicInfo(res.data[0])
-        // console.log(res,"最近动态")
+        // console.log(res, "最近动态")
       }
     })
     let Time = setInterval(() => {
       getTradeOrderState('Market').then(res => {
-        if (res.data.length !==0) {
+        if (res.data.length !== 0) {
           setSynamicInfo(res.data[0])
           // console.log(res,"最近动态")
         }
@@ -57,36 +57,36 @@ export default function TransactionTips() {
     navigate('/Someone?address=' + address)
   }
   function TipsText() {
-    /* 挂单 */
-    if (dynamicInfo && dynamicInfo.operateType === 0) {
-      return (<div className="TipsText">
-        <Marquee speed={100} pauseOnHover gradient={false}>
-          <span className="color33 pointer" onClick={goDetial}>{dynamicInfo?.nftName || 'unnamed'}</span>
-          <span className="colorBlue">Listed</span>
-          <img src={createOrder} alt="" />
-          <span className="colorA5">for {dynamicInfo?.num} {dynamicInfo?.coinName}</span>
-          <span className="color33 pointer" onClick={()=>{goSomeone(dynamicInfo?.formAddress as string)}}>{AddrHandle(dynamicInfo?.formAddress)}</span>       
-          <span className="colorA5">to</span>
-          <span className="color33">Marketplace</span>
-          {/* {t('Listed for 0.01BNB to Marketplace', {
-            coinNum: dynamicInfo?.num, coinName: dynamicInfo?.coinName, Icon: <img src={createOrder} alt="" />,
-            formAddress: <span className="color33" onClick={() => { goSomeone(dynamicInfo?.formAddress as string) }}>{AddrHandle(dynamicInfo?.formAddress)}</span>
-          })} */}
-          <span className="colorA5">{HowLongAgo(dynamicInfo?.createTime as number)}</span>
-        </Marquee>
-      </div>)
-    }
+    // /* 挂单 */
+    // if (dynamicInfo && dynamicInfo.operateType === 0) {
+    //   return (<div className="TipsText">
+    //     <Marquee speed={100} pauseOnHover gradient={false}>
+    //       <span className="color33 pointer" onClick={goDetial}>{dynamicInfo?.nftName || 'unnamed'}</span>
+    //       <span className="colorBlue">Listed</span>
+    //       <img src={createOrder} alt="" />
+    //       <span className="colorA5">for {dynamicInfo?.num} {dynamicInfo?.coinName}</span>
+    //       <span className="color33 pointer" onClick={() => { goSomeone(dynamicInfo?.formAddress as string) }}>{AddrHandle(dynamicInfo?.formAddress)}</span>
+    //       <span className="colorA5">to</span>
+    //       <span className="color33">Marketplace</span>
+    //       {/* {t('Listed for 0.01BNB to Marketplace', {
+    //         coinNum: dynamicInfo?.num, coinName: dynamicInfo?.coinName, Icon: <img src={createOrder} alt="" />,
+    //         formAddress: <span className="color33" onClick={() => { goSomeone(dynamicInfo?.formAddress as string) }}>{AddrHandle(dynamicInfo?.formAddress)}</span>
+    //       })} */}
+    //       <span className="colorA5">{HowLongAgo(dynamicInfo?.createTime as number)}</span>
+    //     </Marquee>
+    //   </div>)
+    // }
     /* 出售 */
     if (dynamicInfo && dynamicInfo.operateType === 1) {
       return (<div className="TipsText">
         <Marquee speed={100} pauseOnHover gradient={false}>
           <span className="color33 pointer" onClick={goDetial}>{dynamicInfo?.nftName || 'unnamed'}</span>
-          <span className="colorRed">Sold</span>
+          <span className="colorRed">出售</span>
           <img src={sale} alt="" />
           <span className="colorA5">from</span>
-          <span className="color33 pointer" onClick={()=>{goSomeone(dynamicInfo?.formAddress as string)}}>{AddrHandle(dynamicInfo?.formAddress)}</span>
+          <span className="color33 pointer" onClick={() => { goSomeone(dynamicInfo?.formAddress as string) }}>{AddrHandle(dynamicInfo?.formAddress)}</span>
           <span className="colorA5">to</span>
-          <span className="color33 pointer" onClick={()=>{goSomeone(dynamicInfo?.toAddress as string)}}>{AddrHandle(dynamicInfo?.toAddress)}</span>
+          <span className="color33 pointer" onClick={() => { goSomeone(dynamicInfo?.toAddress as string) }}>{AddrHandle(dynamicInfo?.toAddress)}</span>
           <span className="colorA5">for {dynamicInfo?.num} {dynamicInfo?.coinName}</span>
           {/* {t('Sold from oxf9...810B to 0x32...b92f for 0.01BNB', {
             coinNum: dynamicInfo?.num, coinName: dynamicInfo?.coinName, Icon: <img src={sale} alt="" />,
@@ -98,27 +98,27 @@ export default function TransactionTips() {
       </div>)
     }
     /* 转出 */
-    if (dynamicInfo && dynamicInfo.operateType === 3) {
-      return (<div className="TipsText">
-        <Marquee speed={100} pauseOnHover gradient={false}>
-          <span className="color33 pointer" onClick={goDetial}>{dynamicInfo?.nftName || 'unnamed'}</span>
-          <span className="colorGreen">Transferred</span>
-          <img src={transfer} alt="" />
-        <span className="colorA5">from</span>
-        <span className="color33 pointer" onClick={()=>{goSomeone(dynamicInfo?.formAddress as string)}}>{AddrHandle(dynamicInfo?.formAddress)}</span>
-        <span className="colorA5">to</span>
-        <span className="color33 pointer" onClick={()=>{goSomeone(dynamicInfo?.toAddress as string)}}>{AddrHandle(dynamicInfo?.toAddress)}</span>
-        <span className="colorA5">for {dynamicInfo?.num} {dynamicInfo?.coinName}</span>
-          {/* {t('transfer', {
-            coinNum: dynamicInfo?.num, coinName: dynamicInfo?.coinName, Icon: <img src={transfer} alt="" />,
-            formAddress: <span className="color33" onClick={() => { goSomeone(dynamicInfo?.formAddress as string) }}>{AddrHandle(dynamicInfo?.formAddress)}</span>,
-            toAddress: <span className="color33" onClick={() => { goSomeone(dynamicInfo?.toAddress as string) }}>{AddrHandle(dynamicInfo?.toAddress)}</span>
-          })} */}
-          <span className="colorA5">{HowLongAgo(dynamicInfo?.createTime as number)}</span>
+    // if (dynamicInfo && dynamicInfo.operateType === 3) {
+    //   return (<div className="TipsText">
+    //     <Marquee speed={100} pauseOnHover gradient={false}>
+    //       <span className="color33 pointer" onClick={goDetial}>{dynamicInfo?.nftName || 'unnamed'}</span>
+    //       <span className="colorGreen">Transferred</span>
+    //       <img src={transfer} alt="" />
+    //       <span className="colorA5">from</span>
+    //       <span className="color33 pointer" onClick={() => { goSomeone(dynamicInfo?.formAddress as string) }}>{AddrHandle(dynamicInfo?.formAddress)}</span>
+    //       <span className="colorA5">to</span>
+    //       <span className="color33 pointer" onClick={() => { goSomeone(dynamicInfo?.toAddress as string) }}>{AddrHandle(dynamicInfo?.toAddress)}</span>
+    //       <span className="colorA5">for {dynamicInfo?.num} {dynamicInfo?.coinName}</span>
+    //       {/* {t('transfer', {
+    //         coinNum: dynamicInfo?.num, coinName: dynamicInfo?.coinName, Icon: <img src={transfer} alt="" />,
+    //         formAddress: <span className="color33" onClick={() => { goSomeone(dynamicInfo?.formAddress as string) }}>{AddrHandle(dynamicInfo?.formAddress)}</span>,
+    //         toAddress: <span className="color33" onClick={() => { goSomeone(dynamicInfo?.toAddress as string) }}>{AddrHandle(dynamicInfo?.toAddress)}</span>
+    //       })} */}
+    //       <span className="colorA5">{HowLongAgo(dynamicInfo?.createTime as number)}</span>
 
-        </Marquee>
-      </div>)
-    }
+    //     </Marquee>
+    //   </div>)
+    // }
   }
   return (
     dynamicInfo ? <div className="TransactionTips">
@@ -134,7 +134,7 @@ export default function TransactionTips() {
         {/* <Marquee loopData={loopData} /> */}
         {TipsText()}
       </div>
-      <div className="dynamic flexCenter">{t('Activities')}</div>
+      {/* <div className="dynamic flexCenter">{t('Activities')}</div> */}
     </div>
       :
       <div className="TransactionTipsLabel">

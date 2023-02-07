@@ -201,7 +201,6 @@ export default function NFTDetails() {
             navigate('/project?projectName=' + OrderDetail.name)
         }
     }
-    
     function CopyLink() {
         copy(window.location.href)
         dispatch(createAddMessageAction(t('Copy successful')))
@@ -232,7 +231,7 @@ export default function NFTDetails() {
 
     return (
         <Container id="NFTDetails">
-            <L>
+             <L>
                 <NFTDetailsL OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} NFTTypeDetail={NFTDetailType} />
             </L>
             <M>

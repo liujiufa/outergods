@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
 import DeputyLayout from "../Layout/DeputyLayout";
 import PageLoding from '../components/PageLoding';
-const Home = React.lazy(() => import('../view/Home'));
 const Market = React.lazy(() => import('../view/Market'));
 const Launch = React.lazy(() => import('../view/Launch'));
 const Personal = React.lazy(() => import('../view/Personal'));

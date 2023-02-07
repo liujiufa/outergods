@@ -119,9 +119,11 @@ export default function Launch(): JSX.Element {
     let projectName = params.get('projectName')
     console.log("projectName", state, projectName)
     let operateTtype = [
-        "挂单",
-        "出售",
-        "转出"
+        "上架",
+        "成交",
+        "取消",
+        "转出",
+        "调价",
     ]
     function goSomeone(address: string) {
         navigate('/Someone?address=' + address)
@@ -163,11 +165,11 @@ export default function Launch(): JSX.Element {
     function goPath(goods: any) {
         /* 状态正常去挂卖 */
         if (goods.status === 0) {
-            return navigate(`/NFTDetails?ID=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
+            return navigate(`/NFTDetails?tokenId=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
         }
         /* 挂卖中去商品详情页改价 */
         if (goods.status === 1) {
-            return navigate(`/NFTDetails?ID=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=1`)
+            return navigate(`/NFTDetails?tokenId=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=1`)
         }
     }
     function LoadMore(fig: string) {
