@@ -27,6 +27,7 @@ import shareIcon from '../assets/image/shareIcon.png'
 import minSet from '../assets/image/minSet.png'
 import twitterIcon from '../assets/image/twitterIcon.png'
 import facebookIcon from '../assets/image/facebookIcon.png'
+import youtubeIcon from '../assets/image/youtubeIcon.png'
 import stateItem1 from '../assets/image/stateItem1.png'
 import stateItem2 from '../assets/image/stateItem2.png'
 import stateItem3 from '../assets/image/stateItem3.png'
@@ -73,6 +74,7 @@ interface NftCurrentType {
     page_size: number
     result: NftCurrentItemType[]
     status: string
+    total: number
 }
 export default function Personal(): JSX.Element {
     // 控制图标上下
@@ -116,14 +118,13 @@ export default function Personal(): JSX.Element {
         sortIndex !== undefined && setNftSort(sortIndex)
         setPageNum(1)
         getNftUserInfo({ ...ScreenData, pageSize: 10, currentPage: 1, userAddress: web3React.account as string }).then(res => {
+            console.log(res, 'OrderDetail')
             setUsetNft(res.data)
-            // console.log(res,'用户所拥有的nft')
         })
     }
     function LoadMore(fig: string) {
         console.log("加载更多", fig)
-
-        {
+        if (fig) {
             dispatch(createSetLodingAction(true))
             getNfts({
                 "address": web3React.account,
@@ -135,9 +136,9 @@ export default function Personal(): JSX.Element {
                 setUserCurrentNft(res.data)
                 dispatch(createSetLodingAction(false))
             })
+        } else {
+            dispatch(createAddMessageAction(t('No more')))
         }
-
-        dispatch(createAddMessageAction(t('No more')))
     }
 
     function multiFilter(array: [], filters: any) {
@@ -174,6 +175,15 @@ export default function Personal(): JSX.Element {
             })
         } else {
             setUserCurrentNft(null)
+        }
+    }, [web3React.account, state.token])
+
+    useEffect(() => {
+        if (web3React.account && state.token) {
+            getUserInfo(web3React.account).then((res) => {
+                setUserInfo(res.data)
+                console.log(res, '用户信息')
+            })
         }
     }, [web3React.account, state.token])
 
@@ -251,8 +261,9 @@ export default function Personal(): JSX.Element {
                             </div>
                             <div className="media-group">
                                 <div className="outlinkBox">
-                                    <div className="linkItem"><img src={twitterIcon} alt="" /></div>
-                                    <div className="linkItem"><img src={facebookIcon} alt="" /></div>
+                                    {userInfo?.tweet && <div className="linkItem" onClick={() => { navigate(userInfo?.tweet) }}><img src={twitterIcon} alt="" /></div>}
+                                    {userInfo?.facebook && <div className="linkItem" onClick={() => { navigate(userInfo?.facebook) }}><img src={facebookIcon} alt="" /></div>}
+                                    {userInfo?.youtubeIcon && <div className="linkItem" onClick={() => { navigate(userInfo?.youtubeIcon) }}><img src={facebookIcon} alt="" /></div>}
                                 </div>
                                 <div className="btnGroupRow l-hidden">
                                     <div className="share pointer flexCenter shareBox" onClick={() => { shareActiveFun() }}>
@@ -358,7 +369,6 @@ export default function Personal(): JSX.Element {
                                             userCurrentNft.result.map((item, index) =>
                                                 <div className="userNft">
                                                     <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal">
-
                                                     </Goods>
                                                 </div>
                                             )}</div>

@@ -9,11 +9,6 @@ import { AddrHandle } from '../utils/tool'
 import '../assets/style/componentStyle/ManageModal.scss'
 import closeIcon from '../assets/image/closeBlack.png'
 import openIcon from '../assets/image/openIconWhite.png'
-import ETHCoinIcon from '../assets/image/ETHCoinIcon.png'
-import BTCIcon from '../assets/image/BTC.png'
-import USDTIcon from '../assets/image/USDT.png'
-import projectImg from '../assets/image/projectImg.png'
-import NFTDemoImg from '../assets/image/4.png'
 import feedesIcon from '../assets/image/feedesIcon.png'
 import { Modal } from 'antd';
 import { useTranslation } from 'react-i18next'
@@ -22,6 +17,7 @@ import { Contracts } from '../web3'
 import { contractAddress } from '../config'
 import defaultCard from '../assets/image/defaultCard.png'
 import BigNumber from 'big.js'
+import BuySuccess from '../components/BuySuccess'
 BigNumber.NE = -40
 BigNumber.PE = 40
 export interface ScreenDataType {
@@ -168,10 +164,9 @@ export default function ScreenModal(props: any) {
         if (props.NFTInfo) {
           let price = props.NFTInfo.coinName === 'BNB' ? props.NFTInfo.priceString : 0
           Contracts.example.makeOrder(web3React.account as string, res.data, price as string).then(() => {
-            // navigate(-1)
-            // setShowBuySuccess(true)
             props.close()
-            return dispatch(createAddMessageAction(t('Purchase successful')))
+            setShowBuySuccess(true)
+            // return dispatch(createAddMessageAction(t('Purchase successful')))
           }).finally(() => {
             dispatch(createSetLodingAction(false))
           })
@@ -213,38 +208,45 @@ export default function ScreenModal(props: any) {
   }, [web3React.account, props.isShow, approveNum])
 
   return (
-    <Modal visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={670} className="ManageModal">
-      <div className="confirmModalTop">
-        <div className="title">确认购买</div>
-        <img src={closeIcon} alt="" onClick={() => props.close()} />
-      </div>
-      <div className="NFTInfo">
-        <div className="NFTLeft"><img src={props?.NFTInfo?.metadata?.image || props?.NFTDetail?.normalizedMetadata?.image || defaultCard} alt="" /></div>
-        <div className="NFTRight">
-          <div className="NFTTitle">{props?.NFTInfo?.metadata?.name}</div>
-          <div className="projectTitle">{props?.NFTInfo?.projectName}</div>
+    <>
+      <Modal visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={670} className="ManageModal">
+        <div className="confirmModalTop">
+          <div className="title">确认购买</div>
+          <img src={closeIcon} alt="" onClick={() => props.close()} />
         </div>
-      </div>
-      <div className="address item">
-        <div className="title">合约地址</div>
-        <div className="value">{AddrHandle(props?.NFTInfo?.tokenAddress)}</div>
-      </div>
-      <div className="coinID item">
-        <div className="title">代币ID</div>
-        <div className="value">{props?.NFTInfo?.tokenId}</div>
-      </div>
-      <div className="clain item">
-        <div className="title">链</div>
-        <div className="value">BSC</div>
-      </div>
-      <div className="reward item">
-        <div className="title">创作者收益<img src={feedesIcon} alt="" /></div>
-        <div className="value">10%</div>
-      </div>
+        <div className="NFTInfo">
+          <div className="NFTLeft"><img src={props?.NFTInfo?.metadata?.image || props?.NFTDetail?.normalizedMetadata?.image || defaultCard} alt="" /></div>
+          <div className="NFTRight">
+            <div className="NFTTitle">{props?.NFTInfo?.metadata?.name}</div>
+            <div className="projectTitle">{props?.NFTInfo?.projectName}</div>
+          </div>
+        </div>
+        <div className="address item">
+          <div className="title">合约地址</div>
+          <div className="value">{AddrHandle(props?.NFTInfo?.tokenAddress)}</div>
+        </div>
+        <div className="coinID item">
+          <div className="title">代币ID</div>
+          <div className="value">{props?.NFTInfo?.tokenId}</div>
+        </div>
+        <div className="clain item">
+          <div className="title">链</div>
+          <div className="value">BSC</div>
+        </div>
+        <div className="reward item">
+          <div className="title">创作者收益<img src={feedesIcon} alt="" /></div>
+          <div className="value">10%</div>
+        </div>
 
-      <div className="ManageModalFooter">
-        {isApprove() ? <div className="enterBtn flexCenter" onClick={buyOrder}>{t('Buy')}</div> : <div className="enterBtn flexCenter" onClick={() => { approve() }}>{t('Authorize')}</div>}
-      </div>
-    </Modal >
+        <div className="ManageModalFooter">
+          {isApprove() ? <div className="enterBtn flexCenter" onClick={buyOrder}>{t('Buy')}</div> : <div className="enterBtn flexCenter" onClick={() => { approve() }}>{t('Authorize')}</div>}
+        </div>
+      </Modal >
+      {props.NFTInfo && <BuySuccess data={{
+        address: props?.NFTInfo?.tokenAddress,
+        projectName: props?.NFTInfo?.projectName,
+        tokenID: props?.NFTInfo?.tokenId
+      }} isShow={showBuySuccess} close={() => { setShowBuySuccess(false) }}></BuySuccess>}
+    </>
   )
 }

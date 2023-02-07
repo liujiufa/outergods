@@ -25,7 +25,6 @@ import { createAddMessageAction } from "../../../store/actions"
 
 import ManageModal from '../../../components/ManageModal'
 import CancelSaleModal from '../../../components/CancelSaleModal'
-import ConfirmBuyModal from '../../../components/ConfirmBuyModal'
 import SaleNFTModal from '../../../components/SaleNFTModal'
 import SaleModal from '../../../components/SaleModal'
 import ConfirmBuyNFTModal from '../../../components/ConfirmBuyNFTModal'
@@ -68,6 +67,7 @@ export default function NFTDetailsL({
     attrOrInfo,
     NFTTypeDetail
 }: any) {
+    console.log(OrderDetail);
     let [showPriceChange, setShowPriceChange] = useState<boolean>(false)
     const web3React = useWeb3React()
     let { t } = useTranslation()
@@ -207,7 +207,7 @@ export default function NFTDetailsL({
                         </h4>
                         <div className="project">
                             <div className="name">
-                                <img src={NFTImage} alt="" className="logo" />
+                                <img src={OrderDetail?.projectImg || defaultCard} alt="" className="logo" />
                                 <div className="project-name">{OrderDetail && OrderDetail.normalizedMetadata.name}</div>
                             </div>
                             <span className="icon">
@@ -582,8 +582,6 @@ export default function NFTDetailsL({
             {OrderDetail && <ManageModal isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
             {/* <CancelSaleModal isShow={false} close={() => { setManageModal(false) }} ></CancelSaleModal> */}
             {OrderDetail && <CancelSaleModal isShow={showEnterCancel} tokenId={OrderDetail?.nnftUser?.tokenId} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowEnterCancel(false) }}></CancelSaleModal>}
-            <ConfirmBuyModal isShow={false} close={() => { setManageModal(false) }} ></ConfirmBuyModal>
-            <ConfirmBuyModal isShow={false} close={() => { setManageModal(false) }} ></ConfirmBuyModal>
             {OrderDetail && <SaleModal isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress }}></SaleModal>}
             {OrderDetail && <ConfirmBuyNFTModal NFTInfo={OrderDetail?.nnftOrder} NFTDetail={OrderDetail} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} ></ConfirmBuyNFTModal>}
         </div >

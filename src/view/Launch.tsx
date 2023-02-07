@@ -120,17 +120,21 @@ export default function Launch(): JSX.Element {
     dayjs.extend(duration)
     useEffect(() => {
         if (state.token && projectName) {
+            dispatch(createSetLodingAction(true))
             getNftProjectDetail({
                 "projectName": projectName,
                 "pageSize": 10,
                 "cursor": "",
-            }).then(res => {
-                console.log(res.data, "项目详情")
-                setProjectDetail(res.data)
-                getTradeOrderState(res.data.name).then(res => {
-                    console.log(res, "项目NFT动态")
-                    setTableData(res.data)
-                })
+            }).then((res: any) => {
+                if (res.code === 200) {
+                    console.log(res.data, "项目详情")
+                    dispatch(createSetLodingAction(false))
+                    setProjectDetail(res.data)
+                    getTradeOrderState(res.data.name).then(res => {
+                        console.log(res, "项目NFT动态")
+                        setTableData(res.data)
+                    })
+                }
             })
         }
     }, [state.token, projectName])

@@ -77,22 +77,18 @@ export default function NFTDetails() {
     /* 卖家的其他商品 */
     let [UserOrder, setUserOrder] = useState<NftInfo[]>([])
     let [DynamicState, setDynamicState] = useState(0)
-    let [tokenId, setTokenId] = useState('')
     let [projectId, setProjectId] = useState('')
     let [ProjectOrder, setProjectOrder] = useState([])
     let [showSellModal, setShowSellModal] = useState<boolean>(false)
-    let ID = params.get('ID')
+    let tokenId = params.get('tokenId')
     let tokenAddress = params.get('tokenAddress')
     let owner_of = params.get('owner_of')
     // 0：出售
     let NFTDetailType = params.get('NFTDetailType')
     console.log(NFTDetailType, "0");
-
-    console.log(owner_of == web3React.account, (owner_of), (web3React.account));
     useEffect(() => {
-        if (ID && state.token && tokenAddress) {
-            getNftUserInfoDetail(tokenAddress, ID).then(res => {
-                setTokenId(res.data.tokenId)
+        if (tokenId && state.token && tokenAddress) {
+            getNftUserInfoDetail(tokenAddress, tokenId).then(res => {
                 if (res.data.metadata) {
                     res.data.metadata = JSON.parse(res.data.metadata)
                     let obj: { [key: string]: string; } = {}
@@ -113,7 +109,7 @@ export default function NFTDetails() {
                 }
             })
         }
-    }, [ID, state.token])
+    }, [tokenId, state.token])
     useEffect(() => {
         if (tokenId && OrderDetail && OrderDetail.tokenAddress) {
             getNftOrderState(tokenId, DynamicStateMap[DynamicState].value, OrderDetail.tokenAddress).then(res => {

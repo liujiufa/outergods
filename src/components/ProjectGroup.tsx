@@ -9,7 +9,7 @@ import { FlexCCBox } from './FlexBox'
 import NFT1Png from '../assets/image/nftGroup/nft1.png'
 import AuthenticationPng from '../assets/image/nftGroup/authentication.png'
 import { decimalNum } from '../utils/decimalNum'
-
+import { useNavigate } from 'react-router-dom'
 
 const Container = styled(FlexCCBox)`
     width: 100%;
@@ -136,6 +136,7 @@ const PriceTitle = styled.div`
 export default function ProjectGroup({
     data
 }: any) {
+    const navigate = useNavigate()
     return (
         <Fragment>
             {
@@ -152,7 +153,7 @@ export default function ProjectGroup({
                             <NFTImgGroup> <NFTImg src={NFT1Png} /> </NFTImgGroup>
                         </Group>
                         <Group>
-                            <NFTName>{data.name}</NFTName>
+                            <NFTName onClick={() => { navigate('/Launch?projectName=' + data.name) }}>{data.name}</NFTName>
                             <AuthenticationGroup src={AuthenticationPng} />
                         </Group>
                         <GroupPrice>
