@@ -683,6 +683,17 @@
 
 }
 
+#NFTDetails {
+    .m-hidden {
+        display: flex;
+    }
+    
+    .l-hidden {
+        display: none;
+        width: 0;
+    }
+}
+
 @media (max-width:1280px) {
     // #NFTDetails {
 
@@ -716,6 +727,14 @@
 
         .contentBox {
             padding: 20px 12px 24px;
+        }
+
+        .m-hidden {
+            display: none;
+        }
+    
+        .l-hidden {
+            display: flex;
         }
 
         .coin-group {

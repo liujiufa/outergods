@@ -228,12 +228,12 @@ export default function NFTDetails() {
 
     return (
         <Container id="NFTDetails">
-            <L>
+            {/* <L> */}
                 <NFTDetailsL OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} NFTTypeDetail={NFTDetailType} />
-            </L>
-            <M>
+            {/* </L> */}
+            {/* <M>
                 <NFTDetailsM OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} />
-            </M>
+            </M> */}
         </Container>
     )
 }

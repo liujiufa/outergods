@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Table, Pagination, Collapse, Space, Select } from 'antd';
 import { NftUserType } from '../API'
@@ -372,9 +372,9 @@ export default function Personal(): JSX.Element {
                             <div className="bigContent">
                                 <div className="content">
                                     <div className="goodsList">
-                                    {
+                                        {
                                             userNft.length > 0 ? <>
-                                                <div className="goodsList">{userNft.map((item, index) =>   <div className="userNft"><Goods key={index} NftInfo={item} goPath={() => { goPath(item) }}></Goods> </div>)}</div>
+                                                <div className="goodsList">{userNft.map((item, index) => <div className="userNft"><Goods key={index} NftInfo={item} goPath={() => { goPath(item) }}></Goods> </div>)}</div>
                                                 <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
                                             </> : <NoData />
                                         }
@@ -467,68 +467,71 @@ export default function Personal(): JSX.Element {
                                     <div className="contentBox">
                                         <Space direction="vertical">
                                             <Collapse activeKey={activeKey} expandIcon={() => <></>} defaultActiveKey={['1']}>
-                                                {tableData.length > 0 ? tableData.map((item: any, index: number) => <Collapse.Panel
-                                                    header={
-                                                        <div className="itemBox">
-                                                            <div className="item type">
-                                                                <div className="top">{operateTtype[item.operateType]}</div>
-                                                                <div className="bottom">一口价</div>
-                                                            </div>
-                                                            <div className='group'>
-                                                                <div className="item projectName">
-                                                                    <div className="leftBox">
-                                                                        <img src={item.projectLogo} alt="" />
+                                                {tableData.length > 0 ? tableData.map((item: any, index: number) =>
+                                                    <Fragment>
+                                                        <Collapse.Panel
+                                                            header={
+                                                                <div className="itemBox">
+                                                                    <div className="item type">
+                                                                        <div className="top">{operateTtype[item.operateType]}</div>
+                                                                        <div className="bottom">一口价</div>
                                                                     </div>
-                                                                    <div className="right">
-                                                                        <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
-                                                                        <div className="bottom">{item.nftName}</div>
+                                                                    <div className='group'>
+                                                                        <div className="item projectName">
+                                                                            <div className="leftBox">
+                                                                                <img src={item.projectLogo} alt="" />
+                                                                            </div>
+                                                                            <div className="right">
+                                                                                <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                                                                <div className="bottom">{item.nftName}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="item">
+                                                                            <div className="top">{item.uorderPrice}</div>
+                                                                            <div className="bottom">{item.num} {item.coinName}</div>
+                                                                        </div>
+                                                                        <div className='drap-icon' onClick={() => {
+                                                                            if (activeKey === "1") {
+                                                                                setActiveKey("")
+                                                                            } else {
+                                                                                setActiveKey("1")
+                                                                            }
+                                                                        }} >
+                                                                            {
+                                                                                activeKey !== "1" ? <DownOutlined /> : <UpOutlined />
+                                                                            }
+                                                                        </div>
                                                                     </div>
+                                                                </div>
+                                                            } key="1">
+                                                            <div className="group">
+                                                                <div className="item">
+                                                                    <div className="text" onClick={() => { goSomeone(item.formAddress) }}>
+                                                                        {
+                                                                            item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
+                                                                        }
+                                                                    </div>
+                                                                    <div className="type">从</div>
                                                                 </div>
                                                                 <div className="item">
-                                                                    <div className="top">{item.uorderPrice}</div>
-                                                                    <div className="bottom">{item.num} {item.coinName}</div>
-                                                                </div>
-                                                                <div className='drap-icon' onClick={() => {
-                                                                    if (activeKey === "1") {
-                                                                        setActiveKey("")
-                                                                    } else {
-                                                                        setActiveKey("1")
-                                                                    }
-                                                                }} >
-                                                                    {
-                                                                        activeKey !== "1" ? <DownOutlined /> : <UpOutlined />
-                                                                    }
-                                                                </div>
-                                                            </div>
+                                                                    <div className="text" onClick={() => { goSomeone(item.toAddress) }}>
+                                                                        {
+                                                                            item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
+                                                                        }
+                                                                    </div>
+                                                                    <div className="type">到</div>
 
-                                                        </div>
-                                                    } key="1">
-                                                    <div className="group">
-                                                        <div className="item">
-                                                            <div className="text" onClick={() => { goSomeone(item.formAddress) }}>
-                                                                {
-                                                                    item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
-                                                                }
+                                                                </div>
+                                                                <div className="item date">
+                                                                    <div className="text type-date">
+                                                                        {HowLongAgo(item.createTime)}
+                                                                    </div>
+                                                                    <div className="type">日期</div>
+                                                                </div>
                                                             </div>
-                                                            <div className="type">从</div>
-                                                        </div>
-                                                        <div className="item">
-                                                            <div className="text" onClick={() => { goSomeone(item.toAddress) }}>
-                                                                {
-                                                                    item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
-                                                                }
-                                                            </div>
-                                                            <div className="type">到</div>
-
-                                                        </div>
-                                                        <div className="item date">
-                                                            <div className="text type-date">
-                                                                {HowLongAgo(item.createTime)}
-                                                            </div>
-                                                            <div className="type">日期</div>
-                                                        </div>
-                                                    </div>
-                                                </Collapse.Panel>
+                                                        </Collapse.Panel>
+                                                        <div className="separate" style={{ display: tableData.length === (index + 1) ? "none" : "block" }}></div>
+                                                    </Fragment>
                                                 ) : <NoData />}
                                             </Collapse>
                                         </Space>

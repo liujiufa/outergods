@@ -123,7 +123,7 @@ export default function HotspotCard(props: any) {
 
   return (
     <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }} onClick={(e) => { props.goPath(); e.stopPropagation(); }}>
-      <div className="imgBox" style={{ borderRadius: "20px 20px 45px 0px" }} onMouseEnter={(e) => { BuyNFTFun(e) }} onMouseLeave={() => { setActiveBuyMenu(false) }}>
+      <div className="imgBox" onMouseEnter={(e) => { BuyNFTFun(e) }} onMouseLeave={() => { setActiveBuyMenu(false) }}>
         {/* {activeBuyMenu && <div className="buyBtn flexCenter">购买</div>} */}
         {activeBuyMenu && (props.NftInfo?.userAddress).toLowerCase() !== (web3React.account)?.toLowerCase() && <div className="buyBtn flexCenter" onClick={(e) => { e.stopPropagation(); props.buyBtnFun() }}>购买</div>}
         <Img url={props.NftInfo?.normalized_metadata?.image || props.NftInfo?.metadata?.image}></Img>
