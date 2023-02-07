@@ -11,7 +11,6 @@ import AuthenticationPng from '../assets/image/nftGroup/authentication.png'
 import { decimalNum } from '../utils/decimalNum'
 import { useNavigate } from 'react-router-dom'
 
-
 const Container = styled(FlexCCBox)`
     width: 100%;
     background: #FFFFFF;
@@ -158,7 +157,7 @@ export default function ProjectGroup({
                             <NFTImgGroup> <NFTImg src={NFT1Png} /> </NFTImgGroup>
                         </Group>
                         <Group>
-                            <NFTName>{data.name}</NFTName>
+                            <NFTName onClick={() => { navigate('/Launch?projectName=' + data.name) }}>{data.name}</NFTName>
                             <AuthenticationGroup src={AuthenticationPng} />
                         </Group>
                         <GroupPrice>

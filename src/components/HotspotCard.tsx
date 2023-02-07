@@ -77,10 +77,13 @@ export default function HotspotCard(props: any) {
   }
 
   function goProject(e: any) {
+    console.log(props.NftInfo);
     e.stopPropagation();
-    console.log("12");
-    if (props.NftInfo && props.NftInfo.name) {
+    if (props.tag === "Personal" && props.NftInfo.name) {
       navigate('/Launch?projectName=' + props.NftInfo.name)
+    }
+    if (props.tag === "Market" && props.NftInfo.projectName) {
+      navigate('/Launch?projectName=' + props.NftInfo.projectName)
     }
   }
 
@@ -176,7 +179,7 @@ export default function HotspotCard(props: any) {
             {
               props.tag === "Personal" && (props.NftInfo?.status === 1 ?
                 <div className="cardPrice">
-                  <img src={BNBIcon} alt="" /> {props.NftInfo?.floorPrice || props.NftInfo?.price || '0'} {props.NftInfo?.coinName} <span>({props.NftInfo?.uprice || 0})</span>
+                  <img src={BNBIcon} alt="" /> {props.NftInfo?.floorPrice || props.NftInfo?.price || '0'} {props.NftInfo?.coinName} <span>({NumSplic(props.NftInfo?.uprice, 2) || 0})</span>
                 </div> :
                 <div className="cardPrice">
                   Not sold

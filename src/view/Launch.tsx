@@ -131,6 +131,7 @@ export default function Launch(): JSX.Element {
     dayjs.extend(duration)
     useEffect(() => {
         if (state.token && projectName) {
+            dispatch(createSetLodingAction(true))
             getNftProjectDetail({
                 "projectName": projectName,
                 "pageSize": 10,

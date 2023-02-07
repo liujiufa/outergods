@@ -4,17 +4,17 @@
     flex-direction: column;
     align-items: center;
     .title{
-        color: #fff;
+        color: #000000;
         font-weight: 500;
         font-size: 22px;
     }
     .subtitle{
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(0, 0, 0, 0.8);
         font-size: 14px;
     }
 }
 .buyInfo{
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
     border-radius: 24px;
     margin: 50px 30px 0;
@@ -24,7 +24,7 @@
     display: flex;
     flex-direction: column;
     .division{
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(0, 0, 0, 0.2);
         height: 1px;
     }
     .InfoRow{
@@ -36,12 +36,12 @@
             flex-direction: column;
             justify-content: center;
             .label{
-                color: rgba(255, 255, 255, 0.6);
+                color: rgba(0, 0, 0, 0.6);
                 font-size: 14px;
                 margin-bottom: 12px
             }
             .infoValue{
-                color: #fff;
+                color: #000000;
                 font-weight: 500;
                 font-size: 16px;
             }
@@ -51,7 +51,7 @@
 .EnterBtn{
     height: 50px;
     margin: 40px 30px 0;
-    background: #3683F7;
+    background: linear-gradient(90.03deg, #7285FF 0.03%, #9E72FF 99.47%);
     border-radius: 25px;
     color: #FFFFFF;
     font-size: 16px;

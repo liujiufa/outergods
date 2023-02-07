@@ -169,6 +169,13 @@ export function getTradeOrderState(projectName: string) {
         method: 'get'
     })
 }
+/* 获取首页动态 */
+export function getHomeBannerTrade() {
+    return axois.request({
+        url: `/user/nNftOrder/getHomeBannerTrade`,
+        method: 'get'
+    })
+}
 /* 获取项目详情 */
 export function getNftProjectDetail(data: any) {
     return axois.request({

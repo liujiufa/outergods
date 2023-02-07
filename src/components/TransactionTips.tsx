@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../assets/style/componentStyle/TransactionTips.scss'
 import Marquee from 'react-fast-marquee';
 import { useNavigate } from "react-router-dom";
-import { getTradeOrderState } from '../API'
+import { getHomeBannerTrade } from '../API'
 import { HowLongAgo, AddrHandle } from '../utils/tool'
 import { useTranslation } from 'react-i18next'
 
@@ -28,14 +28,14 @@ export default function TransactionTips() {
   let { t } = useTranslation();
 
   useEffect(() => {
-    getTradeOrderState('Market').then(res => {
+    getHomeBannerTrade().then((res: any) => {
       if (res.data.length !== 0) {
         setSynamicInfo(res.data[0])
         // console.log(res, "最近动态")
       }
     })
     let Time = setInterval(() => {
-      getTradeOrderState('Market').then(res => {
+      getHomeBannerTrade().then((res: any) => {
         if (res.data.length !== 0) {
           setSynamicInfo(res.data[0])
           // console.log(res,"最近动态")

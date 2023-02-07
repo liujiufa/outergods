@@ -130,7 +130,7 @@ const MainLayout: React.FC = () => {
             <Menu.Item key="1" onClick={() => { navigate('/Market') }}>
                 {t('Marketplace')}
             </Menu.Item>
-            <Menu.Item key="2" onClick={() => { navigate('/Launch') }}>
+            <Menu.Item key="2">
                 Collections
             </Menu.Item>
             <Menu.Item key="3">

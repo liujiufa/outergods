@@ -71,13 +71,11 @@ export default function Market(): JSX.Element {
 
   /* 修改筛选条件 */
   function changeScreen(ScreenData: getOrderType, typeIndex?: number, sortIndex?: number) {
-    // console.log(ScreenData)
     typeIndex !== undefined && setTypeIndex(typeIndex)
     sortIndex !== undefined && setSortIndex(sortIndex)
     setPageNum(1)
     getTradeOrder(ScreenData).then(res => {
       setTradeOrder(res.data)
-      // console.log(res,"搜索后的交易场数据")
     })
   }
   let typeMap = [
@@ -177,9 +175,9 @@ export default function Market(): JSX.Element {
 
   /* 判断跳转到出售页面还是正在出售页面 */
   function goPath(goods: any) {
-    /* 状态正常去挂卖 */
-    return navigate(`/NFTDetails?ID=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.userAddress}&&NFTDetailType=1`)
+    return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.userAddress}&&NFTDetailType=1`)
   }
+  
   function goSomeone(address: string) {
     navigate('/Someone?address=' + address)
   }
