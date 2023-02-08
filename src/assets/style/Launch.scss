@@ -57,7 +57,7 @@
 
         }
 
-       
+
     }
 
     .contentBox {
@@ -96,7 +96,27 @@
 
 
             .linkItem {
-                margin-right: 32px;
+                margin-right: 25px;
+
+                .top {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 22px;
+                    text-align: center;
+                    color: #7586FB;
+                }
+
+                .bottom {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 17px;
+                    color: rgba(0, 0, 0, 0.6);
+                    text-align: center;
+                }
             }
 
             .copyItem {
@@ -601,6 +621,8 @@
                             align-items: center;
 
                             img {
+                                // width: 36px;
+                                // height: 36px;
                                 margin-right: 8px;
                             }
                         }
@@ -708,6 +730,8 @@
                     align-items: center;
 
                     img {
+                        // width: 36px;
+                        // height: 36px;
                         margin-right: 8px;
                     }
                 }
@@ -857,7 +881,7 @@
     }
 }
 
-@media (max-width:769px) {
+@media (max-width:768px) {
     .LaunchInfo {
         .column {
             .label {
@@ -1024,6 +1048,13 @@
                 .projectName {
                     display: flex;
                     flex: 3;
+
+                    .leftBox {
+                        img {
+                            width: 36px;
+                            height: 36px;
+                        }
+                    }
                 }
 
                 .price {

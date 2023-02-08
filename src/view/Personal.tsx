@@ -41,9 +41,8 @@ import typeItem3 from '../assets/image/typeItem3.png'
 import typeItem4 from '../assets/image/typeItem4.png'
 import typeItem5 from '../assets/image/typeItem5.png'
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
-import authentication from '../assets/image/authentication.png'
-import NotCertified from '../assets/image/NotCertified.png'
-
+import authentication from '../assets/image/authentication.svg'
+import NotCertified from '../assets/image/NotCertified.svg'
 const { Column } = Table;
 
 interface userInfoType {
@@ -99,7 +98,7 @@ export default function Personal(): JSX.Element {
     const [activeKey, setActiveKey] = useState("");
     let [pageNum, setPageNum] = useState<number>(1)
     let [tableData, setTableData] = useState<any>([])
-
+    let [userLikeList, setUserLikeList] = useState<NftInfo[]>([])
     let type = params.get('type')
     let operateTtype = [
         "上架",
@@ -132,7 +131,7 @@ export default function Personal(): JSX.Element {
                 "cursor": fig,
                 "pageSize": 10
             }).then((res) => {
-                console.log(res.data, '下一页');
+                console.log(res.data, "个人中心物品");
                 setUserCurrentNft(res.data)
                 dispatch(createSetLodingAction(false))
             })
@@ -168,7 +167,7 @@ export default function Personal(): JSX.Element {
             ).then((res: any) => {
                 if (res.code === 200) {
                     dispatch(createSetLodingAction(false))
-                    console.log(res.data, "wuping");
+                    console.log(res.data, "个人中心物品");
                     setUserCurrentNft(res.data)
                 }
 
@@ -204,11 +203,11 @@ export default function Personal(): JSX.Element {
     function goPath(goods: any) {
         /* 状态正常去挂卖 */
         if (goods.status === 0) {
-            return navigate(`/NFTDetails?tokenId=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
+            return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
         }
         /* 挂卖中去商品详情页改价 */
         if (goods.status === 1) {
-            return navigate(`/NFTDetails?tokenId=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=1`)
+            return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.owner_of}&&NFTDetailType=1`)
         }
     }
     function copyUserAddr() {
@@ -230,7 +229,6 @@ export default function Personal(): JSX.Element {
 
     useEffect(() => {
         if (web3React.account && state.token) {
-            // console.log(DynamicType,DynamicState)
             getNftUserState({
                 userAddress: web3React.account,
                 status: -1,
@@ -239,8 +237,12 @@ export default function Personal(): JSX.Element {
                 console.log(res.data, "动态")
                 setTableData(res.data)
             })
+            getUserGiveLikeList(web3React.account).then(res => {
+                console.log(res.data, "用户点赞列表")
+                setUserLikeList(res.data)
+            })
         }
-    }, [web3React.account, state.token])
+    }, [web3React.account, state.token, tabActive])
 
     return (
         <div id="Personal" >
@@ -253,7 +255,7 @@ export default function Personal(): JSX.Element {
                         <div className="Info">
                             <div className="userName">
                                 <div className='name' title={userInfo?.userName || t('Username')}>{userInfo?.userName || t('Username')}</div>
-                                <div className="level flexCenter">VIP0</div>
+                                {/* <div className="level flexCenter">VIP0</div> */}
                             </div>
                             <div className="userAddress flexCenter pointer" onClick={copyUserAddr} >
                                 <span>{web3React.account ? AddrHandle(web3React.account, 5, 4) : t('User address')}</span>
@@ -283,8 +285,9 @@ export default function Personal(): JSX.Element {
                                     </div>
                                 </div>
                             </div>
-                            <div className="introduce">{t('Join in April 2022 / short self-introduction', { FullMonth: getMonth(userInfo?.createTime), FullYear: getFullYear(userInfo?.createTime) })}{userInfo?.brief || t('short self-introduction')}</div>
+                            {width > 425 && <div className="introduce">{t('Join in April 2022 / short self-introduction', { FullMonth: getMonth(userInfo?.createTime), FullYear: getFullYear(userInfo?.createTime) })}{userInfo?.brief || t('short self-introduction')}</div>}
                         </div>
+
                         <div className="btnGroupRow m-hidden">
                             <div className="share pointer flexCenter shareBox" onClick={() => { shareActiveFun() }} >
                                 <img src={shareIcon} alt="" />{t('Share')}
@@ -302,6 +305,7 @@ export default function Personal(): JSX.Element {
                         </div>
 
                     </div>
+                    {!(width > 425) && <div className="introduce introduce-m">{t('Join in April 2022 / short self-introduction', { FullMonth: getMonth(userInfo?.createTime), FullYear: getFullYear(userInfo?.createTime) })}{userInfo?.brief || t('short self-introduction')}</div>}
 
                     <div className="tebBox">
                         <div className={tabActive === 0 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(0) }}>物品</div>
@@ -344,7 +348,7 @@ export default function Personal(): JSX.Element {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="seriesBox">
+                                        {false && <div className="seriesBox">
                                             <div className="seriesItem">
                                                 <div className="seriesLeft">
                                                     <div className="imgBox">
@@ -360,7 +364,7 @@ export default function Personal(): JSX.Element {
                                                     <img src={viewIcon} alt="" />
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>}
                                     </div>
                                 </div>
                                 <div className="content">
@@ -381,12 +385,11 @@ export default function Personal(): JSX.Element {
                         {tabActive === 1 && <>
                             <div className="bigContent">
                                 <div className="content">
-                                    <div className="goodsList">
-                                        {
-                                            userNft.length > 0 ? <>
-                                                <div className="goodsList">{userNft.map((item, index) => <div className="userNft"><Goods key={index} NftInfo={item} goPath={() => { goPath(item) }}></Goods> </div>)}</div>
-                                                <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
-                                            </> : <NoData />
+                                    <div className="goodsList flexCenter">
+                                        {userLikeList.length > 0 ? <>
+                                            <div className="goodsList">{userLikeList.map((item, index) => <Goods key={index} NftInfo={{ ...item, isLike: 1 }}></Goods>)}</div>
+                                            <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
+                                        </> : <NoData></NoData>
                                         }
                                     </div>
                                 </div>
@@ -407,16 +410,16 @@ export default function Personal(): JSX.Element {
                                 </div>
 
                                 <Select
-                                    className='l-hidden'
+                                    className='l-hidden selectM'
                                     defaultValue="all"
                                     style={{ width: "100%" }}
+                                    dropdownStyle={{ background: "#E7E7FF" }}
                                     options={[
                                         { value: 'all', label: '全部类型' },
                                         { value: 'putType', label: '上架' },
                                         { value: 'cancelType', label: '取消' },
                                         { value: 'successfulType', label: '成交' },
                                         { value: 'managepriceType', label: '调价' },]}
-                                // popupClassName="popup-select-filter"
                                 />
 
                                 {width >= 768 && <div className="itemContentBigBox">
@@ -493,19 +496,19 @@ export default function Personal(): JSX.Element {
                                                                             <div className="bottom">{item.num} {item.coinName}</div>
                                                                         </div>
                                                                         <div className='drap-icon' onClick={() => {
-                                                                            if (activeKey === "1") {
+                                                                            if (activeKey === `${index}`) {
                                                                                 setActiveKey("")
                                                                             } else {
-                                                                                setActiveKey("1")
+                                                                                setActiveKey(`${index}`)
                                                                             }
                                                                         }} >
                                                                             {
-                                                                                activeKey !== "1" ? <DownOutlined /> : <UpOutlined />
+                                                                                activeKey !== `${index}` ? <DownOutlined /> : <UpOutlined />
                                                                             }
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            } key="1">
+                                                            } key={`${index}`}>
                                                             <div className="group">
                                                                 <div className="item">
                                                                     <div className="text" onClick={() => { goSomeone(item.formAddress) }}>

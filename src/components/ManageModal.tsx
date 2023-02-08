@@ -133,16 +133,16 @@ export default function ScreenModal(props: any) {
       icon: USDTIcon,
       value: 'USDT'
     },
-    {
-      key: 'ETH',
-      icon: ETHCoinIcon,
-      value: 'ETH'
-    },
-    {
-      key: 'BTC',
-      icon: BTCIcon,
-      value: 'BTC'
-    }
+    // {
+    //   key: 'ETH',
+    //   icon: ETHCoinIcon,
+    //   value: 'ETH'
+    // },
+    // {
+    //   key: 'BTC',
+    //   icon: BTCIcon,
+    //   value: 'BTC'
+    // }
   ]
   let [tokenIndex, setTokenIndex] = useState(0)
   const coinType = (

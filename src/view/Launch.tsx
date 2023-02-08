@@ -11,13 +11,12 @@ import { useTranslation } from 'react-i18next'
 import Goods, { NftInfo } from '../components/HotspotCard'
 import { HowLongAgo, AddrHandle } from '../utils/tool'
 import { createAddMessageAction, createSetLodingAction } from '../store/actions'
-
 import NoData from '../components/NoData'
 import SuccessfulModal from '../components/SuccessfulModal'
 import ReportModal from '../components/ReportModal'
 import bannerDemo from '../assets/image/bannerDemo.png'
 import avtorImg from '../assets/image/4.png'
-import authentication from '../assets/image/authentication.png'
+import authentication from '../assets/image/authentication.svg'
 import filterOpenIcon from '../assets/image/filterOpenIcon.png'
 import filterCloseIcon from '../assets/image/filterCloseIcon.png'
 import openRoundIcon from '../assets/image/openRoundIcon.png'
@@ -33,14 +32,12 @@ import outLinkIcon6 from '../assets/image/outLinkIcon6.png'
 import outLinkIcon7 from '../assets/image/outLinkIcon7.png'
 import openIcon from '../assets/image/openIconWhite.png'
 import FilterBack from '../assets/image/filter-back.png'
-import NotCertified from '../assets/image/NotCertified.png'
-import demoTestImg from '../assets/image/demoTestImg.png'
-
-import go from '../assets/image/go.png'
+import NotCertified from '../assets/image/NotCertified.svg'
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
-import list from 'antd/lib/list';
 import { useWeb3React } from '@web3-react/core';
 import { decimalNum } from '../utils/decimalNum';
+import { useViewport } from '../components/viewportContext'
+
 interface detialType {
     name: string
     routingName: string
@@ -91,9 +88,7 @@ export default function Launch(): JSX.Element {
     const [params] = useSearchParams();
     const dispatch = useDispatch();
     const web3React = useWeb3React()
-
-    console.log("web3React", web3React)
-
+    const { width } = useViewport()
     let state = useSelector<stateType, stateType>(state => state);
     let [startTime, setstartTime] = useState<number>(0)
     let [tabActive, setTabActive] = useState<number>(0)
@@ -115,9 +110,8 @@ export default function Launch(): JSX.Element {
 
     let [tableData, setTableData] = useState([])
     let { t } = useTranslation()
-    let id = params.get('id')
-    let projectName = params.get('projectName')
-    console.log("projectName", state, projectName)
+    let tokenAddress = params.get('tokenAddress')
+    console.log("tokenAddress", tokenAddress)
     let operateTtype = [
         "上架",
         "成交",
@@ -130,27 +124,26 @@ export default function Launch(): JSX.Element {
     }
     dayjs.extend(duration)
     useEffect(() => {
-        if (state.token && projectName) {
+        if (state.token && tokenAddress) {
             dispatch(createSetLodingAction(true))
             getNftProjectDetail({
-                "projectName": projectName,
+                "tokenAddress": tokenAddress,
                 "pageSize": 10,
                 "cursor": "",
             }).then(res => {
                 console.log(res.data, "项目详情")
                 setProjectDetail(res.data)
                 setNftList(res.data?.nftData?.result || [])
-                setTotal((res.data?.nftData?.total || "")+"")
-                
+                setTotal((res.data?.nftData?.total || "") + "")
                 setCursor(res.data?.nftData?.cursor || "");
                 dispatch(createSetLodingAction(false))
-                getTradeOrderState(res.data.name).then(res => {
+                getTradeOrderState(tokenAddress as string).then(res => {
                     console.log(res, "项目NFT动态")
                     setTableData(res.data)
                 })
             })
         }
-    }, [state.token, projectName])
+    }, [state.token, tokenAddress])
 
     const typeMenu = (
         <Menu>
@@ -175,10 +168,10 @@ export default function Launch(): JSX.Element {
         }
     }
     function LoadMore(fig: string) {
-        console.log("加载更多", fig)
+        if (!fig) return dispatch(createAddMessageAction(t('No more')))
         dispatch(createSetLodingAction(true))
         getNftProjectDetail({
-            "projectName": projectName,
+            "tokenAddress": tokenAddress,
             "pageSize": 10,
             "cursor": fig,
         }).then(res => {
@@ -200,7 +193,6 @@ export default function Launch(): JSX.Element {
             setNftList(nftL.concat([]))
             setCursor(res.data?.nftData?.cursor || "")
         })
-        // dispatch(createAddMessageAction(t('No more')))
     }
 
     console.log("nftList", nftList)
@@ -210,31 +202,31 @@ export default function Launch(): JSX.Element {
         <div id="launch" className="ProjectDetail">
             <div className="banner">
                 <img src={ProjectDetail?.backImgUrl} alt="" />
-                <div className="dataItems">
+                {width > 768 && <div className="dataItems">
                     <div className="item">
-                        <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 4) || "--"}</div>
+                        <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 4) || "0"}</div>
                         <div className="bottom">总交易量</div>
                     </div>
                     <div className="item">
-                        <div className="top">${decimalNum(ProjectDetail?.floorPrice, 4) || "--"}</div>
+                        <div className="top">${decimalNum(ProjectDetail?.floorPrice, 4) || "0"}</div>
                         <div className="bottom">地板价</div>
                     </div>
                     <div className="item">
-                        <div className="top">{ProjectDetail?.createFee || "--"}%</div>
+                        <div className="top">{ProjectDetail?.createFee || "0"}%</div>
                         <div className="bottom">创作者收益</div>
                     </div>
                     <div className="item">
-                        <div className="top">{ProjectDetail?.thingNum || "--"}</div>
+                        <div className="top">{ProjectDetail?.thingNum || "0"}</div>
                         <div className="bottom">物品</div>
                     </div>
                     <div className="item">
-                        <div className="top">{ProjectDetail?.shelvesNum || "--"}</div>
+                        <div className="top">{ProjectDetail?.shelvesNum || "0"}</div>
                         <div className="bottom">已上架</div>
                     </div>
-                    <div className="item">
-                        <div className="top">{ProjectDetail?.holdNum || "--"}</div>
-                        <div className="bottom">持有者</div></div>
-                </div>
+                    {/* <div className="item">
+                        <div className="top">{ProjectDetail?.holdNum || "0"}</div>
+                        <div className="bottom">持有者</div></div> */}
+                </div>}
             </div>
             <div className="contentBox">
                 <div className="outLinkBox l-hidden">
@@ -269,13 +261,41 @@ export default function Launch(): JSX.Element {
                         <img src={outLinkIcon7} alt="" />
                     </div>
                 </div>
+
+                <div className="outLinkBox l-hidden">
+                    <div className="linkItem">
+                        <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 4) || "0"}</div>
+                        <div className="bottom">总交易量</div>
+                    </div>
+                    <div className="linkItem">
+                        <div className="top">${decimalNum(ProjectDetail?.floorPrice, 4) || "0"}</div>
+                        <div className="bottom">地板价</div>
+                    </div>
+                    <div className="linkItem">
+                        <div className="top">{ProjectDetail?.createFee || "0"}%</div>
+                        <div className="bottom">创作者收益</div>
+                    </div>
+                    <div className="linkItem">
+                        <div className="top">{ProjectDetail?.thingNum || "0"}</div>
+                        <div className="bottom">物品</div>
+                    </div>
+                    <div className="linkItem">
+                        <div className="top">{ProjectDetail?.shelvesNum || "0"}</div>
+                        <div className="bottom">已上架</div>
+                    </div>
+                    {/* 
+                    <div className="linkItem copyItem">
+                        <div className="top">{ProjectDetail?.holdNum || "0"}</div>
+                        <div className="bottom">持有者</div>
+                    </div> 
+                    */}
+                </div>
                 <div className="logoAvtor l-hidden">
                     <img className='logo-avtor-img' src={ProjectDetail?.img} alt="" />
                     <div className="personalBox ">
                         <div className="name">{ProjectDetail?.name}</div>
-                        <div className="address">创作者 <span> {ProjectDetail?.createAddress}</span></div>
+                        <div className="address">创作者<span> {ProjectDetail?.createAddress}</span></div>
                     </div>
-
                 </div>
                 <div className="logoAvtor logo-avtor-img m-hidden">
                     <img src={ProjectDetail?.img} alt="" />
@@ -310,6 +330,9 @@ export default function Launch(): JSX.Element {
                         <img src={outLinkIcon7} alt="" />
                     </div>
                 </div>
+
+
+
                 <div className="personalBox m-hidden-block">
                     <div className="name">{ProjectDetail?.name}</div>
                     <div className="address">创作者 <span> {ProjectDetail?.createAddress}</span></div>

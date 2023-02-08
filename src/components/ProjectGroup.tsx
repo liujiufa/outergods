@@ -7,7 +7,8 @@ import styled from 'styled-components'
 import { FlexCCBox } from './FlexBox'
 
 import NFT1Png from '../assets/image/nftGroup/nft1.png'
-import AuthenticationPng from '../assets/image/nftGroup/authentication.png'
+import AuthenticationPng from '../assets/image/authentication.svg'
+import NotAuthenticationPng from '../assets/image/NotCertified.svg'
 import { decimalNum } from '../utils/decimalNum'
 import { useNavigate } from 'react-router-dom'
 
@@ -136,15 +137,12 @@ const PriceTitle = styled.div`
 export default function ProjectGroup({
     data
 }: any) {
+    console.log(data)
     const navigate = useNavigate()
     return (
         <Fragment>
             {
-                !!data ? <Container onClick={()=>{
-                    if(data?.name) {
-                        navigate('/Launch?projectName=' + data?.name)
-                    }
-                }}>
+                !!data ? <Container >
                     <Content>
                         <Group>
                             <NFTLeft>
@@ -157,19 +155,23 @@ export default function ProjectGroup({
                             <NFTImgGroup> <NFTImg src={NFT1Png} /> </NFTImgGroup>
                         </Group>
                         <Group>
-                            <NFTName onClick={() => { navigate('/Launch?projectName=' + data.name) }}>{data.name}</NFTName>
-                            <AuthenticationGroup src={AuthenticationPng} />
+                            <NFTName onClick={() => {
+                                if (data?.tokenAddress) {
+                                    navigate('/Launch?tokenAddress=' + data?.tokenAddress)
+                                }
+                            }}>{data.name}</NFTName>
+                            <AuthenticationGroup src={data?.isAuthentication === 0 ? NotAuthenticationPng : AuthenticationPng} />
                         </Group>
                         <GroupPrice>
                             <PriceItem>
                                 <PriceContent>
-                                    <PriceAmount>${decimalNum(data?.floorPriceDouble, 4)}</PriceAmount>
+                                    <PriceAmount>${decimalNum(data?.floorPrice, 4)}</PriceAmount>
                                     <PriceTitle>地板价</PriceTitle>
                                 </PriceContent>
                             </PriceItem>
                             <PriceItem>
                                 <PriceContent>
-                                    <PriceAmount>{data?.tradeNum ?? 0}</PriceAmount>
+                                    <PriceAmount>{data?.tradeAmount ?? 0}</PriceAmount>
                                     <PriceTitle>交易量</PriceTitle>
                                 </PriceContent>
                             </PriceItem>
@@ -189,7 +191,7 @@ export default function ProjectGroup({
                         </Group>
                         <Group>
                             <NFTName>Collection</NFTName>
-                            <AuthenticationGroup src={AuthenticationPng} />
+                            <AuthenticationGroup src={NotAuthenticationPng} />
                         </Group>
                         <GroupPrice>
                             <PriceItem>

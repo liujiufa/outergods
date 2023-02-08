@@ -18,8 +18,8 @@ import '../assets/style/Market.scss'
 import openIcon from '../assets/image/openIconWhite.png'
 import filter from '../assets/image/filter.png'
 import demoTestImg from '../assets/image/demoTestImg.png'
-import authentication from '../assets/image/authentication.png'
-import NotCertified from '../assets/image/NotCertified.png'
+import authentication from '../assets/image/authentication.svg'
+import NotCertified from '../assets/image/NotCertified.svg'
 
 
 import ConfirmBuyNFTModal from '../components/ConfirmBuyNFTModal'
@@ -49,7 +49,6 @@ export default function Market(): JSX.Element {
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
   const navigate = useNavigate();
-
   const listData = [1, 2, 3, 4, 5]
 
   let [showScreenModal, setShowScreenModal] = useState<boolean>(false)
@@ -177,7 +176,7 @@ export default function Market(): JSX.Element {
   function goPath(goods: any) {
     return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.userAddress}&&NFTDetailType=1`)
   }
-  
+
   function goSomeone(address: string) {
     navigate('/Someone?address=' + address)
   }
@@ -189,17 +188,6 @@ export default function Market(): JSX.Element {
         setSynamicInfo(res.data)
       }
     })
-    let Time = setInterval(() => {
-      getTradeOrderState('Market').then(res => {
-        if (res.data.length !== 0) {
-          setSynamicInfo(res.data)
-          // console.log(res,"最近动态")
-        }
-      })
-    }, 3000)
-    return () => {
-      clearInterval(Time)
-    }
   }, [])
 
   return (

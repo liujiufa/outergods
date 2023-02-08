@@ -279,7 +279,8 @@ const SearchGroup = styled(FlexSBCBox)`
     padding: 6px 15px;
     @media (max-width: 750px) {
         width: 80px;
-        padding: 4px 8px;
+        height:28px;
+        padding: 0px 8px;
         margin-left: 12px;
     }
 `
@@ -465,7 +466,7 @@ export default function Main() {
     const [hostList, setHostList] = useState<any[]>([0, 0, 0, 0, 0, 0,])
     const [tradeList, setTradeList] = useState<any[]>([0, 0, 0, 0, 0, 0,])
     const [bestSellerNftList, setBestSellerNftList] = useState<any[]>([0, 0, 0, 0, 0, 0,])
-    
+
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
     }
@@ -515,27 +516,27 @@ export default function Main() {
             Promise.all([getHoTProject()]).then((res) => {
                 const [res1] = res
                 const [hostProject] = [res1.data]
-                const hList = hostProject.slice(0, 5)
-                const hL = [0, 0, 0, 0, 0].map((item, idx)=> hList[idx] || item)
+                const hList = hostProject.slice(0, 1)
+                const hL = [0, 0, 0, 0, 0].map((item, idx) => hList[idx] || item)
                 setHostList([0, ...hL])
             })
             Promise.all([getTradeLast()]).then((res) => {
                 const [res1] = res
                 const [tradeLast] = [res1.data]
-                setTradeList(tradeLast.slice(0,  6))
+                console.log(res1.data, "最新");
+                setTradeList(tradeLast.slice(0, 6))
             })
             Promise.all([getBestSellerNft()]).then((res) => {
                 const [res1] = res
                 console.log("res1", res1)
                 const [bestSellerNft] = [res1.data]
                 console.log("bestSellerNft", bestSellerNft)
-                setBestSellerNftList([0, bestSellerNft[0], bestSellerNft[0], 0, 0,  0])
+                setBestSellerNftList([0, bestSellerNft[0], bestSellerNft[1], 0, 0, 0])
             })
-            
+
         },
         []
     )
-
 
 
     useEffect(() => {
@@ -545,10 +546,10 @@ export default function Main() {
     const otherList = [{
         text: "什么是NFT？",
         img: NFTPng
-    },{
+    }, {
         text: "如何购买NFT？",
         img: BuyNftPng
-    },{
+    }, {
         text: "什么是加密钱包？",
         img: EncryWalletPng
     },
@@ -593,7 +594,7 @@ export default function Main() {
                                     console.log("IDX", idx, activeIndex)
                                 }} >
                                 <SliderContainer >
-                                    {idx}
+                                    {/* {idx} */}
                                     <img src={item} />
                                 </SliderContainer>
                             </SlideItemPC>)
@@ -610,14 +611,6 @@ export default function Main() {
                         <SellBox >出售</SellBox>
                     </Group>
                     <Group>
-                        {/* <TipsGroup>
-                            <TipsGroupLeft>
-                                <TipsGroupType>SALE</TipsGroupType>
-                                <TipsGroupText><span>xxxx</span>以<span className="num">0.07BNB</span>的价格从<span>0xhdggg...hhfg</span> <span className="type">出售给</span> <span>0hhbj...sdhi</span></TipsGroupText>
-                            </TipsGroupLeft>
-                            <TipsGroupTime>一个小时前</TipsGroupTime>
-                        </TipsGroup> 
-                        */}
                         <TransactionTips></TransactionTips>
                     </Group>
                     <Group>
@@ -670,7 +663,7 @@ export default function Main() {
                         {
                             bestSellerNftList.map((item) => <GroupItem>
                                 {
-                                    !!item ? <Goods NftInfo={{ ...item, priceJson: JSON.parse(item.priceJson || JSON.stringify("")), uprice: item.uorderPrice, metadata: JSON.parse(item.metaData || JSON.stringify("")) }} /> : <Goods />
+                                    !!item ? <Goods tag="Home" NftInfo={{ ...item, uprice: item.uprice, metadata: JSON.parse(item.metaData || item?.metadata || JSON.stringify("")) }} /> : <Goods />
                                 }
                             </GroupItem>)
                         }
@@ -700,7 +693,7 @@ export default function Main() {
                         {
                             tradeList.map((item) => <GroupItem>
                                 {
-                                    !!item ? <Goods NftInfo={{ ...item, uprice: item.uorderPrice, metadata: JSON.parse(item.metaData || JSON.stringify("")) }} /> : <Goods />
+                                    !!item ? <Goods tag="Home" NftInfo={{ ...item, uprice: item.uorderPrice, floorPriceDouble: item.tradePrice, metadata: JSON.parse(item.metaData || JSON.stringify("")) }} /> : <Goods />
                                 }
                             </GroupItem>)
                         }

@@ -1,8 +1,8 @@
 .HotspotCard {
     width: 100%;
     background: #FFFFFF;
-    box-shadow: 20px 22.2995px 107px rgba(198, 207, 231, 0.4);
-    border-radius: 16px;
+    box-shadow: 20px 22.2995px 107px rgba(223, 228, 240, 0.4);
+    border-radius: 20px;
     box-sizing: border-box;
     // overflow: hidden;
     position: relative;
@@ -273,6 +273,7 @@
 
         .imgBox {
             border-radius: 12px 12px 45px 0px;
+
             img {
                 border-radius: 12px 12px 45px 0px;
             }
@@ -330,11 +331,21 @@
     }
 }
 
-@media (max-width:425px) {}
+@media (max-width:425px) {
+    .HotspotCard .bottonBox .cardTokenId {
+        font-size: 14px;
+    }
+    .HotspotCard .cardBottomBox{
+        height: 30px;
+    }
+    .HotspotCard .bottonBox .box{
+        padding: 2px;
+    }
+}
 
 @media (max-width:375px) {}
 
 
 .swiper {
-    overflow:inherit !important;
+    overflow: inherit !important;
 }

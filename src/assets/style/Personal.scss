@@ -106,7 +106,7 @@
                     width: 100%;
 
                     .outlinkBox {
-                        margin: 15px 0px;
+                        margin: 12px 0px;
                         display: flex;
                         justify-content: flex-start;
                         align-items: center;
@@ -192,6 +192,11 @@
 
                 }
             }
+        }
+
+        .introduce-m {
+            padding: 0px 12px 8px;
+            word-break: break-all;
         }
 
         .tebBox {
@@ -451,7 +456,13 @@
                             }
                         }
                     }
+
                 }
+
+                .selectM {
+                    border-radius: 10px !important;
+                }
+
 
                 .itemContentBigBox {
                     margin-top: 25px;
@@ -539,8 +550,12 @@
 
                                 .leftBox {
                                     margin-right: 8px;
+
                                     img {
+                                        width: 36px;
+                                        height: 36px;
                                         width: 100%;
+                                        border-radius: 6px;
                                     }
                                 }
 
@@ -581,6 +596,7 @@
                         display: flex;
                         justify-content: start;
                         flex-wrap: wrap;
+
                         .userNft {
                             box-sizing: border-box;
                             width: 25%;
@@ -1055,6 +1071,7 @@
 
         & .l-hidden {
             display: flex;
+            margin: 12px 0px !important;
         }
 
         & .m-hidden {
@@ -1096,7 +1113,8 @@
 
         .ant-collapse,
         .ant-collapse-content,
-        .ant-collapse-item, .itemBigBox .contentBox .ant-collapse-header-text .itemBox {
+        .ant-collapse-item,
+        .itemBigBox .contentBox .ant-collapse-header-text .itemBox {
             border: 0 none;
         }
 
@@ -1214,11 +1232,13 @@
                         display: flex;
                         flex-direction: row;
                         align-items: center;
+
                         .leftBox {
                             img {
                                 width: 36px;
                             }
                         }
+
                         img {
                             margin-right: 8px;
                         }
@@ -1340,6 +1360,7 @@
     .userInfo {
         margin: 20px 16px 20px !important;
     }
+
 }
 
 @media (max-width: 1440px) {
@@ -1379,6 +1400,18 @@
 @media (max-width: 425px) {
     .rewardInfo {
         margin: 58px 30px 40px !important;
+    }
+
+    #Personal .l-hidden {
+        margin: 0px 0px;
+    }
+
+    .Personal .personalContent .tabContentBox .bigContent .slider {
+        padding: 12px 0px 0px 0px;
+    }
+
+    #Personal .ant-collapse-content-box {
+        padding: 0 0px;
     }
 }
 

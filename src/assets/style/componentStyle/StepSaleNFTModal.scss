@@ -136,3 +136,52 @@
         }
     }
 }
+
+@media (max-width:768px) {
+    .StepSaleNFTModal .ant-modal-content .ant-modal-body {
+        padding: 20px;
+    }
+
+    .StepSaleNFTModal .confirmModalTop .closeIcon {
+        right: 0px;
+    }
+}
+
+@media (max-width:425px) {
+    .StepSaleNFTModal .ant-modal-content {
+        background: #E0E1FF !important;
+        border-radius: 20px !important;
+    }
+
+    .StepSaleNFTModal .goodsTitle {
+        margin: 0px 0px 20px;
+        font-size: 20px;
+    }
+    .StepSaleNFTModal .stepBox .step{
+        padding: 15px 20px;
+    }
+    .StepSaleNFTModal .stepBox{
+        border-radius: 20px;
+    }
+
+    .StepSaleNFTModal .confirmModalTop .closeIcon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .StepSaleNFTModal .stepBox .step .title {
+        font-size: 20px;
+    }
+    .StepSaleNFTModal .stepBox .approveBox .approveTip{
+        font-size: 14px;
+    }
+    .StepSaleNFTModal .stepBox .approveBox{
+        padding: 20px;
+    }
+    .StepSaleNFTModal .stepBox .approveBox .approveBtn{
+        height: 40px;
+    }
+    .StepSaleNFTModal .stepBox .approveBox .approveBtn{
+        margin: 20px auto;
+    }
+}

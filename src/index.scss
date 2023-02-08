@@ -372,6 +372,12 @@ textarea {
 .ant-table-tbody>tr>td.ant-table-cell-row-hover {
   background: transparent !important;
 }
+
 .ant-switch-checked {
   background: #0EFC7E !important;
+}
+
+.ant-select-dropdown {
+  border-radius: 10px !important;
+  background: #E7E7FF;
 }

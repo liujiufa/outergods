@@ -463,3 +463,73 @@
         }
     }
 }
+
+@media (max-width:768px) {
+    .SaleNFTModal .ant-modal-content {
+        border-radius: 20px !important;
+    }
+
+    .SaleNFTModal .ant-modal-content .ant-modal-body {
+        padding: 20px;
+    }
+
+    .SaleNFTModal .confirmModalTop .closeIcon {
+        right: 0px;
+    }
+}
+
+@media (max-width:425px) {
+    .SaleNFTModal .NFTInfoBox .NFTInfo .leftBox img {
+        width: 50px;
+        height: 50px;
+        border-radius: 16px;
+    }
+
+    .SaleNFTModal .NFTInfoBox .NFTInfo .rightBox .NFTName {
+        font-size: 18px;
+        margin-bottom: 0px;
+    }
+
+    .SaleNFTModal .NFTInfoBox .NFTInfo .rightBox .projectName {
+        font-size: 14px;
+    }
+
+    .SaleNFTModal .confirmModalTop .closeIcon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .SaleNFTModal .NFTInfoBox .deadTime .deadTimeTitle {
+        margin-top: 10px;
+    }
+
+    .SaleNFTModal .NFTInfoBox .price .priceTitle {
+        margin: 10px 0px 10px;
+    }
+
+    .SaleNFTModal .NFTInfoBox .saleKind .saleKindTitle {
+        margin: 10px 0px 10px;
+    }
+
+    .SaleNFTModal .NFTInfoBox .price .dropDownBox .left .MarketSearchRow .search .searchBox {
+        img {
+            width: 24px;
+        }
+    }
+
+    .SaleNFTModal .NFTInfoBox .saleKind .dropDownBox .MarketSearchRow .search .searchBox {
+        font-size: 14px;
+    }
+
+    .SaleNFTModal .NFTInfoBox .price .dropDownBox .left .MarketSearchRow .search .searchBox .coinName {
+        font-size: 14px;
+    }
+
+    .SaleNFTModal .NFTInfoBox .deadTime .dropDownBox .MarketSearchRow .search .searchBox {
+        font-size: 14px;
+    }
+
+    .SaleNFTModal .ManageModalFooter .confirmBtn {
+        height: 40px;
+    }
+}

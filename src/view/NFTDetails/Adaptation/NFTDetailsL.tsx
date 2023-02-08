@@ -10,7 +10,7 @@ import FabulousPng from '../../../assets/image/nftDetails/fabulous.png'
 import RefreshPng from '../../../assets/image/nftDetails/refresh.png'
 import NFTImage from '../../../assets/image/4.png'
 import demoTestImg from '../../../assets/image/demoTestImg.png'
-import authentication from '../../../assets/image/authentication.png'
+import authentication from '../../../assets/image/authentication.svg'
 import openIcon from '../../../assets/image/openIconWhite.png'
 import switchIcon from '../../../assets/image/switchIcon.png'
 import './NFTDetailsL.scss'
@@ -37,7 +37,7 @@ import { useTranslation } from 'react-i18next'
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { useViewport } from '../../../components/viewportContext';
 
-import NotCertified from '../../../assets/image/NotCertified.png'
+import NotCertified from '../../../assets/image/NotCertified.svg'
 import { decimalNum } from '../../../utils/decimalNum';
 
 const TABS = ["描述",
@@ -164,6 +164,8 @@ export default function NFTDetailsL({
     useEffect(() => {
         if (state.token && tokenAddress && tokenId) {
             getNftUserInfoDetail(tokenAddress as string, tokenId).then(res => {
+                console.log(res.data, "res.data.metadata");
+
                 if (res.data.metadata) {
                     res.data.metadata = JSON.parse(res.data.metadata)
                     res.data.normalizedMetadata = JSON.parse(res.data.normalizedMetadata
@@ -341,7 +343,7 @@ export default function NFTDetailsL({
                                         <div className="coin-group">
                                             {Number(decimalNum(OrderDetail?.nnftOrder?.price)) || '-'} {OrderDetail?.nnftOrder?.coinName}
                                             <div className="coin-group-price">
-                                                (${Number(decimalNum(OrderDetail?.nnftOrder?.uorderPrice))|| '-'})
+                                                (${Number(decimalNum(OrderDetail?.nnftOrder?.uorderPrice)) || '-'})
                                             </div>
                                         </div>
                                     </div>
@@ -532,6 +534,40 @@ export default function NFTDetailsL({
                                     </div>
                                 </div>)
                             }
+                            {tableData.length > 0 &&
+                                tableData.map((item: any, index: number) => <div key={index} className="itemBox">
+                                    <div className="item type">
+                                        <div className="top">{operateTtype[item.operateType]}</div>
+                                        <div className="bottom">{t('as fixed price')}</div>
+                                    </div>
+                                    <div className="item projectName">
+                                        <div className="leftBox">
+                                            <img src={item.projectLogo} alt="" />
+                                        </div>
+                                        <div className="right">
+                                            <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                            <div className="bottom">{item.nftName}</div>
+                                        </div>
+                                    </div>
+                                    <div className="item">
+                                        <div className="top">{item.uorderPrice}</div>
+                                        <div className="bottom">{item.num} {item.coinName}</div>
+                                    </div>
+                                    <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
+                                        {
+                                            item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
+                                        }
+                                    </div>
+                                    <div className="item" onClick={() => { goSomeone(item.toAddress) }}>
+                                        {
+                                            item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
+                                        }
+                                    </div>
+                                    <div className="item date">
+                                        {HowLongAgo(item.createTime)}
+                                    </div>
+                                </div>)
+                            }
 
 
                         </div>
@@ -573,7 +609,7 @@ export default function NFTDetailsL({
                                                             }
                                                         }} >
                                                             {
-                                                                activeKey !== (index + "")? <DownOutlined /> : <UpOutlined />
+                                                                activeKey !== (index + "") ? <DownOutlined /> : <UpOutlined />
                                                             }
                                                         </div>
                                                     </div>
@@ -608,6 +644,7 @@ export default function NFTDetailsL({
                                         <div className="separate" style={{ display: tableData.length === (index + 1) ? "none" : "block" }}></div>
                                     </Fragment>
                                 ) : <NoData />}
+
                             </Collapse>
                         </Space>
                     </div>
@@ -615,11 +652,11 @@ export default function NFTDetailsL({
 
                 {/* 来自这个项目 */}
                 <div className='activeBox'>
-                    <div className="itemBigBox">
+                    <div className="itemBigBox itemBigBoxM">
                         <div className="titleBox">
                             <div className="subTitle">来自这个项目</div>
                         </div>
-                        <div className="contentBox">
+                        <div className="contentBox contentBoxM">
                             <div className="goodsList">
                                 {
                                     [1, 2, 3, 4].map((item) => <div className="goods-item">

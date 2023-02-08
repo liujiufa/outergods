@@ -6,14 +6,15 @@ import { NumSplic } from '../utils/tool'
 import Img from './Img'
 import { useTranslation } from 'react-i18next'
 import { useWeb3React } from '@web3-react/core'
-
-// import HotspotCardImg from '../assets/image/HotspotCardImg.png'
-import authentication from '../assets/image/authentication.png'
-import NotCertified from '../assets/image/NotCertified.png'
+import authentication from '../assets/image/authentication.svg'
+import NotCertified from '../assets/image/NotCertified.svg'
 import thumbtack from '../assets/image/thumbtack.png'
 import BNBIcon from '../assets/image/BNBPrice.png'
-import NotLike from '../assets/image/like.png'
-import Like from '../assets/image/Collection.png'
+import ETHCoinIcon from '../assets/image/ETHCoinIcon.png'
+import BTCIcon from '../assets/image/BTC.png'
+import USDTIcon from '../assets/image/USDT.png'
+import Like from '../assets/image/like.svg'
+import NotLike from '../assets/image/Collection.svg'
 import defaultCard from '../assets/image/defaultCard.png'
 import testNFT from '../assets/image/testNFT.png'
 import NftCardImagePng from '../assets/image/nftCardImage.png'
@@ -53,17 +54,18 @@ export interface propsType {
   NftInfo: NftInfo
   goPath?: Function
 }
-/* 少地板价 */
 export default function HotspotCard(props: any) {
+  console.log(props.NftInfo, "交易场");
   const navigate = useNavigate();
   const web3React = useWeb3React()
-  let [isLike, setIsLike] = useState<boolean>(true)
+  let [isLike, setIsLike] = useState<boolean>(!!props.NftInfo?.isLike)
   let [activeMenu, setActiveMenu] = useState<boolean>(false)
   let [activeBuyMenu, setActiveBuyMenu] = useState<boolean>(false)
-  let [LikeNum, setLikeNum] = useState<number>(0)
+  let [LikeNum, setLikeNum] = useState<number>(props.NftInfo?.giveLikeNum)
   let { t } = useTranslation();
 
   function LikeFun(e: React.MouseEvent<HTMLElement>) {
+    console.log(props.NftInfo.tokenId, props.NftInfo.tokenAddress);
     e.stopPropagation()
     userGiveLike(props.NftInfo.tokenId, props.NftInfo.tokenAddress).then(res => {
       if (!isLike) {
@@ -72,23 +74,25 @@ export default function HotspotCard(props: any) {
         setLikeNum(LikeNum - 1)
       }
       setIsLike(!isLike)
-      // console.log(res,'点赞')
     })
   }
 
   function goProject(e: any) {
     console.log(props.NftInfo);
     e.stopPropagation();
-    if (props.tag === "Personal" && props.NftInfo.name) {
-      navigate('/Launch?projectName=' + props.NftInfo.name)
+    if (props.tag === "Personal" && props.NftInfo.tokenAddress) {
+      navigate('/Launch?tokenAddress=' + props.NftInfo.tokenAddress)
     }
-    if (props.tag === "Market" && props.NftInfo.projectName) {
-      navigate('/Launch?projectName=' + props.NftInfo.projectName)
+    if (props.tag === "Market" && props.NftInfo.tokenAddress) {
+      navigate('/Launch?tokenAddress=' + props.NftInfo.tokenAddress)
+    }
+    if (props.tag === "Home" && props.NftInfo.tokenAddress) {
+      navigate('/Launch?tokenAddress=' + props.NftInfo.tokenAddress)
     }
   }
 
   function HotspotCardFun(e: any) {
-    // e.stopPropagation()
+    e.stopPropagation()
     if (props.tag === "Personal") {
       setActiveMenu(true)
     }
@@ -124,8 +128,6 @@ export default function HotspotCard(props: any) {
     amount: "111"
   }]
 
-  console.log("props", props)
-
   return (
     <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }} onClick={(e) => { props.goPath(); e.stopPropagation(); }}>
       <div className="imgBox" onMouseEnter={(e) => { BuyNFTFun(e) }} onMouseLeave={() => { setActiveBuyMenu(false) }}>
@@ -136,13 +138,14 @@ export default function HotspotCard(props: any) {
       <div className="bottonBox">
         <div className="box">
           <div className="cardName" >{props.NftInfo?.normalized_metadata?.name || props.NftInfo?.metadata?.name || "XXXXXXXXX"}</div>
-          <div className="Collection pointer nowrap" onClick={LikeFun}><img src={isLike ? Like : NotLike} alt="" /> {LikeNum}</div>
+          <div className="pointer nowrap" onClick={LikeFun}><img src={isLike ? Like : NotLike} alt="" /></div>
         </div>
 
+        {/* 鼠标滑动 */}
         {/* <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }}> */}
         <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }}>
           {props.NftInfo?.name || props.NftInfo?.projectName || "XXXXXXXXX"}
-          <div className="hover-show-card">
+          {props.NftInfo?.isAuthentication === 1 && <div className="hover-show-card">
             <img className="hover-show-card-img" src={NftCardImagePng} />
             <div className="hover-show-card-content">
               <div className="hover-show-card-content-top">
@@ -165,7 +168,7 @@ export default function HotspotCard(props: any) {
                 }
               </div>
             </div>
-          </div>
+          </div>}
         </div>
       </div>
       {
@@ -179,7 +182,7 @@ export default function HotspotCard(props: any) {
             {
               props.tag === "Personal" && (props.NftInfo?.status === 1 ?
                 <div className="cardPrice">
-                  <img src={BNBIcon} alt="" /> {props.NftInfo?.floorPrice || props.NftInfo?.price || '0'} {props.NftInfo?.coinName} <span>({NumSplic(props.NftInfo?.uprice, 2) || 0})</span>
+                  <img src={USDTIcon} alt="" /> {props.NftInfo?.floorPrice || props.NftInfo?.price || '0'} {props.NftInfo?.coinName} <span>(${NumSplic(props.NftInfo?.uprice, 2) || 0})</span>
                 </div> :
                 <div className="cardPrice">
                   Not sold
@@ -189,7 +192,14 @@ export default function HotspotCard(props: any) {
             {
               props.tag === "Market" &&
               <div className="cardPrice">
-                <img src={BNBIcon} alt="" /> {decimalNum(props.NftInfo?.floorPrice || props.NftInfo?.price || '0')} {props.NftInfo?.coinName} <span>({decimalNum(props.NftInfo?.uprice || 0)})</span>
+                <img src={USDTIcon} alt="" /> {decimalNum(props.NftInfo?.floorPrice || props.NftInfo?.price || '0')} {props.NftInfo?.coinName} <span>(${decimalNum(props.NftInfo?.uprice || 0)})</span>
+              </div>
+            }
+            {/* 首页 */}
+            {
+              props.tag === "Home" &&
+              <div className="cardPrice">
+                <img src={USDTIcon} alt="" /> {decimalNum(props.NftInfo?.floorPriceDouble || '0')} {props.NftInfo?.coinName} <span>(${decimalNum(props.NftInfo?.uprice || 0)})</span>
               </div>
             }
           </div>
