@@ -272,6 +272,13 @@
                     align-items: center;
                     justify-content: space-between;
 
+                    img {
+                        width: 36px;
+                        height: 36px;
+                        padding-left: 15px;
+                        border-radius: 6px;
+                    }
+
                     .filterBtn {
                         width: 50px;
                     }
@@ -291,9 +298,7 @@
                             display: flex;
                             align-items: center;
 
-                            img {
-                                padding-left: 15px;
-                            }
+
 
                             input {
                                 width: 100%;
@@ -621,9 +626,10 @@
                             align-items: center;
 
                             img {
-                                // width: 36px;
-                                // height: 36px;
+                                width: 36px;
+                                height: 36px;
                                 margin-right: 8px;
+                                border-radius: 6px;
                             }
                         }
 
@@ -1031,6 +1037,12 @@
                     flex: 1;
 
                     .leftBox {
+                        img {
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 6px;
+                        }
+
                         margin-right: 8px;
                     }
 
@@ -1119,6 +1131,7 @@
             align-items: center;
         }
 
+
         & .l-hidden {
             display: flex;
         }
@@ -1172,6 +1185,25 @@
         }
 
     }
+
+    #launch.ProjectDetail .outLinkBox {
+        justify-content: space-between;
+    }
+
+    #launch.ProjectDetail .outLinkBigBox {
+        width: 100%;
+        overflow-x: auto;
+
+        .outLinkBoxM {
+            width: 450px;
+            justify-content: space-between;
+
+        }
+    }
+
+    .ProjectDetail .contentBox .outLinkBox .linkItem .top {
+        margin-bottom: 12px;
+    }
 }
 
 @media (max-width:425px) {
@@ -1180,6 +1212,14 @@
         width: 152px;
         height: 40px;
         font-size: 14px;
+    }
+
+    #launch.ProjectDetail .ant-collapse-header {
+        padding: 4px 0px;
+
+    }
+    #launch.ProjectDetail .activeBox .itemBox .item .bottom{
+        font-weight: 700;
     }
 }
 

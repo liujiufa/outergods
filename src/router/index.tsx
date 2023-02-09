@@ -6,6 +6,7 @@ import PageLoding from '../components/PageLoding';
 const Market = React.lazy(() => import('../view/Market'));
 const Launch = React.lazy(() => import('../view/Launch'));
 const Personal = React.lazy(() => import('../view/Personal'));
+const Someone = React.lazy(() => import('../view/Someone'));
 const UserInfo = React.lazy(() => import('../view/UserInfo'));
 const NFTDetails = React.lazy(() => import('../view/NFTDetails'));
 const Main = React.lazy(() => import('../view/Main'));
@@ -19,6 +20,7 @@ export default function Router() {
           <Route path="Market" element={<Market />}></Route>  {/** M */}
           <Route path="Launch" element={<Launch />}></Route>   {/** L */}
           <Route path="Personal" element={<Personal />}></Route>  {/** P */}
+          <Route path="Someone" element={<Someone />}></Route>  {/** P */}
           <Route path="UserInfo" element={<UserInfo />}></Route>   {/** U */}
           <Route path="NFTDetails" element={<NFTDetails />}></Route>  {/** N */}
           {/* <Route path="StartRes2"  element={<StartRes2/>}></Route>

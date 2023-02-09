@@ -471,6 +471,7 @@
                     box-shadow: 22px 26px 202px rgba(198, 207, 231, 0.5);
                     border-radius: 45px;
                     overflow: hidden;
+                    height: 590px;
 
                     .titleBox {
                         padding: 45px;
@@ -536,7 +537,7 @@
                                 .bottom {
                                     font-family: 'PingFang SC';
                                     font-style: normal;
-                                    font-weight: 400;
+                                    font-weight: 700;
                                     font-size: 16px;
                                     line-height: 22px;
                                     color: rgba(0, 0, 0, 0.6);
@@ -575,7 +576,7 @@
                 }
 
                 .content {
-                    padding-left: 30px;
+                    // padding-left: 30px;
                     flex: 1;
                     justify-content: center;
                     align-items: center;
@@ -616,6 +617,12 @@
                         margin: 0px auto;
                     }
                 }
+
+                // .collectContent {
+                //     padding-left: 0px !important;
+
+                // }
+
             }
         }
     }
@@ -1042,7 +1049,7 @@
     }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 768px) {
 
     .userInfo {
         margin: 20px 16px 20px !important;
@@ -1136,6 +1143,8 @@
             background: #FFFFFF;
             box-shadow: 4px 11px 53px rgba(198, 207, 231, 0.6);
             border-radius: 17px;
+            height: 530px;
+            overflow: auto;
 
 
             & .ant-space-vertical {
@@ -1218,7 +1227,7 @@
                             font-size: 14px;
                             line-height: 22px;
                             color: rgba(0, 0, 0, 0.6);
-                            text-align: center;
+                            text-align: left;
                         }
 
                         .right {
@@ -1235,6 +1244,7 @@
 
                         .leftBox {
                             img {
+                                border-radius: 6px;
                                 width: 36px;
                             }
                         }

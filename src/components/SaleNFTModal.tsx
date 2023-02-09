@@ -15,7 +15,6 @@ import projectImg from '../assets/image/projectImg.png'
 import feedesIcon from '../assets/image/feedesIcon.png'
 import { Modal } from 'antd';
 import { useTranslation } from 'react-i18next'
-import StepSaleNFTModal from './StepSaleNFTModal'
 
 interface PropsType {
   isShow: boolean,
@@ -37,7 +36,7 @@ interface ProjectType {
   img: string
 }
 export default function ScreenModal(props: any) {
-  console.log(props.saleData);
+  console.log(props.saleData, "dfdf");
 
   // 控制图标上下
   const [expand1, setExpand1] = useState(true);

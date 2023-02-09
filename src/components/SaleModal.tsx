@@ -17,7 +17,6 @@ import openIconBlack from '../assets/image/openIconBlack.png'
 import { useDispatch } from 'react-redux'
 import { Modal } from 'antd';
 import { useTranslation } from 'react-i18next'
-import StepSaleNFTModal from './StepSaleNFTModal'
 import SaleNFTModal from './SaleNFTModal'
 import { Contracts } from '../web3'
 import { createAddMessageAction, createSetLodingAction } from '../store/actions'
@@ -45,6 +44,8 @@ interface ProjectType {
   img: string
 }
 export default function ScreenModal(props: any) {
+  console.log(props.data, "NFT");
+
   const [price, setPrice] = useState('');
   const [bidType, setBidType] = useState(0);
   const [coinName, setCoinName] = useState('');
@@ -86,12 +87,23 @@ export default function ScreenModal(props: any) {
     })
   }
   function approveFun() {
-    Contracts.example.approveMarket(web3React.account as string, props.data.tokenAddress).then((res: any) => {
-      Contracts.example.getapproveMarket(web3React.account as string, props.data.tokenAddress).then((res: any) => {
-        // console.log(res)
-        setApproveAddr(res)
+    if (web3React.account && props.data.tokenAddress) {
+      Contracts.example.supportsInterface(web3React.account as string, "0xd9b67a26", props.data.tokenAddress).then((res: boolean) => {
+        if (res) {
+          Contracts.example.approveMarket1(web3React.account as string, props.data.tokenAddress).then((res: any) => {
+            Contracts.example.getapproveMarket1(web3React.account as string, props.data.tokenAddress).then((res: any) => {
+              setApproveAddr(res)
+            })
+          })
+        } else {
+          Contracts.example.approveMarket(web3React.account as string, props.data.tokenAddress).then((res: any) => {
+            Contracts.example.getapproveMarket(web3React.account as string, props.data.tokenAddress).then((res: any) => {
+              setApproveAddr(res)
+            })
+          })
+        }
       })
-    })
+    }
   }
   // 出售
   function saleStepFun2() {
@@ -137,8 +149,16 @@ export default function ScreenModal(props: any) {
 
   useEffect(() => {
     if (web3React.account && props.data.tokenAddress) {
-      Contracts.example.getapproveMarket(web3React.account, props.data.tokenAddress).then((res: boolean) => {
-        setApproveAddr(res)
+      Contracts.example.supportsInterface(web3React.account, "0xd9b67a26", props.data.tokenAddress).then((res: boolean) => {
+        if (res) {
+          Contracts.example.getapproveMarket1(web3React.account as string, props.data.tokenAddress).then((res: boolean) => {
+            setApproveAddr(res)
+          })
+        } else {
+          Contracts.example.getapproveMarket(web3React.account as string, props.data.tokenAddress).then((res: boolean) => {
+            setApproveAddr(res)
+          })
+        }
       })
     }
   }, [web3React.account])

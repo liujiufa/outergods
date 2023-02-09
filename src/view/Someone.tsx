@@ -43,7 +43,6 @@ import typeItem5 from '../assets/image/typeItem5.png'
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import authentication from '../assets/image/authentication.svg'
 import NotCertified from '../assets/image/NotCertified.svg'
-const { Column } = Table;
 
 interface userInfoType {
     userName: string | null,
@@ -99,6 +98,7 @@ export default function Personal(): JSX.Element {
     let [pageNum, setPageNum] = useState<number>(1)
     let [tableData, setTableData] = useState<any>([])
     let [userLikeList, setUserLikeList] = useState<NftInfo[]>([])
+    let address = params.get('address')
     let operateTtype = [
         "上架",
         "成交",
@@ -125,7 +125,7 @@ export default function Personal(): JSX.Element {
         if (fig) {
             dispatch(createSetLodingAction(true))
             getNfts({
-                "address": web3React.account,
+                "address": address,
                 "chain": "bsc%20testnet",
                 "cursor": fig,
                 "pageSize": 10
@@ -154,11 +154,11 @@ export default function Personal(): JSX.Element {
     }
 
     useEffect(() => {
-        if (web3React.account && state.token) {
+        if (address && state.token) {
             dispatch(createSetLodingAction(true))
             getNfts(
                 {
-                    "address": web3React.account,
+                    "address": address,
                     "chain": "bsc%20testnet",
                     "cursor": "",
                     "pageSize": 10
@@ -174,16 +174,16 @@ export default function Personal(): JSX.Element {
         } else {
             setUserCurrentNft(null)
         }
-    }, [web3React.account, state.token])
+    }, [address, state.token])
 
     useEffect(() => {
-        if (web3React.account && state.token) {
-            getUserInfo(web3React.account).then((res) => {
+        if (address && state.token) {
+            getUserInfo(address).then((res) => {
                 setUserInfo(res.data)
                 console.log(res, '用户信息')
             })
         }
-    }, [web3React.account, state.token])
+    }, [address, state.token])
 
     function share() {
         // console.log(window.location)
@@ -227,21 +227,21 @@ export default function Personal(): JSX.Element {
     }
 
     useEffect(() => {
-        if (web3React.account && state.token) {
+        if (address && state.token) {
             getNftUserState({
-                userAddress: web3React.account,
+                userAddress: address,
                 status: -1,
                 type: 2
             }).then(res => {
                 console.log(res.data, "动态")
                 setTableData(res.data)
             })
-            getUserGiveLikeList(web3React.account).then(res => {
+            getUserGiveLikeList(address).then(res => {
                 console.log(res.data, "用户点赞列表")
                 setUserLikeList(res.data)
             })
         }
-    }, [web3React.account, state.token, tabActive])
+    }, [address, state.token, tabActive])
 
     return (
         <div id="Personal" >
@@ -279,16 +279,14 @@ export default function Personal(): JSX.Element {
                                             </>
                                         }
                                     </div>
-                                    <div className="share pointer flexCenter" onClick={() => { navigate('/UserInfo') }}>
-                                        <img src={minSet} alt="" />{t('Settings')}
-                                    </div>
+
                                 </div>
                             </div>
                             {width > 425 && <div className="introduce">{t('Join in April 2022 / short self-introduction', { FullMonth: getMonth(userInfo?.createTime), FullYear: getFullYear(userInfo?.createTime) })}{userInfo?.brief || t('short self-introduction')}</div>}
                         </div>
 
                         <div className="btnGroupRow m-hidden">
-                            <div className="share pointer flexCenter shareBox" onClick={() => { shareActiveFun() }} >
+                            <div className="share pointer flexCenter " onClick={() => { shareActiveFun() }} >
                                 <img src={shareIcon} alt="" />{t('Share')}
                                 {shareActive && <>
                                     <div className='copyLinkBox'>
@@ -298,14 +296,10 @@ export default function Personal(): JSX.Element {
                                     </div>
                                 </>}
                             </div>
-                            <div className="share pointer flexCenter" onClick={() => { navigate('/UserInfo') }}>
-                                <img src={minSet} alt="" />{t('Settings')}
-                            </div>
                         </div>
 
                     </div>
                     {!(width > 425) && <div className="introduce introduce-m">{t('Join in April 2022 / short self-introduction', { FullMonth: getMonth(userInfo?.createTime), FullYear: getFullYear(userInfo?.createTime) })}{userInfo?.brief || t('short self-introduction')}</div>}
-
                     <div className="tebBox">
                         <div className={tabActive === 0 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(0) }}>物品</div>
                         <div className={tabActive === 1 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(1) }}>收藏</div>
@@ -383,7 +377,7 @@ export default function Personal(): JSX.Element {
                         {/* 1：收藏 */}
                         {tabActive === 1 && <>
                             <div className="bigContent">
-                                <div className="content collectContent">
+                                <div className="content">
                                     <div className="goodsList flexCenter">
                                         {userLikeList.length > 0 ? <>
                                             <div className="goodsList">{userLikeList.map((item, index) => <Goods key={index} NftInfo={{ ...item, isLike: 1 }}></Goods>)}</div>

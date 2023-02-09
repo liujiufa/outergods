@@ -261,34 +261,35 @@ export default function Launch(): JSX.Element {
                         <img src={outLinkIcon7} alt="" />
                     </div>
                 </div>
-
-                <div className="outLinkBox l-hidden">
-                    <div className="linkItem">
-                        <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 4) || "0"}</div>
-                        <div className="bottom">总交易量</div>
-                    </div>
-                    <div className="linkItem">
-                        <div className="top">${decimalNum(ProjectDetail?.floorPrice, 4) || "0"}</div>
-                        <div className="bottom">地板价</div>
-                    </div>
-                    <div className="linkItem">
-                        <div className="top">{ProjectDetail?.createFee || "0"}%</div>
-                        <div className="bottom">创作者收益</div>
-                    </div>
-                    <div className="linkItem">
-                        <div className="top">{ProjectDetail?.thingNum || "0"}</div>
-                        <div className="bottom">物品</div>
-                    </div>
-                    <div className="linkItem">
-                        <div className="top">{ProjectDetail?.shelvesNum || "0"}</div>
-                        <div className="bottom">已上架</div>
-                    </div>
-                    {/* 
+                <div className='outLinkBigBox'>
+                    <div className="outLinkBox outLinkBoxM l-hidden">
+                        <div className="linkItem">
+                            <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 4) || "0"}</div>
+                            <div className="bottom">总交易量</div>
+                        </div>
+                        <div className="linkItem">
+                            <div className="top">${decimalNum(ProjectDetail?.floorPrice, 4) || "0"}</div>
+                            <div className="bottom">地板价</div>
+                        </div>
+                        <div className="linkItem">
+                            <div className="top">{ProjectDetail?.createFee || "0"}%</div>
+                            <div className="bottom">创作者收益</div>
+                        </div>
+                        <div className="linkItem">
+                            <div className="top">{ProjectDetail?.thingNum || "0"}</div>
+                            <div className="bottom">物品</div>
+                        </div>
+                        <div className="linkItem">
+                            <div className="top">{ProjectDetail?.shelvesNum || "0"}</div>
+                            <div className="bottom">已上架</div>
+                        </div>
+                        {/* 
                     <div className="linkItem copyItem">
                         <div className="top">{ProjectDetail?.holdNum || "0"}</div>
                         <div className="bottom">持有者</div>
                     </div> 
                     */}
+                    </div>
                 </div>
                 <div className="logoAvtor l-hidden">
                     <img className='logo-avtor-img' src={ProjectDetail?.img} alt="" />

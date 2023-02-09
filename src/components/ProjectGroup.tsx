@@ -171,7 +171,7 @@ export default function ProjectGroup({
                             </PriceItem>
                             <PriceItem>
                                 <PriceContent>
-                                    <PriceAmount>{data?.tradeAmount ?? 0}</PriceAmount>
+                                    <PriceAmount>{decimalNum(data?.tradeAmount, 2) ?? 0}</PriceAmount>
                                     <PriceTitle>交易量</PriceTitle>
                                 </PriceContent>
                             </PriceItem>

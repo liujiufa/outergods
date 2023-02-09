@@ -307,6 +307,24 @@
     display: block;
 }
 
+@media (max-width: 1200px) {
+    .layout .m-hidden {
+        display: none;
+    }
+
+    .MainSider .menu,
+    .MainSider .ChainName,
+    .MainSider .Lang {
+        display: none;
+    }
+
+    .layout .MainSider .mobile-header-right {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+}
+
 @media (max-width:768px) {
     .ant-layout-header {
         padding: 0 12px !important;

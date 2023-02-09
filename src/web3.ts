@@ -98,7 +98,6 @@ export const useConnectWallet = () => {
                             deactivate()
                         }
                         // 账号改了，刷新网页
-                        // window.location.reload()
                     })
 
                     window.ethereum.on('disconnect', () => {
@@ -133,7 +132,6 @@ export const useConnectWallet = () => {
                     }
                 })
         })
-        // eslint-disable-next-line
     }, [])
 
     useMemo(() => {
@@ -177,7 +175,8 @@ export class Contracts {
     //授权
     approve(addr: string, toaddr: string) {
         this.verification('Token')
-        var amount = Web3.utils.toBN("99999999999999999999999999999999")
+        // var amount = Web3.utils.toBN("99999999999999999999999999999999")
+        var amount = Web3.utils.toBN(Web3.utils.toWei("100000", "ether"))
         return this.contract.Token?.methods.approve(toaddr, amount).send({ from: addr })
     }
     //购买
@@ -243,15 +242,31 @@ export class Contracts {
     Sign(addr: string, msg: string) {
         return this.web3.eth.personal.sign(this.web3.utils.utf8ToHex(msg) as string, addr, '123')
     }
+    //是否1155
+    supportsInterface(addr: string, interfaceId: string, addr1155: string) {
+        let Contract = new this.web3.eth.Contract(abiObj.NFT1155, addr1155)
+        return Contract.methods.supportsInterface(interfaceId).call({ from: addr })
+    }
     //721授权
     approveMarket(addr: string, addr721: string) {
-        let Contract = new this.web3.eth.Contract(abiObj.NFT, addr721)
+        let Contract = new this.web3.eth.Contract(abiObj.NFT721, addr721)
+        // console.log(contractAddress.Market,tokenId)
+        return Contract.methods.setApprovalForAll(contractAddress.Market, true).send({ from: addr })
+    }
+    //1155授权
+    approveMarket1(addr: string, addr1155: string) {
+        let Contract = new this.web3.eth.Contract(abiObj.NFT1155, addr1155)
         // console.log(contractAddress.Market,tokenId)
         return Contract.methods.setApprovalForAll(contractAddress.Market, true).send({ from: addr })
     }
     //查询721授权
     getapproveMarket(addr: string, addr721: string) {
-        let Contract = new this.web3.eth.Contract(abiObj.NFT, addr721)
+        let Contract = new this.web3.eth.Contract(abiObj.NFT721, addr721)
+        return Contract.methods.isApprovedForAll(addr, contractAddress.Market).call({ from: addr })
+    }
+    //查询1155授权
+    getapproveMarket1(addr: string, addr1155: string) {
+        let Contract = new this.web3.eth.Contract(abiObj.NFT1155, addr1155)
         return Contract.methods.isApprovedForAll(addr, contractAddress.Market).call({ from: addr })
     }
     //交易场购买订单
@@ -294,13 +309,15 @@ export class Contracts {
     //TOKEN授权
     USDTapprove(addr: string, toaddr: string) {
         this.verification('USDT')
-        var amount = Web3.utils.toBN("99999999999999999999999999999999")
+        // var amount = Web3.utils.toBN("99999999999999999999999999999999")
+        var amount = Web3.utils.toBN(Web3.utils.toWei("100000", "ether"))
         return this.contract.USDT?.methods.approve(toaddr, amount).send({ from: addr })
     }
     //TOKEN授权
     TOKENapprove(addr: string, toaddr: string, tokenAddr: string) {
         let Contract = new this.web3.eth.Contract(abiObj.Token, tokenAddr)
-        var amount = Web3.utils.toBN("99999999999999999999999999999999")
+        // var amount = Web3.utils.toBN("99999999999999999999999999999999")
+        var amount = Web3.utils.toBN(Web3.utils.toWei("100000", "ether"))
         return Contract.methods.approve(toaddr, amount).send({ from: addr })
     }
     //TOKEN查询授权

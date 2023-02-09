@@ -107,8 +107,8 @@
     margin: 40px auto 40px;
 
     .usernft {
-        width: 25%;
-        padding: 16px;
+        width: 16.65%;
+        padding: 10px;
     }
 }
 
@@ -166,7 +166,7 @@
                 .item {
                     display: flex;
                     align-items: center;
-                    flex-direction: column;
+                    // flex-direction: column;
                     width: 150px;
                     font-family: 'PingFang SC';
                     font-style: normal;
@@ -245,6 +245,10 @@
 }
 
 @media (max-width:1440px) {
+    #market.MarketPage .contentBox {
+        padding: 0px 40px;
+    }
+
     .MarketPage {
 
         .MarketSearchRow {
@@ -260,11 +264,30 @@
         }
 
     }
+
+    .goodsList .usernft {
+        width: 25%;
+        padding: 16px;
+    }
+
 }
 
-@media (max-width:1024px) {}
+@media (max-width:1024px) {
+    .goodsList .usernft {
+        padding: 10px;
+    }
+
+    .HotspotCard .bottonBox {
+        padding: 2px 15px 0;
+        width: 100%;
+    }
+}
 
 @media (max-width:768px) {
+    #market.MarketPage .contentBox {
+        padding: 0px 0px;
+    }
+
 
     #market.MarketPage {
         min-height: calc(100vh - 147px);
@@ -282,7 +305,7 @@
             margin: 16px 0;
 
             .usernft {
-                width: 50%;
+                width: 33.3%;
                 padding: 8px;
             }
         }
@@ -454,7 +477,20 @@
 
 }
 
-@media (max-width:425px) {
+@media (max-width:500px) {
+    #market.MarketPage .goodsList {
+        padding: 0px 12px;
+    }
+
+    #market.MarketPage .contentBox {
+        padding: 0px;
+    }
+
+    #market.MarketPage .goodsList .usernft {
+        width: 50%;
+        padding: 5px;
+    }
+
     .MarketSearchRow {
         justify-content: center;
 
@@ -465,6 +501,19 @@
 }
 
 @media (max-width:375px) {
+    .HotspotCard .cardBottomBox .cardPrice img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .HotspotCard .bottonBox {
+        padding: 2px 12px 0;
+    }
+
+    .HotspotCard .bottonBox .cardTokenId {
+        font-size: 12px;
+    }
+
     .MarketPage {
         .MarketSearchRow {
             .search {

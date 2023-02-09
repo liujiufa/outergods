@@ -22,21 +22,18 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { getNftOrderState, getNftUserInfoDetail, getUserOrder } from '../../../API'
 import { stateType } from '../../../store/reducer'
 import { createAddMessageAction } from "../../../store/actions"
-
 import ManageModal from '../../../components/ManageModal'
 import CancelSaleModal from '../../../components/CancelSaleModal'
 import SaleNFTModal from '../../../components/SaleNFTModal'
 import SaleModal from '../../../components/SaleModal'
 import ConfirmBuyNFTModal from '../../../components/ConfirmBuyNFTModal'
 import NoData from '../../../components/NoData'
-
 import defaultCard from '../../../assets/image/defaultCard.png'
 import { useWeb3React } from '@web3-react/core'
 import { AddrHandle, HowLongAgo } from '../../../utils/tool'
 import { useTranslation } from 'react-i18next'
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { useViewport } from '../../../components/viewportContext';
-
 import NotCertified from '../../../assets/image/NotCertified.svg'
 import { decimalNum } from '../../../utils/decimalNum';
 
@@ -68,7 +65,7 @@ export default function NFTDetailsL({
     attrOrInfo,
     NFTTypeDetail
 }: any) {
-    console.log(OrderDetail);
+    console.log(OrderDetail, "NFT详情");
     let [showPriceChange, setShowPriceChange] = useState<boolean>(false)
     const web3React = useWeb3React()
     let { t } = useTranslation()
@@ -89,16 +86,16 @@ export default function NFTDetailsL({
     let [OrderNFTDetail, setOrderNFTDetail] = useState<OrderDetailType | undefined>(undefined)
 
     const [nftData, setNftData] = useState([{
-        title: "总市值",
+        title: "上一次成交价",
         price: "0.55",
         range: "-254"
     }, {
-        title: "交易额(24H)",
-        price: "0.55",
+        title: "交易次数",
+        price: "234",
         range: "45.56"
 
     }, {
-        title: "地板价",
+        title: "项目地板价",
         price: "0.55",
         range: "-254"
 
@@ -380,9 +377,9 @@ export default function NFTDetailsL({
                                                     <div className="nft-details-card-price">
                                                         ${item.price}
                                                     </div>
-                                                    <div className={Number(item.range) < 0 ? "nft-details-card-range-down" : "nft-details-card-range-up"}>
+                                                    {/* <div className={Number(item.range) < 0 ? "nft-details-card-range-down" : "nft-details-card-range-up"}>
                                                         {Number(item.range) < 0 ? `${item.range}%` : `+${item.range}%`}
-                                                    </div>
+                                                    </div> */}
                                                 </div>)
                                             }
 
