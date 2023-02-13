@@ -260,7 +260,8 @@
         color: #F62222;
         text-align: center;
     }
-    .Service{
+
+    .Service {
         margin-top: 25px;
     }
 
@@ -301,5 +302,47 @@
         .balanceType {
             background: #AEADB2;
         }
+    }
+}
+
+@media (max-width:768px) {
+    .ManageModal .ManageModalFooter .enterBtn {
+        height: 40px;
+    }
+
+    .ManageModal .ManageModalFooter {
+        margin: 30px 0px 0px;
+    }
+}
+
+@media (max-width:425px) {
+    .ManageModal .confirmModalTop {
+        height: 60px;
+        margin: 0 0px;
+    }
+
+    .ManageModal .confirmModalTop .title {
+        line-height: 30px;
+    }
+
+    .ManageModal .ant-modal-content {
+        border-radius: 24px !important
+    }
+
+    .ManageModal .confirmModalTop>img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .ManageModal .ant-modal-content .ant-modal-body {
+        padding: 20px;
+    }
+
+    .ManageModal .item {
+        margin-bottom: 12px;
+    }
+
+    .ManageModal .NFTInfo {
+        margin-bottom: 20px;
     }
 }

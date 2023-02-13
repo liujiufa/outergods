@@ -4,7 +4,6 @@ import { AddrHandle } from '../utils/tool'
 import '../assets/style/componentStyle/BuySuccess.scss'
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next'
-
 import closeIcon from '../assets/image/closeBlack.png'
 
 interface PropsType {
@@ -17,11 +16,13 @@ interface PropsType {
   }
 }
 export default function BuySuccess(props: PropsType) {
+  console.log(props, "NFT成功");
+
   const navigate = useNavigate();
   let { t } = useTranslation();
 
   return (
-    <Modal visible={props.isShow} centered closable={false} onCancel={() => { props.close() }} footer={null} width={557}>
+    <Modal visible={props.isShow} centered closable={false} onCancel={() => { props.close() }} footer={null} width={557} className="SaleNFTModal">
       <div className="ModalHead">
         <div className="title">{t('Congratulations')}</div>
         <div className="subtitle">{t('You successfully purchased the NFT')}</div>
@@ -36,14 +37,14 @@ export default function BuySuccess(props: PropsType) {
             <div className="infoValue">{t('Complete')}</div>
           </div>
           <div className="infoItem">
-            <div className="label">{t('Address')}</div>
+            <div className="label">卖方地址</div>
             <div className="infoValue">{AddrHandle(props.data.address)}</div>
           </div>
         </div>
         <div className="division"></div>
         <div className="InfoRow">
           <div className="infoItem">
-            <div className="label">{t('NFT Contracts')}</div>
+            <div className="label">NFT 合集</div>
             <div className="infoValue">{props.data.projectName}</div>
           </div>
           <div className="infoItem">

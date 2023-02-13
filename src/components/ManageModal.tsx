@@ -181,8 +181,8 @@ export default function ScreenModal(props: any) {
           </div>
         </div>
       </div>
-      <div className="Service">{t('Fees 8%')}</div>
-      <div className="bottomTip">{t('Fees: 5% for platforms and 3% for creators')}</div>
+      <div className="Service">{t('Fees 8%', { fee: props?.personalFees })}</div>
+      <div className="bottomTip">{t('Fees: 5% for platforms and 3% for creators', { platformsFees: 1, personalFees: Math.floor(props?.personalFees / 1000) })}</div>
       <div className="ManageModalFooter">
         <div className="enterBtn flexCenter" onClick={changePrice}>更新</div>
       </div>

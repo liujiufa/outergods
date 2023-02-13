@@ -226,7 +226,6 @@ export default function NFTDetails() {
     }
 
     console.log("OrderDetail", OrderDetail)
-
     return (
         <Container id="NFTDetails">
             {/* <L> */}

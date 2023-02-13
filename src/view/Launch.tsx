@@ -292,10 +292,10 @@ export default function Launch(): JSX.Element {
                     </div>
                 </div>
                 <div className="logoAvtor l-hidden">
-                    <img className='logo-avtor-img' src={ProjectDetail?.img} alt="" />
                     <div className="personalBox ">
+                        <img className='logo-avtor-img' src={ProjectDetail?.img} alt="" />
                         <div className="name">{ProjectDetail?.name}</div>
-                        <div className="address">创作者<span> {ProjectDetail?.createAddress}</span></div>
+                        <div className="address">创作者<span> {AddrHandle(ProjectDetail?.createAddress)}</span></div>
                     </div>
                 </div>
                 <div className="logoAvtor logo-avtor-img m-hidden">
@@ -332,11 +332,10 @@ export default function Launch(): JSX.Element {
                     </div>
                 </div>
 
-
-
                 <div className="personalBox m-hidden-block">
+                    {width < 1440 && <img className='logo-avtor-img middleLogo' src={ProjectDetail?.img} alt="" />}
                     <div className="name">{ProjectDetail?.name}</div>
-                    <div className="address">创作者 <span> {ProjectDetail?.createAddress}</span></div>
+                    <div className="address">创作者 <span> {AddrHandle(ProjectDetail?.createAddress)}</span></div>
                     <div className="detail">{t('Project Description')}：{ProjectDetail?.description}</div>
                     <div className="detailBtn">+扩展</div>
                 </div>
@@ -421,12 +420,15 @@ export default function Launch(): JSX.Element {
                         <div className="content">
                             <div className="goodsNumber">{decimalNum(total, 0, ",")}个物品</div>
                             <div className="goodsList">
-                                <div className="content">
+                                <div className="content goodsContent">
                                     {nftList.length ? <>
                                         <div className="goodsList">{nftList.map((item: any, index: number) =>
-                                            <div className="goodsItem"><Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag={
-                                                item?.owner_of?.toLocaleLowerCase() === web3React?.account?.toLocaleLowerCase() ?
-                                                    "Personal" : ""}></Goods></div>
+                                            <div className="goodsItem">
+                                                <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag={
+                                                    item?.owner_of?.toLocaleLowerCase() === web3React?.account?.toLocaleLowerCase() ?
+                                                        "Personal" : ""}>
+                                                </Goods>
+                                            </div>
                                         )}</div>
                                         {!!cursor && <div className="LoadMore flexCenter" onClick={() => {
                                             console.log("cursor", cursor)

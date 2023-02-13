@@ -4,10 +4,11 @@ import Token721 from './ABI/Token721.json';
 import Token1155 from './ABI/Token1155.json';
 import Market from './ABI/Market.json';
 // export let baseUrl:string = 'http://192.168.2.122:8600';
-export let baseUrl: string = 'http://47.107.116.172:8600';
+// export let baseUrl: string = 'http://8.219.120.240:8600';
 // export let baseUrl: string = 'http://8.219.120.240:9001';
 // export let baseUrl: string = 'http://192.168.2.116:8600';
-// export let baseUrl: string = 'http://192.168.2.125:8600';
+// export let baseUrl: string = 'http://192.168.2.126:8600';
+export let baseUrl: string = 'http://nft.habitverse.io:8600';
 export let Url: string = 'https://ipfs.featured.market/ipfs/QmQXNv3BwCUJ446RE82n7JiZSeBJa2ksjkhPZSd9SRM769';
 interface abiObjType {
     [propName: string]: any;
@@ -38,15 +39,24 @@ export const contractAddress: contractAddressType = {
     // "CastingReceive":"0x2ec141cb6b0ef9646a4c88fa073d76826a9dc91d",
     // "MarketReceive":"0x601D856859c2D447AF87F45BF62807EE835eb0B9",
     // "JSGReceive":"0x6BC4d5fc81464cD5a42d3A856f7617B706b79d67",
-    //测试
+    //main-v1
     "USDT": "0xBA1438E0f4234FE3b0Fc92023BC3160E16c2FF63",
     "NFT721": "0x87976cAed0B2b6272D7c13de6D6D2b6E68e1AA31",
     "NFT1155": "0x0615bc29c8Add209e3941663B077b8C82609DB03",
-    "Market": "0xCE3668E2d52B7cD086e5885798eE799e583DaeF1",
+    "Market": "0x26C12759c27174dd9E2B84a4585bf14CBC4F012d",
     "Casting": "0xb33Dd0b59B3246163F4912c090Afd990733D2432",
     "Receive": "0x2e565b56b9a09446da48192733ea4440fc99f18a",
     "CastingReceive": "0xc48b790649b1f6ccc4c65b8e00cb4a4aacc71768",
     "JSGReceive": "0x2695c06c3bc5f67a36212456060adb327c91279a",
+    // 测试
+    // "USDT": "0xBA1438E0f4234FE3b0Fc92023BC3160E16c2FF63",
+    // "NFT721": "0x87976cAed0B2b6272D7c13de6D6D2b6E68e1AA31",
+    // "NFT1155": "0x0615bc29c8Add209e3941663B077b8C82609DB03",
+    // "Market": "0xCE3668E2d52B7cD086e5885798eE799e583DaeF1",
+    // "Casting": "0xb33Dd0b59B3246163F4912c090Afd990733D2432",
+    // "Receive": "0x2e565b56b9a09446da48192733ea4440fc99f18a",
+    // "CastingReceive": "0xc48b790649b1f6ccc4c65b8e00cb4a4aacc71768",
+    // "JSGReceive": "0x2695c06c3bc5f67a36212456060adb327c91279a",
     // 备份
     // "USDT": "0x0d1CDEc8C2e14286Cf076094813A0428B1d74CF7",
     // "NFT": "0x198ef8bbefffa8adaf77358f29c63822b4e37e69",

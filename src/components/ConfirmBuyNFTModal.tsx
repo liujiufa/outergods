@@ -223,11 +223,11 @@ export default function ScreenModal(props: any) {
         </div>
         <div className="address item">
           <div className="title">合约地址</div>
-          <div className="value">{AddrHandle(props?.NFTInfo?.tokenAddress)}</div>
+          <div className="value">{AddrHandle(props?.NFTInfo?.tokenAddress || '')}</div>
         </div>
         <div className="coinID item">
           <div className="title">代币ID</div>
-          <div className="value">{props?.NFTInfo?.tokenId}</div>
+          <div className="value">{props?.NFTInfo?.tokenId.length > 10 ? AddrHandle(props?.NFTInfo?.tokenId) : (props?.NFTInfo?.tokenId)}</div>
         </div>
         <div className="clain item">
           <div className="title">链</div>
@@ -235,7 +235,7 @@ export default function ScreenModal(props: any) {
         </div>
         <div className="reward item">
           <div className="title">创作者收益<img src={feedesIcon} alt="" /></div>
-          <div className="value">10%</div>
+          <div className="value">{Math.floor(props?.NFTInfo?.createFee / 1000) || 0}%</div>
         </div>
 
         <div className="ManageModalFooter">
@@ -243,8 +243,8 @@ export default function ScreenModal(props: any) {
         </div>
       </Modal >
       {props.NFTInfo && <BuySuccess data={{
-        address: props?.NFTInfo?.tokenAddress,
-        projectName: props?.NFTInfo?.projectName,
+        address: props?.NFTInfo?.userAddress,
+        projectName: props?.projectName,
         tokenID: props?.NFTInfo?.tokenId
       }} isShow={showBuySuccess} close={() => { setShowBuySuccess(false) }}></BuySuccess>}
     </>

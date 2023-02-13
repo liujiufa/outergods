@@ -8,7 +8,9 @@ import Goods, { NftInfo } from '../components/HotspotCard'
 import { createAddMessageAction } from '../store/actions'
 import ScreenModal, { ScreenDataType } from '../components/ScreenModal'
 import ConfirmModal from '../components/ConfirmModal'
+import ActioinBox from '../components/ActionBox'
 import NoData from '../components/NoData'
+import ActionBox from '../components/ActionBox'
 import { Menu, Dropdown, Collapse, Space } from 'antd';
 import { useTranslation } from 'react-i18next'
 import { getTradeOrderState } from '../API'
@@ -248,7 +250,7 @@ export default function Market(): JSX.Element {
                 </div>
               </Dropdown>
             </div>
-            <div className="itemBigBox contentBoxL">
+            {/* <div className="itemBigBox contentBoxL">
               <div className="titleBox">
                 <div className="titleItem type">类型</div>
                 <div className="titleItem">物品</div>
@@ -373,7 +375,10 @@ export default function Market(): JSX.Element {
                   </Space>
                 </Fragment>
               </div>
-            </div>
+            </div> */}
+            {
+              dynamicInfo.length > 0 && <ActionBox tableData={dynamicInfo}></ActionBox>
+            }
           </div>
         }
 
@@ -393,7 +398,7 @@ export default function Market(): JSX.Element {
 
       </div>
       <ScreenModal isShow={showScreenModal} close={() => { setShowScreenModal(false) }} changeScreen={changeScreen} ></ScreenModal>
-      {currentTradeOrder && <ConfirmBuyNFTModal NFTInfo={currentTradeOrder} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} changeScreen={changeScreen} ></ConfirmBuyNFTModal>}
+      {currentTradeOrder && <ConfirmBuyNFTModal projectName={currentTradeOrder?.name} NFTInfo={currentTradeOrder} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} changeScreen={changeScreen} ></ConfirmBuyNFTModal>}
     </div >
   )
 }

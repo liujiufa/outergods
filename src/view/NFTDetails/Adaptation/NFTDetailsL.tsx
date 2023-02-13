@@ -27,6 +27,7 @@ import CancelSaleModal from '../../../components/CancelSaleModal'
 import SaleNFTModal from '../../../components/SaleNFTModal'
 import SaleModal from '../../../components/SaleModal'
 import ConfirmBuyNFTModal from '../../../components/ConfirmBuyNFTModal'
+import ActionBox from '../../../components/ActionBox'
 import NoData from '../../../components/NoData'
 import defaultCard from '../../../assets/image/defaultCard.png'
 import { useWeb3React } from '@web3-react/core'
@@ -470,7 +471,7 @@ export default function NFTDetailsL({
                 </div>
 
                 {/* 大屏动态 */}
-                {width > 768 && <div className='activeBox'>
+                {/* {width > 768 && <div className='activeBox'>
                     <div className="itemBigBox">
                         <div className="titleBox">
                             <div className="activeTip flexCenter">动态</div>
@@ -531,48 +532,16 @@ export default function NFTDetailsL({
                                     </div>
                                 </div>)
                             }
-                            {tableData.length > 0 &&
-                                tableData.map((item: any, index: number) => <div key={index} className="itemBox">
-                                    <div className="item type">
-                                        <div className="top">{operateTtype[item.operateType]}</div>
-                                        <div className="bottom">{t('as fixed price')}</div>
-                                    </div>
-                                    <div className="item projectName">
-                                        <div className="leftBox">
-                                            <img src={item.projectLogo} alt="" />
-                                        </div>
-                                        <div className="right">
-                                            <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
-                                            <div className="bottom">{item.nftName}</div>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="top">{item.uorderPrice}</div>
-                                        <div className="bottom">{item.num} {item.coinName}</div>
-                                    </div>
-                                    <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
-                                        {
-                                            item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
-                                        }
-                                    </div>
-                                    <div className="item" onClick={() => { goSomeone(item.toAddress) }}>
-                                        {
-                                            item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
-                                        }
-                                    </div>
-                                    <div className="item date">
-                                        {HowLongAgo(item.createTime)}
-                                    </div>
-                                </div>)
-                            }
-
-
                         </div>
                     </div>
-                </div>}
+                </div>} */}
                 {/* 小屏动态 */}
-                {width < 768 && <div className="itemBigBox ">
+                {/* {width < 768 && <div className="itemBigBox ">
+                    <div className="topBox">
+                        <div className="actionTitle"></div>
+                    </div>
                     <div className="contentBox1">
+
                         <Space direction="vertical">
                             <Collapse activeKey={activeKey} expandIcon={() => <></>} defaultActiveKey={['1']}>
                                 {tableData.length > 0 ? tableData.map((item: any, index: number) =>
@@ -645,32 +614,31 @@ export default function NFTDetailsL({
                             </Collapse>
                         </Space>
                     </div>
-                </div>}
+                </div>} */}
+                {
+                    tableData.length > 0 && <ActionBox tag="NFTDetailsL" expand1={expand1} typeMenu={typeMenu} tableData={tableData}></ActionBox>
+                }
 
                 {/* 来自这个项目 */}
-                <div className='activeBox'>
-                    <div className="itemBigBox itemBigBoxM">
-                        <div className="titleBox">
-                            <div className="subTitle">来自这个项目</div>
-                        </div>
-                        <div className="contentBox contentBoxM">
-                            <div className="goodsList">
-                                {
-                                    [1, 2, 3, 4].map((item) => <div className="goods-item">
-                                        <Goods></Goods>
-                                    </div>)
-                                }
-                            </div>
+                <div className='likeProjectBox'>
+                    <div className="titleBox">
+                        <div className="subTitle">来自这个项目</div>
+                    </div>
+                    <div className=" contentBoxM">
+                        <div className="goodsList">
+                            {
+                                [1, 2, 3, 4, 5, 6].map((item) => <div className="usernft">
+                                    <Goods></Goods>
+                                </div>)
+                            }
                         </div>
                     </div>
                 </div>
             </div>
-            {/* <ManageModal isShow={true} close={() => { setManageModal(false) }} ></ManageModal> */}
-            {OrderDetail && <ManageModal isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
-            {/* <CancelSaleModal isShow={false} close={() => { setManageModal(false) }} ></CancelSaleModal> */}
+            {OrderDetail && <ManageModal isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} personalFees={OrderDetail?.nnftOrder?.createFee} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
             {OrderDetail && <CancelSaleModal isShow={showEnterCancel} tokenId={OrderDetail?.nnftUser?.tokenId} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowEnterCancel(false) }}></CancelSaleModal>}
-            {OrderDetail && <SaleModal isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress }}></SaleModal>}
-            {OrderDetail && <ConfirmBuyNFTModal NFTInfo={OrderDetail?.nnftOrder} NFTDetail={OrderDetail} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} ></ConfirmBuyNFTModal>}
+            {OrderDetail && <SaleModal isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress, personalFees: OrderDetail?.nnftOrder?.createFee }}></SaleModal>}
+            {OrderDetail && <ConfirmBuyNFTModal projectName={OrderDetail?.name} NFTInfo={OrderDetail?.nnftOrder} NFTDetail={OrderDetail} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} ></ConfirmBuyNFTModal>}
         </div >
     )
 }

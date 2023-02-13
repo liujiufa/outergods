@@ -19,6 +19,7 @@ import { useViewport } from '../components/viewportContext'
 import CollectionScreenModal from '../components/CollectionScreenModal'
 import ReceRecord from '../components/ReceRecord'
 import NoData from '../components/NoData'
+import ActionBox from '../components/ActionBox'
 import LaunchLogo from '../assets/image/LaunchLogo.png'
 import write from '../assets/image/writeWhite.png'
 import chainIcon from '../assets/image/ETHIcon.png'
@@ -126,7 +127,8 @@ export default function Personal(): JSX.Element {
             dispatch(createSetLodingAction(true))
             getNfts({
                 "address": web3React.account,
-                "chain": "bsc%20testnet",
+                // "chain": "bsc%20testnet",
+                "chain": "bsc",
                 "cursor": fig,
                 "pageSize": 10
             }).then((res) => {
@@ -159,7 +161,8 @@ export default function Personal(): JSX.Element {
             getNfts(
                 {
                     "address": web3React.account,
-                    "chain": "bsc%20testnet",
+                    // "chain": "bsc%20testnet",
+                    "chain": "bsc",
                     "cursor": "",
                     "pageSize": 10
                 }
@@ -420,127 +423,9 @@ export default function Personal(): JSX.Element {
                                         { value: 'successfulType', label: '成交' },
                                         { value: 'managepriceType', label: '调价' },]}
                                 />
+                                {/* 动态注释 */}
 
-                                {width >= 768 && <div className="itemContentBigBox">
-                                    <div className="titleBox">
-                                        <div className="titleItem type">类型</div>
-                                        <div className="titleItem">物品</div>
-                                        <div className="titleItem">价格</div>
-                                        <div className="titleItem">从</div>
-                                        <div className="titleItem">到</div>
-                                        <div className="titleItem date">日期</div>
-                                    </div>
-                                    <div className="itemContentBox">
-                                        {tableData.length > 0 && tableData.map((item: any, index: number) => <div key={index} className="itemBox">
-                                            <div className="item type">
-                                                <div className="top">{operateTtype[item.operateType]}</div>
-                                                <div className="bottom">一口价</div>
-                                            </div>
-
-                                            <div className="item projectName">
-                                                <div className="leftBox">
-                                                    <img src={item.projectLogo} alt="" />
-                                                </div>
-                                                <div className="right">
-                                                    <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
-                                                    <div className="bottom">{item.nftName}</div>
-                                                </div>
-                                            </div>
-                                            <div className="item">
-                                                <div className="top">{item.uorderPrice}</div>
-                                                <div className="bottom">{item.num} {item.coinName}</div>
-                                            </div>
-                                            <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
-                                                {
-                                                    item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
-                                                }
-                                            </div>
-                                            <div className="item" onClick={() => { goSomeone(item.toAddress) }}>
-                                                {
-                                                    item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
-                                                }
-                                            </div>
-                                            <div className="item date">
-                                                {HowLongAgo(item.createTime)}
-                                            </div>
-                                        </div>)}
-                                    </div>
-                                </div>}
-
-                                {width < 768 && <div className="itemBigBox ">
-                                    <div className="contentBox">
-                                        <Space direction="vertical">
-                                            <Collapse activeKey={activeKey} expandIcon={() => <></>} defaultActiveKey={['1']}>
-                                                {tableData.length > 0 ? tableData.map((item: any, index: number) =>
-                                                    <Fragment>
-                                                        <Collapse.Panel
-                                                            header={
-                                                                <div className="itemBox">
-                                                                    <div className="item type">
-                                                                        <div className="top">{operateTtype[item.operateType]}</div>
-                                                                        <div className="bottom">一口价</div>
-                                                                    </div>
-                                                                    <div className='group'>
-                                                                        <div className="item projectName">
-                                                                            <div className="leftBox">
-                                                                                <img src={item.projectLogo} alt="" />
-                                                                            </div>
-                                                                            <div className="right">
-                                                                                <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
-                                                                                <div className="bottom">{item.nftName}</div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="item">
-                                                                            <div className="top">{item.uorderPrice}</div>
-                                                                            <div className="bottom">{item.num} {item.coinName}</div>
-                                                                        </div>
-                                                                        <div className='drap-icon' onClick={() => {
-                                                                            if (activeKey === `${index}`) {
-                                                                                setActiveKey("")
-                                                                            } else {
-                                                                                setActiveKey(`${index}`)
-                                                                            }
-                                                                        }} >
-                                                                            {
-                                                                                activeKey !== `${index}` ? <DownOutlined /> : <UpOutlined />
-                                                                            }
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            } key={`${index}`}>
-                                                            <div className="group">
-                                                                <div className="item">
-                                                                    <div className="text" onClick={() => { goSomeone(item.formAddress) }}>
-                                                                        {
-                                                                            item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
-                                                                        }
-                                                                    </div>
-                                                                    <div className="type">从</div>
-                                                                </div>
-                                                                <div className="item">
-                                                                    <div className="text" onClick={() => { goSomeone(item.toAddress) }}>
-                                                                        {
-                                                                            item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
-                                                                        }
-                                                                    </div>
-                                                                    <div className="type">到</div>
-
-                                                                </div>
-                                                                <div className="item date">
-                                                                    <div className="text type-date">
-                                                                        {HowLongAgo(item.createTime)}
-                                                                    </div>
-                                                                    <div className="type">日期</div>
-                                                                </div>
-                                                            </div>
-                                                        </Collapse.Panel>
-                                                        <div className="separate" style={{ display: tableData.length === (index + 1) ? "none" : "block" }}></div>
-                                                    </Fragment>
-                                                ) : <NoData />}
-                                            </Collapse>
-                                        </Space>
-                                    </div>
-                                </div>}
+                                {tableData.length > 0 && <ActionBox tableData={tableData}></ActionBox>}
                             </div>
                         </>}
                     </div>

@@ -1,7 +1,5 @@
 
-
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -27,6 +25,7 @@ import Goods from '../components/HotspotCard'
 
 import '../assets/style/Main.scss'
 import { getBestSellerNft, getHoTProject, getTradeLast } from "../API";
+import { useNavigate } from "react-router-dom";
 
 
 const Container = styled.div`
@@ -458,7 +457,7 @@ const Bg4 = styled.div`
 
 
 export default function Main() {
-
+    let navigate = useNavigate()
     const [nftIdo, setNftIdo] = useState<any[]>([BgPng, Bg1Png, Bg2Png, BgPng, Bg1Png, BgPng, Bg2Png])
     const [expand1, setExpand1] = useState(true)
     const [activeIndex, setActiveIndex] = useState(0)
@@ -558,6 +557,18 @@ export default function Main() {
         img: GasPng
     }]
 
+    /* 判断跳转到出售页面还是正在出售页面 */
+    function goPath(goods: any) {
+        /* 状态正常去挂卖 */
+        if (goods.status === 0) {
+            return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
+        }
+        /* 挂卖中去商品详情页改价 */
+        if (goods.status === 1) {
+            return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.owner_of}&&NFTDetailType=1`)
+        }
+    }
+
     return (
         <Container>
             <SwiperPC >
@@ -608,7 +619,7 @@ export default function Main() {
                         <span>HABITAT</span>-面向<span>WEB3</span>的NFT交易创新平台
                     </Title>
                     <Group>
-                        <SellBox >出售</SellBox>
+                        <SellBox onClick={() => { navigate("/Market") }}>购买</SellBox>
                     </Group>
                     <Group>
                         <TransactionTips></TransactionTips>
@@ -663,7 +674,7 @@ export default function Main() {
                         {
                             bestSellerNftList.map((item) => <GroupItem>
                                 {
-                                    !!item ? <Goods tag="Home" NftInfo={{ ...item, uprice: item.uprice, metadata: JSON.parse(item.metaData || item?.metadata || JSON.stringify("")) }} /> : <Goods />
+                                    !!item ? <Goods tag="Home" NftInfo={{ ...item, uprice: item.uprice, metadata: JSON.parse(item.metaData || item?.metadata || JSON.stringify("")) }} goPath={() => goPath(item)} /> : <Goods />
                                 }
                             </GroupItem>)
                         }

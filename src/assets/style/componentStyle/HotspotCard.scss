@@ -19,6 +19,8 @@
 
         >img {
             width: 100%;
+            aspect-ratio: 1;
+            object-fit: contain;
         }
 
         .buyBtn {
@@ -212,14 +214,29 @@
                 margin-right: 8px;
             }
 
-            span {
-                font-family: 'PingFang SC';
-                font-style: normal;
-                font-weight: 700;
-                font-size: 14px;
-                line-height: 20px;
-                color: rgba(0, 0, 0, 0.6);
-                margin-left: 5px;
+            .priceBox {
+                display: flex;
+
+                .num {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 12px;
+                    line-height: 20px;
+                    color: #788CFF;
+                    display: flex;
+                    align-items: center;
+                }
+
+                span {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 20px;
+                    color: rgba(0, 0, 0, 0.6);
+                    margin-left: 5px;
+                }
             }
         }
 
@@ -337,11 +354,17 @@
     .HotspotCard .bottonBox .cardTokenId {
         font-size: 14px;
     }
-    .HotspotCard .cardBottomBox{
-        height: 30px;
+
+    .HotspotCard .cardBottomBox {
+        // height: 30px;
+        display: flex;
     }
-    .HotspotCard .bottonBox .box{
+
+    .HotspotCard .bottonBox .box {
         padding: 2px;
+    }
+    .HotspotCard .cardBottomBox .cardPrice .priceBox{
+        display: block;
     }
 }
 

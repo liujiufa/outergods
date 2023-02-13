@@ -8,6 +8,7 @@ import { createLoginSuccessAction, createAddMessageAction } from '../store/actio
 import { useWeb3React } from '@web3-react/core'
 import { useDispatch } from "react-redux";
 import { useTranslation } from 'react-i18next'
+import { useViewport } from '../components/viewportContext'
 import logo from '../assets/image/NFTLogo.png'
 import Search from '../assets/image/searchIcon.png'
 import BNBIcon from '../assets/image/BNBIcon.png'
@@ -37,6 +38,7 @@ interface projectData {
 }
 const { Header, Footer } = Layout;
 const MainLayout: React.FC = () => {
+    let { width } = useViewport()
     let { t, i18n } = useTranslation()
     const location = useLocation();
     let [addrList, setAddrList] = useState<userData[]>([])
@@ -196,7 +198,7 @@ const MainLayout: React.FC = () => {
                 </div>
                 <div className="mobile-header-right">
                     <img src={Search} alt="" className="l-hidden mobile-search-icon" />
-                    <div className="search m-hidden" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
+                    {<div className="search m-hidden" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
                         <img src={Search} alt="" />
                         <input type="text" onChange={(e) => { run(e) }} onFocus={FocusFun} placeholder={t('Search by Collection、User、Address')} />
                         {
@@ -211,8 +213,7 @@ const MainLayout: React.FC = () => {
                                 }
                             </div>
                         }
-
-                    </div>
+                    </div>}
                     <div className="Chain">
                         <img src={BNBIcon} alt="" />
                         <span className="ChainName">BNB Chain</span>

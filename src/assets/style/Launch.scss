@@ -215,6 +215,11 @@
                 color: #0EFC7E;
                 margin-bottom: 18px;
             }
+
+            .middleLogo {
+                margin: 18px 0px;
+            }
+
         }
 
         .tabBox {
@@ -273,8 +278,8 @@
                     justify-content: space-between;
 
                     img {
-                        width: 36px;
-                        height: 36px;
+                        // width: 36px;
+                        // height: 36px;
                         padding-left: 15px;
                         border-radius: 6px;
                     }
@@ -492,6 +497,11 @@
                     padding-left: 30px;
                     flex: 1;
 
+                    .goodsContent {
+                        padding-left: 0px;
+
+                    }
+
                     .goodsNumber {
                         margin: 30px 0px;
                         font-family: 'PingFang SC';
@@ -533,6 +543,16 @@
                                 height: 16px;
                             }
                         }
+                    }
+
+                    .LoadMore {
+                        width: 120px;
+                        height: 36px;
+                        color: #788CFF;
+                        border: 1px solid #788CFF;
+                        box-sizing: border-box;
+                        border-radius: 18px;
+                        margin: 0px auto;
                     }
                 }
             }
@@ -874,6 +894,21 @@
     }
 }
 
+@media (max-width:1440px) {
+    .ProjectDetail .contentBox {
+        padding: 0px 40px;
+    }
+
+    .ProjectDetail .contentBox .logoAvtor {
+        left: 40px;
+    }
+
+    #launch.ProjectDetail .m-hidden {
+        display: none;
+    }
+
+}
+
 @media (max-width:1024px) {
     .explain {
         padding: 36px 20px 0;
@@ -1163,7 +1198,7 @@
             }
 
             .personalBox {
-                margin-left: 20px;
+                margin-left: 0px;
             }
         }
 
@@ -1218,7 +1253,8 @@
         padding: 4px 0px;
 
     }
-    #launch.ProjectDetail .activeBox .itemBox .item .bottom{
+
+    #launch.ProjectDetail .activeBox .itemBox .item .bottom {
         font-weight: 700;
     }
 }

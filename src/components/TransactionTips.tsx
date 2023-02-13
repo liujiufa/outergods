@@ -80,7 +80,7 @@ export default function TransactionTips() {
     if (dynamicInfo) {
       return (<div className="TipsText">
         <Marquee speed={100} pauseOnHover gradient={false} >
-          {dynamicInfo.map((item: any, index: any) => <div className='autoMarquee'>
+          {dynamicInfo.map((item: any, index: any) => <div key={index} className='autoMarquee'>
             <span className="color33 pointer" onClick={goDetial}>{item?.nftName || 'unnamed'}</span>
             <span className="colorRed">出售</span>
             <img src={sale} alt="" />

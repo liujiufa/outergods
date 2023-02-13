@@ -57,6 +57,7 @@ export default function ScreenModal(props: any) {
   const navigate = useNavigate();
 
   const [stepSaleNFTModal, setStepSaleNFTModal] = useState(false);
+  const [stepSaleNFTState, setStepSaleState] = useState(false);
   let [ProjectList, setProjectList] = useState<ProjectType[]>([])
   let [ScreenInfo, setScreenInfo] = useState({
     min: 0,
@@ -88,17 +89,26 @@ export default function ScreenModal(props: any) {
   }
   function approveFun() {
     if (web3React.account && props.data.tokenAddress) {
+      dispatch(createSetLodingAction(true))
       Contracts.example.supportsInterface(web3React.account as string, "0xd9b67a26", props.data.tokenAddress).then((res: boolean) => {
         if (res) {
           Contracts.example.approveMarket1(web3React.account as string, props.data.tokenAddress).then((res: any) => {
             Contracts.example.getapproveMarket1(web3React.account as string, props.data.tokenAddress).then((res: any) => {
               setApproveAddr(res)
+              if (res) {
+                dispatch(createSetLodingAction(false))
+                setStepState(false)
+              }
             })
           })
         } else {
           Contracts.example.approveMarket(web3React.account as string, props.data.tokenAddress).then((res: any) => {
             Contracts.example.getapproveMarket(web3React.account as string, props.data.tokenAddress).then((res: any) => {
               setApproveAddr(res)
+              if (res) {
+                dispatch(createSetLodingAction(false))
+                setStepState(false)
+              }
             })
           })
         }
@@ -134,8 +144,9 @@ export default function ScreenModal(props: any) {
       }).then((res: any) => {
         console.log(res, "挂单结果")
         if (res.code === 200) {
-          navigate('/Market')
+          // navigate('/Market')
           dispatch(createAddMessageAction(t('Listed')))
+          setStepSaleState(true)
         } else {
           navigate(-1)
           dispatch(createAddMessageAction(t('Unlisted')))
@@ -147,16 +158,29 @@ export default function ScreenModal(props: any) {
 
   }
 
+  const step1Fun = (e: any) => {
+    e.stopPropagation();
+    if (!approveAddr) {
+      setStepState(!stepState)
+    }
+  }
+
   useEffect(() => {
     if (web3React.account && props.data.tokenAddress) {
       Contracts.example.supportsInterface(web3React.account, "0xd9b67a26", props.data.tokenAddress).then((res: boolean) => {
         if (res) {
           Contracts.example.getapproveMarket1(web3React.account as string, props.data.tokenAddress).then((res: boolean) => {
             setApproveAddr(res)
+            if (res) {
+              setStepState(false)
+            }
           })
         } else {
           Contracts.example.getapproveMarket(web3React.account as string, props.data.tokenAddress).then((res: boolean) => {
             setApproveAddr(res)
+            if (res) {
+              setStepState(false)
+            }
           })
         }
       })
@@ -173,7 +197,7 @@ export default function ScreenModal(props: any) {
           出售你的物品
         </div>
         <div className="stepBox" >
-          <div className="step" onClick={(e) => { e.stopPropagation(); setStepState(!stepState) }}>
+          <div className="step" onClick={(e) => { step1Fun(e) }}>
             <div className="title">1.许可NFT</div>
             <div className="coinBox">
               {approveAddr ? <img src={successNFTIcon} alt="" /> : <img src={failNFTIcon} alt="" />}
@@ -189,17 +213,20 @@ export default function ScreenModal(props: any) {
                 <img src={lockedIcon} alt="" /> 许可
               </div>
             }
-          </div> : <div className="lineBox"><div className='line'></div></div>}
+          </div> : <div className="lineBox">
+            <div className='line'></div>
+          </div>
+          }
           <div className="step" onClick={(e) => { e.stopPropagation(); setStepState(!stepState) }}>
             <div className="title">2.确认上架</div>
             <div className="coinBox">
-              <img src={failNFTIcon} alt="" />
+              {stepSaleNFTState ? <img src={successNFTIcon} alt="" /> : <img src={failNFTIcon} alt="" />}
               <img src={openIconBlack} alt="" />
             </div>
           </div>
           {!stepState && <div className='approveBox'>
             <div className="approveTip">用您的出售信息完成签名请求。</div>
-            {true ? <div className="approveBtn flexCenter" onClick={() => { saleStepFun2() }}>
+            {(!stepSaleNFTState) ? <div className="approveBtn flexCenter" onClick={() => { saleStepFun2() }}>
               签名
             </div> : <div className="approveBtn paddingBtn flexCenter">
               <img src={paddingIcon} alt="" /> 等待交易

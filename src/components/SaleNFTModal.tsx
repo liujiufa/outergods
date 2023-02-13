@@ -229,11 +229,11 @@ export default function ScreenModal(props: any) {
         </div>
 
         <div className="fee">
-          <div className="feeTitle">{t('Fees 8%')}</div>
+          <div className="feeTitle">{t('Fees 8%', { fee: props.saleData.personalFees })}</div>
           <img src={feedesIcon} />
         </div>
         <div className="feeTip">
-          {t('Fees: 5% for platforms and 3% for creators')}
+          {t('Fees: 5% for platforms and 3% for creators', { platformsFees: 1, personalFees: Math.floor(props.saleData.personalFees / 1000) })}
         </div>
         <div className="ManageModalFooter">
           {true ? <div className="confirmBtn flexCenter" onClick={() => { props.saleFun(price, typeMap[typeIndex].value, tokenMap[tokenIndex].value, dayMap[dayIndex].value) }}>出售</div> : <div className="confirmBtn flexCenter">出售</div>}

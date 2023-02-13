@@ -1,0 +1,737 @@
+#ActionBox {
+    flex: auto;
+
+    .itemContentBigBox {
+        margin: 25px 0px;
+
+        width: 100%;
+        background: #FFFFFF;
+        box-shadow: 22px 26px 202px rgba(198, 207, 231, 0.5);
+        border-radius: 45px;
+        overflow: hidden;
+        height: 590px;
+
+        .titleBox {
+            padding: 45px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FFFFFF;
+            box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
+
+            .titleItem {
+                width: 150px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                letter-spacing: 0.1em;
+                color: #000000;
+            }
+
+            .type,
+            .date {
+                width: 100px;
+            }
+        }
+
+        .itemContentBox {
+            padding: 20px 45px;
+
+            .itemBox {
+                padding: 25px 0px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+                .item {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    width: 150px;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: #000000;
+
+                    .top {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: #000000;
+                    }
+
+                    .bottom {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: rgba(0, 0, 0, 0.6);
+                    }
+                }
+
+                .projectName {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+
+                    .leftBox {
+                        margin-right: 8px;
+
+                        img {
+                            width: 36px;
+                            height: 36px;
+                            width: 100%;
+                            border-radius: 6px;
+                        }
+                    }
+
+                    img {
+                        margin-right: 8px;
+                    }
+                }
+
+                .type,
+                .date {
+                    width: 100px;
+                }
+            }
+        }
+
+
+    }
+
+    .itemBigBox {
+        .topBox {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 27px rgba(141, 147, 163, 0.25);
+
+            .actionTitle {
+                word-break: keep-all;
+                height: 30px;
+                padding: 5px 13px;
+                background: #D5DBFF;
+                border-radius: 35px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                letter-spacing: 0.1em;
+                color: #7285FF;
+            }
+
+            .right {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+
+                .dropDownBox {
+                    .MarketSearchRow {
+                        width: 100%;
+                        max-width: 1410px;
+                        display: flex;
+                        justify-content: flex-end;
+                        margin: auto;
+
+                        .search {
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 20px;
+                            color: #788CFF;
+                            margin-left: 30px;
+                            width: 120px;
+                            height: 36px;
+                            border: 1px solid #788CFF;
+                            box-sizing: border-box;
+                            border-radius: 18px;
+                            padding: 6px 15px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+
+
+                            .searchBox {
+                                font-size: 14px;
+
+                                overflow: hidden;
+                                white-space: nowrap;
+                                margin-right: 3px;
+                            }
+                        }
+
+                        .filter {
+                            margin-left: 30px;
+                            background: linear-gradient(269.72deg, #9C75FF 0.22%, #7485FF 99.76%);
+                            border-radius: 18px;
+                            width: 120px;
+                            height: 36px;
+                            padding: 6px 15px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            color: #FFFFFF;
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+                .switch {
+                    width: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+    }
+
+}
+
+
+@media (max-width: 1440px) {
+
+    .userInfo,
+    .tabs,
+    .searchRow {
+        margin: 58px 120px 40px !important;
+    }
+}
+
+@media (max-width: 1024px) {
+
+    .searchRow {
+        .search {
+            margin-left: 10px !important;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    #ActionBox {
+        // min-height: calc(100vh - 147px);
+        overflow: auto;
+
+        .topBox {
+            padding: 24px 12px 12px;
+        }
+
+        .goodsList {
+            grid-template-columns: repeat(auto-fill, 172px) !important;
+            justify-content: center;
+        }
+
+        .userInfo {
+            flex-direction: column;
+        }
+
+        .seriesSearch {
+            margin: 8px 0 12px;
+        }
+
+        .userHeader {
+            width: 84px;
+            height: 84px;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .Info {
+
+            align-items: start;
+            margin-left: 12px;
+
+            .userName {
+                >.name {
+                    font-size: 16px;
+                }
+            }
+
+            .level {
+                font-size: 12px;
+                zoom: 0.75;
+            }
+
+            .userAddress {
+                margin-top: 8px;
+                width: 120px;
+                height: 24px;
+
+                span {
+                    font-size: 12px;
+                    zoom: 0.87;
+
+                }
+            }
+
+            .linkItem {
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            .share,
+            .set {
+                font-size: 12px;
+                zoom: 0.87;
+                width: 72px;
+                height: 28px;
+            }
+
+            >.media-group {
+                justify-content: start;
+            }
+        }
+
+        .btnGroupRow {
+            margin-top: 0;
+        }
+
+        .tabs {
+            margin: 30px 16px 20px !important;
+        }
+
+        .searchRow {
+            margin: 20px 16px 20px !important;
+            flex-wrap: wrap;
+
+            .searchedge {
+                justify-content: flex-start !important;
+                margin-top: 16px !important;
+
+                .search {
+                    margin: 0 10px 0 0 !important;
+                    padding: 0 5px !important;
+                    width: 80px !important;
+                }
+
+                .filter {
+                    margin-left: 0 !important;
+                }
+            }
+        }
+    }
+}
+
+.ant-collapse-header-text {
+    width: 100%;
+
+}
+
+
+#ActionBox {
+
+    & .l-hidden {
+        display: none;
+    }
+
+    & .m-hidden {
+        display: flex;
+    }
+
+    & .l-hidden-block {
+        display: none;
+    }
+
+    & .m-hidden-block {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .userInfo {
+        margin: 20px 16px 20px !important;
+    }
+
+
+
+    #ActionBox {
+        // min-height: calc(100vh - 12px);
+
+        .ant-collapse-header {
+            padding: 12px 0;
+        }
+
+        .goodsList {
+            display: flex;
+            justify-content: start;
+            flex-wrap: wrap;
+            width: 100%;
+
+            .userNft {
+                width: 50%;
+                padding: 4px;
+            }
+        }
+
+        & .l-hidden {
+            display: flex;
+            margin: 12px 0px !important;
+        }
+
+        & .m-hidden {
+            display: none;
+        }
+
+        & .l-hidden-block {
+            display: block;
+        }
+
+        & .m-hidden-block {
+            display: none;
+        }
+
+        .shareBox {
+            margin-right: 12px;
+        }
+
+        .nft-type {
+            width: 100%;
+            flex-flow: row wrap;
+        }
+
+        .stateItem {
+            width: 44%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 11px 0;
+            font-size: 14px;
+            padding: 8px 4px;
+
+            img {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+
+        .ant-collapse,
+        .ant-collapse-content,
+        .ant-collapse-item,
+        .itemBigBox .contentBox .ant-collapse-header-text .itemBox {
+            border: 0 none;
+        }
+
+        .separate {
+            width: 100%;
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.1);
+            margin: 4px 0;
+        }
+
+        .ant-collapse-content-box {
+            padding: 0 16px;
+        }
+
+        .itemBigBox {
+            margin: 25px 0px;
+            width: 100%;
+            overflow: hidden;
+            background: #FFFFFF;
+            box-shadow: 4px 11px 53px rgba(198, 207, 231, 0.6);
+            border-radius: 17px;
+            max-height: 530px;
+            overflow: auto;
+
+
+            & .ant-space-vertical {
+                width: 100%;
+            }
+
+            .titleBox {
+                padding: 45px;
+                height: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: #FFFFFF;
+                box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
+
+                .titleItem {
+                    width: 150px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    /* identical to box height */
+                    letter-spacing: 0.1em;
+                    color: #000000;
+                }
+
+                .type,
+                .date {
+                    width: 100px;
+                }
+            }
+
+            .contentBox {
+                padding: 0px 16px;
+                width: 100%;
+
+                .itemBox {
+                    align-items: center;
+                    justify-content: space-between;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                    text-align: left;
+                    width: 100%;
+
+                    .item {
+                        align-items: start;
+                        flex-direction: column;
+                        // width: 150px;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: #000000;
+                        display: block;
+                        // flex: 1;
+                        display: flex;
+                        justify-content: center;
+
+                        .leftBox {
+                            margin-right: 8px;
+                        }
+
+                        .top {
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 700;
+                            font-size: 16px;
+                            line-height: 22px;
+                            color: #000000;
+                        }
+
+                        .bottom {
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 22px;
+                            color: rgba(0, 0, 0, 0.6);
+                            text-align: left;
+                        }
+
+                        .right {
+                            .bottom {
+                                color: rgba(0, 0, 0, 0.8);
+                            }
+                        }
+                    }
+
+                    .projectName {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+
+                        .leftBox {
+                            img {
+                                border-radius: 6px;
+                                width: 36px;
+                            }
+                        }
+
+                        img {
+                            margin-right: 8px;
+                        }
+                    }
+
+                    .drap-icon {
+                        width: 24px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    .type,
+                    .date {
+                        width: 100px;
+                        text-align: center;
+                    }
+                }
+
+                .group {
+                    margin-top: 8px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .text {
+                        font-weight: 700;
+                        font-size: 12px;
+                        text-align: center;
+                        letter-spacing: 0.1em;
+                        color: #000000;
+                    }
+
+                    .type {
+                        font-weight: 400;
+                        font-size: 12px;
+                        letter-spacing: 0.1em;
+                        color: rgba(0, 0, 0, 0.6);
+                        margin-top: 8px;
+
+                    }
+
+                    .type-date {
+                        font-weight: 400;
+                    }
+                }
+
+            }
+        }
+
+    }
+}
+
+@media (max-width:768px) {
+    .m-bigContent {
+        display: block !important;
+    }
+
+    .ant-collapse {
+        background-color: #fff;
+    }
+
+    .Personal .personalContent .tabContentBox .bigContent .slider {
+        padding: 12px 0px 12px 0px;
+    }
+
+    .Personal .personalContent .tabContentBox .bigContent .content {
+        padding: 0;
+    }
+
+    .goodsList {
+        margin: 16px 0 24px;
+    }
+
+    #ActionBox {
+        .ant-select-selector {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 18px;
+            background-color: transparent;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            top: 0;
+            left: 0;
+
+        }
+
+        .ant-select-arrow {
+            position: absolute;
+            top: 38px;
+        }
+
+    }
+
+    .popup-select-filter {
+        background: #E7E7FF;
+        box-shadow: 5px 13px 62px rgba(141, 147, 163, 0.3);
+        border-radius: 10px;
+        padding: 0;
+    }
+
+    .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+        background: #788CFE;
+    }
+
+    .line {
+        display: none;
+    }
+}
+
+
+
+
+
+@media (max-width: 425px) {
+    .userInfo {
+        margin: 20px 16px 20px !important;
+    }
+
+}
+
+@media (max-width: 1440px) {
+    .rewardInfo {
+        margin: 58px 120px 40px !important;
+    }
+
+    .Personal .personalContent .tabContentBox .bigContent .itemContentBigBox .titleBox {
+        padding: 20px 12px;
+    }
+
+    .Personal .personalContent .tabContentBox .bigContent .itemContentBigBox .itemContentBox {
+        padding: 20px 12px;
+    }
+
+    .Personal .personalContent .tabContentBox .bigContent .actionSlider {
+        min-width: 240px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .rewardInfo {
+        margin: 58px 60px 40px !important;
+        flex-wrap: wrap;
+    }
+
+    .Personal .personalContent .tabContentBox .bigContent .actionSlider {
+        padding: 30px 0px 30px 0px;
+    }
+
+    .Personal .personalContent .tabContentBox .actionContent {
+        display: block;
+    }
+
+}
+
+@media (max-width: 425px) {
+    .rewardInfo {
+        margin: 58px 30px 40px !important;
+    }
+
+    #ActionBox .l-hidden {
+        margin: 0px 0px;
+    }
+
+    .Personal .personalContent .tabContentBox .bigContent .slider {
+        padding: 12px 0px 0px 0px;
+    }
+
+    #ActionBox .ant-collapse-content-box {
+        padding: 0 0px;
+    }
+}
+
+@media (max-width: 375px) {}

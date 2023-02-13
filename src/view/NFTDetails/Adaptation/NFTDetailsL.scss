@@ -484,375 +484,408 @@
         }
 
 
-        .activeBox {
-            .itemBigBox {
-                margin-top: 80px;
-                width: 100%;
-                background: #FFFFFF;
-                box-shadow: 22px 26px 202px rgba(198, 207, 231, 0.5);
-                border-radius: 45px;
-                overflow: hidden;
+        // .activeBox {
+        //     .itemBigBox {
+        //         margin-top: 80px;
+        //         width: 100%;
+        //         background: #FFFFFF;
+        //         box-shadow: 22px 26px 202px rgba(198, 207, 231, 0.5);
+        //         border-radius: 45px;
+        //         overflow: hidden;
 
-                .titleBox {
-                    padding: 45px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    background: #FFFFFF;
-                    box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
+        //         .titleBox {
+        //             padding: 45px;
+        //             display: flex;
+        //             align-items: center;
+        //             justify-content: space-between;
+        //             background: #FFFFFF;
+        //             box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
 
-                    .titleItem {
-                        width: 150px;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        font-family: 'PingFang SC';
-                        font-style: normal;
-                        font-weight: 400;
-                        font-size: 14px;
-                        line-height: 20px;
-                        /* identical to box height */
-                        letter-spacing: 0.1em;
-                        color: #000000;
-                    }
+        //             .titleItem {
+        //                 width: 150px;
+        //                 display: flex;
+        //                 flex-direction: column;
+        //                 align-items: center;
+        //                 font-family: 'PingFang SC';
+        //                 font-style: normal;
+        //                 font-weight: 400;
+        //                 font-size: 14px;
+        //                 line-height: 20px;
+        //                 /* identical to box height */
+        //                 letter-spacing: 0.1em;
+        //                 color: #000000;
+        //             }
 
-                    .type,
-                    .date {
-                        width: 100px;
-                    }
+        //             .type,
+        //             .date {
+        //                 width: 100px;
+        //             }
 
-                    .activeTip {
-                        width: 67px;
-                        height: 35px;
-                        background: #D5DBFF;
-                        border-radius: 35px;
-                        font-family: 'PingFang SC';
-                        font-style: normal;
-                        font-weight: 700;
-                        font-size: 16px;
-                        line-height: 22px;
-                        letter-spacing: 0.1em;
-                        color: #7285FF;
-                    }
+        //             .activeTip {
+        //                 width: 67px;
+        //                 height: 35px;
+        //                 background: #D5DBFF;
+        //                 border-radius: 35px;
+        //                 font-family: 'PingFang SC';
+        //                 font-style: normal;
+        //                 font-weight: 700;
+        //                 font-size: 16px;
+        //                 line-height: 22px;
+        //                 letter-spacing: 0.1em;
+        //                 color: #7285FF;
+        //             }
 
-                    .right {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
+                    // .right {
+                    //     display: flex;
+                    //     justify-content: space-between;
+                    //     align-items: center;
 
-                        .dropDownBox {
-                            .MarketSearchRow {
-                                width: 100%;
-                                max-width: 1410px;
-                                display: flex;
-                                justify-content: flex-end;
-                                margin: auto;
+                    //     .dropDownBox {
+                    //         .MarketSearchRow {
+                    //             width: 100%;
+                    //             max-width: 1410px;
+                    //             display: flex;
+                    //             justify-content: flex-end;
+                    //             margin: auto;
 
-                                .search {
-                                    font-family: 'PingFang SC';
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    font-size: 14px;
-                                    line-height: 20px;
-                                    color: #788CFF;
-                                    margin-left: 30px;
-                                    width: 120px;
-                                    height: 36px;
-                                    border: 1px solid #788CFF;
-                                    box-sizing: border-box;
-                                    border-radius: 18px;
-                                    padding: 6px 15px;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: space-between;
-
-
-                                    .searchBox {
-                                        font-size: 14px;
-
-                                        overflow: hidden;
-                                        white-space: nowrap;
-                                        margin-right: 3px;
-                                    }
-                                }
-
-                                .filter {
-                                    margin-left: 30px;
-                                    background: linear-gradient(269.72deg, #9C75FF 0.22%, #7485FF 99.76%);
-                                    border-radius: 18px;
-                                    width: 120px;
-                                    height: 36px;
-                                    padding: 6px 15px;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: space-between;
-                                    color: #FFFFFF;
-                                    font-size: 14px;
-                                }
-                            }
-                        }
-
-                        .switch {
-                            width: 40px;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                        }
-                    }
-
-                    .subTitle {
-                        font-family: 'PingFang SC';
-                        font-style: normal;
-                        font-weight: 700;
-                        font-size: 18px;
-                        line-height: 25px;
-                        letter-spacing: 0.1em;
-                        color: #000000;
-                    }
-
-                }
-
-                .NFTDetailsTitleBox {}
-
-                .contentBox1 {
-                    padding: 20px 45px;
-
-                    .itemBox {
-                        padding: 25px 0px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-                        .item {
-                            display: flex;
-                            align-items: center;
-                            flex-direction: column;
-                            width: 150px;
-                            font-family: 'PingFang SC';
-                            font-style: normal;
-                            font-weight: 700;
-                            font-size: 16px;
-                            line-height: 22px;
-                            color: #000000;
-
-                            .top {
-                                font-family: 'PingFang SC';
-                                font-style: normal;
-                                font-weight: 700;
-                                font-size: 16px;
-                                line-height: 22px;
-                                color: #000000;
-                            }
-
-                            .bottom {
-                                font-family: 'PingFang SC';
-                                font-style: normal;
-                                font-weight: 400;
-                                font-size: 16px;
-                                line-height: 22px;
-                                color: rgba(0, 0, 0, 0.6);
-                            }
-                        }
-
-                        .projectName {
-                            display: flex;
-                            flex-direction: row;
-                            align-items: center;
-
-                            img {
-                                margin-right: 8px;
-                            }
-                        }
-
-                        .type,
-                        .date {
-                            width: 100px;
-                        }
-                    }
-
-                    .goodsList {
-                        width: 100%;
-                        margin: 40px auto 40px;
-                        display: flex;
-                        justify-content: start;
-
-                        .goods-item {
-                            width: 25%;
-                            padding: 24px;
-                            // background: #FFFFFF;
-                            // box-shadow: 11.5523px 24px 66px rgba(198, 207, 231, 0.4);
-                        }
-                    }
-                }
-            }
-        }
+                    //             .search {
+                    //                 font-family: 'PingFang SC';
+                    //                 font-style: normal;
+                    //                 font-weight: 400;
+                    //                 font-size: 14px;
+                    //                 line-height: 20px;
+                    //                 color: #788CFF;
+                    //                 margin-left: 30px;
+                    //                 width: 120px;
+                    //                 height: 36px;
+                    //                 border: 1px solid #788CFF;
+                    //                 box-sizing: border-box;
+                    //                 border-radius: 18px;
+                    //                 padding: 6px 15px;
+                    //                 display: flex;
+                    //                 align-items: center;
+                    //                 justify-content: space-between;
 
 
-        .itemBigBox {
-            margin-top: 25px;
-            width: 100%;
-            overflow: hidden;
-            background: #FFFFFF;
-            box-shadow: 4px 11px 53px rgba(198, 207, 231, 0.6);
-            border-radius: 17px;
-            max-height: 590px;
-            overflow-y: auto;
+                    //                 .searchBox {
+                    //                     font-size: 14px;
+
+                    //                     overflow: hidden;
+                    //                     white-space: nowrap;
+                    //                     margin-right: 3px;
+                    //                 }
+                    //             }
+
+                    //             .filter {
+                    //                 margin-left: 30px;
+                    //                 background: linear-gradient(269.72deg, #9C75FF 0.22%, #7485FF 99.76%);
+                    //                 border-radius: 18px;
+                    //                 width: 120px;
+                    //                 height: 36px;
+                    //                 padding: 6px 15px;
+                    //                 display: flex;
+                    //                 align-items: center;
+                    //                 justify-content: space-between;
+                    //                 color: #FFFFFF;
+                    //                 font-size: 14px;
+                    //             }
+                    //         }
+                    //     }
+
+                    //     .switch {
+                    //         width: 40px;
+                    //         display: flex;
+                    //         justify-content: center;
+                    //         align-items: center;
+                    //     }
+                    // }
+
+        //             .subTitle {
+        //                 font-family: 'PingFang SC';
+        //                 font-style: normal;
+        //                 font-weight: 700;
+        //                 font-size: 18px;
+        //                 line-height: 25px;
+        //                 letter-spacing: 0.1em;
+        //                 color: #000000;
+        //             }
+
+        //         }
+
+        //         .NFTDetailsTitleBox {}
+
+        //         .contentBox1 {
+        //             padding: 20px 45px;
+
+        //             .itemBox {
+        //                 padding: 25px 0px;
+        //                 display: flex;
+        //                 align-items: center;
+        //                 justify-content: space-between;
+        //                 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+        //                 .item {
+        //                     display: flex;
+        //                     align-items: center;
+        //                     flex-direction: column;
+        //                     width: 150px;
+        //                     font-family: 'PingFang SC';
+        //                     font-style: normal;
+        //                     font-weight: 700;
+        //                     font-size: 16px;
+        //                     line-height: 22px;
+        //                     color: #000000;
+
+        //                     .top {
+        //                         font-family: 'PingFang SC';
+        //                         font-style: normal;
+        //                         font-weight: 700;
+        //                         font-size: 16px;
+        //                         line-height: 22px;
+        //                         color: #000000;
+        //                     }
+
+        //                     .bottom {
+        //                         font-family: 'PingFang SC';
+        //                         font-style: normal;
+        //                         font-weight: 400;
+        //                         font-size: 16px;
+        //                         line-height: 22px;
+        //                         color: rgba(0, 0, 0, 0.6);
+        //                     }
+        //                 }
+
+        //                 .projectName {
+        //                     display: flex;
+        //                     flex-direction: row;
+        //                     align-items: center;
+
+        //                     img {
+        //                         margin-right: 8px;
+        //                     }
+        //                 }
+
+        //                 .type,
+        //                 .date {
+        //                     width: 100px;
+        //                 }
+        //             }
+
+        //             .goodsList {
+        //                 width: 100%;
+        //                 margin: 40px auto 40px;
+        //                 display: flex;
+        //                 justify-content: start;
+
+        //                 .goods-item {
+        //                     width: 25%;
+        //                     padding: 24px;
+        //                     // background: #FFFFFF;
+        //                     // box-shadow: 11.5523px 24px 66px rgba(198, 207, 231, 0.4);
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
 
-            & .ant-space-vertical {
-                width: 100%;
-            }
+        // .itemBigBox {
+        //     margin-top: 25px;
+        //     width: 100%;
+        //     overflow: hidden;
+        //     background: #FFFFFF;
+        //     box-shadow: 4px 11px 53px rgba(198, 207, 231, 0.6);
+        //     border-radius: 17px;
+        //     max-height: 590px;
+        //     overflow-y: auto;
 
+
+        //     & .ant-space-vertical {
+        //         width: 100%;
+        //     }
+
+        //     .titleBox {
+        //         padding: 45px;
+        //         height: 100px;
+        //         display: flex;
+        //         align-items: center;
+        //         justify-content: space-between;
+        //         background: #FFFFFF;
+        //         box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
+
+        //         .titleItem {
+        //             width: 150px;
+        //             display: flex;
+        //             flex-direction: column;
+        //             align-items: center;
+        //             font-family: 'PingFang SC';
+        //             font-style: normal;
+        //             font-weight: 400;
+        //             font-size: 14px;
+        //             line-height: 20px;
+        //             /* identical to box height */
+        //             letter-spacing: 0.1em;
+        //             color: #000000;
+        //         }
+
+        //         .type,
+        //         .date {
+        //             width: 100px;
+        //         }
+        //     }
+
+        //     .contentBox1 {
+        //         padding: 16px;
+        //         width: 100%;
+
+        //         .itemBox {
+        //             align-items: center;
+        //             justify-content: space-between;
+        //             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        //             text-align: left;
+        //             width: 100%;
+
+        //             .item {
+        //                 align-items: center;
+        //                 flex-direction: column;
+        //                 // width: 150px;
+        //                 font-family: 'PingFang SC';
+        //                 font-style: normal;
+        //                 font-weight: 700;
+        //                 font-size: 16px;
+        //                 line-height: 22px;
+        //                 color: #000000;
+        //                 display: block;
+        //                 // flex: 1;
+        //                 display: flex;
+        //                 justify-content: center;
+
+        //                 .leftBox {
+        //                     img {
+        //                         width: 36px;
+        //                         height: 36px;
+        //                         border-radius: 6px;
+        //                         margin-right: 8px;
+        //                     }
+        //                 }
+
+        //                 .top {
+        //                     font-family: 'PingFang SC';
+        //                     font-style: normal;
+        //                     font-weight: 700;
+        //                     font-size: 16px;
+        //                     line-height: 22px;
+        //                     color: #000000;
+        //                 }
+
+        //                 .bottom {
+        //                     font-family: 'PingFang SC';
+        //                     font-style: normal;
+        //                     font-weight: 400;
+        //                     font-size: 14px;
+        //                     line-height: 22px;
+        //                     color: rgba(0, 0, 0, 0.6);
+        //                     text-align: left;
+        //                 }
+
+        //                 .right {
+        //                     .bottom {
+        //                         color: rgba(0, 0, 0, 0.8);
+        //                     }
+        //                 }
+        //             }
+
+        //             .projectName {
+        //                 display: flex;
+        //                 flex-direction: row;
+        //                 align-items: center;
+        //                 // flex: 3;
+
+        //                 img {
+        //                     margin-right: 8px;
+        //                 }
+        //             }
+
+        //             .project-price {
+        //                 flex: 2;
+        //             }
+
+        //             .drap-icon {
+        //                 width: 24px;
+        //                 display: flex;
+        //                 justify-content: center;
+        //                 align-items: center;
+        //             }
+
+        //             .type,
+        //             .date {
+        //                 width: 100px;
+        //                 text-align: center;
+        //             }
+        //         }
+
+        //         .group {
+        //             margin-top: 20px;
+        //             width: 100%;
+        //             display: flex;
+        //             justify-content: space-between;
+        //             align-items: center;
+
+        //             .text {
+        //                 font-weight: 700;
+        //                 font-size: 12px;
+        //                 text-align: center;
+        //                 letter-spacing: 0.1em;
+        //                 color: #000000;
+        //             }
+
+        //             .type {
+        //                 font-weight: 400;
+        //                 font-size: 12px;
+        //                 letter-spacing: 0.1em;
+        //                 color: rgba(0, 0, 0, 0.6);
+        //                 margin-top: 8px;
+
+        //             }
+
+        //             .type-date {
+        //                 font-weight: 400;
+        //             }
+        //         }
+
+        //     }
+        // }
+
+        .likeProjectBox {
             .titleBox {
-                padding: 45px;
-                height: 100px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                background: #FFFFFF;
-                box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
+                margin: 60px 0px 0px;
 
-                .titleItem {
-                    width: 150px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
+                .subTitle {
                     font-family: 'PingFang SC';
                     font-style: normal;
-                    font-weight: 400;
-                    font-size: 14px;
-                    line-height: 20px;
-                    /* identical to box height */
+                    font-weight: 700;
+                    font-size: 20px;
+                    line-height: 39px;
                     letter-spacing: 0.1em;
                     color: #000000;
                 }
-
-                .type,
-                .date {
-                    width: 100px;
-                }
             }
 
-            .contentBox1 {
-                padding: 16px;
-                width: 100%;
-
-                .itemBox {
-                    align-items: center;
-                    justify-content: space-between;
-                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-                    text-align: left;
+            .contentBoxM {
+                .goodsList {
                     width: 100%;
-
-                    .item {
-                        align-items: center;
-                        flex-direction: column;
-                        // width: 150px;
-                        font-family: 'PingFang SC';
-                        font-style: normal;
-                        font-weight: 700;
-                        font-size: 16px;
-                        line-height: 22px;
-                        color: #000000;
-                        display: block;
-                        // flex: 1;
-                        display: flex;
-                        justify-content: center;
-
-                        .leftBox {
-                            img {
-                                width: 36px;
-                                height: 36px;
-                                border-radius: 6px;
-                                margin-right: 8px;
-                            }
-                        }
-
-                        .top {
-                            font-family: 'PingFang SC';
-                            font-style: normal;
-                            font-weight: 700;
-                            font-size: 16px;
-                            line-height: 22px;
-                            color: #000000;
-                        }
-
-                        .bottom {
-                            font-family: 'PingFang SC';
-                            font-style: normal;
-                            font-weight: 400;
-                            font-size: 14px;
-                            line-height: 22px;
-                            color: rgba(0, 0, 0, 0.6);
-                            text-align: left;
-                        }
-
-                        .right {
-                            .bottom {
-                                color: rgba(0, 0, 0, 0.8);
-                            }
-                        }
-                    }
-
-                    .projectName {
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        // flex: 3;
-
-                        img {
-                            margin-right: 8px;
-                        }
-                    }
-
-                    .project-price {
-                        flex: 2;
-                    }
-
-                    .drap-icon {
-                        width: 24px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                    }
-
-                    .type,
-                    .date {
-                        width: 100px;
-                        text-align: center;
-                    }
-                }
-
-                .group {
-                    margin-top: 20px;
-                    width: 100%;
+                    max-width: 1440px;
                     display: flex;
-                    justify-content: space-between;
+                    justify-content: start;
                     align-items: center;
+                    flex-wrap: wrap;
+                    margin: 0px auto 40px;
 
-                    .text {
-                        font-weight: 700;
-                        font-size: 12px;
-                        text-align: center;
-                        letter-spacing: 0.1em;
-                        color: #000000;
-                    }
-
-                    .type {
-                        font-weight: 400;
-                        font-size: 12px;
-                        letter-spacing: 0.1em;
-                        color: rgba(0, 0, 0, 0.6);
-                        margin-top: 8px;
-
-                    }
-
-                    .type-date {
-                        font-weight: 400;
+                    .usernft {
+                        width: 16.65%;
+                        padding: 10px;
                     }
                 }
-
             }
         }
     }
@@ -869,32 +902,26 @@
     }
 }
 
-@media (max-width:1280px) {
-    // #NFTDetails {
+@media (max-width:1440px) {
 
-    //     .right,
-    //     .left {
-    //         width: 100%;
-    //     }
+    .NFTDetailsPage .contentBox .likeProjectBox .contentBoxM .goodsList .usernft {
+        width: 25%;
+        padding: 16px;
+    }
 
-    //     .left {
-    //         margin-top: 36px;
-    //     }
-
-    //     .sanlian-container {
-    //         width: 100%;
-    //     }
-
-    //     .sanlian-content {
-    //         width: 80%;
-    //     }
-    // }
 
 }
 
 @media (max-width:1024px) {}
 
 @media (max-width:768px) {
+
+    .NFTDetailsPage .contentBox .likeProjectBox .contentBoxM .goodsList .usernft {
+        width: 33.3%;
+        padding: 8px;
+    }
+
+
 
     #NFTDetails {
         min-height: calc(100vh - 147px);
@@ -912,9 +939,9 @@
             padding: 0 16px 8px;
         }
 
-        .activeBox {
-            padding: 16px 0;
-        }
+        // .activeBox {
+        //     padding: 16px 0;
+        // }
 
         .right-nft-details {
             margin-top: 16px;
@@ -1134,6 +1161,13 @@
 
 }
 
+@media (max-width:500px) {
+    .NFTDetailsPage .contentBox .likeProjectBox .contentBoxM .goodsList .usernft {
+        width: 50%;
+        padding: 5px;
+    }
+}
+
 @media (max-width:425px) {
     .NFTDetailsPage .contentBox .tabBox .right .buy .managePrice .cancelBtn {}
 
@@ -1165,24 +1199,24 @@
     }
 }
 
-.activeBox .itemBigBoxM {
-    background: transparent !important;
-    box-shadow: none !important;
+// .activeBox .itemBigBoxM {
+//     background: transparent !important;
+//     box-shadow: none !important;
 
-    .titleBox {
-        background: transparent !important;
-        box-shadow: none !important;
-    }
-}
+//     .titleBox {
+//         background: transparent !important;
+//         box-shadow: none !important;
+//     }
+// }
 
 .contentBoxM {
     padding: 24px 0px !important;
 }
 
-.NFTDetailsPage .contentBox .activeBox .itemBigBox {
-    height: 660px;
-    overflow-y: auto;
-}
+// .NFTDetailsPage .contentBox .activeBox .itemBigBox {
+//     height: 660px;
+//     overflow-y: auto;
+// }
 
 @media (max-width:375px) {
     .NFTDetailsPage .contentBox .tabBox .right .right-nft-details .right-nft-details-tabcontent .nft-details-describe-group .nft-details-card .nft-details-card-group .nft-details-card-title {
