@@ -70,6 +70,9 @@
                 line-height: 17px;
                 /* identical to box height */
                 color: rgba(0, 0, 0, 0.6);
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
 
             .Collection {
@@ -363,7 +366,8 @@
     .HotspotCard .bottonBox .box {
         padding: 2px;
     }
-    .HotspotCard .cardBottomBox .cardPrice .priceBox{
+
+    .HotspotCard .cardBottomBox .cardPrice .priceBox {
         display: block;
     }
 }

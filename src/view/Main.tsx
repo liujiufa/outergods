@@ -3,9 +3,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import BgPng from '../assets/image/main/bg.png'
-import Bg1Png from '../assets/image/main/bg1.png'
-import Bg2Png from '../assets/image/main/bg2.png'
+import Bg1Png from '../assets/image/bg1.png'
+import Bg2Png from '../assets/image/bg2.png'
+import Bg3Png from '../assets/image/bg3.png'
+import Bg4Png from '../assets/image/bg4.png'
+import Bg5Png from '../assets/image/bg5.png'
+import Bg6Png from '../assets/image/bg6.png'
+import Bg7Png from '../assets/image/bg7.png'
+import Bg8Png from '../assets/image/bg8.png'
 import SellPng from '../assets/image/main/sell.png'
 import openIcon from '../assets/image/openIconWhite.png'
 import NFT1Png from '../assets/image/nftGroup/nft1.png'
@@ -35,7 +40,7 @@ const Container = styled.div`
     left: 0;
     overflow: hidden;
     padding-bottom: 80px;
-    background-color: #F5F5F5;
+    // background-color: #F5F5F5;
     @media (max-width: 750px) {
         padding-bottom: 12px;
     }
@@ -98,7 +103,7 @@ const SlideItemPC = styled(SwiperSlide) <{ idx: number, posi: number }>`
     align-items: center;
 	transition: 300ms;
 	/* transform: ${({ idx, posi }) => `translateX(${posi}px) !important`}; */
-    background: #FFFFFF;
+    // background: #FFFFFF;
     border-radius: 12px;
     font-size: 24px;
     color: #000000;
@@ -331,10 +336,10 @@ const UserList = styled(Group)`
 
 const OtherList = styled(UserList)`
     width: 100%;
-    overflow: auto;
     justify-content: start;
     margin: 24px auto 0;
     @media (max-width: 750px) {
+        overflow: auto;
         margin: 0 auto;
         padding-bottom: 24px;
     }
@@ -458,7 +463,8 @@ const Bg4 = styled.div`
 
 export default function Main() {
     let navigate = useNavigate()
-    const [nftIdo, setNftIdo] = useState<any[]>([BgPng, Bg1Png, Bg2Png, BgPng, Bg1Png, BgPng, Bg2Png])
+    const [nftIdo,
+        setNftIdo] = useState<any[]>([Bg7Png, Bg1Png, Bg2Png, Bg3Png, Bg4Png, Bg5Png, Bg6Png, Bg8Png])
     const [expand1, setExpand1] = useState(true)
     const [activeIndex, setActiveIndex] = useState(0)
     const [idxGroup, setIdxGroup] = useState<{ index: number; posi: number; }[]>([])
@@ -515,9 +521,14 @@ export default function Main() {
             Promise.all([getHoTProject()]).then((res) => {
                 const [res1] = res
                 const [hostProject] = [res1.data]
-                const hList = hostProject.slice(0, 1)
-                const hL = [0, 0, 0, 0, 0].map((item, idx) => hList[idx] || item)
-                setHostList([0, ...hL])
+                console.log(hostProject, '项目合集');
+                // hostProject.map((item: any) => {
+                //     item.imgUrl = item?.imgUrl.split(",")
+                // })
+                console.log(hostProject, '项目合集');
+                // const hL = [0, 0, 0, 0, 0].map((item, idx) => hList[idx] || item)
+                setHostList(hostProject)
+                // setHostList([0, ...hL])
             })
             Promise.all([getTradeLast()]).then((res) => {
                 const [res1] = res
@@ -530,7 +541,8 @@ export default function Main() {
                 console.log("res1", res1)
                 const [bestSellerNft] = [res1.data]
                 console.log("bestSellerNft", bestSellerNft)
-                setBestSellerNftList([0, bestSellerNft[0], bestSellerNft[1], 0, 0, 0])
+                // setBestSellerNftList([0, bestSellerNft[0], bestSellerNft[1], 0, 0, 0])
+                setBestSellerNftList(bestSellerNft.slice(0, 6))
             })
 
         },
@@ -559,6 +571,8 @@ export default function Main() {
 
     /* 判断跳转到出售页面还是正在出售页面 */
     function goPath(goods: any) {
+        console.log(goods, "goods");
+
         /* 状态正常去挂卖 */
         if (goods.status === 0) {
             return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
@@ -601,12 +615,11 @@ export default function Main() {
                                             ((1 + idxGroup.filter(option => option.index === idx)[0]?.posi) * 50)
                                     )
                                 }
-                                onClick={(event) => {
+                                onClick={(event: any) => {
                                     console.log("IDX", idx, activeIndex)
                                 }} >
                                 <SliderContainer >
-                                    {/* {idx} */}
-                                    <img src={item} />
+                                    <img className={idx % 2 === 0 ? "sliderImg" : ""} src={item} />
                                 </SliderContainer>
                             </SlideItemPC>)
                         }
@@ -616,7 +629,7 @@ export default function Main() {
             <Group>
                 <NFTContent>
                     <Title>
-                        <span>HABITAT</span>-面向<span>WEB3</span>的NFT交易创新平台
+                        <span>HABITAT</span>-面向<span>WEB3</span>的NFT创新交易平台
                     </Title>
                     <Group>
                         <SellBox onClick={() => { navigate("/Market") }}>购买</SellBox>
@@ -715,7 +728,7 @@ export default function Main() {
                     <Group>
                         <NFTViceTitle>了解基础知识</NFTViceTitle>
                     </Group>
-                    <OtherList >
+                    <OtherList>
                         {
                             otherList.map((item) => <OtherItem>
                                 <OtherContent>

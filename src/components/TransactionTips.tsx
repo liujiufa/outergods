@@ -30,8 +30,8 @@ export default function TransactionTips() {
   useEffect(() => {
     getHomeBannerTrade().then((res: any) => {
       if (res.data.length !== 0) {
+        console.log(res.data, "最近动态")
         setSynamicInfo(res.data)
-        console.log(res, "最近动态")
       }
     })
     let Time = setInterval(() => {
@@ -46,12 +46,8 @@ export default function TransactionTips() {
       clearInterval(Time)
     }
   }, [])
-  function goDetial() {
-    if (dynamicInfo?.operateType === 0) {
-      navigate('/Goods?orderId=' + dynamicInfo.orderId)
-    } else {
-      navigate('/Sell?ID=' + dynamicInfo?.id)
-    }
+  function goDetial(goods: any) {
+    return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.userAddress}&&NFTDetailType=1`)
   }
   function goSomeone(address: string) {
     navigate('/Someone?address=' + address)
@@ -81,7 +77,7 @@ export default function TransactionTips() {
       return (<div className="TipsText">
         <Marquee speed={100} pauseOnHover gradient={false} >
           {dynamicInfo.map((item: any, index: any) => <div key={index} className='autoMarquee'>
-            <span className="color33 pointer" onClick={goDetial}>{item?.nftName || 'unnamed'}</span>
+            <span className="color33 pointer" onClick={() => goDetial(item)}>{item?.nftName || 'unnamed'}</span>
             <span className="colorRed">出售</span>
             <img src={sale} alt="" />
             <span className="colorA5">from</span>
@@ -90,8 +86,9 @@ export default function TransactionTips() {
             <span className="color33 pointer" onClick={() => { goSomeone(item?.toAddress as string) }}>{AddrHandle(item?.toAddress)}</span>
             <span className="colorA5">for {item?.num} {item?.coinName}</span>
             <span className="colorA5" > {HowLongAgo(item?.createTime as number)}</span>
-          </div>)}
-        </Marquee>
+          </div>)
+          }
+        </Marquee >
 
 
       </div >)

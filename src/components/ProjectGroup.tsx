@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 import { FlexCCBox } from './FlexBox'
 
-import NFT1Png from '../assets/image/nftGroup/nft1.png'
+import NFT1Png from '../assets/image/4.png'
 import AuthenticationPng from '../assets/image/authentication.svg'
 import NotAuthenticationPng from '../assets/image/NotCertified.svg'
 import { decimalNum } from '../utils/decimalNum'
@@ -17,7 +17,7 @@ const Container = styled(FlexCCBox)`
     background: #FFFFFF;
     box-shadow: 7px 9px 12px rgba(198, 207, 231, 0.4);
     padding: 16px;
-    border-radius: 16px;
+    border-radius: 14px;
     @media (max-width: 750px) {
         padding: 6px;
     }
@@ -35,8 +35,8 @@ const Content = styled.div`
 `
 
 const NFTLeft = styled(FlexCCBox)`
-    width: 64%;
-    margin-right: 12px;
+    width: 65%;
+    margin-right: 6px;
     @media (max-width: 750px) {
         margin-right: 4px;
     }
@@ -44,10 +44,13 @@ const NFTLeft = styled(FlexCCBox)`
 
 const NFTImg = styled.img`
     width: 100%;
+    border-radius: 8px;
+    aspect-ratio: 1;
+    object-fit: contain; 
 `
 
 const NFTImg1 = styled(NFTImg)`
-    margin-top: 12px;
+    margin-top: 6px;
     @media (max-width: 750px) {
         margin-top: 2px;
     }
@@ -91,6 +94,11 @@ const NFTName = styled(FlexCCBox)`
     font-size: 16px;
     color: #000000;
     margin-top: 20%;
+    width:100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; 
+    justify-content: start;
     @media (max-width: 750px) {
         margin-top: 32px;
     }
@@ -142,24 +150,24 @@ export default function ProjectGroup({
     return (
         <Fragment>
             {
-                !!data ? <Container >
+                !!data ? <Container onClick={() => {
+                    if (data?.tokenAddress) {
+                        navigate('/Launch?tokenAddress=' + data?.tokenAddress)
+                    }
+                }}>
                     <Content>
                         <Group>
                             <NFTLeft>
-                                <NFTImg src={NFT1Png} />
+                                {data?.imgUrl1 !== "null" ? <NFTImg src={data?.imgUrl1 || NFT1Png} /> : <NFTImg src={NFT1Png} />}
                             </NFTLeft>
                             <NFTRight>
-                                <NFTImg src={NFT1Png} />
-                                <NFTImg1 src={NFT1Png} />
+                                {data?.imgUrl2 !== "null" ? <NFTImg src={data?.imgUrl2 || NFT1Png} /> : <NFTImg src={NFT1Png} />}
+                                {data?.imgUrl3 !== "null" ? <NFTImg1 src={data?.imgUrl3 || NFT1Png} /> : <NFTImg src={NFT1Png} />}
                             </NFTRight>
-                            <NFTImgGroup> <NFTImg src={NFT1Png} /> </NFTImgGroup>
+                            <NFTImgGroup> <NFTImg src={data?.img || NFT1Png} /> </NFTImgGroup>
                         </Group>
                         <Group>
-                            <NFTName onClick={() => {
-                                if (data?.tokenAddress) {
-                                    navigate('/Launch?tokenAddress=' + data?.tokenAddress)
-                                }
-                            }}>{data.name}</NFTName>
+                            <NFTName >{data.name}</NFTName>
                             <AuthenticationGroup src={data?.isAuthentication === 0 ? NotAuthenticationPng : AuthenticationPng} />
                         </Group>
                         <GroupPrice>
@@ -187,7 +195,7 @@ export default function ProjectGroup({
                                 <NFTImg src={NFT1Png} />
                                 <NFTImg1 src={NFT1Png} />
                             </NFTRight>
-                            <NFTImgGroup> <NFTImg src={NFT1Png} /> </NFTImgGroup>
+                            <NFTImgGroup> <NFTImg src={data?.img || NFT1Png} /> </NFTImgGroup>
                         </Group>
                         <Group>
                             <NFTName>Collection</NFTName>

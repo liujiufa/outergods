@@ -199,8 +199,8 @@ export default function Personal(): JSX.Element {
         }
     }
     function copyUserAddr() {
-        if (web3React.account) {
-            copy(web3React.account as string)
+        if (address) {
+            copy(address as string)
             dispatch(createAddMessageAction(t('Copied')))
         } else {
             dispatch(createAddMessageAction(t('Please connect your wallet')))
@@ -246,7 +246,7 @@ export default function Personal(): JSX.Element {
                                 {/* <div className="level flexCenter">VIP0</div> */}
                             </div>
                             <div className="userAddress flexCenter pointer" onClick={copyUserAddr} >
-                                <span>{web3React.account ? AddrHandle(web3React.account, 5, 4) : t('User address')}</span>
+                                <span>{address ? AddrHandle(address as string, 5, 4) : t('User address')}</span>
                                 <img className="copyIcon" src={copyIcon} alt="" />
                             </div>
                             <div className="media-group">

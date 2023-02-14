@@ -66,8 +66,6 @@ const MainLayout: React.FC = () => {
     }
     useEffect(() => {
         document.addEventListener('click', function (e: Event) {
-            // e.target as HTMLInputElement
-            // console.log(e)
             setShowSearchRes(false)
         })
     }, [])
@@ -197,8 +195,8 @@ const MainLayout: React.FC = () => {
                     </div>
                 </div>
                 <div className="mobile-header-right">
-                    <img src={Search} alt="" className="l-hidden mobile-search-icon" />
-                    {<div className="search m-hidden" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
+                    {width < 1440 && <img src={Search} alt="" className="mobile-search-icon middleSearch" />}
+                    {width > 1440 && <div className="search m-hidden" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
                         <img src={Search} alt="" />
                         <input type="text" onChange={(e) => { run(e) }} onFocus={FocusFun} placeholder={t('Search by Collection、User、Address')} />
                         {
@@ -242,7 +240,7 @@ const MainLayout: React.FC = () => {
                 <Outlet />
             </Layout>
             <div className="MainFooter">
-                <div className="footerBox">
+                <div className="footerBox" onClick={() => { window.open("https://www.habitverse.io/") }}>
                     <img src={footerLogo}></img>
                 </div>
                 <div className="outLink">

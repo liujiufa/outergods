@@ -13,6 +13,8 @@ import demoTestImg from '../../../assets/image/demoTestImg.png'
 import authentication from '../../../assets/image/authentication.svg'
 import openIcon from '../../../assets/image/openIconWhite.png'
 import switchIcon from '../../../assets/image/switchIcon.png'
+import AuthenticationPng from '../../../assets/image/authentication.svg'
+import NotAuthenticationPng from '../../../assets/image/NotCertified.svg'
 import './NFTDetailsL.scss'
 import { Fragment, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
@@ -37,7 +39,7 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { useViewport } from '../../../components/viewportContext';
 import NotCertified from '../../../assets/image/NotCertified.svg'
 import { decimalNum } from '../../../utils/decimalNum';
-
+import styled from "styled-components"
 const TABS = ["描述",
     "属性",
     "信息"
@@ -60,6 +62,20 @@ interface OrderDetailType {
     id: number,
     userAddress: string
 }
+
+const AuthenticationGroup = styled.img`
+    #root & {
+        width: 20px;
+        height: 20px;
+        margin-left: 12px;
+        border-radius: 50%;  
+
+        
+        @media (max-width: 750px) {
+            margin-left: 4px;
+        }
+    }
+`
 export default function NFTDetailsL({
     OrderDetail,
     CopyLink,
@@ -221,6 +237,7 @@ export default function NFTDetailsL({
                             <div className="name">
                                 <img src={OrderDetail?.projectImg || defaultCard} alt="" className="logo" />
                                 <div className="project-name">{OrderDetail && OrderDetail.normalizedMetadata.name}</div>
+                                <AuthenticationGroup src={OrderDetail?.isAuthentication ? AuthenticationPng:NotAuthenticationPng} />
                             </div>
                             <span className="icon m-hidden">
                                 <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>CHAIN</span>} color="#FFF" key="coin">

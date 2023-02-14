@@ -44,7 +44,8 @@
                 }
             }
         }
-        .activeBox{
+
+        .activeBox {
             padding: 0px 12px;
         }
     }
@@ -269,12 +270,51 @@
     }
 
     .goodsList .usernft {
+        width: 20%;
+        padding: 16px;
+    }
+
+}
+
+@media (max-width:1200px) {
+    #market.MarketPage .contentBox {
+        padding: 0px 40px;
+    }
+
+    .MarketPage {
+
+        .MarketSearchRow {
+            padding: 0 20px;
+
+            .search {
+                margin-left: 15px;
+            }
+
+            .filter {
+                margin-left: 15px;
+            }
+        }
+
+    }
+
+    .goodsList .usernft {
         width: 25%;
         padding: 16px;
     }
 
 }
 
+// import Bg1Png from '../assets/image/bg1.png'
+// import Bg2Png from '../assets/image/bg2.png'
+// import Bg3Png from '../assets/image/bg3.png'
+// import Bg4Png from '../assets/image/bg4.png'
+// import Bg5Png from '../assets/image/bg5.png'
+// import Bg6Png from '../assets/image/bg6.png'
+// import BgPng from '../assets/image/bg7.png'
+// import Bg8Png from '../assets/image/bg8.png'
+
+// const [nftIdo,
+// setNftIdo]=useState<any[]>([BgPng, Bg1Png, Bg2Png, Bg3Png, Bg4Png, Bg5Png, Bg6Png]) 
 @media (max-width:1024px) {
     .goodsList .usernft {
         padding: 10px;

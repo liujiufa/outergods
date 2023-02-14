@@ -3,6 +3,12 @@
     height: 100%;
 }
 
+.sliderImg {
+    width: 85% !important;
+    height: 85% !important;
+    // margin: 10px !important;
+}
+
 @media (max-width:768px) {
     .swiper {
         width: 250%;

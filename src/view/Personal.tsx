@@ -373,7 +373,7 @@ export default function Personal(): JSX.Element {
                                     {userCurrentNft ? <>
                                         <div className="goodsList">{
                                             userCurrentNft.result.map((item, index) =>
-                                                <div className="userNft">
+                                                <div className="userNft" key={index}>
                                                     <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal">
                                                     </Goods>
                                                 </div>

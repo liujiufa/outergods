@@ -33,11 +33,13 @@ import outLinkIcon7 from '../assets/image/outLinkIcon7.png'
 import openIcon from '../assets/image/openIconWhite.png'
 import FilterBack from '../assets/image/filter-back.png'
 import NotCertified from '../assets/image/NotCertified.svg'
+import AuthenticationPng from '../assets/image/authentication.svg'
+import NotAuthenticationPng from '../assets/image/NotCertified.svg'
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { useWeb3React } from '@web3-react/core';
 import { decimalNum } from '../utils/decimalNum';
 import { useViewport } from '../components/viewportContext'
-
+import styled from "styled-components"
 interface detialType {
     name: string
     routingName: string
@@ -84,6 +86,18 @@ interface dynamic {
     coinName: string
     projectLogo: string
 }
+const AuthenticationGroup = styled.img`
+    #root & {
+        width: 20px !important;
+        height: 20px !important;
+        margin-left: 12px;
+        border-radius: 50%;  
+        
+        @media (max-width: 750px) {
+            margin-left: 4px;
+        }
+    }
+`
 export default function Launch(): JSX.Element {
     const [params] = useSearchParams();
     const dispatch = useDispatch();
@@ -295,6 +309,7 @@ export default function Launch(): JSX.Element {
                     <div className="personalBox ">
                         <img className='logo-avtor-img' src={ProjectDetail?.img} alt="" />
                         <div className="name">{ProjectDetail?.name}</div>
+                        <AuthenticationGroup src={ProjectDetail?.isAuthentication ? AuthenticationPng : NotAuthenticationPng} />
                         <div className="address">创作者<span> {AddrHandle(ProjectDetail?.createAddress)}</span></div>
                     </div>
                 </div>
@@ -334,7 +349,8 @@ export default function Launch(): JSX.Element {
 
                 <div className="personalBox m-hidden-block">
                     {width < 1440 && <img className='logo-avtor-img middleLogo' src={ProjectDetail?.img} alt="" />}
-                    <div className="name">{ProjectDetail?.name}</div>
+
+                    <div className="name">{ProjectDetail?.name}    <AuthenticationGroup src={ProjectDetail?.isAuthentication ? AuthenticationPng : NotAuthenticationPng} /></div>
                     <div className="address">创作者 <span> {AddrHandle(ProjectDetail?.createAddress)}</span></div>
                     <div className="detail">{t('Project Description')}：{ProjectDetail?.description}</div>
                     <div className="detailBtn">+扩展</div>
