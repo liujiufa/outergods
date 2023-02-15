@@ -82,10 +82,8 @@ export default function NFTDetails() {
     let [showSellModal, setShowSellModal] = useState<boolean>(false)
     let tokenId = params.get('tokenId')
     let tokenAddress = params.get('tokenAddress')
-    let owner_of = params.get('owner_of')
     // 0：出售
     let NFTDetailType = params.get('NFTDetailType')
-    console.log(NFTDetailType, "0");
     useEffect(() => {
         if (tokenId && tokenAddress) {
             getNftUserInfoDetail(tokenAddress, tokenId).then(res => {

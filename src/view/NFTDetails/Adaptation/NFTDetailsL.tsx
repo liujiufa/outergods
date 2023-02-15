@@ -21,7 +21,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import Goods, { NftInfo } from '../../../components/HotspotCard'
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { getNftOrderState, getNftUserInfoDetail, getUserOrder, getTradeCoinNameList, getOrderByProject } from '../../../API'
+import { getNftOrderState, getNftUserInfoDetail, getUserOrder, getTradeCoinNameList, getOrderByProject, getNFTApiData } from '../../../API'
 import { stateType } from '../../../store/reducer'
 import { createAddMessageAction } from "../../../store/actions"
 import ManageModal from '../../../components/ManageModal'
@@ -104,23 +104,7 @@ export default function NFTDetailsL({
     let [OrderNFTDetail, setOrderNFTDetail] = useState<OrderDetailType | undefined>(undefined)
     let [projectOrder, setProjectOrder] = useState<any>([])
     let [pageNum, setPageNum] = useState<number>(1)
-    const [nftData, setNftData] = useState([{
-        title: "上一次成交价",
-        price: "$0.55",
-        range: "-254"
-    }, {
-        title: "交易次数",
-        price: "234",
-        range: "45.56"
-
-    }, {
-        title: "项目地板价",
-        price: "$0.55",
-        range: "-254"
-
-    }])
-    let [UserOrder, setUserOrder] = useState<NftInfo[]>([])
-    const [activeKey, setActiveKey] = useState("");
+    let [orderState, setOrderState] = useState<any>()
 
     const [params] = useSearchParams();
     let DynamicStateMap = [
@@ -206,23 +190,42 @@ export default function NFTDetailsL({
         return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.userAddress}&&NFTDetailType=1`)
     }
 
+    const stateFun = () => {
+        let str1 = owner_of?.toLocaleLowerCase();
+        let str2 = web3React.account?.toLocaleLowerCase();
+        let str3 = orderState?.owner_of?.toLocaleLowerCase();
+        if (!orderState) {
+            if (NFTTypeDetail === "0" && (str1 === str2)) {
+                return 0
+            }
+            if (NFTTypeDetail === "1" && (str1 === str2)) {
+                return 1
+            }
+
+            if (NFTTypeDetail === "0" && (str1 !== str2)) {
+                return 2
+            }
+            if (NFTTypeDetail === "1" && (str1 !== str2)) {
+                return 3
+            }
+        } else {
+            if (orderState?.status === 0 && (str3 === str2)) {
+                return 0
+            }
+            if (orderState?.status === 1 && (str3 === str2)) {
+                return 1
+            }
+            if (orderState?.status === 0 && (str3 !== str2)) {
+                return 2
+            }
+            if (orderState?.status === 1 && (str3 !== str2)) {
+                return 3
+            }
+        }
+    }
+
     useEffect(() => {
         if (tokenAddress && tokenId) {
-            getNftUserInfoDetail(tokenAddress as string, tokenId).then(res => {
-                console.log(res.data, "res.data.metadata");
-                if (res.data.metadata) {
-                    res.data.metadata = JSON.parse(res.data.metadata)
-                    res.data.normalizedMetadata = JSON.parse(res.data.normalizedMetadata
-                    )
-                }
-                console.log(res.data, "OrderNFTDetail");
-                setOrderNFTDetail(res.data)
-                if (state.token) {
-                    getUserOrder(res.data.userAddress).then(res => {
-                        setUserOrder(res.data)
-                    })
-                }
-            })
             getNftOrderState(tokenId, -1, tokenAddress).then((res: any) => {
                 console.log(res, 'NFT动态');
                 if (res.code === 200) {
@@ -235,12 +238,18 @@ export default function NFTDetailsL({
                     setCoinsKindData(res.data)
                 }
             })
+            // 首页订单状态判断&&获取持有人
+            getNFTApiData(tokenId, tokenAddress).then((res: any) => {
+                console.log(res, "zhutai");
+                if (res.code === 200) {
+                    setOrderState(res.data)
+                }
+            })
         }
     }, [tokenAddress, tokenId])
 
     useEffect(() => {
         if (OrderDetail?.projectId) {
-            console.log("来自这个项目1")
             getOrderByProject({
                 projectId: OrderDetail?.projectId,
                 currentPage: 1,
@@ -249,7 +258,6 @@ export default function NFTDetailsL({
                 res.data.map((item: any, index: number) => {
                     item.metadata = JSON.parse(item.metadata)
                 })
-                console.log(res, "来自这个项目")
                 setProjectOrder(res.data)
             })
         }
@@ -357,14 +365,14 @@ export default function NFTDetailsL({
 
                         {/* 出售 */}
                         {
-                            NFTTypeDetail === "0" && (owner_of?.toLocaleLowerCase() === web3React.account?.toLocaleLowerCase()) && <div className="sale flexCenter" onClick={() => { setSaleNFTModal(true) }}>
+                            stateFun() === 0 && <div className="sale flexCenter" onClick={() => { setSaleNFTModal(true) }}>
                                 出售
                             </div>
                         }
 
                         {/* 调价 */}
                         {
-                            NFTTypeDetail === "1" && (owner_of?.toLocaleLowerCase() === web3React.account?.toLocaleLowerCase()) && <div className="buy">
+                            stateFun() === 1 && <div className="buy">
                                 <div className="buy-left">
                                     <div className="buy-left-top">一口价</div>
                                     <div className="buy-left-bottom">
@@ -386,7 +394,7 @@ export default function NFTDetailsL({
 
                         {/* 未上架（别人未上架） */}
                         {
-                            NFTTypeDetail === "0" && (owner_of?.toLocaleLowerCase() !== web3React.account?.toLocaleLowerCase()) && <div className="buy">
+                            stateFun() === 2 && <div className="buy">
                                 <div className="buy-left">
                                     <div className="buy-left-top">未上架</div>
                                     <div className="buy-left-bottom">
@@ -403,7 +411,7 @@ export default function NFTDetailsL({
 
                         {/* 立即购买(别人已上架) */}
                         {
-                            NFTTypeDetail === "1" && (owner_of?.toLocaleLowerCase() !== web3React.account?.toLocaleLowerCase()) && <div className="buy">
+                            stateFun() === 3 && <div className="buy">
                                 <div className="buy-left">
                                     <div className="buy-left-top">一口价</div>
                                     <div className="buy-left-bottom">

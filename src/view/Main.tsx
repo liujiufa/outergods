@@ -571,16 +571,7 @@ export default function Main() {
 
     /* 判断跳转到出售页面还是正在出售页面 */
     function goPath(goods: any) {
-        console.log(goods, "goods");
-
-        /* 状态正常去挂卖 */
-        if (goods.status === 0) {
-            return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
-        }
-        /* 挂卖中去商品详情页改价 */
-        if (goods.status === 1) {
-            return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.owner_of}&&NFTDetailType=1`)
-        }
+        return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}`)
     }
 
     return (
@@ -717,7 +708,7 @@ export default function Main() {
                         {
                             tradeList.map((item) => <GroupItem>
                                 {
-                                    !!item ? <Goods tag="Home" NftInfo={{ ...item, uprice: item.uorderPrice, floorPriceDouble: item.tradePrice, metadata: JSON.parse(item.metaData || JSON.stringify("")) }} /> : <Goods />
+                                    !!item ? <Goods tag="Home" NftInfo={{ ...item, uprice: item.uorderPrice, floorPriceDouble: item.tradePrice, metadata: JSON.parse(item.metaData || JSON.stringify("")) }} goPath={() => goPath(item)} /> : <Goods />
                                 }
                             </GroupItem>)
                         }

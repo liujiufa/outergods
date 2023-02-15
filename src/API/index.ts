@@ -427,4 +427,10 @@ export function getTradeCoinNameList() {
         method: 'get'
     })
 }
+export function getNFTApiData(tokenId: string, tokenAddress: string) {
+    return axois.request({
+        url: `/user/home/getNFTApiData/${tokenAddress}/${tokenId}`,
+        method: 'get'
+    })
+}
 
