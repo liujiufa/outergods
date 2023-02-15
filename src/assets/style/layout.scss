@@ -28,7 +28,10 @@
         z-index: -1;
     }
 
-    .logo {}
+    .logo {
+        width: 155px;
+        height: 53px;
+    }
 
     .HeadMenu {
         display: none;
@@ -91,7 +94,8 @@
         display: flex;
         align-items: center;
         justify-content: end;
-        .middleSearch{
+
+        .middleSearch {
             margin-right: 20px;
         }
     }
@@ -272,6 +276,11 @@
         display: flex;
         align-items: center;
         justify-content: space-evenly;
+
+        .logo {
+            width: 155px;
+            height: 53px;
+        }
     }
 }
 

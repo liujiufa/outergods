@@ -15,7 +15,9 @@ import { useTranslation } from 'react-i18next'
 import { useWeb3React } from '@web3-react/core'
 import { Contracts } from '../web3'
 import { contractAddress } from '../config'
+import { decimalNum } from '../utils/decimalNum'
 import defaultCard from '../assets/image/defaultCard.png'
+import USDTCoin from '../assets/image/USDT.png'
 import BigNumber from 'big.js'
 import BuySuccess from '../components/BuySuccess'
 BigNumber.NE = -40
@@ -35,7 +37,8 @@ interface ProjectType {
   img: string
 }
 export default function ScreenModal(props: any) {
-  console.log(props.NFTInfo, "NFT详情购买");
+  console.log(props.NFTDetail, "确认购买");
+  console.log(props.NFTInfo, "确认购买");
   const web3React = useWeb3React()
   const dispatch = useDispatch();
   let [showBuySuccess, setShowBuySuccess] = useState<boolean>(false)
@@ -138,7 +141,6 @@ export default function ScreenModal(props: any) {
   }
 
   async function buyOrder() {
-    console.log("_______deede________");
     if (props.NFTInfo) {
       let Balance
       if (props.NFTInfo.coinName !== 'BNB') {
@@ -194,10 +196,8 @@ export default function ScreenModal(props: any) {
       })
     }
   }
-
   /* 获取授权额度 */
   useEffect(() => {
-    console.log(props.NFTInfo, '-------');
     if (web3React.account && props.NFTInfo?.payTokenAddress) {
       if (props.NFTInfo?.coinName !== "BNB") {
         Contracts.example.TOKENallowance(web3React.account, contractAddress.Market, props?.NFTInfo?.payTokenAddress as string).then((res: string) => {
@@ -217,8 +217,10 @@ export default function ScreenModal(props: any) {
         <div className="NFTInfo">
           <div className="NFTLeft"><img src={props?.NFTInfo?.metadata?.image || props?.NFTDetail?.normalizedMetadata?.image || defaultCard} alt="" /></div>
           <div className="NFTRight">
-            <div className="NFTTitle">{props?.NFTInfo?.metadata?.name}</div>
-            <div className="projectTitle">{props?.NFTInfo?.projectName}</div>
+            <div className="NFTTitle">{props?.NFTInfo?.metadata?.name || props?.NFTDetail?.nftName}</div>
+            <div className="projectTitle">{props?.NFTInfo?.projectName || props?.NFTDetail?.name}</div>
+            <div className="priceBox"><img src={props?.NFTInfo?.coinImgUrl} alt="" /> {Number(decimalNum(props?.NFTDetail?.nnftOrder?.price || props?.NFTInfo?.floorPrice)) || '-'} {props?.NFTDetail?.nnftOrder?.coinName || props?.NFTInfo?.coinName} <span>(${Number(decimalNum(props?.NFTDetail?.nnftOrder?.uorderPrice || props?.NFTInfo?.uprice)) || '-'})</span> </div>
+
           </div>
         </div>
         <div className="address item">

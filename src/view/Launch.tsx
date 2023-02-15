@@ -174,11 +174,11 @@ export default function Launch(): JSX.Element {
     function goPath(goods: any) {
         /* 状态正常去挂卖 */
         if (goods.status === 0) {
-            return navigate(`/NFTDetails?tokenId=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
+            return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.owner_of}&&NFTDetailType=0`)
         }
         /* 挂卖中去商品详情页改价 */
         if (goods.status === 1) {
-            return navigate(`/NFTDetails?tokenId=${goods.token_id}&&tokenAddress=${goods.token_address}&&owner_of=${goods.owner_of}&&NFTDetailType=1`)
+            return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.owner_of}&&NFTDetailType=1`)
         }
     }
     function LoadMore(fig: string) {
@@ -208,9 +208,7 @@ export default function Launch(): JSX.Element {
             setCursor(res.data?.nftData?.cursor || "")
         })
     }
-
     console.log("nftList", nftList)
-
     const navigate = useNavigate();
     return (
         <div id="launch" className="ProjectDetail">
@@ -440,10 +438,7 @@ export default function Launch(): JSX.Element {
                                     {nftList.length ? <>
                                         <div className="goodsList">{nftList.map((item: any, index: number) =>
                                             <div className="goodsItem">
-                                                <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag={
-                                                    item?.owner_of?.toLocaleLowerCase() === web3React?.account?.toLocaleLowerCase() ?
-                                                        "Personal" : ""}>
-                                                </Goods>
+                                                <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag={item?.owner_of?.toLocaleLowerCase() === web3React?.account?.toLocaleLowerCase() ? "Personal" : ""}></Goods>
                                             </div>
                                         )}</div>
                                         {!!cursor && <div className="LoadMore flexCenter" onClick={() => {
@@ -484,7 +479,7 @@ export default function Launch(): JSX.Element {
                                     </div>
                                     <div className="item projectName">
                                         <div className="leftBox">
-                                            <img src={item.projectLogo} alt="" />
+                                            <img className='projectImg' src={item.projectLogo} alt="" />
                                         </div>
                                         <div className="right">
                                             <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>

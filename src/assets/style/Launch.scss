@@ -7,7 +7,8 @@
 
         img {
             width: 100%;
-            min-height: 300px;
+            // min-height: 300px;
+            max-height: 750px;
         }
 
         .dataItems {
@@ -652,6 +653,11 @@
                                 margin-right: 8px;
                                 border-radius: 6px;
                             }
+                            .projectImg{
+                                width: 20px;
+                                height: 20px;
+                            }
+
                         }
 
                         .type,
@@ -897,7 +903,7 @@
 
 @media (max-width:1440px) {
     .ProjectDetail .contentBox {
-        padding: 0px 40px;
+        padding: 0px 8%;
     }
 
     .ProjectDetail .contentBox .logoAvtor {

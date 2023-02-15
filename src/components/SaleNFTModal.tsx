@@ -36,8 +36,7 @@ interface ProjectType {
   img: string
 }
 export default function ScreenModal(props: any) {
-  console.log(props.saleData, "dfdf");
-
+  console.log(props.saleData, props.coinKind, "dfdf");
   // 控制图标上下
   const [expand1, setExpand1] = useState(true);
   const [expand2, setExpand2] = useState(true);
@@ -97,30 +96,13 @@ export default function ScreenModal(props: any) {
       }
     </Menu>
   );
-  let tokenMap = [
-    {
-      key: 'USDT',
-      icon: USDTIcon,
-      value: 'USDT'
-    },
-    // {
-    //   key: 'ETH',
-    //   icon: ETHCoinIcon,
-    //   value: 'ETH'
-    // },
-    // {
-    //   key: 'BTC',
-    //   icon: BTCIcon,
-    //   value: 'BTC'
-    // }
-  ]
   let [tokenIndex, setTokenIndex] = useState(0)
   const coinType = (
     <Menu onClick={() => handleDropDown(setExpand2, expand2)}>
       {
-        tokenMap.map((item, index) => <Menu.Item key={index} onClick={() => { setTokenIndex(index) }} className="coinMenu">
+        props.coinKind.map((item: any, index: any) => <Menu.Item key={index} onClick={() => { setTokenIndex(index) }} className="coinMenu">
           <div className="coinKind">
-            <img src={item.icon} alt="" /> <div>{item.key}</div>
+            <img src={item.imgUrl} alt="" /> <div>{item.coinName}</div>
           </div>
         </Menu.Item>)
       }
@@ -202,7 +184,7 @@ export default function ScreenModal(props: any) {
               <div className="MarketSearchRow">
                 <Dropdown overlay={coinType} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand2, expand2)}>
                   <div className="search">
-                    <div className="searchBox"><img src={tokenMap[tokenIndex].icon} alt="" /><div className="coinName">{tokenMap[tokenIndex].key}</div></div>
+                    <div className="searchBox"><img src={props.coinKind[tokenIndex].imgUrl} alt="" /><div className="coinName">{props.coinKind[tokenIndex].coinName}</div></div>
                     <img className={expand2 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                   </div>
                 </Dropdown>
@@ -229,14 +211,14 @@ export default function ScreenModal(props: any) {
         </div>
 
         <div className="fee">
-          <div className="feeTitle">{t('Fees 8%', { fee: props.saleData.personalFees })}</div>
+          <div className="feeTitle">{t('Fees 8%', { fee: Math.floor(props.saleData.personalFees / 1000) })}</div>
           <img src={feedesIcon} />
         </div>
         <div className="feeTip">
           {t('Fees: 5% for platforms and 3% for creators', { platformsFees: 1, personalFees: Math.floor(props.saleData.personalFees / 1000) })}
         </div>
         <div className="ManageModalFooter">
-          {true ? <div className="confirmBtn flexCenter" onClick={() => { props.saleFun(price, typeMap[typeIndex].value, tokenMap[tokenIndex].value, dayMap[dayIndex].value) }}>出售</div> : <div className="confirmBtn flexCenter">出售</div>}
+          <div className="confirmBtn flexCenter" onClick={() => { props.saleFun(price, typeMap[typeIndex].value, props.coinKind[tokenIndex].coinName, dayMap[dayIndex].value) }}>出售</div>
         </div>
       </div>
 

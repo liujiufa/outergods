@@ -535,70 +535,70 @@
         //                 color: #7285FF;
         //             }
 
-                    // .right {
-                    //     display: flex;
-                    //     justify-content: space-between;
-                    //     align-items: center;
+        // .right {
+        //     display: flex;
+        //     justify-content: space-between;
+        //     align-items: center;
 
-                    //     .dropDownBox {
-                    //         .MarketSearchRow {
-                    //             width: 100%;
-                    //             max-width: 1410px;
-                    //             display: flex;
-                    //             justify-content: flex-end;
-                    //             margin: auto;
+        //     .dropDownBox {
+        //         .MarketSearchRow {
+        //             width: 100%;
+        //             max-width: 1410px;
+        //             display: flex;
+        //             justify-content: flex-end;
+        //             margin: auto;
 
-                    //             .search {
-                    //                 font-family: 'PingFang SC';
-                    //                 font-style: normal;
-                    //                 font-weight: 400;
-                    //                 font-size: 14px;
-                    //                 line-height: 20px;
-                    //                 color: #788CFF;
-                    //                 margin-left: 30px;
-                    //                 width: 120px;
-                    //                 height: 36px;
-                    //                 border: 1px solid #788CFF;
-                    //                 box-sizing: border-box;
-                    //                 border-radius: 18px;
-                    //                 padding: 6px 15px;
-                    //                 display: flex;
-                    //                 align-items: center;
-                    //                 justify-content: space-between;
+        //             .search {
+        //                 font-family: 'PingFang SC';
+        //                 font-style: normal;
+        //                 font-weight: 400;
+        //                 font-size: 14px;
+        //                 line-height: 20px;
+        //                 color: #788CFF;
+        //                 margin-left: 30px;
+        //                 width: 120px;
+        //                 height: 36px;
+        //                 border: 1px solid #788CFF;
+        //                 box-sizing: border-box;
+        //                 border-radius: 18px;
+        //                 padding: 6px 15px;
+        //                 display: flex;
+        //                 align-items: center;
+        //                 justify-content: space-between;
 
 
-                    //                 .searchBox {
-                    //                     font-size: 14px;
+        //                 .searchBox {
+        //                     font-size: 14px;
 
-                    //                     overflow: hidden;
-                    //                     white-space: nowrap;
-                    //                     margin-right: 3px;
-                    //                 }
-                    //             }
+        //                     overflow: hidden;
+        //                     white-space: nowrap;
+        //                     margin-right: 3px;
+        //                 }
+        //             }
 
-                    //             .filter {
-                    //                 margin-left: 30px;
-                    //                 background: linear-gradient(269.72deg, #9C75FF 0.22%, #7485FF 99.76%);
-                    //                 border-radius: 18px;
-                    //                 width: 120px;
-                    //                 height: 36px;
-                    //                 padding: 6px 15px;
-                    //                 display: flex;
-                    //                 align-items: center;
-                    //                 justify-content: space-between;
-                    //                 color: #FFFFFF;
-                    //                 font-size: 14px;
-                    //             }
-                    //         }
-                    //     }
+        //             .filter {
+        //                 margin-left: 30px;
+        //                 background: linear-gradient(269.72deg, #9C75FF 0.22%, #7485FF 99.76%);
+        //                 border-radius: 18px;
+        //                 width: 120px;
+        //                 height: 36px;
+        //                 padding: 6px 15px;
+        //                 display: flex;
+        //                 align-items: center;
+        //                 justify-content: space-between;
+        //                 color: #FFFFFF;
+        //                 font-size: 14px;
+        //             }
+        //         }
+        //     }
 
-                    //     .switch {
-                    //         width: 40px;
-                    //         display: flex;
-                    //         justify-content: center;
-                    //         align-items: center;
-                    //     }
-                    // }
+        //     .switch {
+        //         width: 40px;
+        //         display: flex;
+        //         justify-content: center;
+        //         align-items: center;
+        //     }
+        // }
 
         //             .subTitle {
         //                 font-family: 'PingFang SC';
@@ -886,6 +886,16 @@
                         padding: 10px;
                     }
                 }
+
+                .LoadMore {
+                    width: 120px;
+                    height: 36px;
+                    color: #788CFF;
+                    border: 1px solid #788CFF;
+                    box-sizing: border-box;
+                    border-radius: 18px;
+                    margin: 0px auto;
+                }
             }
         }
     }
@@ -909,10 +919,33 @@
         padding: 16px;
     }
 
+    .NFTDetailsPage .contentBox {
+        padding: 0 8%;
+    }
 
 }
 
-@media (max-width:1024px) {}
+@media (min-width:768px) and (max-width:1200px) {
+    .NFTDetailsPage .contentBox .tabBox .right .buy {
+        display: block;
+
+        .buy-right {
+            margin-top: 14px;
+        }
+    }
+
+    .NFTDetailsPage .contentBox .tabBox .right .buy .managePrice {
+        margin-top: 14px;
+    }
+
+    .NFTDetailsPage .contentBox .tabBox .right .buy .buy-right .buy-right-button {
+        padding: 8px 30px;
+    }
+
+    .NFTDetailsPage .contentBox .sanlian .sanlian-container .sanlian-content {
+        width: 100%;
+    }
+}
 
 @media (max-width:768px) {
 

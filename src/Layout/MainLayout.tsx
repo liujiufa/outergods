@@ -241,7 +241,7 @@ const MainLayout: React.FC = () => {
             </Layout>
             <div className="MainFooter">
                 <div className="footerBox" onClick={() => { window.open("https://www.habitverse.io/") }}>
-                    <img src={footerLogo}></img>
+                    <img className="logo" src={footerLogo}></img>
                 </div>
                 <div className="outLink">
                     <img src={outLink1} alt="" />

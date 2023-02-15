@@ -47,6 +47,7 @@ const NFTImg = styled.img`
     border-radius: 8px;
     aspect-ratio: 1;
     object-fit: contain; 
+    // padding-top: 1%;
 `
 
 const NFTImg1 = styled(NFTImg)`
@@ -179,7 +180,7 @@ export default function ProjectGroup({
                             </PriceItem>
                             <PriceItem>
                                 <PriceContent>
-                                    <PriceAmount>{decimalNum(data?.tradeAmount, 2) ?? 0}</PriceAmount>
+                                    <PriceAmount>${decimalNum(data?.tradeAmount, 2) ?? 0}</PriceAmount>
                                     <PriceTitle>交易量</PriceTitle>
                                 </PriceContent>
                             </PriceItem>

@@ -44,8 +44,7 @@ interface ProjectType {
   img: string
 }
 export default function ScreenModal(props: any) {
-  console.log(props.data, "NFT");
-
+  console.log(props.NFTDetail, "BNB");
   const [price, setPrice] = useState('');
   const [bidType, setBidType] = useState(0);
   const [coinName, setCoinName] = useState('');
@@ -89,8 +88,11 @@ export default function ScreenModal(props: any) {
   }
   function approveFun() {
     if (web3React.account && props.data.tokenAddress) {
+      console.log(props.data.tokenAddress, "NFT合约地址");
       dispatch(createSetLodingAction(true))
       Contracts.example.supportsInterface(web3React.account as string, "0xd9b67a26", props.data.tokenAddress).then((res: boolean) => {
+        console.log(res, "授权");
+
         if (res) {
           Contracts.example.approveMarket1(web3React.account as string, props.data.tokenAddress).then((res: any) => {
             Contracts.example.getapproveMarket1(web3React.account as string, props.data.tokenAddress).then((res: any) => {
@@ -167,28 +169,38 @@ export default function ScreenModal(props: any) {
 
   useEffect(() => {
     if (web3React.account && props.data.tokenAddress) {
-      Contracts.example.supportsInterface(web3React.account, "0xd9b67a26", props.data.tokenAddress).then((res: boolean) => {
-        if (res) {
-          Contracts.example.getapproveMarket1(web3React.account as string, props.data.tokenAddress).then((res: boolean) => {
-            setApproveAddr(res)
-            if (res) {
-              setStepState(false)
-            }
-          })
-        } else {
-          Contracts.example.getapproveMarket(web3React.account as string, props.data.tokenAddress).then((res: boolean) => {
-            setApproveAddr(res)
-            if (res) {
-              setStepState(false)
-            }
-          })
-        }
-      })
+      console.log('nihao1');
+      // 是否是155NFT
+      if (coinName !== "BNB") {
+        console.log(props.data.tokenAddress, "NFT合约地址");
+        Contracts.example.supportsInterface(web3React.account, "0xd9b67a26", props.data.tokenAddress).then((res: boolean) => {
+          console.log(res, 'nihao2');
+
+          if (res) {
+            Contracts.example.getapproveMarket1(web3React.account as string, props.data.tokenAddress).then((res: boolean) => {
+              setApproveAddr(res)
+              if (res) {
+                setStepState(false)
+              }
+            })
+          } else {
+            Contracts.example.getapproveMarket(web3React.account as string, props.data.tokenAddress).then((res: boolean) => {
+              setApproveAddr(res)
+              if (res) {
+                setStepState(false)
+              }
+            })
+          }
+        })
+      } else {
+        setApproveAddr(true)
+        setStepState(false)
+      }
     }
-  }, [web3React.account])
+  }, [web3React.account, coinName])
   return (
     <>
-      <SaleNFTModal isShow={props.isShow && !stepSaleNFTModal} close={() => { props.close() }} saleData={props.data} saleFun={saleStepFun1}></SaleNFTModal>
+      <SaleNFTModal coinKind={props.coinKind} isShow={props.isShow && !stepSaleNFTModal} close={() => { props.close() }} saleData={props.data} saleFun={saleStepFun1}></SaleNFTModal>
       <Modal visible={stepSaleNFTModal} destroyOnClose={true} centered closable={false} footer={null} width={790} className="StepSaleNFTModal">
         <div className="confirmModalTop">
           <img src={closeIcon} className="closeIcon" alt="" onClick={() => { setStepSaleNFTModal(false) }} />

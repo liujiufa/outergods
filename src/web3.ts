@@ -20,8 +20,8 @@ interface contractType {
     [propName: string]: Contract;
 }
 export const ChainId = {
-    // BSC: 97,
-    BSC: 56,
+    BSC: 97,
+    // BSC: 56,
 }
 //切换链
 const SCAN_ADDRESS = {
@@ -30,8 +30,8 @@ const SCAN_ADDRESS = {
 //配置连接链的信息
 const networkConf = {
     [ChainId.BSC]: {
-        // chainId: '0x61',
-        chainId: '0x38',
+        chainId: '0x61',
+        // chainId: '0x38',
         chainName: 'BSC',
         nativeCurrency: {
             name: 'BNB',
@@ -39,8 +39,8 @@ const networkConf = {
             decimals: 18,
         },
         // RPC就是从一台机器（客户端）上通过参数传递的方式调用另一台机器（服务器）上的一个函数或方法（可以统称为服务）并得到返回的结果。
-        rpcUrls: ['https://bsc-dataseed.binance.org/'],
-        // rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org…:8545/'],
+        // rpcUrls: ['https://bsc-dataseed.binance.org/'],
+        rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
         blockExplorerUrls: [SCAN_ADDRESS[ChainId.BSC]],
     }
 }
@@ -70,18 +70,6 @@ export const injected = new InjectedConnector({
     supportedChainIds: [ChainId.BSC],
 })
 // 扫码连接配置
-// export const POLLING_INTERVAL = 12000
-
-// const bscWalletConnector = new WalletConnectConnector({
-//     // rpc: { 56: 'https://bsc-dataseed.binance.org/' },
-//     rpc: { 97: 'https://data-seed-prebsc-1-s1.binance.org:8545/' },
-//     bridge: 'https://bridge.walletconnect.org',
-//     qrcode: true,
-//     // pollingInterval: POLLING_INTERVAL,
-// })
-// export const walletConnector = {
-//     [ChainId.BSC]: bscWalletConnector
-// }
 export const useConnectWallet = () => {
     const { activate, deactivate, active } = useWeb3React()
     const connectWallet = useCallback((connector: InjectedConnector, chainId: number) => {
@@ -271,6 +259,7 @@ export class Contracts {
     }
     //交易场购买订单
     makeOrder(addr: string, data: string, payableAmount: string) {
+        console.log();
         BigNumber.NE = -40
         BigNumber.PE = 40
         let num = new BigNumber(payableAmount).times(10 ** 18).toString()

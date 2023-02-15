@@ -21,7 +21,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import Goods, { NftInfo } from '../../../components/HotspotCard'
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { getNftOrderState, getNftUserInfoDetail, getUserOrder } from '../../../API'
+import { getNftOrderState, getNftUserInfoDetail, getUserOrder, getTradeCoinNameList, getOrderByProject } from '../../../API'
 import { stateType } from '../../../store/reducer'
 import { createAddMessageAction } from "../../../store/actions"
 import ManageModal from '../../../components/ManageModal'
@@ -96,15 +96,17 @@ export default function NFTDetailsL({
     const [manageModal, setManageModal] = useState(false)
     const [saleNFTModal, setSaleNFTModal] = useState(false)
     let [tableData, setTableData] = useState([])
+    let [coinsKindData, setCoinsKindData] = useState([])
     let [isShare, setIsShare] = useState<boolean>(false)
     let [buyNFTModal, setBuyNFTModal] = useState<boolean>(false)
     let [showEnterCancel, setShowEnterCancel] = useState<boolean>(false)
     let [currentTradeOrder, setCurrentTradeOrder] = useState<NftInfo>()
     let [OrderNFTDetail, setOrderNFTDetail] = useState<OrderDetailType | undefined>(undefined)
-
+    let [projectOrder, setProjectOrder] = useState<any>([])
+    let [pageNum, setPageNum] = useState<number>(1)
     const [nftData, setNftData] = useState([{
         title: "上一次成交价",
-        price: "0.55",
+        price: "$0.55",
         range: "-254"
     }, {
         title: "交易次数",
@@ -113,7 +115,7 @@ export default function NFTDetailsL({
 
     }, {
         title: "项目地板价",
-        price: "0.55",
+        price: "$0.55",
         range: "-254"
 
     }])
@@ -156,9 +158,17 @@ export default function NFTDetailsL({
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
     }
-    // 确认购买
-    const buyBtnFun = () => {
-        setBuyNFTModal(true)
+    //2: 弹窗购买&&1：立即购买当前
+    const buyBtnFun = (item: any) => {
+        console.log(item, "购买");
+        if (web3React.account) {
+            setBuyNFTModal(true)
+            if (item !== 1) {
+                setCurrentTradeOrder(item)
+            }
+        } else {
+            dispatch(createAddMessageAction("请先连接钱包"))
+        }
     }
     function goSomeone(address: string) {
         if (address) {
@@ -175,11 +185,31 @@ export default function NFTDetailsL({
             <Menu.Item>全部</Menu.Item>
         </Menu>
     );
+
+    function LoadMore() {
+        let page = pageNum + 1
+        setPageNum(page)
+        getOrderByProject({
+            projectId: OrderDetail?.projectId,
+            currentPage: page,
+            pageSize: 6
+        }).then(res => {
+            if (res.data.length === 0) {
+                return dispatch(createAddMessageAction(t('No more')))
+            } else {
+                setProjectOrder([...projectOrder, ...res.data])
+            }
+        })
+    }
+    /* 判断跳转到出售页面还是正在出售页面 */
+    function goPath(goods: any) {
+        return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.userAddress}&&NFTDetailType=1`)
+    }
+
     useEffect(() => {
-        if (state.token && tokenAddress && tokenId) {
+        if (tokenAddress && tokenId) {
             getNftUserInfoDetail(tokenAddress as string, tokenId).then(res => {
                 console.log(res.data, "res.data.metadata");
-
                 if (res.data.metadata) {
                     res.data.metadata = JSON.parse(res.data.metadata)
                     res.data.normalizedMetadata = JSON.parse(res.data.normalizedMetadata
@@ -199,8 +229,31 @@ export default function NFTDetailsL({
                     setTableData(res.data)
                 }
             })
+            getTradeCoinNameList().then((res: any) => {
+                console.log(res.data, '币种');
+                if (res.code === 200) {
+                    setCoinsKindData(res.data)
+                }
+            })
         }
-    }, [state.token, tokenAddress, tokenId])
+    }, [tokenAddress, tokenId])
+
+    useEffect(() => {
+        if (OrderDetail?.projectId) {
+            console.log("来自这个项目1")
+            getOrderByProject({
+                projectId: OrderDetail?.projectId,
+                currentPage: 1,
+                pageSize: 6
+            }).then(res => {
+                res.data.map((item: any, index: number) => {
+                    item.metadata = JSON.parse(item.metadata)
+                })
+                console.log(res, "来自这个项目")
+                setProjectOrder(res.data)
+            })
+        }
+    }, [OrderDetail?.projectId])
 
     return (
         <div className="NFTDetailsPage">
@@ -236,8 +289,8 @@ export default function NFTDetailsL({
                         <div className="project">
                             <div className="name">
                                 <img src={OrderDetail?.projectImg || defaultCard} alt="" className="logo" />
-                                <div className="project-name">{OrderDetail && OrderDetail.normalizedMetadata.name}</div>
-                                <AuthenticationGroup src={OrderDetail?.isAuthentication ? AuthenticationPng:NotAuthenticationPng} />
+                                <div className="project-name" onClick={() => { navigate('/Launch?tokenAddress=' + OrderDetail?.tokenAddress) }}>{OrderDetail && OrderDetail.normalizedMetadata.name}</div>
+                                <AuthenticationGroup src={OrderDetail?.isAuthentication ? AuthenticationPng : NotAuthenticationPng} />
                             </div>
                             <span className="icon m-hidden">
                                 <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>CHAIN</span>} color="#FFF" key="coin">
@@ -315,7 +368,7 @@ export default function NFTDetailsL({
                                 <div className="buy-left">
                                     <div className="buy-left-top">一口价</div>
                                     <div className="buy-left-bottom">
-                                        <img src={UsdtPng} className="buy-left-bottom-coin" />
+                                        <img src={OrderDetail?.nnftOrder?.coinImgUrl} className="buy-left-bottom-coin" />
                                         <div className="coin-group">
                                             {decimalNum(OrderDetail?.nnftOrder?.price) || '-'} {OrderDetail?.nnftOrder?.coinName}
                                             <div className="coin-group-price">
@@ -354,7 +407,7 @@ export default function NFTDetailsL({
                                 <div className="buy-left">
                                     <div className="buy-left-top">一口价</div>
                                     <div className="buy-left-bottom">
-                                        <img src={UsdtPng} className="buy-left-bottom-coin" />
+                                        <img src={OrderDetail?.nnftOrder?.coinImgUrl} className="buy-left-bottom-coin" />
                                         <div className="coin-group">
                                             {Number(decimalNum(OrderDetail?.nnftOrder?.price)) || '-'} {OrderDetail?.nnftOrder?.coinName}
                                             <div className="coin-group-price">
@@ -364,7 +417,7 @@ export default function NFTDetailsL({
                                     </div>
                                 </div>
                                 <div className="buy-right">
-                                    <div className="buy-right-button" onClick={() => { buyBtnFun() }}>立即购买</div>
+                                    <div className="buy-right-button" onClick={() => { buyBtnFun(1) }}>立即购买</div>
                                 </div>
                             </div>
                         }
@@ -372,7 +425,7 @@ export default function NFTDetailsL({
                         <div className="right-nft-details">
                             <div className="right-nft-details-tabs">
                                 {
-                                    TABS.map((item, idx) => <div className={idx === tabIndex ? "right-nft-details-tab right-nft-details-activetab" : "right-nft-details-tab"} onClick={() => {
+                                    TABS.map((item, idx) => <div key={idx} className={idx === tabIndex ? "right-nft-details-tab right-nft-details-activetab" : "right-nft-details-tab"} onClick={() => {
                                         setTabIndex(idx)
                                     }}>{item}</div>
                                     )
@@ -387,32 +440,52 @@ export default function NFTDetailsL({
                                             }
                                         </div>
                                         <div className="nft-details-card">
-                                            {
+                                            <div className='nft-details-card-group nft-details-card-group-frist' >
+                                                <div className="nft-details-card-title">
+                                                    上一次成交价
+                                                </div>
+                                                <div className="nft-details-card-price">
+                                                    {OrderDetail?.recentPrice || 0}
+                                                </div>
+                                            </div>
+                                            <div className="nft-details-card-group nft-details-card-group-center" >
+                                                <div className="nft-details-card-title">
+                                                    交易次数
+                                                </div>
+                                                <div className="nft-details-card-price">
+                                                    {OrderDetail?.tradeCount || 0}
+                                                </div>
+                                            </div>
+                                            <div className="nft-details-card-group  nft-details-card-group-last">
+                                                <div className="nft-details-card-title">
+                                                    项目地板价
+                                                </div>
+                                                <div className="nft-details-card-price">
+                                                    {decimalNum(OrderDetail?.floorPriceDouble) || "0"}
+                                                </div>
+                                            </div>
+                                            {/* {
                                                 nftData.map((item, index) => <div className={`nft-details-card-group ${!index ? "nft-details-card-group-frist" : (index === nftData.length - 1 ? "nft-details-card-group-last" : "nft-details-card-group-center")}`} >
                                                     <div className="nft-details-card-title">
                                                         {item.title}
                                                     </div>
                                                     <div className="nft-details-card-price">
-                                                        ${item.price}
+                                                        {item.price}
                                                     </div>
-                                                    {/* <div className={Number(item.range) < 0 ? "nft-details-card-range-down" : "nft-details-card-range-up"}>
-                                                        {Number(item.range) < 0 ? `${item.range}%` : `+${item.range}%`}
-                                                    </div> */}
                                                 </div>)
-                                            }
+                                            } */}
 
                                         </div>
                                     </div> : (tabIndex === 1 ? <div className='nft-details-attribute-group'>
                                         {
                                             attrOrInfo ? <>{
-                                                OrderDetail && OrderDetail?.normalizedMetadata && OrderDetail?.normalizedMetadata?.attributes.length > 0 && Object.keys(OrderDetail?.normalizedMetadata?.attributes[0]).map((item, idx) =>
+                                                OrderDetail && OrderDetail?.normalizedMetadata && OrderDetail?.normalizedMetadata?.attributes.length > 0 && OrderDetail?.normalizedMetadata?.attributes.map((item: any, idx: any) =>
                                                     <div className={`nft-details-attribute-item ${!((idx + 1) % 3) ? "nft-details-attribute-item-right" : ""}`}>
-
                                                         <div className="nft-details-attribute-title">
-                                                            {item}
+                                                            {item.trait_type}
                                                         </div>
                                                         <div className="nft-details-attribute-content">
-                                                            ({OrderDetail && OrderDetail?.normalizedMetadata?.attributes.length > 0 && OrderDetail?.normalizedMetadata?.attributes[0][item]})
+                                                            {item.value}
                                                         </div>
                                                     </div>
                                                 )
@@ -453,7 +526,7 @@ export default function NFTDetailsL({
                                                     </Tooltip>
                                                 </div>
                                                 <div className="nft-details-info-item-content">
-                                                    10%
+                                                    {Math.floor(OrderDetail?.nnftOrder?.createFee / 1000)}%
                                                 </div>
                                             </div>
                                         </div> : null))
@@ -642,19 +715,35 @@ export default function NFTDetailsL({
                         <div className="subTitle">来自这个项目</div>
                     </div>
                     <div className=" contentBoxM">
-                        <div className="goodsList">
+                        {/* <div className="goodsList">
                             {
-                                [1, 2, 3, 4, 5, 6].map((item) => <div className="usernft">
-                                    <Goods></Goods>
+                                projectOrder.map((item: any, index: any) => <div key={index} className="usernft">
+                                    <Goods NftInfo={item}></Goods>
                                 </div>)
                             }
-                        </div>
+                        </div> */}
+
+                        {
+                            projectOrder.length > 0 ?
+                                <>
+                                    <div className="goodsList">
+                                        {projectOrder.map((item: any, index: any) =>
+                                            <div className="usernft">
+                                                <Goods key={index} NftInfo={{ ...item, floorPrice: item.price }} buyBtnFun={() => { buyBtnFun(item) }} tag="Market" target="NFTCard" goPath={() => { goPath(item) }}></Goods>
+                                                {/* <Goods key={index} NftInfo={{ ...item, floorPrice: item.price }} buyBtnFun={() => { buyBtnFun(item) }} tag="Market" goPath={() => { goPath(item) }}></Goods> */}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="LoadMore pointer flexCenter" onClick={LoadMore}>{t('Load More')}  {'>'}</div>
+                                </> :
+                                <NoData />
+                        }
                     </div>
                 </div>
             </div>
-            {OrderDetail && <ManageModal isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} personalFees={OrderDetail?.nnftOrder?.createFee} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
+            {OrderDetail && <ManageModal NFTDetail={OrderDetail} coinKind={coinsKindData} isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} personalFees={OrderDetail?.nnftOrder?.createFee} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
             {OrderDetail && <CancelSaleModal isShow={showEnterCancel} tokenId={OrderDetail?.nnftUser?.tokenId} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowEnterCancel(false) }}></CancelSaleModal>}
-            {OrderDetail && <SaleModal isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress, personalFees: OrderDetail?.nnftOrder?.createFee }}></SaleModal>}
+            {OrderDetail && coinsKindData.length > 0 && <SaleModal NFTDetail={OrderDetail} coinKind={coinsKindData} isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress, personalFees: OrderDetail?.nnftOrder?.createFee }}></SaleModal>}
             {OrderDetail && <ConfirmBuyNFTModal projectName={OrderDetail?.name} NFTInfo={OrderDetail?.nnftOrder} NFTDetail={OrderDetail} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} ></ConfirmBuyNFTModal>}
         </div >
     )

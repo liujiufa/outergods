@@ -149,10 +149,11 @@ export function getUserOrder(userAddress: string) {
     })
 }
 /* 获取该系列相关商品 */
-export function getOrderByProject(projectId: string) {
+export function getOrderByProject(data: any) {
     return axois.request({
-        url: `/user/nNftOrder/getOrderByProject/${projectId}`,
-        method: 'get'
+        url: `/user/nNftOrder/getOrderByProject`,
+        method: 'post',
+        data
     })
 }
 /* 获取nft详情 */
@@ -398,7 +399,7 @@ export function getHoTProject() {
  * 首页  畅销NFT
  * @returns 
  */
- export function getBestSellerNft() {
+export function getBestSellerNft() {
     return axois.request({
         url: `/user/home/getBestSellerNft`,
         method: 'post',
@@ -413,6 +414,16 @@ export function getHoTProject() {
 export function getTradeLast() {
     return axois.request({
         url: `/user/home/getTradeLast`,
+        method: 'get'
+    })
+}
+/**
+ * 代币列表
+ * @returns string
+ */
+export function getTradeCoinNameList() {
+    return axois.request({
+        url: `/user/home/getTradeCoinNameList`,
         method: 'get'
     })
 }

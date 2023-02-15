@@ -42,7 +42,7 @@ interface ProjectType {
   img: string
 }
 export default function ScreenModal(props: any) {
-  console.log(props);
+  console.log(props, "调整价格");
 
   // 控制图标上下
   const [expand1, setExpand1] = useState(true);
@@ -115,45 +115,15 @@ export default function ScreenModal(props: any) {
       })
     }
   }
-  let typeMap = [
-    {
-      key: t('All'),
-      value: -1
-    },
-    {
-      key: t('Fixed Price'),
-      value: 0
-    }
-  ]
-  let [typeIndex, setTypeIndex] = useState(0)
-
-  let tokenMap = [
-    {
-      key: 'USDT',
-      icon: USDTIcon,
-      value: 'USDT'
-    },
-    // {
-    //   key: 'ETH',
-    //   icon: ETHCoinIcon,
-    //   value: 'ETH'
-    // },
-    // {
-    //   key: 'BTC',
-    //   icon: BTCIcon,
-    //   value: 'BTC'
-    // }
-  ]
+  // 币种
   let [tokenIndex, setTokenIndex] = useState(0)
   const coinType = (
     <Menu onClick={() => handleDropDown(setExpand1, expand1)}>
-      {
-        tokenMap.map((item, index) => <Menu.Item key={index} onClick={() => { setTokenIndex(index) }} className="coinMenu">
-          <div className="coinKind">
-            <img src={item.icon} alt="" /> <div>{item.key}</div>
-          </div>
-        </Menu.Item>)
-      }
+      <Menu.Item className="coinMenu">
+        <div className="coinKind">
+          <img src={props?.NFTDetail?.nnftOrder?.coinImgUrl} alt="" /> <div>{props?.NFTDetail?.nnftOrder?.coinName}</div>
+        </div>
+      </Menu.Item>
     </Menu>
   );
 
@@ -170,7 +140,7 @@ export default function ScreenModal(props: any) {
             <div className="MarketSearchRow">
               <Dropdown overlay={coinType} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
                 <div className="search">
-                  <div className="searchBox"><img src={tokenMap[tokenIndex].icon} alt="" /><div className="coinName">{tokenMap[tokenIndex].key}</div></div>
+                  <div className="searchBox"><img src={props?.NFTDetail?.nnftOrder?.coinImgUrl} alt="" /><div className="coinName">{props?.NFTDetail?.nnftOrder?.coinName}</div></div>
                   <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                 </div>
               </Dropdown>
@@ -181,7 +151,7 @@ export default function ScreenModal(props: any) {
           </div>
         </div>
       </div>
-      <div className="Service">{t('Fees 8%', { fee: props?.personalFees })}</div>
+      <div className="Service">{t('Fees 8%', { fee: Math.floor(props?.personalFees / 1000) })}</div>
       <div className="bottomTip">{t('Fees: 5% for platforms and 3% for creators', { platformsFees: 1, personalFees: Math.floor(props?.personalFees / 1000) })}</div>
       <div className="ManageModalFooter">
         <div className="enterBtn flexCenter" onClick={changePrice}>更新</div>

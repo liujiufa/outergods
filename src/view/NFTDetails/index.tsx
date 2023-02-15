@@ -87,7 +87,7 @@ export default function NFTDetails() {
     let NFTDetailType = params.get('NFTDetailType')
     console.log(NFTDetailType, "0");
     useEffect(() => {
-        if (tokenId && state.token && tokenAddress) {
+        if (tokenId && tokenAddress) {
             getNftUserInfoDetail(tokenAddress, tokenId).then(res => {
                 if (res.data.metadata) {
                     res.data.metadata = JSON.parse(res.data.metadata)
@@ -102,14 +102,14 @@ export default function NFTDetails() {
                 }
                 console.log(res.data, 'NFT详情');
                 setOrderDetail(res.data)
-                if (state.token) {
-                    getUserOrder(res.data.userAddress).then(res => {
-                        setUserOrder(res.data)
-                    })
-                }
+                // if (state.token) {
+                //     getUserOrder(res.data.userAddress).then(res => {
+                //         setUserOrder(res.data)
+                //     })
+                // }
             })
         }
-    }, [tokenId, state.token])
+    }, [tokenId])
     useEffect(() => {
         if (tokenId && OrderDetail && OrderDetail.tokenAddress) {
             getNftOrderState(tokenId, DynamicStateMap[DynamicState].value, OrderDetail.tokenAddress).then(res => {
@@ -231,9 +231,6 @@ export default function NFTDetails() {
             {/* <L> */}
             <NFTDetailsL OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} NFTTypeDetail={NFTDetailType} />
             {/* </L> */}
-            {/* <M>
-                <NFTDetailsM OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} />
-            </M> */}
         </Container>
     )
 }

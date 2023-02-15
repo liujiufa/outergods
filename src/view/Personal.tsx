@@ -16,6 +16,7 @@ import { Contracts } from '../web3'
 import Goods, { NftInfo } from '../components/HotspotCard'
 import { useTranslation } from 'react-i18next'
 import { useViewport } from '../components/viewportContext'
+import { Chain } from '../config'
 import CollectionScreenModal from '../components/CollectionScreenModal'
 import ReceRecord from '../components/ReceRecord'
 import NoData from '../components/NoData'
@@ -128,7 +129,7 @@ export default function Personal(): JSX.Element {
             getNfts({
                 "address": web3React.account,
                 // "chain": "bsc%20testnet",
-                "chain": "bsc",
+                "chain": Chain,
                 "cursor": fig,
                 "pageSize": 10
             }).then((res) => {
@@ -162,7 +163,7 @@ export default function Personal(): JSX.Element {
                 {
                     "address": web3React.account,
                     // "chain": "bsc%20testnet",
-                    "chain": "bsc",
+                    "chain": Chain,
                     "cursor": "",
                     "pageSize": 10
                 }
