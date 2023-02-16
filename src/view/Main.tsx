@@ -540,7 +540,7 @@ export default function Main() {
                 const [res1] = res
                 console.log("res1", res1)
                 const [bestSellerNft] = [res1.data]
-                console.log("bestSellerNft", bestSellerNft)
+                console.log("畅销", bestSellerNft)
                 // setBestSellerNftList([0, bestSellerNft[0], bestSellerNft[1], 0, 0, 0])
                 setBestSellerNftList(bestSellerNft.slice(0, 6))
             })

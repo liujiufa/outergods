@@ -14,6 +14,7 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
+            padding-top: 12px;
 
             .left {
                 width: 40%;
@@ -383,12 +384,27 @@
                                     color: rgba(0, 0, 0, 0.6);
                                 }
 
+
+
                                 .nft-details-info-item-content {
                                     font-weight: 700;
                                     font-size: 14px;
                                     /* identical to box height */
                                     letter-spacing: 0.1em;
                                     color: rgba(0, 0, 0, 1);
+                                }
+
+                                .activeItem {
+                                    color: #7285FF;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+
+                                    .copy {
+                                        width: 18px;
+                                        height: 18px;
+                                        margin-left: 5px;
+                                    }
                                 }
                             }
                         }
@@ -948,6 +964,9 @@
 }
 
 @media (max-width:768px) {
+    .NFTDetailsPage .contentBox .tabBox{
+        padding-top: 0px;
+    }
 
     .NFTDetailsPage .contentBox .likeProjectBox .contentBoxM .goodsList .usernft {
         width: 33.3%;

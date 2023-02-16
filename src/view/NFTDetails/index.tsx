@@ -100,11 +100,6 @@ export default function NFTDetails() {
                 }
                 console.log(res.data, 'NFT详情');
                 setOrderDetail(res.data)
-                // if (state.token) {
-                //     getUserOrder(res.data.userAddress).then(res => {
-                //         setUserOrder(res.data)
-                //     })
-                // }
             })
         }
     }, [tokenId])

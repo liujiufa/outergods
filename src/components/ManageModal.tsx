@@ -93,7 +93,8 @@ export default function ScreenModal(props: any) {
     })
   }
   function inputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setPrice(e.target.value)
+    let value = e.target.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+    setPrice(value)
   }
 
   // 下拉图标旋转
@@ -147,11 +148,11 @@ export default function ScreenModal(props: any) {
             </div>
           </div>
           <div className="right">
-            <input type="number" onChange={inputChange} placeholder='0.00' />
+            <input type="number" value={price} onChange={inputChange} placeholder='0.00' />
           </div>
         </div>
       </div>
-      <div className="Service">{t('Fees 8%', { fee: Math.floor(props?.personalFees / 1000) })}</div>
+      <div className="Service">{t('Fees 8%', { fee: 1 + Math.floor(props?.personalFees / 1000) })}</div>
       <div className="bottomTip">{t('Fees: 5% for platforms and 3% for creators', { platformsFees: 1, personalFees: Math.floor(props?.personalFees / 1000) })}</div>
       <div className="ManageModalFooter">
         <div className="enterBtn flexCenter" onClick={changePrice}>更新</div>

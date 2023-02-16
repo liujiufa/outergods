@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal } from 'antd';
+import { Modal, Tooltip } from 'antd';
 import { AddrHandle } from '../utils/tool'
 import '../assets/style/componentStyle/BuySuccess.scss'
 import { useNavigate } from "react-router-dom";
@@ -45,7 +45,9 @@ export default function BuySuccess(props: PropsType) {
         <div className="InfoRow">
           <div className="infoItem">
             <div className="label">NFT 合集</div>
-            <div className="infoValue">{props.data.projectName}</div>
+            <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>{props.data.projectName}</span>} color="#FFF" key="tips">
+              <div className="infoValue">{props.data.projectName}</div>
+            </Tooltip>
           </div>
           <div className="infoItem">
             <div className="label">{t('TOKEN ID')}</div>

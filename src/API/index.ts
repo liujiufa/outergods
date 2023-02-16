@@ -433,4 +433,16 @@ export function getNFTApiData(tokenId: string, tokenAddress: string) {
         method: 'get'
     })
 }
+export function getNFTMetadata(tokenAdderss: string, tokenId: string) {
+    return axois.request({
+        url: `/user/home/getNFTMetadata/${tokenAdderss}/${tokenId}`,
+        method: 'get'
+    })
+}
+export function getNFTTheTopProjectInfo(tokenAdderss: string) {
+    return axois.request({
+        url: `/user/home/getNFTTheTopProjectInfo/${tokenAdderss}`,
+        method: 'get'
+    })
+}
 

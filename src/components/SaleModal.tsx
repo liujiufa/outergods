@@ -92,7 +92,6 @@ export default function ScreenModal(props: any) {
       dispatch(createSetLodingAction(true))
       Contracts.example.supportsInterface(web3React.account as string, "0xd9b67a26", props.data.tokenAddress).then((res: boolean) => {
         console.log(res, "授权");
-
         if (res) {
           Contracts.example.approveMarket1(web3React.account as string, props.data.tokenAddress).then((res: any) => {
             Contracts.example.getapproveMarket1(web3React.account as string, props.data.tokenAddress).then((res: any) => {
@@ -149,6 +148,8 @@ export default function ScreenModal(props: any) {
           // navigate('/Market')
           dispatch(createAddMessageAction(t('Listed')))
           setStepSaleState(true)
+          props.close()
+          setStepSaleNFTModal(false)
         } else {
           navigate(-1)
           dispatch(createAddMessageAction(t('Unlisted')))

@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 import { FlexCCBox } from './FlexBox'
 
-import NFT1Png from '../assets/image/4.png'
+import NFT1Png from '../assets/image/defaultCard.png'
 import AuthenticationPng from '../assets/image/authentication.svg'
 import NotAuthenticationPng from '../assets/image/NotCertified.svg'
 import { decimalNum } from '../utils/decimalNum'
@@ -151,73 +151,75 @@ export default function ProjectGroup({
     return (
         <Fragment>
             {
-                !!data ? <Container onClick={() => {
-                    if (data?.tokenAddress) {
-                        navigate('/Launch?tokenAddress=' + data?.tokenAddress)
-                    }
-                }}>
-                    <Content>
-                        <Group>
-                            <NFTLeft>
-                                {data?.imgUrl1 !== "null" ? <NFTImg src={data?.imgUrl1 || NFT1Png} /> : <NFTImg src={NFT1Png} />}
-                            </NFTLeft>
-                            <NFTRight>
-                                {data?.imgUrl2 !== "null" ? <NFTImg src={data?.imgUrl2 || NFT1Png} /> : <NFTImg src={NFT1Png} />}
-                                {data?.imgUrl3 !== "null" ? <NFTImg1 src={data?.imgUrl3 || NFT1Png} /> : <NFTImg src={NFT1Png} />}
-                            </NFTRight>
-                            <NFTImgGroup> <NFTImg src={data?.img || NFT1Png} /> </NFTImgGroup>
-                        </Group>
-                        <Group>
-                            <NFTName >{data.name}</NFTName>
-                            <AuthenticationGroup src={data?.isAuthentication === 0 ? NotAuthenticationPng : AuthenticationPng} />
-                        </Group>
-                        <GroupPrice>
-                            <PriceItem>
-                                <PriceContent>
-                                    <PriceAmount>${decimalNum(data?.floorPrice, 4)}</PriceAmount>
-                                    <PriceTitle>地板价</PriceTitle>
-                                </PriceContent>
-                            </PriceItem>
-                            <PriceItem>
-                                <PriceContent>
-                                    <PriceAmount>${decimalNum(data?.tradeAmount, 2) ?? 0}</PriceAmount>
-                                    <PriceTitle>交易量</PriceTitle>
-                                </PriceContent>
-                            </PriceItem>
-                        </GroupPrice>
-                    </Content>
-                </Container> : <Container>
-                    <Content>
-                        <Group>
-                            <NFTLeft>
-                                <NFTImg src={NFT1Png} />
-                            </NFTLeft>
-                            <NFTRight>
-                                <NFTImg src={NFT1Png} />
-                                <NFTImg1 src={NFT1Png} />
-                            </NFTRight>
-                            <NFTImgGroup> <NFTImg src={data?.img || NFT1Png} /> </NFTImgGroup>
-                        </Group>
-                        <Group>
-                            <NFTName>Collection</NFTName>
-                            <AuthenticationGroup src={NotAuthenticationPng} />
-                        </Group>
-                        <GroupPrice>
-                            <PriceItem>
-                                <PriceContent>
-                                    <PriceAmount>$404</PriceAmount>
-                                    <PriceTitle>地板价</PriceTitle>
-                                </PriceContent>
-                            </PriceItem><PriceItem>
+                !!data ?
+                    <Container onClick={() => {
+                        if (data?.tokenAddress) {
+                            navigate('/Launch?tokenAddress=' + data?.tokenAddress)
+                        }
+                    }}>
+                        <Content>
+                            <Group>
+                                <NFTLeft>
+                                    {data?.imgUrl1 !== "null" ? <NFTImg src={data?.imgUrl1} /> : <NFTImg />}
+                                </NFTLeft>
+                                <NFTRight>
+                                    {data?.imgUrl2 !== "null" ? <NFTImg src={data?.imgUrl2} /> : <NFTImg />}
+                                    {data?.imgUrl3 !== "null" ? <NFTImg1 src={data?.imgUrl3} /> : <NFTImg />}
+                                </NFTRight>
+                                <NFTImgGroup> <NFTImg src={data?.img} /> </NFTImgGroup>
+                            </Group>
+                            <Group>
+                                <NFTName >{data.name}</NFTName>
+                                <AuthenticationGroup src={data?.isAuthentication === 0 ? NotAuthenticationPng : AuthenticationPng} />
+                            </Group>
+                            <GroupPrice>
+                                <PriceItem>
+                                    <PriceContent>
+                                        <PriceAmount>${decimalNum(data?.floorPrice, 2)}</PriceAmount>
+                                        <PriceTitle>地板价</PriceTitle>
+                                    </PriceContent>
+                                </PriceItem>
+                                <PriceItem>
+                                    <PriceContent>
+                                        <PriceAmount>${decimalNum(data?.tradeAmount, 2) ?? 0}</PriceAmount>
+                                        <PriceTitle>交易量</PriceTitle>
+                                    </PriceContent>
+                                </PriceItem>
+                            </GroupPrice>
+                        </Content>
+                    </Container>
+                    : <Container>
+                        <Content>
+                            <Group>
+                                <NFTLeft>
+                                    <NFTImg src={NFT1Png} />
+                                </NFTLeft>
+                                <NFTRight>
+                                    <NFTImg src={NFT1Png} />
+                                    <NFTImg1 src={NFT1Png} />
+                                </NFTRight>
+                                <NFTImgGroup> <NFTImg src={NFT1Png} /> </NFTImgGroup>
+                            </Group>
+                            <Group>
+                                <NFTName>Collection</NFTName>
+                                <AuthenticationGroup src={NotAuthenticationPng} />
+                            </Group>
+                            <GroupPrice>
+                                <PriceItem>
+                                    <PriceContent>
+                                        <PriceAmount>$404</PriceAmount>
+                                        <PriceTitle>地板价</PriceTitle>
+                                    </PriceContent>
+                                </PriceItem><PriceItem>
 
-                                <PriceContent>
-                                    <PriceAmount>404</PriceAmount>
-                                    <PriceTitle>交易量</PriceTitle>
-                                </PriceContent>
-                            </PriceItem>
-                        </GroupPrice>
-                    </Content>
-                </Container>
+                                    <PriceContent>
+                                        <PriceAmount>404</PriceAmount>
+                                        <PriceTitle>交易量</PriceTitle>
+                                    </PriceContent>
+                                </PriceItem>
+                            </GroupPrice>
+                        </Content>
+                    </Container>
             }
         </Fragment>
     )

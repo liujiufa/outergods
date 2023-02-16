@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from "react-router-dom";
 import '../assets/style/componentStyle/HotspotCard.scss'
-import { userGiveLike } from '../API'
+import { userGiveLike, getNFTTheTopProjectInfo } from '../API'
 import { NumSplic } from '../utils/tool'
 import Img from './Img'
 import { useTranslation } from 'react-i18next'
@@ -62,6 +62,7 @@ export default function HotspotCard(props: any) {
   let [activeMenu, setActiveMenu] = useState<boolean>(false)
   let [activeBuyMenu, setActiveBuyMenu] = useState<boolean>(false)
   let [LikeNum, setLikeNum] = useState<number>(props.NftInfo?.giveLikeNum)
+  let [hoverProject, setHoverProject] = useState<any>()
   let { t } = useTranslation();
 
   function LikeFun(e: React.MouseEvent<HTMLElement>) {
@@ -103,6 +104,18 @@ export default function HotspotCard(props: any) {
       setActiveBuyMenu(true)
     }
   }
+  // 浮窗信息
+  const getProjectInfo = useCallback(() => {
+    if (props?.NftInfo?.tokenAddress) {
+      getNFTTheTopProjectInfo(props.NftInfo.tokenAddress).then((res: any) => {
+        if (res.code === 200) {
+          console.log(res.data, '项目信息');
+          setHoverProject(res.data)
+        }
+      })
+    }
+  }, [props?.NftInfo?.tokenAddress])
+
 
   const list = [{
     title: "总交易量",
@@ -149,29 +162,51 @@ export default function HotspotCard(props: any) {
 
         {/* 鼠标滑动（标题） */}
         {/* <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }}> */}
-        <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }}>
+        <div className="cardTokenId home-nft" onClick={(e) => { goProject(e) }} onMouseEnter={() => { getProjectInfo() }}>
           {props.NftInfo?.name || props.NftInfo?.projectName || "XXXXXXXXX"}
-          {props.NftInfo?.isAuthentication === 1 && <div className="hover-show-card">
-            <img className="hover-show-card-img" src={NftCardImagePng} />
+          {props.NftInfo?.isAuthentication === 1 && hoverProject && <div className="hover-show-card">
+            <img className="hover-show-card-img" src={hoverProject?.backImgUrl} />
             <div className="hover-show-card-content">
               <div className="hover-show-card-content-top">
-                <img src={NFT1Png} />
+                <img src={hoverProject?.img} />
                 <div className="hover-show-card-content-nft-name">
-                  {props.NftInfo?.name || "XXXXXXXXX"}
+                  {hoverProject?.name || "XXXXXXXXX"}
                 </div>
               </div>
               {/* 项目信息 */}
               <div className="hover-show-card-content-bottom">
-                {
-                  list.map((item) => <div className="hover-show-card-content-item">
-                    <div className="hover-show-card-content-amount">
-                      {`${!!item?.isMoney ? "$" : ""}${item.amount}`}
-                    </div>
-                    <div className="hover-show-card-content-name">
-                      {item.title}
-                    </div>
-                  </div>)
-                }
+                <div className="hover-show-card-content-item">
+                  <div className="hover-show-card-content-amount">
+                    {NumSplic(hoverProject?.tradeAmount)}
+                  </div>
+                  <div className="hover-show-card-content-name">
+                    总交易量
+                  </div>
+                </div>
+                <div className="hover-show-card-content-item">
+                  <div className="hover-show-card-content-amount">
+                    {NumSplic(hoverProject?.floorPrice)}
+                  </div>
+                  <div className="hover-show-card-content-name">
+                    地板价
+                  </div>
+                </div>
+                <div className="hover-show-card-content-item">
+                  <div className="hover-show-card-content-amount">
+                    {hoverProject?.holdNum}
+                  </div>
+                  <div className="hover-show-card-content-name">
+                    物品
+                  </div>
+                </div>
+                <div className="hover-show-card-content-item">
+                  <div className="hover-show-card-content-amount">
+                    {hoverProject?.shelvesNum}
+                  </div>
+                  <div className="hover-show-card-content-name">
+                    已上架
+                  </div>
+                </div>
               </div>
             </div>
           </div>}

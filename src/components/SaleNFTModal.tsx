@@ -36,7 +36,7 @@ interface ProjectType {
   img: string
 }
 export default function ScreenModal(props: any) {
-  console.log(props.saleData, props.coinKind, "dfdf");
+  console.log(props.saleData, "dfdf");
   // 控制图标上下
   const [expand1, setExpand1] = useState(true);
   const [expand2, setExpand2] = useState(true);
@@ -77,7 +77,9 @@ export default function ScreenModal(props: any) {
 
   let [price, setPrice] = useState<string>('')
   function ChangeNum(e: React.ChangeEvent<HTMLInputElement>) {
-    setPrice(e.target.value)
+    let value = e.target.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3').slice(0, 10);
+
+    setPrice(value)
   }
 
   let typeMap = [

@@ -143,7 +143,7 @@ export default function Personal(): JSX.Element {
     }
 
     useEffect(() => {
-        if (address && state.token) {
+        if (address) {
             dispatch(createSetLodingAction(true))
             getNfts(
                 {
@@ -164,16 +164,16 @@ export default function Personal(): JSX.Element {
         } else {
             setUserCurrentNft(null)
         }
-    }, [address, state.token])
+    }, [address])
 
     useEffect(() => {
-        if (address && state.token) {
+        if (address) {
             getUserInfo(address).then((res) => {
                 setUserInfo(res.data)
                 console.log(res, '用户信息')
             })
         }
-    }, [address, state.token])
+    }, [address])
 
     function share() {
         // console.log(window.location)
@@ -217,7 +217,7 @@ export default function Personal(): JSX.Element {
     }
 
     useEffect(() => {
-        if (address && state.token) {
+        if (address) {
             getNftUserState({
                 userAddress: address,
                 status: -1,
@@ -231,7 +231,7 @@ export default function Personal(): JSX.Element {
                 setUserLikeList(res.data)
             })
         }
-    }, [address, state.token, tabActive])
+    }, [address, tabActive])
 
     return (
         <div id="Personal" >

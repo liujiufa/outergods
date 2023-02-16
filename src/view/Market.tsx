@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { getTradeOrder, getOrderType } from '../API'
 import TransactionTips from '../components/TransactionTips'
 import { stateType } from '../store/reducer'
@@ -40,6 +40,8 @@ interface dynamic {
 }
 
 export default function Market(): JSX.Element {
+  const [params] = useSearchParams();
+  let id = params.get("id")
   // 控制图标上下
   const [expand14, setExpand14] = useState(true);
   const [expand15, setExpand15] = useState(true);
@@ -52,7 +54,6 @@ export default function Market(): JSX.Element {
   let state = useSelector<stateType, stateType>(state => state);
   const navigate = useNavigate();
   const listData = [1, 2, 3, 4, 5]
-
   let [showScreenModal, setShowScreenModal] = useState<boolean>(false)
   let [buyNFTModal, setBuyNFTModal] = useState<boolean>(false)
   let [TradeOrder, setTradeOrder] = useState<NftInfo[]>([])
@@ -123,7 +124,6 @@ export default function Market(): JSX.Element {
       }
     </Menu>
   );
-  /* 筛选条件改变重新加载第一页数据 */
   useEffect(() => {
     getTradeOrder({
       bidType: typeMap[typeIndex].value,
@@ -141,7 +141,7 @@ export default function Market(): JSX.Element {
       console.log(res.data, "交易场数据")
       setTradeOrder(res.data)
     })
-  }, [sortIndex, typeIndex, state.token])
+  }, [sortIndex, typeIndex, state.token, buyNFTModal, tabActive])
   /* 修改筛选条件 重置分页 */
   useEffect(() => {
     setPageNum(1)
@@ -182,6 +182,9 @@ export default function Market(): JSX.Element {
   function goSomeone(address: string) {
     navigate('/Someone?address=' + address)
   }
+  useEffect(() => {
+    setTabActive(Number(id))
+  }, [])
 
   useEffect(() => {
     getTradeOrderState('Market').then(res => {
@@ -190,7 +193,7 @@ export default function Market(): JSX.Element {
         setSynamicInfo(res.data)
       }
     })
-  }, [])
+  }, [tabActive])
 
   return (
     <div id="market" className="MarketPage">

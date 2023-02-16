@@ -138,7 +138,7 @@ export default function Launch(): JSX.Element {
     }
     dayjs.extend(duration)
     useEffect(() => {
-        if (state.token && tokenAddress) {
+        if (tokenAddress) {
             dispatch(createSetLodingAction(true))
             getNftProjectDetail({
                 "tokenAddress": tokenAddress,
@@ -157,7 +157,7 @@ export default function Launch(): JSX.Element {
                 })
             })
         }
-    }, [state.token, tokenAddress])
+    }, [tokenAddress])
 
     const typeMenu = (
         <Menu>
@@ -216,11 +216,11 @@ export default function Launch(): JSX.Element {
                 <img src={ProjectDetail?.backImgUrl} alt="" />
                 {width > 768 && <div className="dataItems">
                     <div className="item">
-                        <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 4) || "0"}</div>
+                        <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 2) || "0"}</div>
                         <div className="bottom">总交易量</div>
                     </div>
                     <div className="item">
-                        <div className="top">${decimalNum(ProjectDetail?.floorPrice, 4) || "0"}</div>
+                        <div className="top">${decimalNum(ProjectDetail?.floorPrice, 2) || "0"}</div>
                         <div className="bottom">地板价</div>
                     </div>
                     <div className="item">
@@ -276,11 +276,11 @@ export default function Launch(): JSX.Element {
                 <div className='outLinkBigBox'>
                     <div className="outLinkBox outLinkBoxM l-hidden">
                         <div className="linkItem">
-                            <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 4) || "0"}</div>
+                            <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 2) || "0"}</div>
                             <div className="bottom">总交易量</div>
                         </div>
                         <div className="linkItem">
-                            <div className="top">${decimalNum(ProjectDetail?.floorPrice, 4) || "0"}</div>
+                            <div className="top">${decimalNum(ProjectDetail?.floorPrice, 2) || "0"}</div>
                             <div className="bottom">地板价</div>
                         </div>
                         <div className="linkItem">

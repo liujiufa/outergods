@@ -133,7 +133,9 @@ const MainLayout: React.FC = () => {
             <Menu.Item key="2">
                 Collections
             </Menu.Item>
-            <Menu.Item key="3">
+            <Menu.Item key="3" onClick={() => {
+                navigate("/market?id=1")
+            }}>
                 Activities
             </Menu.Item>
             <Menu.SubMenu key="SubMenu" title={i18n.language === 'zh' ? 'ZH' : (i18n.language === 'en' ? 'EN' : '한국어')} >
@@ -189,7 +191,9 @@ const MainLayout: React.FC = () => {
                         Collections
                         <div className="unLink"></div>
                     </div>
-                    <div className="menuItem">
+                    <div className="menuItem" onClick={() => {
+                        navigate("/market?id=1")
+                    }} >
                         Activities
                         <div className="unLink"></div>
                     </div>
