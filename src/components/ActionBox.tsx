@@ -117,7 +117,7 @@ export default function Personal(props: any): JSX.Element {
                                 </div>
                             </div>
                             <div className="item">
-                                <div className="top">${NumSplic(item.uorderPrice,4)}</div>
+                                <div className="top">{item.uorderPrice && (`$` + NumSplic(item.uorderPrice, 2))}  </div>
                                 <div className="bottom">{item.num} {item.coinName}</div>
                             </div>
                             <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
@@ -178,7 +178,7 @@ export default function Personal(props: any): JSX.Element {
                                                             </div>
                                                         </div>
                                                         <div className="item">
-                                                            <div className="top">${NumSplic(item.uorderPrice, 4)}</div>
+                                                            <div className="top">{item.uorderPrice && (`$` + NumSplic(item.uorderPrice, 2))}</div>
                                                             <div className="bottom">{item.num} {item.coinName}</div>
                                                         </div>
                                                         <div className='drap-icon' onClick={() => {

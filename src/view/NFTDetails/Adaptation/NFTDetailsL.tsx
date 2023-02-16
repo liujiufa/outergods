@@ -80,7 +80,7 @@ export default function NFTDetailsL({
     OrderDetail,
     CopyLink,
     attrOrInfo,
-    NFTTypeDetail
+    NFTDetailFun
 }: any) {
     console.log(OrderDetail, "NFT详情");
     let [showPriceChange, setShowPriceChange] = useState<boolean>(false)
@@ -188,41 +188,28 @@ export default function NFTDetailsL({
     }
     /* 判断跳转到出售页面还是正在出售页面 */
     function goPath(goods: any) {
-        return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.userAddress}&&NFTDetailType=1`)
+        return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}`)
     }
 
     const stateFun = () => {
-        let str1 = owner_of?.toLocaleLowerCase();
         let str2 = web3React.account?.toLocaleLowerCase();
         let str3 = orderState?.owner_of?.toLocaleLowerCase();
-        console.log(orderState, str1, str2, str3, "NFT状态");
-        if (!orderState || str1) {
-            if (NFTTypeDetail === "0" && (str1 === str2)) {
-                return 0
-            }
-            if (NFTTypeDetail === "1" && (str1 === str2)) {
-                return 1
-            }
-
-            if (NFTTypeDetail === "0" && (str1 !== str2)) {
-                return 2
-            }
-            if (NFTTypeDetail === "1" && (str1 !== str2)) {
-                return 3
-            }
-        } else {
-            if (orderState?.status === 0 && (str3 === str2)) {
-                return 0
-            }
-            if (orderState?.status === 1 && (str3 === str2)) {
-                return 1
-            }
-            if (orderState?.status === 0 && (str3 !== str2)) {
-                return 2
-            }
-            if (orderState?.status === 1 && (str3 !== str2)) {
-                return 3
-            }
+        console.log(orderState, str2, str3, "NFT状态");
+        // 出售
+        if (orderState?.status === 0 && (str3 === str2)) {
+            return 0
+        }
+        // 调价
+        if (orderState?.status === 1 && (str3 === str2)) {
+            return 1
+        }
+        // 无法购买
+        if (orderState?.status === 0 && (str3 !== str2)) {
+            return 2
+        }
+        // 立即购买
+        if (orderState?.status === 1 && (str3 !== str2)) {
+            return 3
         }
     }
     // 刷新元数据
@@ -255,7 +242,7 @@ export default function NFTDetailsL({
                 }
             })
         }
-    }, [tokenAddress, tokenId, saleNFTModal])
+    }, [tokenAddress, tokenId, saleNFTModal, buyNFTModal])
 
     useEffect(() => {
         if (tokenAddress && tokenId) {
@@ -263,11 +250,14 @@ export default function NFTDetailsL({
             getNFTApiData(tokenId, tokenAddress).then((res: any) => {
                 if (res.code === 200) {
                     setOrderState(res.data)
+                    console.log(res.data, "NFT订单状态");
                 }
             })
             refreshFun()
+            // 出售完后获取NFT价格
+            NFTDetailFun()
         }
-    }, [tokenAddress, tokenId, saleNFTModal])
+    }, [tokenAddress, tokenId, saleNFTModal, buyNFTModal])
 
     useEffect(() => {
         if (OrderDetail?.projectId) {

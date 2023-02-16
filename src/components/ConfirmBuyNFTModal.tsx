@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { createAddMessageAction, createSetLodingAction } from '../store/actions'
 import { buyNftOrder } from '../API'
 import { AddrHandle } from '../utils/tool'
+import { useNavigate } from "react-router-dom";
 import '../assets/style/componentStyle/ManageModal.scss'
 import closeIcon from '../assets/image/closeBlack.png'
 import openIcon from '../assets/image/openIconWhite.png'
@@ -20,6 +21,7 @@ import defaultCard from '../assets/image/defaultCard.png'
 import USDTCoin from '../assets/image/USDT.png'
 import BigNumber from 'big.js'
 import BuySuccess from '../components/BuySuccess'
+import { Navigate } from 'react-router-dom';
 BigNumber.NE = -40
 BigNumber.PE = 40
 export interface ScreenDataType {
@@ -40,6 +42,7 @@ export default function ScreenModal(props: any) {
   console.log(props.NFTDetail, "确认购买");
   console.log(props.NFTInfo, "确认购买");
   const web3React = useWeb3React()
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   let [showBuySuccess, setShowBuySuccess] = useState<boolean>(false)
   let [approveNum, setApproveNum] = useState<string>('0')
@@ -155,7 +158,6 @@ export default function ScreenModal(props: any) {
         Balance = await Contracts.example.getBalance(web3React.account as string)
         Balance = new BigNumber(Balance).div(10 ** 18).toString()
       }
-      // console.log(Balance,"余额")
       //判断余额不足
       if (new BigNumber(Balance as string).lt(props.NFTInfo.priceString as string)) {
         return dispatch(createAddMessageAction(t('Not enough balance')))
@@ -168,6 +170,7 @@ export default function ScreenModal(props: any) {
           Contracts.example.makeOrder(web3React.account as string, res.data, price as string).then(() => {
             props.close()
             setShowBuySuccess(true)
+            navigate("/Market")
             // return dispatch(createAddMessageAction(t('Purchase successful')))
           }).finally(() => {
             dispatch(createSetLodingAction(false))

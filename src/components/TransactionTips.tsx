@@ -47,7 +47,7 @@ export default function TransactionTips() {
     }
   }, [])
   function goDetial(goods: any) {
-    return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.userAddress}&&NFTDetailType=1`)
+    return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}`)
   }
   function goSomeone(address: string) {
     navigate('/Someone?address=' + address)

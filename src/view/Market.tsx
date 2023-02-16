@@ -176,7 +176,7 @@ export default function Market(): JSX.Element {
 
   /* 判断跳转到出售页面还是正在出售页面 */
   function goPath(goods: any) {
-    return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}&&owner_of=${goods.userAddress}&&NFTDetailType=1`)
+    return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}`)
   }
 
   function goSomeone(address: string) {

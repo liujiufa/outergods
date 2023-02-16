@@ -82,8 +82,6 @@ export default function NFTDetails() {
     let [showSellModal, setShowSellModal] = useState<boolean>(false)
     let tokenId = params.get('tokenId')
     let tokenAddress = params.get('tokenAddress')
-    // 0：出售
-    let NFTDetailType = params.get('NFTDetailType')
     useEffect(() => {
         if (tokenId && tokenAddress) {
             getNftUserInfoDetail(tokenAddress, tokenId).then(res => {
@@ -103,6 +101,30 @@ export default function NFTDetails() {
             })
         }
     }, [tokenId])
+
+
+    // 获取NFT详情
+    const NFTDetailFun = () => {
+        if (tokenAddress && tokenId) {
+            getNftUserInfoDetail(tokenAddress, tokenId).then(res => {
+                if (res.data.metadata) {
+                    res.data.metadata = JSON.parse(res.data.metadata)
+                    let obj: { [key: string]: string; } = {}
+                    Object.keys(res.data.metadata).filter((item) => item !== 'image').map((item) => {
+                        if (typeof res.data.metadata[item] === 'string') {
+                            obj[item] = res.data.metadata[item]
+                        }
+                    })
+                    res.data.metadata = obj
+                    res.data.normalizedMetadata = JSON.parse(res.data.normalizedMetadata)
+                }
+                console.log(res.data, 'NFT详情');
+                setOrderDetail(res.data)
+            })
+        }
+    }
+
+
     useEffect(() => {
         if (tokenId && OrderDetail && OrderDetail.tokenAddress) {
             getNftOrderState(tokenId, DynamicStateMap[DynamicState].value, OrderDetail.tokenAddress).then(res => {
@@ -222,7 +244,7 @@ export default function NFTDetails() {
     return (
         <Container id="NFTDetails">
             {/* <L> */}
-            <NFTDetailsL OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} NFTTypeDetail={NFTDetailType} />
+            <NFTDetailsL OrderDetail={OrderDetail} CopyLink={CopyLink} attrOrInfo={attrOrInfo} NFTDetailFun={NFTDetailFun} />
             {/* </L> */}
         </Container>
     )
