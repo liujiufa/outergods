@@ -196,6 +196,8 @@ export default function ScreenModal(props: any) {
         Contracts.example.TOKENallowance(web3React.account as string, contractAddress.Market, props.NFTInfo?.payTokenAddress as string).then((res: string) => {
           setApproveNum(new BigNumber(res).div(10 ** 18).toString())
         })
+      }).finally(() => {
+        dispatch(createSetLodingAction(false))
       })
     }
   }
@@ -222,7 +224,7 @@ export default function ScreenModal(props: any) {
           <div className="NFTRight">
             <div className="NFTTitle">{props?.NFTInfo?.metadata?.name || props?.NFTDetail?.nftName}</div>
             <div className="projectTitle">{props?.NFTInfo?.projectName || props?.NFTDetail?.name}</div>
-            <div className="priceBox"><img src={props?.NFTInfo?.coinImgUrl} alt="" /> {Number(decimalNum(props?.NFTDetail?.nnftOrder?.price || props?.NFTInfo?.floorPrice)) || '-'} {props?.NFTDetail?.nnftOrder?.coinName || props?.NFTInfo?.coinName} <span>(${Number(decimalNum(props?.NFTDetail?.nnftOrder?.uorderPrice || props?.NFTInfo?.uprice)) || '-'})</span> </div>
+            <div className="priceBox"><img src={props?.NFTInfo?.coinImgUrl} alt="" /> {Number(decimalNum(props?.NFTDetail?.nnftOrder?.price || props?.NFTInfo?.price)) || '-'} {props?.NFTDetail?.nnftOrder?.coinName || props?.NFTInfo?.coinName} <span>(${Number(decimalNum(props?.NFTDetail?.nnftOrder?.uorderPrice || props?.NFTInfo?.uprice)) || '-'})</span> </div>
 
           </div>
         </div>

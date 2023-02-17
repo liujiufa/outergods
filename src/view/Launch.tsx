@@ -9,7 +9,7 @@ import duration from 'dayjs/plugin/duration' // import plugin
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from 'react-i18next'
 import Goods, { NftInfo } from '../components/HotspotCard'
-import { HowLongAgo, AddrHandle } from '../utils/tool'
+import { HowLongAgo, AddrHandle, NumSplic } from '../utils/tool'
 import { createAddMessageAction, createSetLodingAction } from '../store/actions'
 import NoData from '../components/NoData'
 import SuccessfulModal from '../components/SuccessfulModal'
@@ -474,16 +474,16 @@ export default function Launch(): JSX.Element {
                                     </div>
                                     <div className="item projectName">
                                         <div className="leftBox">
-                                            <img className='projectImg' src={item.projectLogo} alt="" />
+                                            <img src={item.projectLogo} alt="" />
                                         </div>
                                         <div className="right">
-                                            <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                            <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" className='projectImg' /> : <img className='projectImg' src={NotCertified} alt="" />}</div>
                                             <div className="bottom">{item.nftName}</div>
                                         </div>
                                     </div>
                                     <div className="item">
-                                        <div className="top">{item.uorderPrice}</div>
                                         <div className="bottom">{item.num} {item.coinName}</div>
+                                        <div className="top">{item.uprice && (`$` + NumSplic(item.uprice, 4))}  </div>
                                     </div>
                                     <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
                                         {
@@ -527,8 +527,8 @@ export default function Launch(): JSX.Element {
                                                                     </div>
                                                                 </div>
                                                                 <div className="item price">
-                                                                    <div className="top">{item.uorderPrice}</div>
                                                                     <div className="bottom">{item.num} {item.coinName}</div>
+                                                                    <div className="top">{item.uprice && (`$` + NumSplic(item.uprice, 4))}  </div>
                                                                 </div>
                                                                 <div className='drap-icon' onClick={() => {
                                                                     if (activeKey === (idx + "")) {

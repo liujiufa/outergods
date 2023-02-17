@@ -117,8 +117,8 @@ export default function Personal(props: any): JSX.Element {
                                 </div>
                             </div>
                             <div className="item">
-                                <div className="top">{item.uorderPrice && (`$` + NumSplic(item.uorderPrice, 2))}  </div>
-                                <div className="bottom">{item.num} {item.coinName}</div>
+                                <div className="top ">{item.num} {item.coinName}</div>
+                                <div className="bottom">{item.uprice && (`$` + NumSplic(item.uprice, 4))}  </div>
                             </div>
                             <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
                                 {
@@ -178,8 +178,8 @@ export default function Personal(props: any): JSX.Element {
                                                             </div>
                                                         </div>
                                                         <div className="item">
-                                                            <div className="top">{item.uorderPrice && (`$` + NumSplic(item.uorderPrice, 2))}</div>
-                                                            <div className="bottom">{item.num} {item.coinName}</div>
+                                                            <div className="top">{item.num} {item.coinName}</div>
+                                                            <div className=" bottom">{item.uprice && (`$` + NumSplic(item.uprice, 4))}</div>
                                                         </div>
                                                         <div className='drap-icon' onClick={() => {
                                                             if (activeKey === `${index}`) {

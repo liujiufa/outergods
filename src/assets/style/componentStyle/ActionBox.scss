@@ -455,10 +455,9 @@
             width: 100%;
             overflow: hidden;
             background: #FFFFFF;
-            box-shadow: 4px 11px 53px rgba(198, 207, 231, 0.6);
+            // box-shadow: 4px 11px 53px rgba(198, 207, 231, 0.6);
             border-radius: 17px;
-            max-height: 530px;
-            overflow: auto;
+
 
 
             & .ant-space-vertical {
@@ -498,6 +497,8 @@
             .contentBox {
                 padding: 0px 16px;
                 width: 100%;
+                max-height: 514px;
+                overflow: auto;
 
                 .itemBox {
                     align-items: center;
@@ -532,7 +533,7 @@
                             font-size: 16px;
                             line-height: 22px;
                             color: #000000;
-                            
+
                         }
 
                         .bottom {

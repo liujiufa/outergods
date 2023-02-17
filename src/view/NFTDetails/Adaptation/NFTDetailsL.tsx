@@ -242,7 +242,7 @@ export default function NFTDetailsL({
                 }
             })
         }
-    }, [tokenAddress, tokenId, saleNFTModal, buyNFTModal])
+    }, [tokenAddress, tokenId, saleNFTModal, buyNFTModal, showEnterCancel, showPriceChange])
 
     useEffect(() => {
         if (tokenAddress && tokenId) {
@@ -257,7 +257,7 @@ export default function NFTDetailsL({
             // 出售完后获取NFT价格
             NFTDetailFun()
         }
-    }, [tokenAddress, tokenId, saleNFTModal, buyNFTModal])
+    }, [tokenAddress, tokenId, saleNFTModal, buyNFTModal, showEnterCancel, showPriceChange])
 
     useEffect(() => {
         if (OrderDetail?.projectId) {
@@ -294,7 +294,7 @@ export default function NFTDetailsL({
                     </div>
                     <div className='right'>
                         <h4 className='title'>
-                            <div className='title-name'>{OrderDetail && OrderDetail?.name}</div>
+                            <div className='title-name'>{OrderDetail && OrderDetail?.normalizedMetadata?.name}</div>
                             <span className="icon l-hidden">
                                 <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>CHAIN</span>} color="#FFF" key="coin">
                                     <img className='first' src={BinancePng} alt="" />
@@ -308,7 +308,7 @@ export default function NFTDetailsL({
                         <div className="project">
                             <div className="name">
                                 <img src={OrderDetail?.projectImg || defaultCard} alt="" className="logo" />
-                                <div className="project-name" onClick={() => { navigate('/Launch?tokenAddress=' + OrderDetail?.tokenAddress) }}>{OrderDetail?.normalizedMetadata?.name}</div>
+                                <div className="project-name" onClick={() => { navigate('/Launch?tokenAddress=' + OrderDetail?.tokenAddress) }}>{OrderDetail?.name}</div>
                                 <AuthenticationGroup src={OrderDetail?.isAuthentication ? AuthenticationPng : NotAuthenticationPng} />
                             </div>
                             <span className="icon m-hidden">
@@ -440,7 +440,6 @@ export default function NFTDetailsL({
                                 </div>
                             </div>
                         }
-
                         <div className="right-nft-details">
                             <div className="right-nft-details-tabs">
                                 {
@@ -464,7 +463,7 @@ export default function NFTDetailsL({
                                                     上一次成交价
                                                 </div>
                                                 <div className="nft-details-card-price">
-                                                    ${NumSplic(OrderDetail?.recentPrice) || 0}
+                                                    {NumSplic(OrderDetail?.recentPrice)} <span className='coinName'> USDT</span> <div className='U'>(${NumSplic(OrderDetail?.tradeUNum, 2) || 0})</div>
                                                 </div>
                                             </div>
                                             <div className="nft-details-card-group nft-details-card-group-center" >
@@ -480,7 +479,7 @@ export default function NFTDetailsL({
                                                     项目地板价
                                                 </div>
                                                 <div className="nft-details-card-price">
-                                                    ${decimalNum(OrderDetail?.floorPriceDouble) || "0"}
+                                                    {decimalNum(OrderDetail?.floorPriceDouble) || "0"} <span className='coinName'> USDT</span>
                                                 </div>
                                             </div>
                                             {/* {
@@ -601,15 +600,14 @@ export default function NFTDetailsL({
                                         )}
                                     </div>
                                     <div className="LoadMore pointer flexCenter" onClick={LoadMore}>{t('Load More')}  {'>'}</div>
-                                </> :
-                                <NoData />
+                                </> : <NoData />
                         }
                     </div>
                 </div>
             </div>
             {OrderDetail && <ManageModal NFTDetail={OrderDetail} coinKind={coinsKindData} isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} personalFees={OrderDetail?.nnftOrder?.createFee} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
             {OrderDetail && <CancelSaleModal isShow={showEnterCancel} tokenId={OrderDetail?.nnftOrder?.tokenId} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowEnterCancel(false) }}></CancelSaleModal>}
-            {OrderDetail && coinsKindData.length > 0 && <SaleModal NFTDetail={OrderDetail} coinKind={coinsKindData} isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress, personalFees: OrderDetail?.nnftOrder?.createFee || OrderDetail?.createFee }}></SaleModal>}
+            {OrderDetail && coinsKindData.length > 0 && <SaleModal key={showEnterCancel + "" + saleNFTModal} NFTDetail={OrderDetail} coinKind={coinsKindData} isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress, personalFees: OrderDetail?.nnftOrder?.createFee || OrderDetail?.createFee }}></SaleModal>}
             {OrderDetail && <ConfirmBuyNFTModal projectName={OrderDetail?.name} NFTInfo={OrderDetail?.nnftOrder} NFTDetail={OrderDetail} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} ></ConfirmBuyNFTModal>}
         </div >
     )

@@ -101,6 +101,10 @@ export default function ScreenModal(props: any) {
                 setStepState(false)
               }
             })
+          }).catch((res: any) => {
+            if (res.code === 4001) {
+              dispatch(createSetLodingAction(false))
+            }
           })
         } else {
           Contracts.example.approveMarket(web3React.account as string, props.data.tokenAddress).then((res: any) => {
@@ -111,6 +115,10 @@ export default function ScreenModal(props: any) {
                 setStepState(false)
               }
             })
+          }).catch((res: any) => {
+            if (res.code === 4001) {
+              dispatch(createSetLodingAction(false))
+            }
           })
         }
       })
@@ -157,6 +165,10 @@ export default function ScreenModal(props: any) {
       }).finally(() => {
         dispatch(createSetLodingAction(false))
       })
+    }).catch((res: any) => {
+      if (res.code === 4001) {
+        dispatch(createSetLodingAction(false))
+      }
     })
 
   }
@@ -170,7 +182,6 @@ export default function ScreenModal(props: any) {
 
   useEffect(() => {
     if (web3React.account && props.data.tokenAddress) {
-      console.log('nihao1');
       // 是否是155NFT
       if (coinName !== "BNB") {
         console.log(props.data.tokenAddress, "NFT合约地址");
@@ -198,10 +209,10 @@ export default function ScreenModal(props: any) {
         setStepState(false)
       }
     }
-  }, [web3React.account, coinName])
+  }, [web3React.account, coinName, stepSaleNFTModal, props.isShow])
   return (
     <>
-      <SaleNFTModal coinKind={props.coinKind} isShow={props.isShow && !stepSaleNFTModal} close={() => { props.close() }} saleData={props.data} saleFun={saleStepFun1}></SaleNFTModal>
+      <SaleNFTModal coinKind={props.coinKind} destroyOnClose={true} isShow={props.isShow && !stepSaleNFTModal} close={() => { props.close() }} saleData={props.data} saleFun={saleStepFun1}></SaleNFTModal>
       <Modal visible={stepSaleNFTModal} destroyOnClose={true} centered closable={false} footer={null} width={790} className="StepSaleNFTModal">
         <div className="confirmModalTop">
           <img src={closeIcon} className="closeIcon" alt="" onClick={() => { setStepSaleNFTModal(false) }} />

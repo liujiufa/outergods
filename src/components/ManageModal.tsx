@@ -83,7 +83,7 @@ export default function ScreenModal(props: any) {
         encipheredData: res
       }).then(res => {
         // console.log(res)
-        navigate(-1)
+        props.close()
         dispatch(createAddMessageAction(t('Modification succeeded')))
       }).catch(() => {
         dispatch(createAddMessageAction(t('Modification succeeded')))
@@ -92,10 +92,15 @@ export default function ScreenModal(props: any) {
       dispatch(createSetLodingAction(false))
     })
   }
+  // function inputChange(e: React.ChangeEvent<HTMLInputElement>) {
+  //   let value = e.target.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+  //   setPrice(value)
+  // }
   function inputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    let value = e.target.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+    let value = e.target.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3').slice(0, 10);
     setPrice(value)
   }
+
 
   // 下拉图标旋转
   const handleDropDown = (fun: any, value: boolean) => {

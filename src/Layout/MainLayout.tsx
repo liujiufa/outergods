@@ -134,7 +134,7 @@ const MainLayout: React.FC = () => {
                 Collections
             </Menu.Item>
             <Menu.Item key="3" onClick={() => {
-                navigate("/market?id=1")
+                navigate("/Market?id=1")
             }}>
                 Activities
             </Menu.Item>
@@ -192,7 +192,7 @@ const MainLayout: React.FC = () => {
                         <div className="unLink"></div>
                     </div>
                     <div className="menuItem" onClick={() => {
-                        navigate("/market?id=1")
+                        navigate("/Market?id=1")
                     }} >
                         Activities
                         <div className="unLink"></div>

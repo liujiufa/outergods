@@ -184,7 +184,7 @@ export default function Market(): JSX.Element {
   }
   useEffect(() => {
     setTabActive(Number(id))
-  }, [])
+  }, [id])
 
   useEffect(() => {
     getTradeOrderState('Market').then(res => {

@@ -76,11 +76,15 @@ export default function ScreenModal(props: any) {
   }
 
   let [price, setPrice] = useState<string>('')
+
   function ChangeNum(e: React.ChangeEvent<HTMLInputElement>) {
     let value = e.target.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3').slice(0, 10);
+    // let value = e.target.value;
+    console.log(value, "kkk");
 
     setPrice(value)
   }
+
 
   let typeMap = [
     {
@@ -193,7 +197,7 @@ export default function ScreenModal(props: any) {
               </div>
             </div>
             <div className="right">
-              <input type="number" value={price} onChange={ChangeNum} placeholder='0.00' />
+              <input type="number" value={price} onChange={(e) => { ChangeNum(e) }} placeholder='0.00' />
             </div>
           </div>
         </div>

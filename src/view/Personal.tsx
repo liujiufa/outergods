@@ -132,10 +132,13 @@ export default function Personal(): JSX.Element {
                 "chain": Chain,
                 "cursor": fig,
                 "pageSize": 10
-            }).then((res) => {
-                console.log(res.data, "个人中心物品");
-                setUserCurrentNft(res.data)
-                dispatch(createSetLodingAction(false))
+            }).then((res: any) => {
+                if (res.code === 200) {
+                    console.log(res.data, "个人中心物品");
+                    res.data.result = [...userCurrentNft!!.result, res.data]
+                    setUserCurrentNft(res.data)
+                    dispatch(createSetLodingAction(false))
+                }
             })
         } else {
             dispatch(createAddMessageAction(t('No more')))
@@ -325,17 +328,18 @@ export default function Personal(): JSX.Element {
                                     <div className="stateBox">
                                         <div className="stateTitle m-hidden-block">状态</div>
                                         <div className='m-hidden-block'>
-                                            <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部（122） </div>
-                                            <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中（12）</div>
-                                            <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
-                                            <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏（12） </div>
+                                            {/* <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部（122） </div> */}
+                                            <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部 </div>
+                                            <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中</div>
+                                            <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的</div>
+                                            <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏 </div>
                                         </div>
 
                                         <div className='nft-type l-hidden'>
-                                            <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部（122） </div>
-                                            <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中（12）</div>
-                                            <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
-                                            <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏（12） </div>
+                                            <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部 </div>
+                                            <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中</div>
+                                            <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的 </div>
+                                            <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏 </div>
                                         </div>
 
                                     </div>

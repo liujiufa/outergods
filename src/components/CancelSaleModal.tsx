@@ -24,7 +24,6 @@ export default function ScreenModal(props: any) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let { t } = useTranslation();
-
   function closeOrder() {
     dispatch(createSetLodingAction(true))
     Contracts.example.Sign(web3React.account as string, "askdljalksnmzxncajkwhdiaowhdajkhsdjkahsdkjhakjwhjdkahwjkdhajkdhakjsdhjkahsdjkawhdjkahsjmcnbzmxbcjiwahjdah" + props.tokenId).then((res: string) => {
@@ -34,10 +33,14 @@ export default function ScreenModal(props: any) {
         encipheredData: res
       }).then(res => {
         // console.log('取消成功')
-        navigate(-1)
+        // navigate(-1)
+        props.close()
+        dispatch(createSetLodingAction(false))
       })
-    }).finally(() => {
-      dispatch(createSetLodingAction(false))
+    }).catch((res: any) => {
+      if (res.code === 4001) {
+        dispatch(createSetLodingAction(false))
+      }
     })
   }
 

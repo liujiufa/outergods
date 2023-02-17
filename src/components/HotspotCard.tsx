@@ -215,7 +215,7 @@ export default function HotspotCard(props: any) {
       {
         activeMenu ?
           <div className='menuBox'>
-            <div className="left" onClick={() => { props.goPath() }}>{((props?.NftInfo?.owner_of).toLowerCase() === (web3React.account)?.toLowerCase() && props?.NftInfo?.status === 1) ? "取消出售" : "出售"}</div>
+            <div className="left" onClick={() => { props.goPath() }}>{((props?.NftInfo?.owner_of)?.toLowerCase() === (web3React.account)?.toLowerCase() && props?.NftInfo?.status === 1) ? "取消出售" : "出售"}</div>
             <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
           </div> :
           <div className="cardBottomBox">
