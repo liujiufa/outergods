@@ -6,13 +6,105 @@
 
         width: 100%;
         background: #FFFFFF;
-        box-shadow: 22px 26px 202px rgba(198, 207, 231, 0.5);
+        // box-shadow: 22px 26px 202px rgba(198, 207, 231, 0.5);
         border-radius: 45px;
         // overflow: auto;
         // max-height: 590px;
 
-        .titleBox {
+        .topBox {
             padding: 45px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FFFFFF;
+            border-radius: 45px 45px 0px 0px;
+            box-shadow: 0px 4px 33px rgba(141, 147, 163, 0.3);
+
+            .actionTitle {
+                word-break: keep-all;
+                height: 30px;
+                padding: 5px 13px;
+                background: #D5DBFF;
+                border-radius: 35px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                letter-spacing: 0.1em;
+                color: #7285FF;
+            }
+
+            .right {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+
+                .dropDownBox {
+                    .MarketSearchRow {
+                        width: 100%;
+                        max-width: 1410px;
+                        display: flex;
+                        justify-content: flex-end;
+                        margin: auto;
+
+                        .search {
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 20px;
+                            color: #788CFF;
+                            margin-left: 30px;
+                            width: 120px;
+                            height: 36px;
+                            border: 1px solid #788CFF;
+                            box-sizing: border-box;
+                            border-radius: 18px;
+                            padding: 6px 15px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+
+
+                            .searchBox {
+                                font-size: 14px;
+
+                                overflow: hidden;
+                                white-space: nowrap;
+                                margin-right: 3px;
+                            }
+                        }
+
+                        .filter {
+                            margin-left: 30px;
+                            background: linear-gradient(269.72deg, #9C75FF 0.22%, #7485FF 99.76%);
+                            border-radius: 18px;
+                            width: 120px;
+                            height: 36px;
+                            padding: 6px 15px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            color: #FFFFFF;
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+                .switch {
+                    width: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+
+        .titleBox {
+            padding: 0px 45px;
             height: 100px;
             display: flex;
             align-items: center;
@@ -20,6 +112,38 @@
             background: #FFFFFF;
             box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
             border-radius: 45px 45px 0px 0px;
+
+
+            .titleItem {
+                width: 150px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                letter-spacing: 0.1em;
+                color: #000000;
+            }
+
+            .type,
+            .date {
+                width: 100px;
+            }
+        }
+
+        .titleActive {
+            padding: 30px 45px 10px;
+            // height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            // background: #FFFFFF;
+            // box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
+            // border-radius: 45px 45px 0px 0px;
 
 
             .titleItem {
@@ -75,6 +199,10 @@
                         line-height: 22px;
                         color: #000000;
                         word-break: break-all;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 100px;
                     }
 
                     .bottom {
@@ -98,7 +226,6 @@
                         img {
                             width: 36px;
                             height: 36px;
-                            width: 100%;
                             border-radius: 6px;
                         }
                     }
@@ -533,6 +660,10 @@
                             font-size: 16px;
                             line-height: 22px;
                             color: #000000;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            max-width: 100px;
 
                         }
 
@@ -738,6 +869,13 @@
 
     #ActionBox .ant-collapse-content-box {
         padding: 0 0px;
+    }
+
+    #ActionBox .itemBigBox .contentBox .itemBox .item .autoTop {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100px;
     }
 }
 

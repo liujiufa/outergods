@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import '../assets/style/componentStyle/HotspotCard.scss'
 import { userGiveLike, getNFTTheTopProjectInfo } from '../API'
 import { NumSplic } from '../utils/tool'
+import { Tooltip } from 'antd'
 import Img from './Img'
 import { useTranslation } from 'react-i18next'
 import { useWeb3React } from '@web3-react/core'
@@ -156,7 +157,9 @@ export default function HotspotCard(props: any) {
       </div>
       <div className="bottonBox">
         <div className="box">
-          <div className="cardName" >{props.NftInfo?.normalized_metadata?.name || props.NftInfo?.metadata?.name || "XXXXXXXXX"}</div>
+          <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>{props.NftInfo?.normalized_metadata?.name || props.NftInfo?.metadata?.name || "XXXXXXXXX"}</span>} color="#FFF" key="tips">
+            <div className="cardName" >{props.NftInfo?.normalized_metadata?.name || props.NftInfo?.metadata?.name || "XXXXXXXXX"}</div>
+          </Tooltip>
           <div className="pointer nowrap" onClick={(e) => LikeFun(e)}><img src={isLike ? Like : NotLike} alt="" /></div>
         </div>
 

@@ -3,7 +3,7 @@
 
 import React, { Fragment } from 'react'
 import styled from 'styled-components'
-
+import { Tooltip } from 'antd'
 import { FlexCCBox } from './FlexBox'
 
 import NFT1Png from '../assets/image/defaultCard.png'
@@ -95,7 +95,7 @@ const NFTName = styled(FlexCCBox)`
     font-size: 16px;
     color: #000000;
     margin-top: 20%;
-    width:100%;
+    // width:100%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis; 
@@ -169,7 +169,11 @@ export default function ProjectGroup({
                                 <NFTImgGroup> <NFTImg src={data?.img} /> </NFTImgGroup>
                             </Group>
                             <Group>
-                                <NFTName >{data.name}</NFTName>
+                                <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>{data.name}</span>} color="#FFF" key="tips">
+                                    <NFTName >
+                                        {data.name}
+                                    </NFTName>
+                                </Tooltip>
                                 <AuthenticationGroup src={data?.isAuthentication === 0 ? NotAuthenticationPng : AuthenticationPng} />
                             </Group>
                             <GroupPrice>

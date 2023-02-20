@@ -463,123 +463,13 @@
                     border-radius: 10px !important;
                 }
 
-
-                // .itemContentBigBox {
-                //     margin-top: 25px;
-                //     width: 100%;
-                //     background: #FFFFFF;
-                //     box-shadow: 22px 26px 202px rgba(198, 207, 231, 0.5);
-                //     border-radius: 45px;
-                //     overflow: hidden;
-                //     height: 590px;
-
-                //     .titleBox {
-                //         padding: 45px;
-                //         height: 100px;
-                //         display: flex;
-                //         align-items: center;
-                //         justify-content: space-between;
-                //         background: #FFFFFF;
-                //         box-shadow: 0px 14px 40px rgba(198, 207, 231, 0.5);
-
-                //         .titleItem {
-                //             width: 150px;
-                //             display: flex;
-                //             flex-direction: column;
-                //             align-items: center;
-                //             font-family: 'PingFang SC';
-                //             font-style: normal;
-                //             font-weight: 400;
-                //             font-size: 14px;
-                //             line-height: 20px;
-                //             /* identical to box height */
-                //             letter-spacing: 0.1em;
-                //             color: #000000;
-                //         }
-
-                //         .type,
-                //         .date {
-                //             width: 100px;
-                //         }
-                //     }
-
-                //     .itemContentBox {
-                //         padding: 20px 45px;
-
-                //         .itemBox {
-                //             padding: 25px 0px;
-                //             display: flex;
-                //             align-items: center;
-                //             justify-content: space-between;
-                //             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-                //             .item {
-                //                 display: flex;
-                //                 align-items: center;
-                //                 flex-direction: column;
-                //                 width: 150px;
-                //                 font-family: 'PingFang SC';
-                //                 font-style: normal;
-                //                 font-weight: 700;
-                //                 font-size: 16px;
-                //                 line-height: 22px;
-                //                 color: #000000;
-
-                //                 .top {
-                //                     font-family: 'PingFang SC';
-                //                     font-style: normal;
-                //                     font-weight: 700;
-                //                     font-size: 16px;
-                //                     line-height: 22px;
-                //                     color: #000000;
-                //                 }
-
-                //                 .bottom {
-                //                     font-family: 'PingFang SC';
-                //                     font-style: normal;
-                //                     font-weight: 700;
-                //                     font-size: 16px;
-                //                     line-height: 22px;
-                //                     color: rgba(0, 0, 0, 0.6);
-                //                 }
-                //             }
-
-                //             .projectName {
-                //                 display: flex;
-                //                 flex-direction: row;
-                //                 align-items: center;
-
-                //                 .leftBox {
-                //                     margin-right: 8px;
-
-                //                     img {
-                //                         width: 36px;
-                //                         height: 36px;
-                //                         width: 100%;
-                //                         border-radius: 6px;
-                //                     }
-                //                 }
-
-                //                 img {
-                //                     margin-right: 8px;
-                //                 }
-                //             }
-
-                //             .type,
-                //             .date {
-                //                 width: 100px;
-                //             }
-                //         }
-                //     }
-
-
-                // }
-
                 .content {
                     // padding-left: 30px;
                     flex: 1;
                     justify-content: center;
                     align-items: center;
+                    height: 500px;
+                    overflow: auto;
 
                     .goodsNumber {
                         margin: 30px 0px;
@@ -797,7 +687,8 @@
         width: 33%;
         padding: 8px;
     }
-    .Personal .personalContent .tabContentBox .bigContent .slider{
+
+    .Personal .personalContent .tabContentBox .bigContent .slider {
         min-width: 200px;
     }
 }

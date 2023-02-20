@@ -1,0 +1,140 @@
+.initAccount {
+    .ant-modal-content {
+        background: #E0E1FF !important;
+        border-radius: 50px !important;
+
+        .ant-modal-body {
+            padding: 40px 30px;
+            max-height: auto !important;
+        }
+    }
+
+    .confirmModalTop {
+        position: relative;
+        height: 70px;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 15px;
+
+        .title {
+            position: absolute;
+            right: 50%;
+            transform: translateX(50%);
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 34px;
+            /* identical to box height */
+            text-align: center;
+            letter-spacing: 0.1em;
+            color: #000000;
+        }
+
+        >img {
+            position: absolute;
+            right: 0px;
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .contentBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+            margin: 0px auto 65px;
+        }
+
+        .tip {
+            width: 100%;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            text-align: center;
+            letter-spacing: 0.1em;
+            color: #000000;
+
+            span {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 22px;
+                text-align: center;
+                letter-spacing: 0.1em;
+                color: rgba(120, 140, 255, 1);
+            }
+        }
+
+        .btnBox {
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+
+            >div {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 22px;
+                text-align: center;
+                letter-spacing: 0.1em;
+                color: #FFFFFF;
+                padding: 14px 48px;
+                margin: 60px auto 40px;
+            }
+
+            .cancel {
+                background: #AEADB2;
+                border-radius: 25px;
+            }
+
+            .accrept {
+                background: linear-gradient(90deg, #7285FF 0%, #9D72FF 100%);
+                border-radius: 25px;
+            }
+        }
+    }
+}
+
+@media (max-width:768px) {
+    .initAccount .confirmModalTop .title {
+        font-size: 20px;
+    }
+
+    .initAccount .contentBox img {}
+}
+
+@media (max-width:425px) {
+    .initAccount .confirmModalTop>img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .initAccount .confirmModalTop .title {
+        font-size: 16px;
+    }
+
+    .initAccount .contentBox img {
+        width: 80%;
+        margin: 0px auto 24px;
+    }
+
+    .initAccount .contentBox .btnBox>div {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+        letter-spacing: 0.1em;
+        color: #FFFFFF;
+        padding: 8px 20px;
+        margin: 20px auto 20px;
+    }
+}

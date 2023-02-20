@@ -41,7 +41,7 @@ interface dynamic {
 
 export default function Market(): JSX.Element {
   const [params] = useSearchParams();
-  let id = params.get("id")
+  let id = params.get("id") || 0
   // 控制图标上下
   const [expand14, setExpand14] = useState(true);
   const [expand15, setExpand15] = useState(true);

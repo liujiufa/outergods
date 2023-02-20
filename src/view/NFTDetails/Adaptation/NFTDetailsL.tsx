@@ -23,7 +23,7 @@ import Goods, { NftInfo } from '../../../components/HotspotCard'
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { getNftOrderState, getNftUserInfoDetail, getUserOrder, getTradeCoinNameList, getOrderByProject, getNFTApiData, getNFTMetadata } from '../../../API'
 import { stateType } from '../../../store/reducer'
-import { createAddMessageAction } from "../../../store/actions"
+import { createAddMessageAction, createSetLodingAction } from "../../../store/actions"
 import ManageModal from '../../../components/ManageModal'
 import CancelSaleModal from '../../../components/CancelSaleModal'
 import SaleNFTModal from '../../../components/SaleNFTModal'
@@ -214,18 +214,36 @@ export default function NFTDetailsL({
     }
     // 刷新元数据
     const refreshFun = () => {
+        dispatch(createSetLodingAction(true))
         getNFTMetadata(tokenAddress as string, tokenId as string).then((res: any) => {
             if (res.code === 200) {
+                dispatch(createSetLodingAction(false))
                 console.log(res.data, "nihao");
                 setRefreshState(res.data)
-                console.log(OrderDetail.normalizedMetadata, "刷新之后");
+                dispatch(createAddMessageAction("刷新成功"))
+                // console.log(OrderDetail.normalizedMetadata, "刷新之后");
                 if (!OrderDetail?.normalizedMetadata) {
                     OrderDetail.normalizedMetadata = res.data.normalizedMetadata;
-                    console.log(OrderDetail.normalizedMetadata, "刷新之后");
+                    // console.log(OrderDetail.normalizedMetadata, "刷新之后");
                 }
             }
+        }).finally(() => {
+            dispatch(createSetLodingAction(false))
         })
     }
+
+
+
+    useEffect(() => {
+        if (tokenAddress && tokenId) {
+            getTradeCoinNameList().then((res: any) => {
+                console.log(res.data, '币种');
+                if (res.code === 200) {
+                    setCoinsKindData(res.data)
+                }
+            })
+        }
+    }, [tokenAddress, tokenId])
 
     useEffect(() => {
         if (tokenAddress && tokenId) {
@@ -235,14 +253,9 @@ export default function NFTDetailsL({
                     setTableData(res.data)
                 }
             })
-            getTradeCoinNameList().then((res: any) => {
-                console.log(res.data, '币种');
-                if (res.code === 200) {
-                    setCoinsKindData(res.data)
-                }
-            })
         }
     }, [tokenAddress, tokenId, saleNFTModal, buyNFTModal, showEnterCancel, showPriceChange])
+
 
     useEffect(() => {
         if (tokenAddress && tokenId) {
@@ -422,21 +435,27 @@ export default function NFTDetailsL({
 
                         {/* 立即购买(别人已上架) */}
                         {
-                            stateFun() === 3 && <div className="buy">
-                                <div className="buy-left">
-                                    <div className="buy-left-top">一口价</div>
-                                    <div className="buy-left-bottom">
-                                        <img src={OrderDetail?.nnftOrder?.coinImgUrl} className="buy-left-bottom-coin" />
-                                        <div className="coin-group">
-                                            {Number(decimalNum(OrderDetail?.nnftOrder?.price)) || '-'} {OrderDetail?.nnftOrder?.coinName}
-                                            <div className="coin-group-price">
-                                                (${Number(decimalNum(OrderDetail?.nnftOrder?.uorderPrice)) || '-'})
+                            stateFun() === 3 && <div className="buyBox">
+                                <div className="deadTime">
+                                    售卖截止于2023年2月27日 11：29
+                                    <div className="line"></div>
+                                </div>
+                                <div id='buy'>
+                                    <div className="buy-left">
+                                        <div className="buy-left-top">一口价</div>
+                                        <div className="buy-left-bottom">
+                                            <img src={OrderDetail?.nnftOrder?.coinImgUrl} className="buy-left-bottom-coin" />
+                                            <div className="coin-group">
+                                                {Number(decimalNum(OrderDetail?.nnftOrder?.price)) || '-'} {OrderDetail?.nnftOrder?.coinName}
+                                                <div className="coin-group-price">
+                                                    (${Number(decimalNum(OrderDetail?.nnftOrder?.uorderPrice)) || '-'})
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="buy-right">
-                                    <div className="buy-right-button" onClick={() => { buyBtnFun(1) }}>立即购买</div>
+                                    <div className="buy-right">
+                                        <div className="buy-right-button" onClick={() => { buyBtnFun(1) }}>立即购买</div>
+                                    </div>
                                 </div>
                             </div>
                         }
@@ -516,16 +535,16 @@ export default function NFTDetailsL({
                                                 <div className="nft-details-info-item-title">
                                                     合约地址
                                                 </div>
-                                                <div className="nft-details-info-item-content activeItem" onClick={() => { window.open('https://bscscan.com/address/' + OrderDetail?.tokenAddress) }} >
-                                                    {AddrHandle(OrderDetail?.tokenAddress, 10, 6)}<img onClick={() => { CopyAddressFun(OrderDetail?.tokenAddress) }} src={CopyPng} alt="" className="copy" />
+                                                <div className="nft-details-info-item-content activeItem"  >
+                                                    <span className='activeItem' onClick={() => { window.open('https://bscscan.com/address/' + OrderDetail?.tokenAddress) }}>{AddrHandle(OrderDetail?.tokenAddress, 10, 6)}</span>  <img onClick={() => { CopyAddressFun(OrderDetail?.tokenAddress) }} src={CopyPng} alt="" className="copy" />
                                                 </div>
                                             </div>
                                             <div className="nft-details-info-item">
                                                 <div className="nft-details-info-item-title">
                                                     代币ID
                                                 </div>
-                                                <div className="nft-details-info-item-content activeItem" onClick={() => { window.open(OrderDetail?.tokenUri) }}>
-                                                    {OrderDetail && (OrderDetail?.tokenId?.length > 16 ? AddrHandle(OrderDetail?.tokenId, 10, 6) : OrderDetail?.tokenId)}<img onClick={() => { CopyAddressFun(OrderDetail?.tokenId) }} src={CopyPng} alt="" className="copy" />
+                                                <div className="nft-details-info-item-content activeItem" >
+                                                    <span className='activeItem' onClick={() => { window.open(OrderDetail?.tokenUri) }}> {OrderDetail && (OrderDetail?.tokenId?.length > 16 ? AddrHandle(OrderDetail?.tokenId, 10, 6) : OrderDetail?.tokenId)}</span><img onClick={() => { CopyAddressFun(OrderDetail?.tokenId) }} src={CopyPng} alt="" className="copy" />
                                                 </div>
                                             </div>
                                             <div className="nft-details-info-item">
@@ -605,7 +624,7 @@ export default function NFTDetailsL({
                     </div>
                 </div>
             </div>
-            {OrderDetail && <ManageModal NFTDetail={OrderDetail} coinKind={coinsKindData} isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} personalFees={OrderDetail?.nnftOrder?.createFee} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
+            {OrderDetail && <ManageModal NFTDetail={OrderDetail} key={showPriceChange + "" + showEnterCancel} coinKind={coinsKindData} isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} personalFees={OrderDetail?.nnftOrder?.createFee} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
             {OrderDetail && <CancelSaleModal isShow={showEnterCancel} tokenId={OrderDetail?.nnftOrder?.tokenId} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowEnterCancel(false) }}></CancelSaleModal>}
             {OrderDetail && coinsKindData.length > 0 && <SaleModal key={showEnterCancel + "" + saleNFTModal} NFTDetail={OrderDetail} coinKind={coinsKindData} isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress, personalFees: OrderDetail?.nnftOrder?.createFee || OrderDetail?.createFee }}></SaleModal>}
             {OrderDetail && <ConfirmBuyNFTModal projectName={OrderDetail?.name} NFTInfo={OrderDetail?.nnftOrder} NFTDetail={OrderDetail} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} ></ConfirmBuyNFTModal>}

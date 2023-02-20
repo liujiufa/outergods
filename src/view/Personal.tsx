@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState, useRef } from 'react'
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Table, Pagination, Collapse, Space, Select } from 'antd';
 import { NftUserType } from '../API'
@@ -17,6 +17,8 @@ import Goods, { NftInfo } from '../components/HotspotCard'
 import { useTranslation } from 'react-i18next'
 import { useViewport } from '../components/viewportContext'
 import { Chain } from '../config'
+import BScroll from '@better-scroll/core'
+import Pullup from '@better-scroll/pull-up'
 import CollectionScreenModal from '../components/CollectionScreenModal'
 import ReceRecord from '../components/ReceRecord'
 import NoData from '../components/NoData'
@@ -85,6 +87,7 @@ export default function Personal(): JSX.Element {
     const dispatch = useDispatch();
     const { width } = useViewport()
     let { t } = useTranslation();
+    const wrapperRef = useRef(null)
     const [tabActive, setTabActive] = useState(0);
     let state = useSelector<stateType, stateType>(state => state);
     let [userInfo, setUserInfo] = useState<userInfoType | any>(null)
@@ -101,13 +104,9 @@ export default function Personal(): JSX.Element {
     let [pageNum, setPageNum] = useState<number>(1)
     let [tableData, setTableData] = useState<any>([])
     let [userLikeList, setUserLikeList] = useState<NftInfo[]>([])
-    let operateTtype = [
-        "上架",
-        "成交",
-        "取消",
-        "转出",
-        "调价",
-    ]
+    // BetterSroll实例
+    const [bsObj, setBsObj] = useState<any>(null)
+    BScroll.use(Pullup)
     // 下拉图标旋转
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
@@ -135,7 +134,7 @@ export default function Personal(): JSX.Element {
             }).then((res: any) => {
                 if (res.code === 200) {
                     console.log(res.data, "个人中心物品");
-                    res.data.result = [...userCurrentNft!!.result, res.data]
+                    res.data.result = [...userCurrentNft!!.result, ...res.data.result]
                     setUserCurrentNft(res.data)
                     dispatch(createSetLodingAction(false))
                 }
@@ -250,6 +249,46 @@ export default function Personal(): JSX.Element {
         }
     }, [web3React.account, state.token, tabActive])
 
+    useEffect(() => {
+        initBs() // 初始化实例
+        return () => {
+            if (bsObj && bsObj.destroy) {
+                bsObj.destroy() // 销毁
+            }
+        }
+    }, [])
+
+    const initBs = () => {
+        console.log("nihao");
+        setBsObj(() => {
+            return new BScroll(wrapperRef.current!!, {
+                //  ...配置项
+                pullUpLoad: true,
+            })
+        })
+    }
+
+
+    const pullingUp = () => {
+        // 换页的逻辑，不赘叙了
+        console.log("huanye");
+        if (userCurrentNft) {
+            LoadMore(userCurrentNft!!.cursor)
+        }
+        setTimeout(() => {
+            bsObj.finishPullUp();
+        }, 2000)
+    }
+
+    useEffect(() => {
+        if (bsObj) {
+            console.log("shilihuaduixiang");
+            bsObj.on("pullingUp", pullingUp)
+        }
+    }, [bsObj])
+
+
+
     return (
         <div id="Personal" >
             <div className="Personal">
@@ -312,7 +351,6 @@ export default function Personal(): JSX.Element {
 
                     </div>
                     {!(width > 425) && <div className="introduce introduce-m">{t('Join in April 2022 / short self-introduction', { FullMonth: getMonth(userInfo?.createTime), FullYear: getFullYear(userInfo?.createTime) })}{userInfo?.brief || t('short self-introduction')}</div>}
-
                     <div className="tebBox">
                         <div className={tabActive === 0 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(0) }}>物品</div>
                         <div className={tabActive === 1 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(1) }}>收藏</div>
@@ -374,18 +412,22 @@ export default function Personal(): JSX.Element {
                                         </div>}
                                     </div>
                                 </div>
-                                <div className="content">
+
+                                <div className="content" ref={wrapperRef}>
                                     {userCurrentNft ? <>
-                                        <div className="goodsList">{
-                                            userCurrentNft.result.map((item, index) =>
+                                        <div className="goodsList">
+                                            {userCurrentNft.result.map((item, index) =>
                                                 <div className="userNft" key={index}>
                                                     <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal">
                                                     </Goods>
                                                 </div>
-                                            )}</div>
+                                            )}
+                                        </div>
                                         <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
                                     </> : <NoData />}
                                 </div>
+
+
                             </div>
                         </>}
                         {/* 1：收藏 */}

@@ -11,6 +11,8 @@ import { useTranslation } from 'react-i18next'
 import Goods, { NftInfo } from '../components/HotspotCard'
 import { HowLongAgo, AddrHandle, NumSplic } from '../utils/tool'
 import { createAddMessageAction, createSetLodingAction } from '../store/actions'
+import ActionBox from '../components/ActionBox'
+
 import NoData from '../components/NoData'
 import SuccessfulModal from '../components/SuccessfulModal'
 import ReportModal from '../components/ReportModal'
@@ -455,7 +457,7 @@ export default function Launch(): JSX.Element {
                     </div>
                 </div>}
                 {/* 动态 */}
-                {tabActive === 1 && <div className='activeBox'>
+                {/* {tabActive === 1 && <div className='activeBox'>
                     <div className="itemBigBox contentBoxL">
                         <div className="titleBox">
                             <div className="titleItem type">类型</div>
@@ -583,6 +585,8 @@ export default function Launch(): JSX.Element {
                         </div>
                     </div>
                 </div>
+                } */}
+                {tabActive === 1 && tableData.length > 0 && <ActionBox tableData={tableData}></ActionBox>
                 }
 
             </div>

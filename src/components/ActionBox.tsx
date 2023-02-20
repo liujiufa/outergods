@@ -8,7 +8,7 @@ import { useWeb3React } from '@web3-react/core'
 import { stateType } from '../store/reducer'
 import { useSelector, useDispatch } from "react-redux";
 import copy from 'copy-to-clipboard';
-import { Menu, Dropdown, PaginationProps } from 'antd';
+import { Menu, Dropdown, Tooltip } from 'antd';
 import { AddrHandle, HowLongAgo, NumSplic } from '../utils/tool'
 import '../assets/style/componentStyle/ActionBox.scss'
 import { Contracts } from '../web3'
@@ -56,6 +56,8 @@ interface NftCurrentType {
     total: number
 }
 export default function Personal(props: any): JSX.Element {
+    console.log(props.tableData, "动态");
+
     // 控制图标上下
     const [expand16, setExpand16] = useState(true);
     const [params] = useSearchParams();
@@ -87,12 +89,31 @@ export default function Personal(props: any): JSX.Element {
         }
     }
 
+    function goPath(goods: any) {
+        return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}`)
+    }
 
     return (
         <div id="ActionBox" >
             {
                 width >= 768 && <div className="itemContentBigBox">
-                    <div className="titleBox">
+                    {props.tag === "NFTDetailsL" && <div className="topBox">
+                        <div className="actionTitle flexCenter">动态</div>
+                        <div className="right">
+                            <div className="dropDownBox">
+                                <div className="MarketSearchRow">
+                                    <Dropdown overlay={props.typeMenu} trigger={['click']} onVisibleChange={() => { }}>
+                                        <div className="search">
+                                            <div className="searchBox">全部</div>
+                                            <img className={props.expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
+                                        </div>
+                                    </Dropdown>
+                                </div>
+                            </div>
+                            <div className="switch"><img src={switchIcon} alt="" /></div>
+                        </div>
+                    </div>}
+                    <div className={props.tag === "NFTDetailsL" ? "titleActive" : "titleBox"}>
                         <div className="titleItem type">类型</div>
                         <div className="titleItem">物品</div>
                         <div className="titleItem">价格</div>
@@ -112,8 +133,12 @@ export default function Personal(props: any): JSX.Element {
                                     <img src={item.projectLogo} alt="" />
                                 </div>
                                 <div className="right">
-                                    <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
-                                    <div className="bottom">{item.nftName}</div>
+
+                                    <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>{item.projectName}</span>} color="#FFF" key="tips">
+                                        <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                    </Tooltip>
+                                    {/* <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div> */}
+                                    <div className="bottom" onClick={() => { goPath(item) }}>{item.nftName}</div>
                                 </div>
                             </div>
                             <div className="item">
@@ -173,8 +198,11 @@ export default function Personal(props: any): JSX.Element {
                                                                 <img src={item.projectLogo} alt="" />
                                                             </div>
                                                             <div className="right">
-                                                                <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
-                                                                <div className="bottom">{item.nftName}</div>
+                                                                <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>{item.projectName}</span>} color="#FFF" key="tips">
+                                                                    <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                                                </Tooltip>
+
+                                                                <div className="bottom" onClick={() => { goPath(item) }}>{item.nftName}</div>
                                                             </div>
                                                         </div>
                                                         <div className="item">
@@ -229,6 +257,6 @@ export default function Personal(props: any): JSX.Element {
                     </div>
                 </div>
             }
-        </div>
+        </div >
     )
 }

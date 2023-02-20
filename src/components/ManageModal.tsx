@@ -97,7 +97,8 @@ export default function ScreenModal(props: any) {
   //   setPrice(value)
   // }
   function inputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    let value = e.target.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3').slice(0, 10);
+    // let value = e.target.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3').slice(0, 10);
+    let value = e.target.value.replace(/^(\-)*(\d{0,9})\.(\d\d).*$/, '$1$2.$3').slice(0, 13);
     setPrice(value)
   }
 
