@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown, Tooltip } from 'antd';
 import { getProjectByName } from '../API'
 import { useDebounceFn } from 'ahooks'
 import '../assets/style/componentStyle/SaleNFTModal.scss'
@@ -79,7 +79,7 @@ export default function ScreenModal(props: any) {
 
   function ChangeNum(e: React.ChangeEvent<HTMLInputElement>) {
     // let value = e.target.value.replace(/^(0|[1-9]\d{0,9})(\.\d{1,2})?$/, '$1$2');
-    let value = e.target.value.replace(/^(\-)*(\d{0,9})\.(\d\d).*$/, '$1$2.$3').slice(0,13);
+    let value = e.target.value.replace(/^(\-)*(\d{0,9})\.(\d\d).*$/, '$1$2.$3').slice(0, 13);
     console.log(value, "kkk");
     setPrice(value)
   }
@@ -127,19 +127,19 @@ export default function ScreenModal(props: any) {
       value: 7
     },
     {
-      key: "14天",
+      key: t('14 Days'),
       value: 14
     },
     {
-      key: "30天",
+      key: t('30 Days'),
       value: 30
     },
     {
-      key: "60天",
+      key: t('60 Days'),
       value: 60
     },
     {
-      key: "90天",
+      key: t('90 Days'),
       value: 90
     }
   ]
@@ -178,7 +178,7 @@ export default function ScreenModal(props: any) {
           </div>
         </div>
         <div className="saleKind">
-          <div className="saleKindTitle">出售方式</div>
+          <div className="saleKindTitle">{t("Type1")}</div>
           <div className="dropDownBox">
             <div className="MarketSearchRow">
               <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)} >
@@ -191,7 +191,7 @@ export default function ScreenModal(props: any) {
           </div>
         </div>
         <div className="price">
-          <div className="priceTitle">价格</div>
+          <div className="priceTitle">{t("Price")}</div>
           <div className="dropDownBox">
             <div className="left">
               <div className="MarketSearchRow">
@@ -210,7 +210,7 @@ export default function ScreenModal(props: any) {
         </div>
 
         <div className="deadTime">
-          <div className="deadTimeTitle">过期时间</div>
+          <div className="deadTimeTitle">{t("Expiration time")}</div>
           <div className="dropDownBox">
             <div className="MarketSearchRow">
               <Dropdown overlay={dayMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand3, expand3)}>
@@ -225,23 +225,24 @@ export default function ScreenModal(props: any) {
 
         <div className="fee">
           <div className="feeTitle">{t('Fees 8%', { fee: Math.floor(props.saleData.personalFees / 1000) })}</div>
-          <img src={feedesIcon} />
+
+          <Tooltip color="#D5DBFF" placement="top" title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#7285FF" }}>{t("The craator", { value: Math.floor(props.saleData.personalFees / 1000) })}</span>}>
+            <img src={feedesIcon} />
+          </Tooltip>
         </div>
         <div className="feeTip">
           {t('Fees: 5% for platforms and 3% for creators', { platformsFees: 1, personalFees: Math.floor(props.saleData.personalFees / 1000) })}
         </div>
         <div className="ManageModalFooter">
-          <div className="confirmBtn flexCenter" onClick={() => { props.saleFun(price, typeMap[typeIndex].value, props.coinKind[tokenIndex].coinName, dayMap[dayIndex].value) }}>出售</div>
+          <div className="confirmBtn flexCenter" onClick={() => { props.saleFun(price, typeMap[typeIndex].value, props.coinKind[tokenIndex].coinName, dayMap[dayIndex].value) }}>{t("Sale")}</div>
         </div>
       </div>
 
       {/* 步骤 */}
       <div className="StepBox">
         <div className="approveNFT">
-
         </div>
         <div className="confirmApprove">
-
         </div>
       </div>
       {/* <StepSaleNFTModal isShow={stepSaleNFTModal} close={() => { setStepSaleNFTModal(false) }} ></StepSaleNFTModal> */}

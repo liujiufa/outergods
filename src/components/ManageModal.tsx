@@ -137,11 +137,11 @@ export default function ScreenModal(props: any) {
   return (
     <Modal visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={566} className="ManageModal">
       <div className="confirmModalTop">
-        <div className="title">调整价格</div>
+        <div className="title">{t("Change the price")}</div>
         <img src={closeIcon} alt="" onClick={() => props.close()} />
       </div>
       <div className="middleBox">
-        <div className="priceTitle">价格</div>
+        <div className="priceTitle">{t("Price")}</div>
         <div className="dropDownBox">
           <div className="left">
             <div className="MarketSearchRow">
@@ -161,7 +161,7 @@ export default function ScreenModal(props: any) {
       <div className="Service">{t('Fees 8%', { fee: 1 + Math.floor(props?.personalFees / 1000) })}</div>
       <div className="bottomTip">{t('Fees: 5% for platforms and 3% for creators', { platformsFees: 1, personalFees: Math.floor(props?.personalFees / 1000) })}</div>
       <div className="ManageModalFooter">
-        <div className="enterBtn flexCenter" onClick={changePrice}>更新</div>
+        <div className="enterBtn flexCenter" onClick={changePrice}>{t("Update")}</div>
       </div>
     </Modal>
   )

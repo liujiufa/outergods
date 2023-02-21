@@ -101,13 +101,6 @@ export default function Personal(): JSX.Element {
     let [tableData, setTableData] = useState<any>([])
     let [userLikeList, setUserLikeList] = useState<NftInfo[]>([])
     let address = params.get('address')
-    let operateTtype = [
-        "上架",
-        "成交",
-        "取消",
-        "转出",
-        "调价",
-    ]
     // 下拉图标旋转
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
@@ -263,9 +256,9 @@ export default function Personal(): JSX.Element {
                                         {shareActive &&
                                             <>
                                                 <div className='copyLinkBox'>
-                                                    <div className="title">复制链接</div>
-                                                    <div className="outLink">在Facebook上分享</div>
-                                                    <div className="outLink">在Twitter上分享</div>
+                                                    <div className="title">{t("Copy Link")}</div>
+                                                    <div className="outLink">{t("Share on Facebook")}</div>
+                                                    <div className="outLink">{t("Share on Twitter")}</div>
                                                 </div>
                                             </>
                                         }
@@ -281,9 +274,9 @@ export default function Personal(): JSX.Element {
                                 <img src={shareIcon} alt="" />{t('Share')}
                                 {shareActive && <>
                                     <div className='copyLinkBox'>
-                                        <div className="title">复制链接</div>
-                                        <div className="outLink">在Facebook上分享</div>
-                                        <div className="outLink">在Twitter上分享</div>
+                                        <div className="title">{t("Copy Link")}</div>
+                                        <div className="outLink">{t("Share on Facebook")}</div>
+                                        <div className="outLink">{t("Share on Twitter")}</div>
                                     </div>
                                 </>}
                             </div>
@@ -292,9 +285,9 @@ export default function Personal(): JSX.Element {
                     </div>
                     {!(width > 425) && <div className="introduce introduce-m">{t('Join in April 2022 / short self-introduction', { FullMonth: getMonth(userInfo?.createTime), FullYear: getFullYear(userInfo?.createTime) })}{userInfo?.brief || t('short self-introduction')}</div>}
                     <div className="tebBox">
-                        <div className={tabActive === 0 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(0) }}>物品</div>
-                        <div className={tabActive === 1 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(1) }}>收藏</div>
-                        <div className={tabActive === 2 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(2) }}>动态</div>
+                        <div className={tabActive === 0 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(0) }}>{t("Items")}</div>
+                        <div className={tabActive === 1 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(1) }}>{t("Collections1")}</div>
+                        <div className={tabActive === 2 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(2) }}>{t("Activities")}</div>
                     </div>
                     <div className="line"></div>
 
@@ -304,31 +297,31 @@ export default function Personal(): JSX.Element {
                             <div className="bigContent m-bigContent">
                                 <div className="slider">
                                     <div className="stateBox">
-                                        <div className="stateTitle m-hidden-block">状态</div>
+                                        <div className="stateTitle m-hidden-block">{t("State")}</div>
                                         <div className='m-hidden-block'>
-                                            <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部（122） </div>
-                                            <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中（12）</div>
-                                            <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
-                                            <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏（12） </div>
+                                            <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> {t("All")} </div>
+                                            <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> {t("On sale")}</div>
+                                            <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> {t("Not list")}</div>
+                                            <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> {t("hidden")} </div>
                                         </div>
 
                                         <div className='nft-type l-hidden'>
-                                            <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> 全部（122） </div>
-                                            <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> 出售中（12）</div>
-                                            <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> 未上架的（12） </div>
-                                            <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> 已隐藏（12） </div>
+                                            <div className="stateItem flexCenter activeState"><img src={stateItem1} alt="" /> {t("All")} </div>
+                                            <div className="stateItem flexCenter"><img src={stateItem2} alt="" /> {t("On sale")}</div>
+                                            <div className="stateItem flexCenter"><img src={stateItem3} alt="" /> {t("Not list")}</div>
+                                            <div className="stateItem flexCenter"><img src={stateItem4} alt="" /> {t("hidden")} </div>
                                         </div>
 
                                     </div>
                                     <div className="seriesBox">
                                         <div className="seriesTitle m-hidden">
-                                            系列
+                                            {t("Collection")}
                                         </div>
                                         <div className="seriesSearch">
                                             <div className="searchBox">
                                                 <div className="search" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
                                                     <img src={Search} alt="" />
-                                                    <input type="text" placeholder="集合名称" />
+                                                    <input type="text" placeholder={t("Collection name")} />
                                                 </div>
                                             </div>
                                         </div>
@@ -339,7 +332,7 @@ export default function Personal(): JSX.Element {
                                                         <img src={demoTestImg} alt="" />
                                                     </div>
                                                     <div className="infoBox">
-                                                        <div className="seriesTitle">集合名称</div>
+                                                        <div className="seriesTitle">{t("Collection name")}</div>
                                                         <div className="seriesPries">0.01ETH</div>
                                                     </div>
                                                 </div>
@@ -383,13 +376,13 @@ export default function Personal(): JSX.Element {
                         {tabActive === 2 && <>
                             <div className="bigContent m-bigContent actionContent">
                                 <div className="slider m-hidden-block actionSlider">
-                                    <div className="typeTitle">类别</div>
+                                    <div className="typeTitle">{t("Type")}</div>
                                     <div className="typeBox">
-                                        <div className="flexCenter kindTitle activeType"> <img src={typeItem1} alt="" /> 全部类型</div>
-                                        <div className="flexCenter putType"> <img src={typeItem2} alt="" /> 上架</div>
-                                        <div className="flexCenter cancelType"> <img src={typeItem3} alt="" /> 取消</div>
-                                        <div className="flexCenter successfulType"> <img src={typeItem4} alt="" /> 成交</div>
-                                        <div className="flexCenter managepriceType"> <img src={typeItem5} alt="" /> 调价</div>
+                                        <div className="flexCenter kindTitle activeType"> <img src={typeItem1} alt="" /> {t("All")}</div>
+                                        <div className="flexCenter putType"> <img src={typeItem2} alt="" /> {t("List")}</div>
+                                        <div className="flexCenter cancelType"> <img src={typeItem3} alt="" /> {t("Cancel")}</div>
+                                        <div className="flexCenter successfulType"> <img src={typeItem4} alt="" /> {t("Sale")}</div>
+                                        <div className="flexCenter managepriceType"> <img src={typeItem5} alt="" /> {t("Change")}</div>
                                     </div>
                                 </div>
 
@@ -399,11 +392,11 @@ export default function Personal(): JSX.Element {
                                     style={{ width: "100%" }}
                                     dropdownStyle={{ background: "#E7E7FF" }}
                                     options={[
-                                        { value: 'all', label: '全部类型' },
-                                        { value: 'putType', label: '上架' },
-                                        { value: 'cancelType', label: '取消' },
-                                        { value: 'successfulType', label: '成交' },
-                                        { value: 'managepriceType', label: '调价' },]}
+                                        { value: 'all', label: t("All") },
+                                        { value: 'putType', label: t("List") },
+                                        { value: 'cancelType', label: t("Cancel") },
+                                        { value: 'successfulType', label: t("Sale") },
+                                        { value: 'managepriceType', label: t("Change") },]}
                                 />
 
                                 {/* 动态注释 */}

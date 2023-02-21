@@ -109,7 +109,7 @@
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
-                        margin-right: 24px;
+                        // margin-right: 24px;
 
 
                         .searchBox {
@@ -205,7 +205,6 @@
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
-                            margin-right: 10px;
 
 
                             .searchBox {
@@ -258,7 +257,7 @@
 
                 .right {
                     flex: 1;
-
+                    margin-left: 10px;
                     input {
 
                         width: 100%;
@@ -273,6 +272,7 @@
                         color: #000;
                         border: 1px solid rgba(0, 0, 0, 0.2);
                         border-radius: 50px;
+                        
                     }
 
                     input::-webkit-input-placeholder {
@@ -326,7 +326,7 @@
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
-                        margin-right: 24px;
+                        // margin-right: 24px;
 
 
                         .searchBox {
@@ -479,6 +479,15 @@
 }
 
 @media (max-width:425px) {
+    .SaleNFTModal .NFTInfoBox .price .dropDownBox .left{
+        width: auto;
+    }
+    .SaleNFTModal .NFTInfoBox .deadTime .dropDownBox{
+        width: auto;
+    }
+    .SaleNFTModal .NFTInfoBox .saleKind .dropDownBox{
+        width: auto;
+    }
     .SaleNFTModal .NFTInfoBox .NFTInfo .leftBox img {
         width: 50px;
         height: 50px;

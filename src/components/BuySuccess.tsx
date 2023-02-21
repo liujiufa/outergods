@@ -37,14 +37,14 @@ export default function BuySuccess(props: PropsType) {
             <div className="infoValue">{t('Complete')}</div>
           </div>
           <div className="infoItem">
-            <div className="label">卖方地址</div>
+            <div className="label">{t("Seller address")}</div>
             <div className="infoValue">{AddrHandle(props.data.address)}</div>
           </div>
         </div>
         <div className="division"></div>
         <div className="InfoRow">
           <div className="infoItem">
-            <div className="label">NFT 合集</div>
+            <div className="label">{t("NFT collection")}</div>
             <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>{props.data.projectName}</span>} color="#FFF" key="tips">
               <div className="infoValue">{props.data.projectName}</div>
             </Tooltip>

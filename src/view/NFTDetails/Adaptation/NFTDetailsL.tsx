@@ -40,10 +40,7 @@ import { useViewport } from '../../../components/viewportContext';
 import NotCertified from '../../../assets/image/NotCertified.svg'
 import { decimalNum } from '../../../utils/decimalNum';
 import styled from "styled-components"
-const TABS = ["描述",
-    "属性",
-    "信息"
-]
+
 
 interface OrderDetailType {
     projectName: string,
@@ -106,40 +103,15 @@ export default function NFTDetailsL({
     let [pageNum, setPageNum] = useState<number>(1)
     let [orderState, setOrderState] = useState<any>()
     let [refreshState, setRefreshState] = useState<any>()
-
     const [params] = useSearchParams();
-    let DynamicStateMap = [
-        {
-            key: "全部",
-            value: -1
-        },
-        {
-            key: t('Listing'),
-            value: 0
-        },
-        {
-            key: t('Sale'),
-            value: 1
-        },
-        {
-            key: t('Cancel an order'),
-            value: 2
-        },
-        {
-            key: t('Send'),
-            value: 3
-        }
-    ];
+    const TABS = [
+        t("Description"),
+        t("Attributes"),
+        t("Information")
+    ]
     let tokenId = params.get('tokenId')
     let tokenAddress = params.get('tokenAddress')
     let owner_of = params.get('owner_of')
-    let operateTtype = [
-        "上架",
-        "成交",
-        "取消",
-        "转出",
-        "调价",
-    ]
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
     }
@@ -152,7 +124,7 @@ export default function NFTDetailsL({
                 setCurrentTradeOrder(item)
             }
         } else {
-            dispatch(createAddMessageAction("请先连接钱包"))
+            dispatch(createAddMessageAction(t("Please connect the wallet first")))
         }
     }
     function goSomeone(address: string) {
@@ -167,7 +139,7 @@ export default function NFTDetailsL({
 
     let typeMenu = (
         <Menu onClick={() => handleDropDown(setExpand1, expand1)}>
-            <Menu.Item>全部</Menu.Item>
+            <Menu.Item>{t("All")}</Menu.Item>
         </Menu>
     );
 
@@ -194,7 +166,6 @@ export default function NFTDetailsL({
     const stateFun = () => {
         let str2 = web3React.account?.toLocaleLowerCase();
         let str3 = orderState?.owner_of?.toLocaleLowerCase();
-        console.log(orderState, str2, str3, "NFT状态");
         // 出售
         if (orderState?.status === 0 && (str3 === str2)) {
             return 0
@@ -220,7 +191,7 @@ export default function NFTDetailsL({
                 dispatch(createSetLodingAction(false))
                 console.log(res.data, "nihao");
                 setRefreshState(res.data)
-                dispatch(createAddMessageAction("刷新成功"))
+                dispatch(createAddMessageAction(t("Refresh successfully")))
                 // console.log(OrderDetail.normalizedMetadata, "刷新之后");
                 if (!OrderDetail?.normalizedMetadata) {
                     OrderDetail.normalizedMetadata = res.data.normalizedMetadata;
@@ -266,7 +237,6 @@ export default function NFTDetailsL({
                     console.log(res.data, "NFT订单状态");
                 }
             })
-            refreshFun()
             // 出售完后获取NFT价格
             NFTDetailFun()
         }
@@ -286,6 +256,14 @@ export default function NFTDetailsL({
             })
         }
     }, [OrderDetail?.projectId])
+
+    useEffect(() => {
+        if (!web3React.account) {
+            setShowEnterCancel(false)
+            setSaleNFTModal(false)
+            setShowPriceChange(false)
+        }
+    }, [web3React.account])
 
     return (
         <div className="NFTDetailsPage">
@@ -337,7 +315,7 @@ export default function NFTDetailsL({
                         </div>
                         <div className="owner">
                             <div className="name">
-                                <div className="name">持有者</div>
+                                <div className="name">{t("Onwer")}</div>
                             </div>
                             {
                                 <div className="address">
@@ -369,9 +347,9 @@ export default function NFTDetailsL({
                                         <img onClick={() => { setIsShare(!isShare) }} src={SharePng} alt="" />
                                         {isShare && <>
                                             <div className='copyLinkBox'>
-                                                <div className="title">复制链接</div>
-                                                <div className="outLink">在Facebook上分享</div>
-                                                <div className="outLink">在Twitter上分享</div>
+                                                <div className="title">{t("Copy Link")}</div>
+                                                <div className="outLink">{t("Share on Facebook")}</div>
+                                                <div className="outLink">{t("Share on Twitter")}</div>
                                             </div>
                                         </>}
                                     </div>
@@ -390,7 +368,7 @@ export default function NFTDetailsL({
                         {/* 出售 */}
                         {
                             stateFun() === 0 && <div className="sale flexCenter" onClick={() => { setSaleNFTModal(true) }}>
-                                出售
+                                {t("Sell")}
                             </div>
                         }
 
@@ -398,7 +376,7 @@ export default function NFTDetailsL({
                         {
                             stateFun() === 1 && <div className="buy">
                                 <div className="buy-left">
-                                    <div className="buy-left-top">一口价</div>
+                                    <div className="buy-left-top">{t("as fixed price")}</div>
                                     <div className="buy-left-bottom">
                                         <img src={OrderDetail?.nnftOrder?.coinImgUrl} className="buy-left-bottom-coin" />
                                         <div className="coin-group">
@@ -410,8 +388,8 @@ export default function NFTDetailsL({
                                     </div>
                                 </div>
                                 <div className="buy-right managePrice">
-                                    <div className="buy-right-button flexCenter" onClick={() => { setShowPriceChange(true) }}>调整价格</div>
-                                    <div className="cancelBtn flexCenter" onClick={() => { setShowEnterCancel(true) }}>取消</div>
+                                    <div className="buy-right-button flexCenter" onClick={() => { setShowPriceChange(true) }}>{t("Change the price")}</div>
+                                    <div className="cancelBtn flexCenter" onClick={() => { setShowEnterCancel(true) }}>{t("Cancel")}</div>
                                 </div>
                             </div>
                         }
@@ -420,7 +398,7 @@ export default function NFTDetailsL({
                         {
                             stateFun() === 2 && <div className="buy">
                                 <div className="buy-left">
-                                    <div className="buy-left-top">未上架</div>
+                                    <div className="buy-left-top">{t("Not list")}</div>
                                     <div className="buy-left-bottom">
                                         <div className="coin-group">
                                             -
@@ -428,7 +406,7 @@ export default function NFTDetailsL({
                                     </div>
                                 </div>
                                 <div className="buy-right">
-                                    <div className="buy-right-button noSale" >立即购买</div>
+                                    <div className="buy-right-button noSale" >{t("Buy now")}</div>
                                 </div>
                             </div>
                         }
@@ -437,12 +415,12 @@ export default function NFTDetailsL({
                         {
                             stateFun() === 3 && <div className="buyBox">
                                 <div className="deadTime">
-                                    售卖截止于2023年2月27日 11：29
+                                    {t("Sale ends at MARCH 8,2023 11:09", { year: 11, month: 12, day: 23, time: "11:12" })}
                                     <div className="line"></div>
                                 </div>
                                 <div id='buy'>
                                     <div className="buy-left">
-                                        <div className="buy-left-top">一口价</div>
+                                        <div className="buy-left-top">{t("as fixed price")}</div>
                                         <div className="buy-left-bottom">
                                             <img src={OrderDetail?.nnftOrder?.coinImgUrl} className="buy-left-bottom-coin" />
                                             <div className="coin-group">
@@ -454,7 +432,7 @@ export default function NFTDetailsL({
                                         </div>
                                     </div>
                                     <div className="buy-right">
-                                        <div className="buy-right-button" onClick={() => { buyBtnFun(1) }}>立即购买</div>
+                                        <div className="buy-right-button" onClick={() => { buyBtnFun(1) }}>{t("Buy now")}</div>
                                     </div>
                                 </div>
                             </div>
@@ -479,7 +457,7 @@ export default function NFTDetailsL({
                                         <div className="nft-details-card">
                                             <div className='nft-details-card-group nft-details-card-group-frist' >
                                                 <div className="nft-details-card-title">
-                                                    上一次成交价
+                                                    {t("Last traded price")}
                                                 </div>
                                                 <div className="nft-details-card-price">
                                                     {NumSplic(OrderDetail?.recentPrice)} <span className='coinName'> USDT</span> <div className='U'>(${NumSplic(OrderDetail?.tradeUNum, 2) || 0})</div>
@@ -487,7 +465,7 @@ export default function NFTDetailsL({
                                             </div>
                                             <div className="nft-details-card-group nft-details-card-group-center" >
                                                 <div className="nft-details-card-title">
-                                                    交易次数
+                                                    {t("Transactions")}
                                                 </div>
                                                 <div className="nft-details-card-price">
                                                     {OrderDetail?.tradeCount || 0}
@@ -495,7 +473,7 @@ export default function NFTDetailsL({
                                             </div>
                                             <div className="nft-details-card-group  nft-details-card-group-last">
                                                 <div className="nft-details-card-title">
-                                                    项目地板价
+                                                    {t("Floor")}
                                                 </div>
                                                 <div className="nft-details-card-price">
                                                     {decimalNum(OrderDetail?.floorPriceDouble) || "0"} <span className='coinName'> USDT</span>
@@ -533,7 +511,7 @@ export default function NFTDetailsL({
                                         <div className="nft-details-info-group">
                                             <div className="nft-details-info-item">
                                                 <div className="nft-details-info-item-title">
-                                                    合约地址
+                                                    {t("Contract address")}
                                                 </div>
                                                 <div className="nft-details-info-item-content activeItem"  >
                                                     <span className='activeItem' onClick={() => { window.open('https://bscscan.com/address/' + OrderDetail?.tokenAddress) }}>{AddrHandle(OrderDetail?.tokenAddress, 10, 6)}</span>  <img onClick={() => { CopyAddressFun(OrderDetail?.tokenAddress) }} src={CopyPng} alt="" className="copy" />
@@ -541,7 +519,7 @@ export default function NFTDetailsL({
                                             </div>
                                             <div className="nft-details-info-item">
                                                 <div className="nft-details-info-item-title">
-                                                    代币ID
+                                                    {t("Token ID")}
                                                 </div>
                                                 <div className="nft-details-info-item-content activeItem" >
                                                     <span className='activeItem' onClick={() => { window.open(OrderDetail?.tokenUri) }}> {OrderDetail && (OrderDetail?.tokenId?.length > 16 ? AddrHandle(OrderDetail?.tokenId, 10, 6) : OrderDetail?.tokenId)}</span><img onClick={() => { CopyAddressFun(OrderDetail?.tokenId) }} src={CopyPng} alt="" className="copy" />
@@ -549,7 +527,7 @@ export default function NFTDetailsL({
                                             </div>
                                             <div className="nft-details-info-item">
                                                 <div className="nft-details-info-item-title">
-                                                    链
+                                                    {t("Chain")}
                                                 </div>
                                                 <div className="nft-details-info-item-content">
                                                     BNB Chain
@@ -557,9 +535,9 @@ export default function NFTDetailsL({
                                             </div>
                                             <div className="nft-details-info-item">
                                                 <div className="nft-details-info-item-title">
-                                                    创作者收益
-                                                    <Tooltip color="#D5DBFF" placement="topLeft" title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#7285FF" }}>此项目的创作者每次销售都会收到10%</span>}>
-                                                        <ExclamationCircleOutlined style={{ cursor: "pointer" }} />
+                                                    {t("Creator earnings")}
+                                                    <Tooltip color="#D5DBFF" placement="topLeft" title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#7285FF" }}>{t("The craator", { value: Math.floor((OrderDetail?.nnftOrder?.createFee || OrderDetail?.createFee) / 1000) })}</span>}>
+                                                        <ExclamationCircleOutlined style={{ cursor: "pointer", marginRight: "12px" }} />
                                                     </Tooltip>
                                                 </div>
                                                 <div className="nft-details-info-item-content">
@@ -579,9 +557,9 @@ export default function NFTDetailsL({
                                 <img onClick={() => { setIsShare(!isShare) }} src={SharePng} alt="" />
                                 {isShare && <>
                                     <div className='copyLinkBox'>
-                                        <div className="title">复制链接</div>
-                                        <div className="outLink">在Facebook上分享</div>
-                                        <div className="outLink">在Twitter上分享</div>
+                                        <div className="title">{t("Copy Link")}</div>
+                                        <div className="outLink">{t("Share on Facebook")}</div>
+                                        <div className="outLink">{t("Share on Twitter")}</div>
                                     </div>
                                 </>}
                             </div>
@@ -604,7 +582,7 @@ export default function NFTDetailsL({
                 {/* 来自这个项目 */}
                 <div className='likeProjectBox'>
                     <div className="titleBox">
-                        <div className="subTitle">来自这个项目</div>
+                        <div className="subTitle">{t("From this project")}</div>
                     </div>
                     <div className=" contentBoxM">
                         {

@@ -47,13 +47,13 @@ export default function ScreenModal(props: any) {
   return (
     <Modal visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={566} className="ManageModal">
       <div className="confirmModalTop">
-        <div className="title">取消</div>
+        <div className="title">{t("Cancel")}</div>
         <img src={closeIcon} alt="" onClick={() => props.close()} />
       </div>
-      <div className="saleTip">确认取消出售？</div>
+      <div className="saleTip">{t("Confirm to cancel the sale?")}</div>
 
       <div className="ManageModalFooter">
-        <div className="enterBtn flexCenter" onClick={closeOrder}>确认</div>
+        <div className="enterBtn flexCenter" onClick={closeOrder}>{t("Confirm")}</div>
       </div>
     </Modal>
   )

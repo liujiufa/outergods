@@ -77,7 +77,6 @@ const MainLayout: React.FC = () => {
                 setAddrList(res.data.userList)
                 setProjectList(res.data.projectList)
                 setShowSearchRes(true)
-                // console.log(res, "搜索结果")
             })
         } else {
             setShowSearchRes(false)
@@ -131,12 +130,12 @@ const MainLayout: React.FC = () => {
                 {t('Marketplace')}
             </Menu.Item>
             <Menu.Item key="2">
-                Collections
+            {t('Collections')}
             </Menu.Item>
             <Menu.Item key="3" onClick={() => {
                 navigate("/Market?id=1")
             }}>
-                Activities
+                {t('Activities')}
             </Menu.Item>
             <Menu.SubMenu key="SubMenu" title={i18n.language === 'zh' ? 'ZH' : (i18n.language === 'en' ? 'EN' : '한국어')} >
                 <Menu.Item key="5" onClick={() => changeLanguage({ key: 'en' })}>
@@ -188,13 +187,13 @@ const MainLayout: React.FC = () => {
 
                     {/* <div className={focus('/Launch')} onClick={() => { navigate('/Launch?id=1') }}> */}
                     <div className={focus('/Launch')}>
-                        Collections
+                        {t('Collections')}
                         <div className="unLink"></div>
                     </div>
                     <div className="menuItem" onClick={() => {
                         navigate("/Market?id=1")
                     }} >
-                        Activities
+                        {t('Activities')}
                         <div className="unLink"></div>
                     </div>
                 </div>

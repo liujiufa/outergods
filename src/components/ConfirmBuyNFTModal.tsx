@@ -216,7 +216,7 @@ export default function ScreenModal(props: any) {
     <>
       <Modal visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={670} className="ManageModal">
         <div className="confirmModalTop">
-          <div className="title">确认购买</div>
+          <div className="title">{t("Confirm1")}</div>
           <img src={closeIcon} alt="" onClick={() => props.close()} />
         </div>
         <div className="NFTInfo">
@@ -229,19 +229,20 @@ export default function ScreenModal(props: any) {
           </div>
         </div>
         <div className="address item">
-          <div className="title">合约地址</div>
+          <div className="title">{t("Contract address")}</div>
           <div className="value">{AddrHandle(props?.NFTInfo?.tokenAddress || '')}</div>
         </div>
         <div className="coinID item">
-          <div className="title">代币ID</div>
+          <div className="title">{t("Token ID")}
+          </div>
           <div className="value">{props?.NFTInfo?.tokenId.length > 10 ? AddrHandle(props?.NFTInfo?.tokenId) : (props?.NFTInfo?.tokenId)}</div>
         </div>
         <div className="clain item">
-          <div className="title">链</div>
+          <div className="title">{t("Chain")}</div>
           <div className="value">BSC</div>
         </div>
         <div className="reward item">
-          <div className="title">创作者收益<img src={feedesIcon} alt="" /></div>
+          <div className="title">{t("Creator earnings")}<img src={feedesIcon} alt="" /></div>
           <div className="value">{Math.floor(props?.NFTInfo?.createFee / 1000) || 0}%</div>
         </div>
 

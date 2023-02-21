@@ -117,30 +117,6 @@ export default function HotspotCard(props: any) {
     }
   }, [props?.NftInfo?.tokenAddress])
 
-
-  const list = [{
-    title: "总交易量",
-    amount: "1110.1",
-    isMoney: true
-  },
-  {
-    title: "地板价",
-    amount: "0.005",
-    isMoney: true
-  },
-  {
-    title: "项目",
-    amount: "111"
-  },
-  {
-    title: "已上架",
-    amount: "111"
-  },
-  {
-    title: "持有者",
-    amount: "111"
-  }]
-
   useEffect(() => {
     if (props.NftInfo) {
       console.log("nihao", !!props.NftInfo.isLike);
@@ -152,7 +128,7 @@ export default function HotspotCard(props: any) {
     // <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }} onClick={(e) => { props.goPath(); e.stopPropagation(); }}>
     <div className="HotspotCard pointer" onMouseEnter={(e) => { MouseEnterFun(e) }} onMouseLeave={() => { setActiveMenu(false); setActiveBuyMenu(false) }} onClick={(e) => { props.goPath(); e.stopPropagation(); }}>
       <div className="imgBox">
-        {props.target !== "NFTCard" && activeBuyMenu && (props.NftInfo?.userAddress).toLowerCase() !== (web3React.account)?.toLowerCase() && <div className="buyBtn flexCenter" onClick={(e) => { e.stopPropagation(); props.buyBtnFun() }}>购买</div>}
+        {props.target !== "NFTCard" && activeBuyMenu && (props.NftInfo?.userAddress).toLowerCase() !== (web3React.account)?.toLowerCase() && <div className="buyBtn flexCenter" onClick={(e) => { e.stopPropagation(); props.buyBtnFun() }}>{t("Buy")}</div>}
         <Img url={props.NftInfo?.normalized_metadata?.image || props.NftInfo?.metadata?.image}></Img>
       </div>
       <div className="bottonBox">
@@ -183,7 +159,7 @@ export default function HotspotCard(props: any) {
                     {NumSplic(hoverProject?.tradeAmount)}
                   </div>
                   <div className="hover-show-card-content-name">
-                    总交易量
+                    {t("Total Volume")}
                   </div>
                 </div>
                 <div className="hover-show-card-content-item">
@@ -191,7 +167,7 @@ export default function HotspotCard(props: any) {
                     {NumSplic(hoverProject?.floorPrice)}
                   </div>
                   <div className="hover-show-card-content-name">
-                    地板价
+                    {t("Floor")}
                   </div>
                 </div>
                 <div className="hover-show-card-content-item">
@@ -199,7 +175,7 @@ export default function HotspotCard(props: any) {
                     {hoverProject?.holdNum}
                   </div>
                   <div className="hover-show-card-content-name">
-                    物品
+                    {t("Items")}
                   </div>
                 </div>
                 <div className="hover-show-card-content-item">
@@ -207,7 +183,7 @@ export default function HotspotCard(props: any) {
                     {hoverProject?.shelvesNum}
                   </div>
                   <div className="hover-show-card-content-name">
-                    已上架
+                    {t("Listed")}
                   </div>
                 </div>
               </div>
@@ -218,7 +194,7 @@ export default function HotspotCard(props: any) {
       {
         activeMenu ?
           <div className='menuBox'>
-            <div className="left" onClick={() => { props.goPath() }}>{((props?.NftInfo?.owner_of)?.toLowerCase() === (web3React.account)?.toLowerCase() && props?.NftInfo?.status === 1) ? "取消出售" : "出售"}</div>
+            <div className="left" onClick={() => { props.goPath() }}>{((props?.NftInfo?.owner_of)?.toLowerCase() === (web3React.account)?.toLowerCase() && props?.NftInfo?.status === 1) ? t("Cancel") : t("Sell")}</div>
             <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
           </div> :
           <div className="cardBottomBox">

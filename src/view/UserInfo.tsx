@@ -67,7 +67,7 @@ export default function UserInfo(): JSX.Element {
         <div id="userinfo" className="userInfoPage">
             <div className="userInfoContainer">
                 <div className="userInfoContent">
-                    <div className="setting">设置</div>
+                    <div className="setting">{t("Setting")}</div>
                     <div className="userInfoTitle">{t('Profile')}</div>
                     <div className="line"></div>
                     <div className="mainLabel">{t('Basic information')}</div>

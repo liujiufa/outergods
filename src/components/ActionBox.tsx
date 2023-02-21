@@ -57,7 +57,6 @@ interface NftCurrentType {
 }
 export default function Personal(props: any): JSX.Element {
     console.log(props.tableData, "动态");
-
     // 控制图标上下
     const [expand16, setExpand16] = useState(true);
     const [params] = useSearchParams();
@@ -76,11 +75,11 @@ export default function Personal(props: any): JSX.Element {
     let [tableData, setTableData] = useState<any>([])
     let [userLikeList, setUserLikeList] = useState<NftInfo[]>([])
     let operateTtype = [
-        "上架",
-        "成交",
-        "取消",
-        "转出",
-        "调价",
+        t("List"),
+        t("Sale"),
+        t("Cancel"),
+        t("transfer"),
+        t("Change"),
     ]
 
     function goSomeone(address: string) {
@@ -98,13 +97,13 @@ export default function Personal(props: any): JSX.Element {
             {
                 width >= 768 && <div className="itemContentBigBox">
                     {props.tag === "NFTDetailsL" && <div className="topBox">
-                        <div className="actionTitle flexCenter">动态</div>
+                        <div className="actionTitle flexCenter">{t("Activities")}</div>
                         <div className="right">
                             <div className="dropDownBox">
                                 <div className="MarketSearchRow">
                                     <Dropdown overlay={props.typeMenu} trigger={['click']} onVisibleChange={() => { }}>
                                         <div className="search">
-                                            <div className="searchBox">全部</div>
+                                            <div className="searchBox">{t("All")}</div>
                                             <img className={props.expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                                         </div>
                                     </Dropdown>
@@ -114,18 +113,18 @@ export default function Personal(props: any): JSX.Element {
                         </div>
                     </div>}
                     <div className={props.tag === "NFTDetailsL" ? "titleActive" : "titleBox"}>
-                        <div className="titleItem type">类型</div>
-                        <div className="titleItem">物品</div>
-                        <div className="titleItem">价格</div>
-                        <div className="titleItem">从</div>
-                        <div className="titleItem">到</div>
-                        <div className="titleItem date">日期</div>
+                        <div className="titleItem type">{t("Type")}</div>
+                        <div className="titleItem">{t("Items")}</div>
+                        <div className="titleItem">{t("Price")}</div>
+                        <div className="titleItem">{t("From")}</div>
+                        <div className="titleItem">{t("To")}</div>
+                        <div className="titleItem date">{t("Time")}</div>
                     </div>
                     <div className="itemContentBox">
                         {props.tableData.length > 0 && props.tableData.map((item: any, index: number) => <div key={index} className="itemBox">
                             <div className="item type">
                                 <div className="top">{operateTtype[item.operateType]}</div>
-                                <div className="bottom">一口价</div>
+                                <div className="bottom">{t("as fixed price")}</div>
                             </div>
 
                             <div className="item projectName">
@@ -165,13 +164,13 @@ export default function Personal(props: any): JSX.Element {
             {
                 width < 768 && <div className="itemBigBox ">
                     {props.tag === "NFTDetailsL" && <div className="topBox">
-                        <div className="actionTitle flexCenter">动态</div>
+                        <div className="actionTitle flexCenter">{t("Activities")}</div>
                         <div className="right">
                             <div className="dropDownBox">
                                 <div className="MarketSearchRow">
                                     <Dropdown overlay={props.typeMenu} trigger={['click']} onVisibleChange={() => { }}>
                                         <div className="search">
-                                            <div className="searchBox">全部</div>
+                                            <div className="searchBox">{t("All")}</div>
                                             <img className={props.expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                                         </div>
                                     </Dropdown>
@@ -190,7 +189,7 @@ export default function Personal(props: any): JSX.Element {
                                                 <div className="itemBox">
                                                     <div className="item type">
                                                         <div className="top">{operateTtype[item.operateType]}</div>
-                                                        <div className="bottom">一口价</div>
+                                                        <div className="bottom">{t("as fixed price")}</div>
                                                     </div>
                                                     <div className='group'>
                                                         <div className="item projectName">
@@ -230,7 +229,7 @@ export default function Personal(props: any): JSX.Element {
                                                             item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
                                                         }
                                                     </div>
-                                                    <div className="type">从</div>
+                                                    <div className="type">{t("From")}</div>
                                                 </div>
                                                 <div className="item">
                                                     <div className="text" onClick={() => { goSomeone(item.toAddress) }}>
@@ -238,14 +237,14 @@ export default function Personal(props: any): JSX.Element {
                                                             item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
                                                         }
                                                     </div>
-                                                    <div className="type">到</div>
+                                                    <div className="type">{t("To")}</div>
 
                                                 </div>
                                                 <div className="item date">
                                                     <div className="text type-date">
                                                         {HowLongAgo(item.createTime)}
                                                     </div>
-                                                    <div className="type">日期</div>
+                                                    <div className="type">{t("Time")}</div>
                                                 </div>
                                             </div>
                                         </Collapse.Panel>

@@ -127,7 +127,7 @@ export default function ScreenModal(props: any) {
   // 出售
   function saleStepFun2() {
     if (!price) {
-      return dispatch(createAddMessageAction('请输入正确价格'))
+      return dispatch(createAddMessageAction(t('Please enter the correct price')))
     }
     if (new BigNumber(price).lte(0)) {
       return dispatch(createAddMessageAction(t('Please enter the price')))
@@ -218,23 +218,23 @@ export default function ScreenModal(props: any) {
           <img src={closeIcon} className="closeIcon" alt="" onClick={() => { setStepSaleNFTModal(false) }} />
         </div>
         <div className="goodsTitle">
-          出售你的物品
+          {t("Sell your item")}
         </div>
         <div className="stepBox" >
           <div className="step" onClick={(e) => { step1Fun(e) }}>
-            <div className="title">1.许可NFT</div>
+            <div className="title">1.{t("Approve NFT")}</div>
             <div className="coinBox">
               {approveAddr ? <img src={successNFTIcon} alt="" /> : <img src={failNFTIcon} alt="" />}
               <img src={openIconBlack} alt="" />
             </div>
           </div>
           {stepState ? <div className='approveBox'>
-            <div className="approveTip">我们需要您许可市场访问您的NFT。这是一个一次性的操作。</div>
+            <div className="approveTip">{t("We need your permission for the marketplace to access your NFT. This is a one-time operation.")}</div>
             {
               approveAddr ? <div className="approveBtn approveBtned flexCenter">
-                <img src={paddingIcon} alt="" /> 等待交易
+                <img src={paddingIcon} alt="" /> {t("Waiting for transaction")}
               </div> : <div className="approveBtn flexCenter" onClick={() => { approveFun() }}>
-                <img src={lockedIcon} alt="" /> 许可
+                <img src={lockedIcon} alt="" /> {t("Approve")}
               </div>
             }
           </div> : <div className="lineBox">
@@ -242,18 +242,18 @@ export default function ScreenModal(props: any) {
           </div>
           }
           <div className="step" onClick={(e) => { e.stopPropagation(); setStepState(!stepState) }}>
-            <div className="title">2.确认上架</div>
+            <div className="title">2.{t("Confirm listing")}</div>
             <div className="coinBox">
               {stepSaleNFTState ? <img src={successNFTIcon} alt="" /> : <img src={failNFTIcon} alt="" />}
               <img src={openIconBlack} alt="" />
             </div>
           </div>
           {!stepState && <div className='approveBox'>
-            <div className="approveTip">用您的出售信息完成签名请求。</div>
+            <div className="approveTip">{t("Accept the signing witn your selling info.")}</div>
             {(!stepSaleNFTState) ? <div className="approveBtn flexCenter" onClick={() => { saleStepFun2() }}>
-              签名
+              {t("Sign")}
             </div> : <div className="approveBtn paddingBtn flexCenter">
-              <img src={paddingIcon} alt="" /> 等待交易
+              <img src={paddingIcon} alt="" /> {t("Waiting for transaction")}
             </div>}
           </div>}
         </div>

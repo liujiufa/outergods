@@ -11,6 +11,7 @@ import AuthenticationPng from '../assets/image/authentication.svg'
 import NotAuthenticationPng from '../assets/image/NotCertified.svg'
 import { decimalNum } from '../utils/decimalNum'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const Container = styled(FlexCCBox)`
     width: 100%;
@@ -148,6 +149,7 @@ export default function ProjectGroup({
 }: any) {
     console.log(data)
     const navigate = useNavigate()
+    const { t } = useTranslation()
     return (
         <Fragment>
             {
@@ -180,13 +182,13 @@ export default function ProjectGroup({
                                 <PriceItem>
                                     <PriceContent>
                                         <PriceAmount>${decimalNum(data?.floorPrice, 2)}</PriceAmount>
-                                        <PriceTitle>地板价</PriceTitle>
+                                        <PriceTitle>{t("Floor")}</PriceTitle>
                                     </PriceContent>
                                 </PriceItem>
                                 <PriceItem>
                                     <PriceContent>
                                         <PriceAmount>${decimalNum(data?.tradeAmount, 2) ?? 0}</PriceAmount>
-                                        <PriceTitle>交易量</PriceTitle>
+                                        <PriceTitle>{t("Volume")}</PriceTitle>
                                     </PriceContent>
                                 </PriceItem>
                             </GroupPrice>

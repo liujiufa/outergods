@@ -128,13 +128,6 @@ export default function Launch(): JSX.Element {
     let { t } = useTranslation()
     let tokenAddress = params.get('tokenAddress')
     console.log("tokenAddress", tokenAddress)
-    let operateTtype = [
-        "上架",
-        "成交",
-        "取消",
-        "转出",
-        "调价",
-    ]
     function goSomeone(address: string) {
         navigate('/Someone?address=' + address)
     }
@@ -163,8 +156,8 @@ export default function Launch(): JSX.Element {
 
     const typeMenu = (
         <Menu>
-            <Menu.Item>全部</Menu.Item>
-            <Menu.Item>全部</Menu.Item>
+            <Menu.Item>{t("All")}</Menu.Item>
+            <Menu.Item>{t("All")}</Menu.Item>
         </Menu>
     );
 
@@ -214,23 +207,23 @@ export default function Launch(): JSX.Element {
                 {width > 768 && <div className="dataItems">
                     <div className="item">
                         <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 2) || "0"}</div>
-                        <div className="bottom">总交易量</div>
+                        <div className="bottom">{t("Total Volume")}</div>
                     </div>
                     <div className="item">
                         <div className="top">${decimalNum(ProjectDetail?.floorPrice, 2) || "0"}</div>
-                        <div className="bottom">地板价</div>
+                        <div className="bottom">{t("Floor")}</div>
                     </div>
                     <div className="item">
                         <div className="top">{ProjectDetail?.createFee || "0"}%</div>
-                        <div className="bottom">创作者收益</div>
+                        <div className="bottom">{t("Creator earnings")}</div>
                     </div>
                     <div className="item">
                         <div className="top">{ProjectDetail?.thingNum || "0"}</div>
-                        <div className="bottom">物品</div>
+                        <div className="bottom">{t("Items")}</div>
                     </div>
                     <div className="item">
                         <div className="top">{ProjectDetail?.shelvesNum || "0"}</div>
-                        <div className="bottom">已上架</div>
+                        <div className="bottom">{t("Listed")}</div>
                     </div>
                     {/* <div className="item">
                         <div className="top">{ProjectDetail?.holdNum || "0"}</div>
@@ -260,9 +253,9 @@ export default function Launch(): JSX.Element {
                         <img src={outLinkIcon6} alt="" />
                         {isShare && <>
                             <div className='copyLinkBox'>
-                                <div className="title">复制链接</div>
-                                <div className="outLink">在Facebook上分享</div>
-                                <div className="outLink">在Twitter上分享</div>
+                                <div className="title">{t("Copy Link")}</div>
+                                <div className="outLink">{t("Share on Facebook")}</div>
+                                <div className="outLink">{t("Share on Twitter")}</div>
                             </div>
                         </>}
                     </div>
@@ -274,23 +267,23 @@ export default function Launch(): JSX.Element {
                     <div className="outLinkBox outLinkBoxM l-hidden">
                         <div className="linkItem">
                             <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 2) || "0"}</div>
-                            <div className="bottom">总交易量</div>
+                            <div className="bottom">{t("Total Volume")}</div>
                         </div>
                         <div className="linkItem">
                             <div className="top">${decimalNum(ProjectDetail?.floorPrice, 2) || "0"}</div>
-                            <div className="bottom">地板价</div>
+                            <div className="bottom">{t("Floor")}</div>
                         </div>
                         <div className="linkItem">
                             <div className="top">{ProjectDetail?.createFee || "0"}%</div>
-                            <div className="bottom">创作者收益</div>
+                            <div className="bottom">{t("Creator earnings")}</div>
                         </div>
                         <div className="linkItem">
                             <div className="top">{ProjectDetail?.thingNum || "0"}</div>
-                            <div className="bottom">物品</div>
+                            <div className="bottom">{t("Items")}</div>
                         </div>
                         <div className="linkItem">
                             <div className="top">{ProjectDetail?.shelvesNum || "0"}</div>
-                            <div className="bottom">已上架</div>
+                            <div className="bottom">{t("Listed")}</div>
                         </div>
                         {/* 
                     <div className="linkItem copyItem">
@@ -305,7 +298,7 @@ export default function Launch(): JSX.Element {
                         <img className='logo-avtor-img' src={ProjectDetail?.img} alt="" />
                         <div className="name">{ProjectDetail?.name}</div>
                         <AuthenticationGroup src={ProjectDetail?.isAuthentication ? AuthenticationPng : NotAuthenticationPng} />
-                        <div className="address">创作者<span> {AddrHandle(ProjectDetail?.createAddress)}</span></div>
+                        <div className="address">{t("Creator")}<span> {AddrHandle(ProjectDetail?.createAddress)}</span></div>
                     </div>
                 </div>
                 <div className="logoAvtor logo-avtor-img m-hidden">
@@ -331,9 +324,9 @@ export default function Launch(): JSX.Element {
                         <img src={outLinkIcon6} alt="" />
                         {false && <>
                             <div className='copyLinkBox'>
-                                <div className="title">复制链接</div>
-                                <div className="outLink">在Facebook上分享</div>
-                                <div className="outLink">在Twitter上分享</div>
+                                <div className="title">{t("Copy Link")}</div>
+                                <div className="outLink">{t("Share on Facebook")}</div>
+                                <div className="outLink">{t("Share on Twitter")}</div>
                             </div>
                         </>}
                     </div>
@@ -346,16 +339,16 @@ export default function Launch(): JSX.Element {
                     {width < 1440 && <img className='logo-avtor-img middleLogo' src={ProjectDetail?.img} alt="" />}
 
                     <div className="name">{ProjectDetail?.name}    <AuthenticationGroup src={ProjectDetail?.isAuthentication ? AuthenticationPng : NotAuthenticationPng} /></div>
-                    <div className="address">创作者 <span> {AddrHandle(ProjectDetail?.createAddress)}</span></div>
+                    <div className="address">{t("Creator")} <span> {AddrHandle(ProjectDetail?.createAddress)}</span></div>
                     <div className="detail">{t('Project Description')}：{ProjectDetail?.description}</div>
-                    <div className="detailBtn">+扩展</div>
+                    <div className="detailBtn">+{t("More")}</div>
                 </div>
                 <div className="detail l-hidden">{t('Project Description')}：{ProjectDetail?.description}</div>
 
 
                 <div className="tabBox">
-                    <div className={tabActive === 0 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(0) }}>物品</div>
-                    <div className={tabActive === 1 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(1) }}>动态</div>
+                    <div className={tabActive === 0 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(0) }}>{t("Items")}</div>
+                    <div className={tabActive === 1 ? "tab tabActive" : "tab"} onClick={() => { setTabActive(1) }}>{t("Activities")}</div>
                 </div>
                 <div className="line"></div>
                 {/* 物品容器 */}
@@ -366,7 +359,7 @@ export default function Launch(): JSX.Element {
                             <div className="searchBox">
                                 <div className="search" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
                                     <img src={Search} alt="" />
-                                    <input type="text" placeholder="按名称、属性搜索" />
+                                    <input type="text" placeholder={t("Search by name, attribute")} />
                                 </div>
                             </div>
                         </div>
@@ -374,13 +367,13 @@ export default function Launch(): JSX.Element {
                             <div className="MarketSearchRow">
                                 <Dropdown overlay={typeMenu} trigger={['click']} >
                                     <div className="search">
-                                        <div className="searchBox">全部</div>
+                                        <div className="searchBox">{t("All")}</div>
                                         <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                                     </div>
                                 </Dropdown>
                                 <Dropdown overlay={typeMenu} trigger={['click']}>
                                     <div className="search">
-                                        <div className="searchBox">最新上架</div>
+                                        <div className="searchBox">{t("Newest")}</div>
                                         <img className={expand2 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                                     </div>
                                 </Dropdown>
@@ -390,25 +383,25 @@ export default function Launch(): JSX.Element {
                     <div className="bigContent">
                         <div className={`slider m-hidden-block ${Number(tabActive) === 1 ? "isHidden" : ""}`}>
                             <div className="settingPut">
-                                <div className="title">已上架</div>
+                                <div className="title">{t("Listed")}</div>
                                 <div className="right"><Switch defaultChecked onChange={onChange} /></div>
                             </div>
                             <div className="priceFilter">
-                                <div className="title">$价格范围</div>
+                                <div className="title">${t("Price range")}</div>
                                 <div className="right"><img src={openRoundIcon} alt="" /></div>
                             </div>
                             {true && <>
                                 <div className="topBox">
-                                    <div className="button flexCenter">最小值</div>
+                                    <div className="button flexCenter">{t("Min")}</div>
                                     <div className="word flexCenter">-</div>
-                                    <div className="button flexCenter">最大值</div>
+                                    <div className="button flexCenter">{t("Max")}</div>
                                 </div>
                                 <div className="bottom flexCenter">
-                                    <div className="applyBtn flexCenter">应用</div>
+                                    <div className="applyBtn flexCenter">{t("Apply")}</div>
                                 </div>
                             </>}
                             <div className="coinBox">
-                                <div className="title">货币</div>
+                                <div className="title">{t("Currency")}</div>
                                 <div className="right">
                                     <img src={openRoundIcon} alt="" />
                                 </div>
@@ -429,7 +422,7 @@ export default function Launch(): JSX.Element {
                             </>}
                         </div>
                         <div className="content">
-                            <div className="goodsNumber">{decimalNum(total, 0, ",")}个物品</div>
+                            <div className="goodsNumber">{t("1,000 items", { num: decimalNum(total, 0, ",") })}</div>
                             <div className="goodsList">
                                 <div className="content goodsContent">
                                     {nftList.length ? <>
@@ -451,141 +444,12 @@ export default function Launch(): JSX.Element {
                                         <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
                                     </> : <NoData />}
                                 </div> */}
-                                <div className="mobile-filter l-hidden">过滤 <img src={FilterBack} alt="" /></div>
+                                <div className="mobile-filter l-hidden">{t("Filter")} <img src={FilterBack} alt="" /></div>
                             </div>
                         </div>
                     </div>
                 </div>}
                 {/* 动态 */}
-                {/* {tabActive === 1 && <div className='activeBox'>
-                    <div className="itemBigBox contentBoxL">
-                        <div className="titleBox">
-                            <div className="titleItem type">类型</div>
-                            <div className="titleItem">物品</div>
-                            <div className="titleItem">价格</div>
-                            <div className="titleItem">从</div>
-                            <div className="titleItem">到</div>
-                            <div className="titleItem date">日期</div>
-                        </div>
-                        <div className="itemContentBox">
-                            {tableData &&
-                                tableData.map((item: any, index: number) => <div key={index} className="itemBox">
-                                    <div className="item type">
-                                        <div className="top">{operateTtype[item.operateType]}</div>
-                                        <div className="bottom">一口价</div>
-                                    </div>
-                                    <div className="item projectName">
-                                        <div className="leftBox">
-                                            <img src={item.projectLogo} alt="" />
-                                        </div>
-                                        <div className="right">
-                                            <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" className='projectImg' /> : <img className='projectImg' src={NotCertified} alt="" />}</div>
-                                            <div className="bottom">{item.nftName}</div>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="bottom">{item.num} {item.coinName}</div>
-                                        <div className="top">{item.uprice && (`$` + NumSplic(item.uprice, 4))}  </div>
-                                    </div>
-                                    <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
-                                        {
-                                            item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
-                                        }
-                                    </div>
-                                    <div className="item" onClick={() => { goSomeone(item.toAddress) }}>
-                                        {
-                                            item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
-                                        }
-                                    </div>
-                                    <div className="item date">
-                                        {HowLongAgo(item.createTime)}
-                                    </div>
-                                </div>)
-                            }
-                        </div>
-                    </div>
-                    <div className="itemBigBox contentBoxM">
-                        <div className="contentBox">
-                            <Fragment>
-                                <Space direction="vertical">
-                                    <Collapse activeKey={activeKey} expandIcon={() => <></>}>
-                                        {
-                                            tableData.map((item: any, idx: any) =>
-                                                <Fragment>
-                                                    <Collapse.Panel header={
-                                                        <div className="itemBox">
-                                                            <div className="item type">
-                                                                <div className="top">{operateTtype[item.operateType]}</div>
-                                                                <div className="bottom">一口价</div>
-                                                            </div>
-                                                            <div className='group'>
-                                                                <div className="item projectName">
-                                                                    <div className="leftBox">
-                                                                        <img src={item.projectLogo} alt="" />
-                                                                    </div>
-                                                                    <div className="right">
-                                                                        <div className="top">{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
-                                                                        <div className="bottom">{item.nftName}</div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="item price">
-                                                                    <div className="bottom">{item.num} {item.coinName}</div>
-                                                                    <div className="top">{item.uprice && (`$` + NumSplic(item.uprice, 4))}  </div>
-                                                                </div>
-                                                                <div className='drap-icon' onClick={() => {
-                                                                    if (activeKey === (idx + "")) {
-                                                                        setActiveKey("")
-                                                                        console.log("activeKey", "null")
-                                                                    } else {
-                                                                        setActiveKey(idx + "")
-                                                                        console.log("activeKey", (idx + ""))
-                                                                    }
-                                                                }} >
-                                                                    {
-                                                                        activeKey !== (idx + "") ? <DownOutlined /> : <UpOutlined />
-                                                                    }
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    } key={idx + ""}>
-                                                        <div className="group">
-                                                            <div className="item">
-                                                                <div className="text" onClick={() => { goSomeone(item.formAddress) }}>
-                                                                    {
-                                                                        item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
-                                                                    }
-                                                                </div>
-                                                                <div className="type" onClick={() => { goSomeone(item.toAddress) }}>从</div>
-                                                            </div>
-                                                            <div className="item">
-                                                                <div className="text">
-                                                                    {
-                                                                        item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
-                                                                    }
-                                                                </div>
-                                                                <div className="type">到</div>
-
-                                                            </div>
-                                                            <div className="item date">
-                                                                <div className="text type-date">
-                                                                    {HowLongAgo(item.createTime)}
-                                                                </div>
-                                                                <div className="type">日期</div>
-                                                            </div>
-                                                        </div>
-                                                    </Collapse.Panel>
-                                                    <div className="separate" style={{ display: (listData.length === (idx + 1)) ? "none" : "block" }}></div>
-                                                </Fragment>
-                                            )
-                                        }
-                                    </Collapse>
-                                </Space>
-                            </Fragment>
-                        </div>
-                    </div>
-                </div>
-                } */}
                 {tabActive === 1 && tableData.length > 0 && <ActionBox tableData={tableData}></ActionBox>
                 }
 

@@ -31,6 +31,8 @@ import Goods from '../components/HotspotCard'
 import '../assets/style/Main.scss'
 import { getBestSellerNft, getHoTProject, getTradeLast } from "../API";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import i18n from "../18n/i18n";
 
 
 const Container = styled.div`
@@ -139,7 +141,7 @@ const Title = styled(FlexCCBox)`
     @media (max-width: 750px) {
         font-size: 16px;
         span {
-            font-size: 16px;
+            font-size: 24px;
         }
     }
 `
@@ -463,8 +465,8 @@ const Bg4 = styled.div`
 
 export default function Main() {
     let navigate = useNavigate()
-    const [nftIdo,
-        setNftIdo] = useState<any[]>([Bg7Png, Bg1Png, Bg2Png, Bg3Png, Bg4Png, Bg5Png, Bg6Png, Bg8Png])
+    const { t } = useTranslation()
+    const [nftIdo, setNftIdo] = useState<any[]>([Bg7Png, Bg1Png, Bg2Png, Bg3Png, Bg4Png, Bg5Png, Bg6Png, Bg8Png])
     const [expand1, setExpand1] = useState(true)
     const [activeIndex, setActiveIndex] = useState(0)
     const [idxGroup, setIdxGroup] = useState<{ index: number; posi: number; }[]>([])
@@ -478,7 +480,7 @@ export default function Main() {
 
     const typeMenu = (
         <Menu onClick={() => handleDropDown(setExpand1, expand1)}>
-            <Menu.Item>全部</Menu.Item>
+            <Menu.Item>{t('All')}</Menu.Item>
         </Menu>
     );
 
@@ -555,17 +557,17 @@ export default function Main() {
     }, [])
 
     const otherList = [{
-        text: "什么是NFT？",
+        text: t("What is an NFT?"),
         img: NFTPng
     }, {
-        text: "如何购买NFT？",
+        text: t("How to buy an NFT?"),
         img: BuyNftPng
     }, {
-        text: "什么是加密钱包？",
+        text: t("What is a crypto wallet?"),
         img: EncryWalletPng
     },
     {
-        text: "区块链gas费是什么？",
+        text: t("What are blockchain gas fees?"),
         img: GasPng
     }]
 
@@ -620,27 +622,27 @@ export default function Main() {
             <Group>
                 <NFTContent>
                     <Title>
-                        <span>HABITAT</span>-面向<span>WEB3</span>的NFT创新交易平台
+                        {i18n.language === "zh" ? <><span>HABITAT</span>-面向<span>WEB3</span>的NFT创新交易平台</> : <div className="enHome"><span>HABITAT</span>-An NFT innovative trading platform for <span> WEB3</span></div>}
                     </Title>
                     <Group>
-                        <SellBox onClick={() => { navigate("/Market") }}>购买</SellBox>
+                        <SellBox onClick={() => { navigate("/Market") }}>{t("Buy")}</SellBox>
                     </Group>
                     <Group>
                         <TransactionTips></TransactionTips>
                     </Group>
                     <Group>
-                        <NFTTitle>热门项目</NFTTitle>
+                        <NFTTitle>{t("Hot Collections")}</NFTTitle>
                     </Group>
                     <GroupMenu>
                         <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
                             <SearchGroup>
-                                <SearchBox >24小时</SearchBox>
+                                <SearchBox >{t("24H")}</SearchBox>
                                 <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                             </SearchGroup>
                         </Dropdown>
                         <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
                             <SearchGroup>
-                                <SearchBox >查看全部</SearchBox>
+                                <SearchBox >{t('View all')}</SearchBox>
                                 <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                             </SearchGroup>
                         </Dropdown>
@@ -654,21 +656,21 @@ export default function Main() {
                         }
                     </GroupProject>
                     <Group>
-                        <NFTTitle>畅销NFT</NFTTitle>
+                        <NFTTitle>{t('Best-selling NFT')}</NFTTitle>
                     </Group>
                     <Group>
-                        <NFTViceTitle>热门转手的NFT</NFTViceTitle>
+                        <NFTViceTitle>{t('Popular NFTs that changed hands')}</NFTViceTitle>
                     </Group>
                     <GroupMenu>
                         <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
                             <SearchGroup>
-                                <SearchBox >24小时</SearchBox>
+                                <SearchBox >{t("24H")}</SearchBox>
                                 <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                             </SearchGroup>
                         </Dropdown>
                         <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
                             <SearchGroup>
-                                <SearchBox >查看全部</SearchBox>
+                                <SearchBox >{t("View all")}</SearchBox>
                                 <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                             </SearchGroup>
                         </Dropdown>
@@ -685,7 +687,7 @@ export default function Main() {
                     </GroupProject>
                     <div style={{ display: "none" }}>
                         <Group>
-                            <NFTTitle>最佳卖家</NFTTitle>
+                            <NFTTitle>{t("Best Sellers")}</NFTTitle>
                         </Group>
                         <UserList>
                             {
@@ -701,7 +703,7 @@ export default function Main() {
                     </div>
 
                     <Group>
-                        <NFTTitle>最新</NFTTitle>
+                        <NFTTitle>{t("Latest")}</NFTTitle>
                     </Group>
                     <GroupProject
                     >
@@ -714,10 +716,10 @@ export default function Main() {
                         }
                     </GroupProject>
                     <Group>
-                        <NFTTitle>入门</NFTTitle>
+                        <NFTTitle>{t("Guide")}</NFTTitle>
                     </Group>
                     <Group>
-                        <NFTViceTitle>了解基础知识</NFTViceTitle>
+                        <NFTViceTitle>{t("Know the basics")}</NFTViceTitle>
                     </Group>
                     <OtherList>
                         {

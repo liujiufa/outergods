@@ -59,13 +59,6 @@ export default function Market(): JSX.Element {
   let [TradeOrder, setTradeOrder] = useState<NftInfo[]>([])
   let [currentTradeOrder, setCurrentTradeOrder] = useState<NftInfo>()
   let [pageNum, setPageNum] = useState<number>(1)
-  let operateTtype = [
-    "上架",
-    "成交",
-    "取消",
-    "转出",
-    "调价",
-  ]
   // 下拉图标旋转
   const handleDropDown = (fun: any, value: boolean) => {
     fun(!value);
@@ -202,7 +195,7 @@ export default function Market(): JSX.Element {
         <div className="tabBox">
           <div className="tabContent" >
             <div className={tabActive === 0 ? "tabItem flexCenter tabItemActive" : "tabItem flexCenter "} onClick={() => { setTabActive(0) }}>NFT</div>
-            <div className={tabActive === 1 ? "tabItem flexCenter  tabItemActive" : "tabItem flexCenter "} onClick={() => { setTabActive(1) }}>动态</div>
+            <div className={tabActive === 1 ? "tabItem flexCenter  tabItemActive" : "tabItem flexCenter "} onClick={() => { setTabActive(1) }}>{t("Activities")}</div>
           </div>
         </div>
 

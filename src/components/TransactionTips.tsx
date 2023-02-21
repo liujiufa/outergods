@@ -78,11 +78,11 @@ export default function TransactionTips() {
         <Marquee speed={100} pauseOnHover gradient={false} >
           {dynamicInfo.map((item: any, index: any) => <div key={index} className='autoMarquee'>
             <span className="color33 pointer" onClick={() => goDetial(item)}>{item?.nftName || 'unnamed'}</span>
-            <span className="colorRed">出售</span>
+            <span className="colorRed">{t('Sell')}</span>
             <img src={sale} alt="" />
-            <span className="colorA5">from</span>
+            <span className="colorA5">{t("From")}</span>
             <span className="color33 pointer" onClick={() => { goSomeone(item?.formAddress as string) }}>{AddrHandle(item?.formAddress)}</span>
-            <span className="colorA5">to</span>
+            <span className="colorA5">{t("To")}</span>
             <span className="color33 pointer" onClick={() => { goSomeone(item?.toAddress as string) }}>{AddrHandle(item?.toAddress)}</span>
             <span className="colorA5">for {item?.num} {item?.coinName}</span>
             <span className="colorA5" > {HowLongAgo(item?.createTime as number)}</span>
