@@ -40,7 +40,7 @@ import { useViewport } from '../../../components/viewportContext';
 import NotCertified from '../../../assets/image/NotCertified.svg'
 import { decimalNum } from '../../../utils/decimalNum';
 import styled from "styled-components"
-
+declare let window: any;
 
 interface OrderDetailType {
     projectName: string,
@@ -258,10 +258,14 @@ export default function NFTDetailsL({
     }, [OrderDetail?.projectId])
 
     useEffect(() => {
-        if (!web3React.account) {
-            setShowEnterCancel(false)
-            setSaleNFTModal(false)
-            setShowPriceChange(false)
+        if (window.ethereum && window.ethereum.on) {
+            // 监听钱包事件
+            window.ethereum.on('accountsChanged', (accounts: string[]) => {
+                setShowEnterCancel(false)
+                setSaleNFTModal(false)
+                setShowPriceChange(false)
+                setBuyNFTModal(false)
+            })
         }
     }, [web3React.account])
 
@@ -287,10 +291,10 @@ export default function NFTDetailsL({
                         <h4 className='title'>
                             <div className='title-name'>{OrderDetail && OrderDetail?.normalizedMetadata?.name}</div>
                             <span className="icon l-hidden">
-                                <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>CHAIN</span>} color="#FFF" key="coin">
+                                <Tooltip placement='bottom' title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>CHAIN</span>} color="#FFF" key="coin">
                                     <img className='first' src={BinancePng} alt="" />
                                 </Tooltip>
-                                <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>TIPS</span>} color="#FFF" key="tips">
+                                <Tooltip placement='bottom' title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>TIPS</span>} color="#FFF" key="tips">
                                     <img src={TipsPng} alt="" />
                                 </Tooltip>
                             </span>
@@ -299,8 +303,8 @@ export default function NFTDetailsL({
                         <div className="project">
                             <div className="name">
                                 <img src={OrderDetail?.projectImg || defaultCard} alt="" className="logo" />
-                                <div className="project-name" onClick={() => { navigate('/Launch?tokenAddress=' + OrderDetail?.tokenAddress) }}>{OrderDetail?.name}</div>
-                                <AuthenticationGroup src={OrderDetail?.isAuthentication ? AuthenticationPng : NotAuthenticationPng} />
+                                <div className="project-name" onClick={() => { navigate('/Launch?tokenAddress=' + OrderDetail?.tokenAddress) }}>{OrderDetail?.name}<AuthenticationGroup src={OrderDetail?.isAuthentication ? AuthenticationPng : NotAuthenticationPng} /></div>
+
                             </div>
                             <span className="icon m-hidden">
                                 <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>CHAIN</span>} color="#FFF" key="coin">
@@ -496,12 +500,19 @@ export default function NFTDetailsL({
                                             attrOrInfo ? <>{
                                                 OrderDetail && OrderDetail?.normalizedMetadata && OrderDetail?.normalizedMetadata?.attributes?.length > 0 && OrderDetail?.normalizedMetadata?.attributes.map((item: any, idx: any) =>
                                                     <div className={`nft-details-attribute-item ${!((idx + 1) % 3) ? "nft-details-attribute-item-right" : ""}`}>
-                                                        <div className="nft-details-attribute-title">
-                                                            {item.trait_type}
-                                                        </div>
-                                                        <div className="nft-details-attribute-content">
-                                                            {item.value}
-                                                        </div>
+
+
+                                                        <Tooltip color="#D5DBFF" placement="topLeft" title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#7285FF" }}>{item.trait_type}</span>}>
+                                                            <div className="nft-details-attribute-title">
+                                                                {item.trait_type}
+                                                            </div>
+                                                        </Tooltip>
+                                                        <Tooltip color="#D5DBFF" placement="topLeft" title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#7285FF" }}>{item.value}</span>}>
+                                                            <div className="nft-details-attribute-content">
+                                                                {item.value}
+                                                            </div>
+                                                        </Tooltip>
+
                                                     </div>
                                                 )
                                             }

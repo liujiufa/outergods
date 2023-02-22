@@ -15,6 +15,7 @@
             align-items: center;
             width: 100%;
             padding-top: 12px;
+            align-items: flex-start;
 
             .left {
                 width: 40%;
@@ -70,6 +71,7 @@
                             /* identical to box height */
                             letter-spacing: 0.1em;
                             color: #7285FF;
+                            word-break: break-all;
                         }
                     }
 
@@ -361,6 +363,8 @@
                         display: flex;
                         justify-content: start;
                         align-items: center;
+                        overflow: auto;
+                        height: 30px;
 
                         .right-nft-details-tab {
                             font-weight: 700;
@@ -398,7 +402,7 @@
                                 padding: 18px 70px;
                                 display: flex;
                                 justify-content: space-between;
-                                align-items: center;
+                                // align-items: center;
 
                                 .nft-details-card-group {
                                     text-align: center;
@@ -478,11 +482,17 @@
                                 border-radius: 15px;
                                 margin: 0 20px 20px 0;
 
+
                                 .nft-details-attribute-title {
+                                    width: 100%;
                                     font-weight: 700;
                                     font-size: 16px;
                                     letter-spacing: 0.1em;
                                     color: #000000;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+
                                 }
 
                                 .nft-details-attribute-content {
@@ -490,6 +500,10 @@
                                     letter-spacing: 0.1em;
                                     color: rgba(0, 0, 0, 0.6);
                                     margin-top: 10px;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+
                                 }
                             }
 
@@ -1078,7 +1092,7 @@
 
 }
 
-@media (min-width:768px) and (max-width:1200px) {
+@media (min-width:768px) and (max-width:1440px) {
     .NFTDetailsPage .contentBox .tabBox .right .buy {
         display: block;
 
@@ -1110,6 +1124,14 @@
 
         .U {
             margin-top: 8px;
+        }
+    }
+
+    .NFTDetailsPage .contentBox .tabBox .right .buyBox #buy {
+        display: block;
+
+        .buy-right {
+            margin-top: 14px;
         }
     }
 }
@@ -1372,6 +1394,15 @@
 }
 
 @media (max-width:425px) {
+    .NFTDetailsPage .contentBox .tabBox .right .buyBox #buy {
+        display: block;
+
+        .buy-right .buy-right-button {
+            padding: 8px 30px;
+            margin-top: 12px;
+        }
+    }
+
     .NFTDetailsPage .contentBox .tabBox .right .buy .managePrice .cancelBtn {}
 
     .NFTDetailsPage .contentBox .tabBox .right .buy {
@@ -1408,6 +1439,14 @@
             font-size: 12px;
             margin-left: 0px;
         }
+    }
+
+    .NFTDetailsPage .contentBox .tabBox .right .right-nft-details .right-nft-details-tabcontent .nft-details-attribute-group .nft-details-attribute-item {
+        width: auto;
+    }
+
+    .NFTDetailsPage .contentBox .tabBox .right .right-nft-details .right-nft-details-tabcontent .nft-details-attribute-group .nft-details-attribute-item-right {
+        margin: 0 20px 20px 0;
     }
 }
 

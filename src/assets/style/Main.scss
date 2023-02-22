@@ -8,6 +8,7 @@
     height: 85% !important;
     // margin: 10px !important;
 }
+
 .enHome {
     // color: #7C8FFB;
     font-weight: 700;
@@ -27,21 +28,31 @@
         // color: #7C8FFB;
         font-weight: 700;
         font-size: 30px;
+
+        span {
+            font-size: 30px;
+        }
     }
 }
+
 @media (max-width:750px) {
     .enHome {
         // color: #7C8FFB;
         font-weight: 700;
         font-size: 24px;
+        span{
+            font-size: 24px;
+        }
     }
 }
+
 @media (max-width:425px) {
     .enHome {
         // color: #7C8FFB;
         font-weight: 700;
         font-size: 16px;
-        span{
+
+        span {
             font-size: 16px;
         }
     }

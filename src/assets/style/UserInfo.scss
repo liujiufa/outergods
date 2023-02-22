@@ -46,6 +46,7 @@
                 height: 1px;
                 background: #D9D9D9;
                 margin: 10px 0px 30px;
+                display: block;
             }
 
             .mainLabel {
@@ -154,10 +155,12 @@
                 background: #3683F7;
                 border-radius: 25px;
                 width: 130px;
-                height: 50px;
+                // height: 50px;
                 margin-top: 40px;
                 color: #FFFFFF;
                 font-size: 16px;
+                max-width: 130px;
+                padding: 6px 20px;
             }
         }
     }
@@ -171,6 +174,7 @@
 
     #userinfo {
         min-height: calc(100vh - 147px);
+
         .right {
             display: none;
         }
@@ -184,11 +188,12 @@
 
 
 @media (max-width:750px) {
-    
+
     #userinfo {
         .right {
             display: none;
         }
+
         .line {
             max-width: 301px;
         }

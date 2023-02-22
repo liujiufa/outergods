@@ -121,7 +121,7 @@ export default function Personal(props: any): JSX.Element {
                         <div className="titleItem date">{t("Time")}</div>
                     </div>
                     <div className="itemContentBox">
-                        {props.tableData.length > 0 && props.tableData.map((item: any, index: number) => <div key={index} className="itemBox">
+                        {props.tableData.length > 0 ? props.tableData.map((item: any, index: number) => <div key={index} className="itemBox">
                             <div className="item type">
                                 <div className="top">{operateTtype[item.operateType]}</div>
                                 <div className="bottom">{t("as fixed price")}</div>
@@ -134,7 +134,7 @@ export default function Personal(props: any): JSX.Element {
                                 <div className="right">
 
                                     <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>{item.projectName}</span>} color="#FFF" key="tips">
-                                        <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                        <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}{item.projectName} </div>
                                     </Tooltip>
                                     {/* <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div> */}
                                     <div className="bottom" onClick={() => { goPath(item) }}>{item.nftName}</div>
@@ -157,7 +157,7 @@ export default function Personal(props: any): JSX.Element {
                             <div className="item date">
                                 {HowLongAgo(item.createTime)}
                             </div>
-                        </div>)}
+                        </div>) : <NoData />}
                     </div>
                 </div>
             }
@@ -198,7 +198,7 @@ export default function Personal(props: any): JSX.Element {
                                                             </div>
                                                             <div className="right">
                                                                 <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>{item.projectName}</span>} color="#FFF" key="tips">
-                                                                    <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div>
+                                                                    <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}{item.projectName} </div>
                                                                 </Tooltip>
 
                                                                 <div className="bottom" onClick={() => { goPath(item) }}>{item.nftName}</div>
@@ -256,6 +256,6 @@ export default function Personal(props: any): JSX.Element {
                     </div>
                 </div>
             }
-        </div >
+        </div>
     )
 }

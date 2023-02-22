@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { useViewport } from '../components/viewportContext'
 import logo from '../assets/image/NFTLogo.png'
 import Search from '../assets/image/searchIcon.png'
-import BNBIcon from '../assets/image/BNBIcon.png'
+import BNBIcon from '../assets/image/BNBIcon.svg'
 import langIcon from '../assets/image/langIcon.png'
 import wallet from '../assets/image/wallet.png'
 import prevPersonal from '../assets/image/whitePesonal.png'
@@ -104,6 +104,7 @@ const MainLayout: React.FC = () => {
                     <span className="dropText">{t('Profile')}</span>
                 </div>
             </Menu.Item>
+            {/* 
             <Menu.Item key="SubMenu" >
                 <div className="box" onClick={() => {
                     console.log("zh111111", i18n.language === 'zh' ? 'en' : 'zh')
@@ -113,6 +114,7 @@ const MainLayout: React.FC = () => {
                     <span className="dropText">{i18n.language === 'zh' ? '中文简体' : 'English'}</span>
                 </div>
             </Menu.Item>
+             */}
             <Menu.Item key="4" onClick={LogOut}>
                 <div className="box">
                     <img src={LogOutIcon} alt="" />
@@ -130,7 +132,7 @@ const MainLayout: React.FC = () => {
                 {t('Marketplace')}
             </Menu.Item>
             <Menu.Item key="2">
-            {t('Collections')}
+                {t('Collections')}
             </Menu.Item>
             <Menu.Item key="3" onClick={() => {
                 navigate("/Market?id=1")
@@ -141,9 +143,9 @@ const MainLayout: React.FC = () => {
                 <Menu.Item key="5" onClick={() => changeLanguage({ key: 'en' })}>
                     English
                 </Menu.Item>
-                <Menu.Item key="6" onClick={() => changeLanguage({ key: 'kr' })}>
+                {/* <Menu.Item key="6" onClick={() => changeLanguage({ key: 'kr' })}>
                     한국어
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item key="4" onClick={() => changeLanguage({ key: 'zh' })}>
                     中文简体
                 </Menu.Item>
@@ -161,13 +163,13 @@ const MainLayout: React.FC = () => {
                 {
                     type: 'divider',
                 },
-                {
-                    label: <span className="LangItem">한국어</span>,
-                    key: 'kr',
-                },
-                {
-                    type: 'divider',
-                },
+                // {
+                //     label: <span className="LangItem">한국어</span>,
+                //     key: 'kr',
+                // },
+                // {
+                //     type: 'divider',
+                // },
                 {
                     label: <span className="LangItem">中文简体</span>,
                     key: 'zh',

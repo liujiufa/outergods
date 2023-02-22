@@ -205,6 +205,7 @@
             justify-content: flex-start;
             align-items: center;
             padding: 0 16px;
+            overflow: auto;
 
             >div {
                 height: 40px;
@@ -1327,6 +1328,9 @@
 
     #Personal .ant-collapse-content-box {
         padding: 0 0px;
+    }
+    .Personal .personalContent .tebBox > div{
+        margin-right: 20px;
     }
 }
 

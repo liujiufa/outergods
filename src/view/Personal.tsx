@@ -179,6 +179,7 @@ export default function Personal(): JSX.Element {
             })
         } else {
             setUserCurrentNft(null)
+            setTableData([])
         }
     }, [web3React.account, state.token])
 
@@ -249,43 +250,43 @@ export default function Personal(): JSX.Element {
         }
     }, [web3React.account, state.token, tabActive])
 
-    useEffect(() => {
-        initBs() // 初始化实例
-        return () => {
-            if (bsObj && bsObj.destroy) {
-                bsObj.destroy() // 销毁
-            }
-        }
-    }, [])
+    // useEffect(() => {
+    //     initBs() // 初始化实例
+    //     return () => {
+    //         if (bsObj && bsObj.destroy) {
+    //             bsObj.destroy() // 销毁
+    //         }
+    //     }
+    // }, [])
 
-    const initBs = () => {
-        setBsObj(() => {
-            return new BScroll(wrapperRef.current!!, {
-                //  ...配置项
-                pullUpLoad: true,
-                //  检测dom变化
-                observeDOM: true,
-            })
+    // const initBs = () => {
+    //     setBsObj(() => {
+    //         return new BScroll(wrapperRef.current!!, {
+    //             //  ...配置项
+    //             pullUpLoad: true,
+    //             //  检测dom变化
+    //             observeDOM: true,
+    //         })
 
-        })
-    }
+    //     })
+    // }
 
-    const pullingUp = () => {
-        // 换页的逻辑，不赘叙了
-        if (userCurrentNft) {
-            LoadMore(userCurrentNft!!.cursor)
-        }
-        setTimeout(() => {
-            bsObj.finishPullUp();
-        }, 2000)
-    }
+    // const pullingUp = () => {
+    //     // 换页的逻辑，不赘叙了
+    //     if (userCurrentNft) {
+    //         LoadMore(userCurrentNft?.cursor)
+    //     }
+    //     setTimeout(() => {
+    //         bsObj.finishPullUp();
+    //     }, 2000)
+    // }
 
-    useEffect(() => {
-        if (bsObj) {
-            console.log("shilihuaduixiang");
-            bsObj.on("pullingUp", pullingUp)
-        }
-    }, [bsObj])
+    // useEffect(() => {
+    //     if (bsObj) {
+    //         console.log("shilihuaduixiang");
+    //         bsObj.on("pullingUp", pullingUp)
+    //     }
+    // }, [bsObj])
 
 
 
@@ -471,7 +472,7 @@ export default function Personal(): JSX.Element {
                                         { value: 'managepriceType', label: t("Change") },]}
                                 />
                                 {/* 动态注释 */}
-                                {tableData.length > 0 && <ActionBox tableData={tableData}></ActionBox>}
+                                {tableData?.length > 0 ? <ActionBox tableData={tableData}></ActionBox> : <NoData />}
                             </div>
                         </>}
                     </div>

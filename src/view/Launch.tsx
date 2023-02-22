@@ -296,8 +296,7 @@ export default function Launch(): JSX.Element {
                 <div className="logoAvtor l-hidden">
                     <div className="personalBox ">
                         <img className='logo-avtor-img' src={ProjectDetail?.img} alt="" />
-                        <div className="name">{ProjectDetail?.name}</div>
-                        <AuthenticationGroup src={ProjectDetail?.isAuthentication ? AuthenticationPng : NotAuthenticationPng} />
+                        <div className="name">{ProjectDetail?.name}<AuthenticationGroup src={ProjectDetail?.isAuthentication ? AuthenticationPng : NotAuthenticationPng} /></div>
                         <div className="address">{t("Creator")}<span> {AddrHandle(ProjectDetail?.createAddress)}</span></div>
                     </div>
                 </div>
@@ -338,7 +337,7 @@ export default function Launch(): JSX.Element {
                 <div className="personalBox m-hidden-block">
                     {width < 1440 && <img className='logo-avtor-img middleLogo' src={ProjectDetail?.img} alt="" />}
 
-                    <div className="name">{ProjectDetail?.name}    <AuthenticationGroup src={ProjectDetail?.isAuthentication ? AuthenticationPng : NotAuthenticationPng} /></div>
+                    <div className="name">{ProjectDetail?.name} <AuthenticationGroup src={ProjectDetail?.isAuthentication ? AuthenticationPng : NotAuthenticationPng} /></div>
                     <div className="address">{t("Creator")} <span> {AddrHandle(ProjectDetail?.createAddress)}</span></div>
                     <div className="detail">{t('Project Description')}：{ProjectDetail?.description}</div>
                     <div className="detailBtn">+{t("More")}</div>
@@ -444,7 +443,7 @@ export default function Launch(): JSX.Element {
                                         <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
                                     </> : <NoData />}
                                 </div> */}
-                                <div className="mobile-filter l-hidden">{t("Filter")} <img src={FilterBack} alt="" /></div>
+                                {false && <div className="mobile-filter l-hidden">{t("Filter")} <img src={FilterBack} alt="" /></div>}
                             </div>
                         </div>
                     </div>

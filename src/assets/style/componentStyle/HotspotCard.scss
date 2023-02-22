@@ -303,6 +303,9 @@
         margin: auto;
         border-radius: 12px;
         box-shadow: 6px 6px 20px rgba(198, 207, 231, 0.4);
+        .menuBox{
+            border-radius: 0px 0px 12px 12px;
+        }
 
         .imgBox {
             border-radius: 12px 12px 45px 0px;
