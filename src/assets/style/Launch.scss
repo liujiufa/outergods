@@ -402,6 +402,9 @@
                         margin-top: 30px;
                         display: flex;
                         justify-content: space-between;
+                        &:first-child{
+                            margin-top: 0px;
+                        }
 
                         .title {
                             font-family: 'PingFang SC';
@@ -515,6 +518,7 @@
                         line-height: 25px;
                         letter-spacing: 0.1em;
                         color: #000000;
+                        padding: 0px 16px;
                     }
 
                     .goodsList {
@@ -1159,6 +1163,7 @@
 
         .goodsNumber {
             margin: 0;
+            padding: 0px 4px;
         }
 
         .contentBox {

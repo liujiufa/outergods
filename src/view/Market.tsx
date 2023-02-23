@@ -131,7 +131,7 @@ export default function Market(): JSX.Element {
       res.data.map((item: any, index: number) => {
         item.metadata = JSON.parse(item.metadata)
       })
-      console.log(res.data, "交易场数据")
+      console.log(res.data, "交易场")
       setTradeOrder(res.data)
     })
   }, [sortIndex, typeIndex, state.token, buyNFTModal, tabActive])
@@ -224,7 +224,7 @@ export default function Market(): JSX.Element {
               <>
                 <div className="goodsList">
                   {TradeOrder.map((item, index) =>
-                    <div className="usernft">
+                    <div className="usernft" key={index}>
                       <Goods key={index} NftInfo={{ ...item, floorPrice: item.price }} buyBtnFun={() => { buyBtnFun(item) }} tag="Market" goPath={() => { goPath(item) }}></Goods>
                     </div>
                   )}

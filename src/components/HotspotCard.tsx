@@ -56,7 +56,7 @@ export interface propsType {
   goPath?: Function
 }
 export default function HotspotCard(props: any) {
-  console.log(props.NftInfo, "交易场");
+  // console.log(props.NftInfo, "交易场");
   const navigate = useNavigate();
   const web3React = useWeb3React()
   let [isLike, setIsLike] = useState<boolean>(!!props.NftInfo?.isLike)

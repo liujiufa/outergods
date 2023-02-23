@@ -13,6 +13,7 @@ import Bg7Png from '../assets/image/bg7.png'
 import Bg8Png from '../assets/image/bg8.png'
 import SellPng from '../assets/image/main/sell.png'
 import openIcon from '../assets/image/openIconWhite.png'
+import viewMore from '../assets/image/viewMore.png'
 import NFT1Png from '../assets/image/nftGroup/nft1.png'
 import NFTPng from '../assets/image/nft.png'
 import BuyNftPng from '../assets/image/buynft.png'
@@ -139,9 +140,15 @@ const Title = styled(FlexCCBox)`
         font-size: 40px;
     }
     @media (max-width: 750px) {
-        font-size: 16px;
+        font-size: 24px;
         span {
             font-size: 24px;
+        }
+    }
+    @media (max-width: 425px) {
+        font-size: 16px;
+        span {
+            font-size: 16px;
         }
     }
 `
@@ -480,6 +487,9 @@ export default function Main() {
 
     const typeMenu = (
         <Menu onClick={() => handleDropDown(setExpand1, expand1)}>
+            <Menu.Item>{t('24H')}</Menu.Item>
+            <Menu.Item>{t('7 Days')}</Menu.Item>
+            <Menu.Item>{t('30 Days')}</Menu.Item>
             <Menu.Item>{t('All')}</Menu.Item>
         </Menu>
     );
@@ -524,14 +534,10 @@ export default function Main() {
                 const [res1] = res
                 const [hostProject] = [res1.data]
                 console.log(hostProject, '项目合集');
-                // hostProject.map((item: any) => {
-                //     item.imgUrl = item?.imgUrl.split(",")
-                // })
-                console.log(hostProject, '项目合集');
-                // const hL = [0, 0, 0, 0, 0].map((item, idx) => hList[idx] || item)
                 setHostList(hostProject)
                 // setHostList([0, ...hL])
             })
+            // 最新
             Promise.all([getTradeLast()]).then((res) => {
                 const [res1] = res
                 const [tradeLast] = [res1.data]
@@ -546,7 +552,6 @@ export default function Main() {
                 // setBestSellerNftList([0, bestSellerNft[0], bestSellerNft[1], 0, 0, 0])
                 setBestSellerNftList(bestSellerNft.slice(0, 6))
             })
-
         },
         []
     )
@@ -640,12 +645,13 @@ export default function Main() {
                                 <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                             </SearchGroup>
                         </Dropdown>
-                        <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
-                            <SearchGroup>
-                                <SearchBox >{t('View all')}</SearchBox>
-                                <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
-                            </SearchGroup>
-                        </Dropdown>
+                        <SearchGroup>
+                            <SearchBox >{t('View all')}</SearchBox>
+                            {/* <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" /> */}
+                            <img src={viewMore} alt="" />
+                        </SearchGroup>
+                        {/* <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
+                        </Dropdown> */}
                     </GroupMenu>
                     <GroupProject
                     >
@@ -668,12 +674,14 @@ export default function Main() {
                                 <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                             </SearchGroup>
                         </Dropdown>
+                        {/* 
                         <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
                             <SearchGroup>
                                 <SearchBox >{t("View all")}</SearchBox>
                                 <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                             </SearchGroup>
-                        </Dropdown>
+                        </Dropdown> 
+                        */}
                     </GroupMenu>
                     <GroupProject
                     >
