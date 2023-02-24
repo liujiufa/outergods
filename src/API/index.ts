@@ -388,9 +388,9 @@ export function getNfts(data: any) {
  * 首页  热门项目
  * @returns 
  */
-export function getHoTProject() {
+export function getHoTProject(time: any) {
     return axois.request({
-        url: `/user/home/getHoTProject`,
+        url: `/user/home/getHoTProject/${time}`,
         method: 'get'
     })
 }
@@ -399,11 +399,10 @@ export function getHoTProject() {
  * 首页  畅销NFT
  * @returns 
  */
-export function getBestSellerNft() {
+export function getBestSellerNft(time: any) {
     return axois.request({
-        url: `/user/home/getBestSellerNft`,
-        method: 'post',
-        data: ""
+        url: `/user/home/getBestSellerNft/${time}`,
+        method: 'get'
     })
 }
 

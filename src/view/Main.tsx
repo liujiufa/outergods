@@ -33,6 +33,9 @@ import '../assets/style/Main.scss'
 import { getBestSellerNft, getHoTProject, getTradeLast } from "../API";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { stateType } from '../store/reducer'
+import { useSelector, useDispatch } from "react-redux";
+
 import i18n from "../18n/i18n";
 
 
@@ -139,16 +142,29 @@ const Title = styled(FlexCCBox)`
         font-weight: 700;
         font-size: 40px;
     }
+    .mainTitle{
+    font-weight: 700;
+    font-size: 40px;
+    text-align:center;
+    }
     @media (max-width: 750px) {
         font-size: 24px;
         span {
             font-size: 24px;
+        }
+        .mainTitle{
+            font-size: 24px;
+            text-align:center;
         }
     }
     @media (max-width: 425px) {
         font-size: 16px;
         span {
             font-size: 16px;
+        }
+        .mainTitle {
+            font-size: 16px;
+            text-align:center;
         }
     }
 `
@@ -473,31 +489,64 @@ const Bg4 = styled.div`
 export default function Main() {
     let navigate = useNavigate()
     const { t } = useTranslation()
+    let state = useSelector<stateType, stateType>(state => state);
     const [nftIdo, setNftIdo] = useState<any[]>([Bg7Png, Bg1Png, Bg2Png, Bg3Png, Bg4Png, Bg5Png, Bg6Png, Bg8Png])
     const [expand1, setExpand1] = useState(true)
+    const [expand2, setExpand2] = useState(true)
     const [activeIndex, setActiveIndex] = useState(0)
+    const [projectTime, setProjectTime] = useState(0)
+    const [bestTime, setBestTime] = useState(0)
     const [idxGroup, setIdxGroup] = useState<{ index: number; posi: number; }[]>([])
     const [hostList, setHostList] = useState<any[]>([0, 0, 0, 0, 0, 0,])
     const [tradeList, setTradeList] = useState<any[]>([0, 0, 0, 0, 0, 0,])
     const [bestSellerNftList, setBestSellerNftList] = useState<any[]>([0, 0, 0, 0, 0, 0,])
-
     const handleDropDown = (fun: any, value: boolean) => {
         fun(!value);
     }
 
-    const typeMenu = (
-        <Menu onClick={() => handleDropDown(setExpand1, expand1)}>
-            <Menu.Item>{t('24H')}</Menu.Item>
-            <Menu.Item>{t('7 Days')}</Menu.Item>
-            <Menu.Item>{t('30 Days')}</Menu.Item>
-            <Menu.Item>{t('All')}</Menu.Item>
+    let time = [
+        {
+            key: t('All'),
+            value: 0
+        },
+        {
+            key: t('24H'),
+            value: 1
+        },
+        {
+            key: t('7 Days'),
+            value: 7
+        },
+        {
+            key: t('30 Days'),
+            value: 30
+        }
+    ]
+
+    // const typeMenu = (
+    //     <Menu onClick={(e) => {
+    //         console.log();
+    //     }}>
+    //         <Menu.Item>{t('All')}</Menu.Item>
+    //         <Menu.Item>{t('24H')}</Menu.Item>
+    //         <Menu.Item>{t('7 Days')}</Menu.Item>
+    //         <Menu.Item>{t('30 Days')}</Menu.Item>
+    //     </Menu>
+    // );
+
+    const typeFun = (array: any, callback: any) => {
+        return <Menu onClick={(e) => {
+            console.log();
+        }}>
+            {array.map((item: any, index: number) => <Menu.Item key={index} onClick={() => (callback(item.value))}>{item.key}</Menu.Item>)}
         </Menu>
-    );
+    }
+    const keyFun = (array: any, value: any) => {
+        return array.find((item: any) => item.value === value)?.key
+    }
 
     useEffect(() => {
-
         const list = nftIdo.map((item, idx) => idx)
-
         const activeIdx = list.findIndex(item => item === activeIndex)
 
         const findIndex = (activeIdx + 1) === list.length ? 0 : activeIdx
@@ -530,13 +579,6 @@ export default function Main() {
 
     const init = useCallback(
         async () => {
-            Promise.all([getHoTProject()]).then((res) => {
-                const [res1] = res
-                const [hostProject] = [res1.data]
-                console.log(hostProject, '项目合集');
-                setHostList(hostProject)
-                // setHostList([0, ...hL])
-            })
             // 最新
             Promise.all([getTradeLast()]).then((res) => {
                 const [res1] = res
@@ -544,7 +586,25 @@ export default function Main() {
                 console.log(res1.data, "最新");
                 setTradeList(tradeLast.slice(0, 6))
             })
-            Promise.all([getBestSellerNft()]).then((res) => {
+        },
+        []
+    )
+    const initProject = useCallback(
+        async () => {
+            Promise.all([getHoTProject(projectTime)]).then((res) => {
+                const [res1] = res
+                const [hostProject] = [res1.data]
+                console.log(hostProject, '项目合集');
+                setHostList(hostProject)
+                // setHostList([0, ...hL])
+            })
+        },
+        [projectTime]
+    )
+
+    const initBest = useCallback(
+        async () => {
+            Promise.all([getBestSellerNft(bestTime)]).then((res) => {
                 const [res1] = res
                 console.log("res1", res1)
                 const [bestSellerNft] = [res1.data]
@@ -553,13 +613,38 @@ export default function Main() {
                 setBestSellerNftList(bestSellerNft.slice(0, 6))
             })
         },
-        []
+        [bestTime]
     )
 
+    useEffect(() => {
+        if (state.token) {
+            Promise.all([getTradeLast()]).then((res) => {
+                const [res1] = res
+                const [tradeLast] = [res1.data]
+                console.log(res1.data, "最新1");
+                setTradeList(tradeLast.slice(0, 6))
+            })
+            Promise.all([getBestSellerNft(bestTime)]).then((res) => {
+                const [res1] = res
+                console.log("res1", res1)
+                const [bestSellerNft] = [res1.data]
+                console.log("畅销", bestSellerNft)
+                // setBestSellerNftList([0, bestSellerNft[0], bestSellerNft[1], 0, 0, 0])
+                setBestSellerNftList(bestSellerNft.slice(0, 6))
+            })
+        }
+    }, [state.token, bestTime])
 
     useEffect(() => {
         init()
     }, [])
+
+    useEffect(() => {
+        initProject()
+    }, [projectTime])
+    useEffect(() => {
+        initBest()
+    }, [bestTime])
 
     const otherList = [{
         text: t("What is an NFT?"),
@@ -627,7 +712,7 @@ export default function Main() {
             <Group>
                 <NFTContent>
                     <Title>
-                        {i18n.language === "zh" ? <><span>HABITAT</span>-面向<span>WEB3</span>的NFT创新交易平台</> : <div className="enHome"><span>HABITAT</span>-An NFT innovative trading platform for <span> WEB3</span></div>}
+                        {i18n.language === "zh" ? <div className="mainTitle"><span>HABITAT</span>-面向<span>WEB 3.0</span>的NFT创新交易平台</div> : <div className="enHome"><span>HABITAT</span>-An NFT innovative trading platform for <span> WEB3</span></div>}
                     </Title>
                     <Group>
                         <SellBox onClick={() => { navigate("/Market") }}>{t("Buy")}</SellBox>
@@ -639,9 +724,9 @@ export default function Main() {
                         <NFTTitle>{t("Hot Collections")}</NFTTitle>
                     </Group>
                     <GroupMenu>
-                        <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
+                        <Dropdown overlay={typeFun(time, (value: number) => setProjectTime(value))} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
                             <SearchGroup>
-                                <SearchBox >{t("24H")}</SearchBox>
+                                <SearchBox >{keyFun(time, projectTime)}</SearchBox>
                                 <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                             </SearchGroup>
                         </Dropdown>
@@ -668,10 +753,10 @@ export default function Main() {
                         <NFTViceTitle>{t('Popular NFTs that changed hands')}</NFTViceTitle>
                     </Group>
                     <GroupMenu>
-                        <Dropdown overlay={typeMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand1, expand1)}>
+                        <Dropdown overlay={typeFun(time, (value: number) => setBestTime(value))} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand2, expand2)}>
                             <SearchGroup>
-                                <SearchBox >{t("24H")}</SearchBox>
-                                <img className={expand1 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
+                                <SearchBox >{keyFun(time, bestTime)}</SearchBox>
+                                <img className={expand2 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
                             </SearchGroup>
                         </Dropdown>
                         {/* 

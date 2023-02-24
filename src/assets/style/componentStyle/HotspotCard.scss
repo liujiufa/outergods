@@ -286,6 +286,35 @@
 
     }
 
+    .menuBoxNull {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 42px;
+        width: 100%;
+        border-radius: 0px 0px 20px 20px;
+
+        .right {
+            height: 100%;
+            width: 70px;
+            border-left: 1px solid #FFFFFF;
+
+        }
+
+        .left {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 22px;
+            color: #FFFFFF;
+        }
+
+    }
+
 
 }
 
@@ -303,7 +332,8 @@
         margin: auto;
         border-radius: 12px;
         box-shadow: 6px 6px 20px rgba(198, 207, 231, 0.4);
-        .menuBox{
+
+        .menuBox {
             border-radius: 0px 0px 12px 12px;
         }
 

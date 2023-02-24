@@ -498,6 +498,14 @@
                         }
                     }
 
+                    #goodsList {
+                        .userNft {
+                            box-sizing: border-box;
+                            width: 16.65%;
+                            padding: 16px;
+                        }
+                    }
+
 
 
                     .LoadMore {
@@ -585,6 +593,10 @@
     .TableBox {
         margin: 0 16px;
     }
+
+    .Personal .personalContent .tabContentBox .bigContent .content #goodsList .userNft {
+        padding: 10px;
+    }
 }
 
 .searchRow {
@@ -671,6 +683,16 @@
     .tabs,
     .searchRow {
         margin: 58px 120px 40px !important;
+    }
+
+    .Personal .personalContent .tabContentBox .bigContent .content #goodsList .userNft {
+        width: 20%;
+    }
+}
+
+@media (max-width:1200px) {
+    .Personal .personalContent .tabContentBox .bigContent .content #goodsList .userNft {
+        width: 25%;
     }
 }
 
@@ -951,6 +973,11 @@
 }
 
 @media (max-width: 768px) {
+
+    .Personal .personalContent .tabContentBox .bigContent .content #goodsList .userNft {
+        width: 33.3%;
+        padding: 8px;
+    }
 
     .userInfo {
         margin: 20px 16px 20px !important;
@@ -1268,7 +1295,12 @@
     }
 }
 
-
+@media (max-width:500px) {
+    .Personal .personalContent .tabContentBox .bigContent .content #goodsList .userNft {
+        width: 50%;
+        padding: 5px;
+    }
+}
 
 
 
@@ -1329,7 +1361,8 @@
     #Personal .ant-collapse-content-box {
         padding: 0 0px;
     }
-    .Personal .personalContent .tebBox > div{
+
+    .Personal .personalContent .tebBox>div {
         margin-right: 20px;
     }
 }

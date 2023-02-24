@@ -70,6 +70,9 @@ export default function Market(): JSX.Element {
     sortIndex !== undefined && setSortIndex(sortIndex)
     setPageNum(1)
     getTradeOrder(ScreenData).then(res => {
+      res.data.map((item: any, index: number) => {
+        item.metadata = JSON.parse(item.metadata)
+      })
       setTradeOrder(res.data)
     })
   }
@@ -198,7 +201,6 @@ export default function Market(): JSX.Element {
             <div className={tabActive === 1 ? "tabItem flexCenter  tabItemActive" : "tabItem flexCenter "} onClick={() => { setTabActive(1) }}>{t("Activities")}</div>
           </div>
         </div>
-
         {/* 0NFT */}
         {tabActive === 0 && <>
           <div className="MarketSearchRow">

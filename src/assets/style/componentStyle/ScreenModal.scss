@@ -3,7 +3,7 @@
     border-radius: 50px !important;
 
     .ant-modal-body {
-        padding: 50px 20px;
+        padding: 40px 20px;
     }
 }
 
@@ -34,6 +34,7 @@
 
     .column {
         flex: 1;
+        // width: 33.3%;
         flex-shrink: 0;
         border-right: 1px solid rgba(0, 0, 0, 0.2);
         padding: 0 30px 30px 30px;
@@ -175,6 +176,11 @@
     .column:last-child {
         border-right: none;
     }
+
+    .searchResult {
+        max-height: 250px;
+        overflow: auto;
+    }
 }
 
 .ModalFooter {
@@ -227,15 +233,15 @@
         border-radius: 24px !important;
     }
 
-    .habitat-modal {
-        width: 80% !important;
-    }
+    // .habitat-modal {
+    //     width: 80% !important;
+    // }
 
-    .ant-modal-body {
-        padding: 20px 12px !important;
-        max-height: 500px !important;
-        overflow: auto;
-    }
+    // .ant-modal-body {
+    //     padding: 20px 12px !important;
+    //     max-height: 500px !important;
+    //     overflow: auto;
+    // }
 
     .habitat-modal {
         .column {
@@ -271,10 +277,23 @@
             margin: 12px;
         }
 
-        .columnLabel, .ScreenDropDown, .ScreenLabel {
+        .columnLabel,
+        .ScreenDropDown,
+        .ScreenLabel {
             margin-bottom: 8px !important;
         }
     }
 
+    .columnAll .column {
+        border: none;
+    }
 
+
+}
+
+@media (max-width:425px) {
+    .ant-modal-root .ant-modal-content {
+        max-height: 600px;
+        overflow-y: auto
+    }
 }

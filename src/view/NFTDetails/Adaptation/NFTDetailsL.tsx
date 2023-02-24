@@ -252,10 +252,27 @@ export default function NFTDetailsL({
                 res.data.map((item: any, index: number) => {
                     item.metadata = JSON.parse(item.metadata)
                 })
+                console.log(res.data, '来自这个项目');
                 setProjectOrder(res.data)
             })
         }
     }, [OrderDetail?.projectId])
+
+    useEffect(() => {
+        if (state.token && OrderDetail?.projectId) {
+            getOrderByProject({
+                projectId: OrderDetail?.projectId,
+                currentPage: 1,
+                pageSize: 6
+            }).then(res => {
+                res.data.map((item: any, index: number) => {
+                    item.metadata = JSON.parse(item.metadata)
+                })
+                console.log(res.data, '来自这个项目');
+                setProjectOrder(res.data)
+            })
+        }
+    }, [state.token, OrderDetail?.projectId])
 
     useEffect(() => {
         if (window.ethereum && window.ethereum.on) {
@@ -419,7 +436,7 @@ export default function NFTDetailsL({
                         {
                             stateFun() === 3 && <div className="buyBox">
                                 <div className="deadTime">
-                                    {t("Sale ends at MARCH 8,2023 11:09", { year: 11, month: 12, day: 23, time: "11:12" })}
+                                    {t("Sale ends at MARCH 8,2023 11:09", { year: OrderDetail?.nnftOrder?.pastTime[0], month: OrderDetail?.nnftOrder?.pastTime[1], day: OrderDetail?.nnftOrder?.pastTime[2], time: `${OrderDetail?.nnftOrder?.pastTime[3]}:${OrderDetail?.nnftOrder?.pastTime[4]}:${OrderDetail?.nnftOrder?.pastTime[5]}` })}
                                     <div className="line"></div>
                                 </div>
                                 <div id='buy'>
@@ -464,7 +481,8 @@ export default function NFTDetailsL({
                                                     {t("Last traded price")}
                                                 </div>
                                                 <div className="nft-details-card-price">
-                                                    {NumSplic(OrderDetail?.recentPrice)} <span className='coinName'> USDT</span> <div className='U'>(${NumSplic(OrderDetail?.tradeUNum, 2) || 0})</div>
+                                                    {/* {NumSplic(OrderDetail?.recentPrice)} <span className='coinName'> USDT</span> <div className='U'>(${NumSplic(OrderDetail?.tradeUNum, 2) || 0})</div> */}
+                                                    {NumSplic(OrderDetail?.tradeUNum, 2) || 0} <span className='coinName'> {OrderDetail?.coinName}</span> <div className='U'>(${NumSplic(OrderDetail?.recentPrice, 2) || 0})</div>
                                                 </div>
                                             </div>
                                             <div className="nft-details-card-group nft-details-card-group-center" >
@@ -577,7 +595,7 @@ export default function NFTDetailsL({
                             <div className="sanlian-box">
                                 <img src={FabulousPng} alt="" />
                                 <div className="sanlian-text">
-                                    100
+                                    {OrderDetail?.giveLikeNum}
                                 </div>
                             </div>
                             <img onClick={() => { refreshFun() }} src={RefreshPng} alt="" />

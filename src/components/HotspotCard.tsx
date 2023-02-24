@@ -7,6 +7,9 @@ import { Tooltip } from 'antd'
 import Img from './Img'
 import { useTranslation } from 'react-i18next'
 import { useWeb3React } from '@web3-react/core'
+import { stateType } from '../store/reducer'
+import { useSelector, useDispatch } from "react-redux";
+import { useConnectWallet, injected, ChainId } from '../web3'
 import authentication from '../assets/image/authentication.svg'
 import NotCertified from '../assets/image/NotCertified.svg'
 import thumbtack from '../assets/image/thumbtack.png'
@@ -59,6 +62,8 @@ export default function HotspotCard(props: any) {
   // console.log(props.NftInfo, "交易场");
   const navigate = useNavigate();
   const web3React = useWeb3React()
+  let ConnectWallet = useConnectWallet()
+  let state = useSelector<stateType, stateType>(state => state);
   let [isLike, setIsLike] = useState<boolean>(!!props.NftInfo?.isLike)
   let [activeMenu, setActiveMenu] = useState<boolean>(false)
   let [activeBuyMenu, setActiveBuyMenu] = useState<boolean>(false)
@@ -67,19 +72,31 @@ export default function HotspotCard(props: any) {
   let { t } = useTranslation();
 
   function LikeFun(e: React.MouseEvent<HTMLElement>) {
+
+
     console.log(props.NftInfo.tokenId, props.NftInfo.tokenAddress, "点赞");
     e.stopPropagation()
-    userGiveLike(props.NftInfo.tokenId, props.NftInfo.tokenAddress).then((res: any) => {
-      console.log(res);
-      if (res.code === 200) {
-        if (!isLike) {
-          setLikeNum(LikeNum + 1)
-        } else {
-          setLikeNum(LikeNum - 1)
+    if (state.token) {
+      userGiveLike(props.NftInfo.tokenId, props.NftInfo.tokenAddress).then((res: any) => {
+        console.log(res);
+        if (res.code === 200) {
+          if (!isLike) {
+            setLikeNum(LikeNum + 1)
+          } else {
+            setLikeNum(LikeNum - 1)
+          }
         }
-      }
-    })
-    setIsLike(!isLike)
+      }).finally(() => {
+        // 取消收藏
+        setIsLike(!isLike)
+        if (props.tag === "collect") {
+          props.getCollectFun()
+        }
+      })
+
+    } else {
+      ConnectWallet(injected, ChainId.BSC)
+    }
   }
 
   function goProject(e: any) {
@@ -119,10 +136,9 @@ export default function HotspotCard(props: any) {
 
   useEffect(() => {
     if (props.NftInfo) {
-      console.log("nihao", !!props.NftInfo.isLike);
       setIsLike(!!props.NftInfo.isLike)
     }
-  }, [])
+  }, [props?.NftInfo?.isLike])
 
   return (
     // <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }} onClick={(e) => { props.goPath(); e.stopPropagation(); }}>
@@ -192,15 +208,17 @@ export default function HotspotCard(props: any) {
         </div>
       </div>
       {
-        activeMenu ?
+        (!props?.address && activeMenu) ?
           <div className='menuBox'>
-            <div className="left" onClick={() => { props.goPath() }}>{((props?.NftInfo?.owner_of)?.toLowerCase() === (web3React.account)?.toLowerCase() && props?.NftInfo?.status === 1) ? t("Cancel") : t("Sell")}</div>
+            <div className="left" onClick={() => { props.goPath() }}>
+              {((props?.NftInfo?.owner_of)?.toLowerCase() === (web3React.account)?.toLowerCase() && props?.NftInfo?.status === 1) ? t("Cancel") : t("Sell")}
+            </div>
             <div className="right flexCenter"><img src={moreBtnIcon} alt="" /></div>
           </div> :
           <div className="cardBottomBox">
             {/* 个人中心 */}
             {
-              props.tag === "Personal" && (props.NftInfo?.status === 1 ?
+              (props.tag === "Personal" || props.tag === "collect") && (props.NftInfo?.status === 1 ?
                 <div className="cardPrice">
                   <img src={props.NftInfo?.coinImgUrl} alt="" /> <div className="priceBox"><div className="num">{decimalNum(props.NftInfo?.floorPrice || props.NftInfo?.price || '0')} {props.NftInfo?.coinName} </div> <span>(${NumSplic(props.NftInfo?.uprice, 2) || 0})</span></div>
                 </div> :

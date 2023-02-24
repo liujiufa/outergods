@@ -100,10 +100,10 @@ export default function Personal(): JSX.Element {
     let [shareActive, setShareActive] = useState<boolean>(false)
     let [nftState, setNftstate] = useState(0)
     let [nftSort, setNftSort] = useState(0)
-    const [activeKey, setActiveKey] = useState("");
+    const [activeType, setActiveType] = useState(-1);
     let [pageNum, setPageNum] = useState<number>(1)
     let [tableData, setTableData] = useState<any>([])
-    let [userLikeList, setUserLikeList] = useState<NftInfo[]>([])
+    let [userLikeList, setUserLikeList] = useState<any>([])
     // BetterSroll实例
     const [bsObj, setBsObj] = useState<any>(null)
     BScroll.use(Pullup)
@@ -138,6 +138,32 @@ export default function Personal(): JSX.Element {
                     setUserCurrentNft(res.data)
                     dispatch(createSetLodingAction(false))
                 }
+            }).catch((res: any) => {
+                dispatch(createSetLodingAction(false))
+            })
+        } else {
+            dispatch(createAddMessageAction(t('No more')))
+        }
+    }
+    function LoadMoreActive(fig: string) {
+        console.log("加载更多", fig)
+        if (fig) {
+            dispatch(createSetLodingAction(true))
+            getNfts({
+                "address": web3React.account,
+                // "chain": "bsc%20testnet",
+                "chain": Chain,
+                "cursor": fig,
+                "pageSize": 10
+            }).then((res: any) => {
+                if (res.code === 200) {
+                    console.log(res.data, "个人中心物品");
+                    res.data.result = [...userCurrentNft!!.result, ...res.data.result]
+                    setUserCurrentNft(res.data)
+                    dispatch(createSetLodingAction(false))
+                }
+            }).catch((res: any) => {
+                dispatch(createSetLodingAction(false))
             })
         } else {
             dispatch(createAddMessageAction(t('No more')))
@@ -175,7 +201,8 @@ export default function Personal(): JSX.Element {
                     console.log(res.data, "个人中心物品");
                     setUserCurrentNft(res.data)
                 }
-
+            }).catch((res: any) => {
+                dispatch(createSetLodingAction(false))
             })
         } else {
             setUserCurrentNft(null)
@@ -191,6 +218,30 @@ export default function Personal(): JSX.Element {
             })
         }
     }, [web3React.account, state.token])
+    useEffect(() => {
+        if (web3React.account && state.token) {
+            getUserGiveLikeList(web3React.account).then(res => {
+                res.data.map((item: any) => {
+                    item.metadata = JSON.parse(item.metadata) || {}
+                })
+                console.log(res.data, "用户点赞列表")
+                setUserLikeList(res.data)
+            })
+        }
+    }, [web3React.account, state.token, tabActive])
+
+    // 收藏取消点赞
+    const getCollectFun = () => {
+        if (web3React.account && state.token) {
+            getUserGiveLikeList(web3React.account as string).then(res => {
+                res.data.map((item: any) => {
+                    item.metadata = JSON.parse(item.metadata) || {}
+                })
+                console.log(res.data, "用户点赞列表")
+                setUserLikeList(res.data)
+            })
+        }
+    }
 
     function share() {
         // console.log(window.location)
@@ -237,18 +288,14 @@ export default function Personal(): JSX.Element {
         if (web3React.account && state.token) {
             getNftUserState({
                 userAddress: web3React.account,
-                status: -1,
-                type: 2
+                status: activeType,
+                type: -1
             }).then(res => {
                 console.log(res.data, "动态")
                 setTableData(res.data)
             })
-            getUserGiveLikeList(web3React.account).then(res => {
-                console.log(res.data, "用户点赞列表")
-                setUserLikeList(res.data)
-            })
         }
-    }, [web3React.account, state.token, tabActive])
+    }, [web3React.account, state.token, tabActive, activeType])
 
     // useEffect(() => {
     //     initBs() // 初始化实例
@@ -435,13 +482,15 @@ export default function Personal(): JSX.Element {
                         {tabActive === 1 && <>
                             <div className="bigContent">
                                 <div className="content collectContent">
-                                    <div className="goodsList flexCenter">
-                                        {userLikeList.length > 0 ? <>
-                                            <div className="goodsList">{userLikeList.map((item, index) => <Goods key={index} NftInfo={{ ...item, isLike: 1 }}></Goods>)}</div>
-                                            <div className="LoadMore flexCenter" onClick={() => { LoadMore(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
-                                        </> : <NoData></NoData>
-                                        }
-                                    </div>
+                                    {userLikeList.length > 0 ? <>
+                                        <div className="goodsList" id="goodsList">
+                                            {userLikeList.map((item: any, index: any) => <div className="userNft">
+                                                <Goods key={index} goPath={() => { goPath(item) }} NftInfo={item} tag="collect" getCollectFun={getCollectFun}></Goods>
+                                            </div>)}
+                                        </div>
+                                        <div className="LoadMore flexCenter" onClick={() => { LoadMoreActive(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
+                                    </> : <NoData></NoData>
+                                    }
                                 </div>
                             </div>
                         </>}
@@ -451,11 +500,11 @@ export default function Personal(): JSX.Element {
                                 <div className="slider m-hidden-block actionSlider">
                                     <div className="typeTitle">{t("Type")}</div>
                                     <div className="typeBox">
-                                        <div className="flexCenter kindTitle activeType"> <img src={typeItem1} alt="" /> {t("All")}</div>
-                                        <div className="flexCenter putType"> <img src={typeItem2} alt="" /> {t("List")}</div>
-                                        <div className="flexCenter cancelType"> <img src={typeItem3} alt="" /> {t("Cancel")}</div>
-                                        <div className="flexCenter successfulType"> <img src={typeItem4} alt="" /> {t("Sale")}</div>
-                                        <div className="flexCenter managepriceType"> <img src={typeItem5} alt="" /> {t("Change")}</div>
+                                        <div className={activeType === -1 ? "flexCenter kindTitle activeType" : "flexCenter kindTitle"} onClick={() => { setActiveType(-1) }}> <img src={typeItem1} alt="" /> {t("All")}</div>
+                                        <div className={activeType === 0 ? "flexCenter putType activeType" : "flexCenter putType"} onClick={() => { setActiveType(0) }}> <img src={typeItem2} alt="" /> {t("List")}</div>
+                                        <div className={activeType === 2 ? "flexCenter cancelType activeType" : "flexCenter cancelType"} onClick={() => { setActiveType(2) }}> <img src={typeItem3} alt="" /> {t("Cancel")}</div>
+                                        <div className={activeType === 1 ? "flexCenter successfulType activeType" : "flexCenter successfulType"} onClick={() => { setActiveType(1) }}> <img src={typeItem4} alt="" /> {t("Sale")}</div>
+                                        <div className={activeType === 4 ? "flexCenter managepriceType activeType" : "flexCenter managepriceType"} onClick={() => { setActiveType(4) }}> <img src={typeItem5} alt="" /> {t("Change")}</div>
                                     </div>
                                 </div>
 

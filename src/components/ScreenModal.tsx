@@ -27,7 +27,8 @@ export interface ScreenDataType {
 }
 interface ProjectType {
   name: string,
-  img: string
+  img: string,
+  orderCount: number
 }
 export default function ScreenModal(props: PropsType) {
   // 控制图标上下
@@ -56,13 +57,17 @@ export default function ScreenModal(props: PropsType) {
     fun(!value);
   }
   function changeScreenInfo(e: React.ChangeEvent<HTMLInputElement> | string) {
-    // console.log(e)
-    if (typeof e === 'string') {
+    if (typeof (e) === 'string') {
+      console.log("typeof", e)
       setScreenInfo({
         ...ScreenInfo,
         projectName: e
       })
     } else {
+      // setScreenInfo({
+      //   ...ScreenInfo,
+      //   projectName: e
+      // })
       let name = e.target.getAttribute('name')
       setScreenInfo({
         ...ScreenInfo,
@@ -181,10 +186,9 @@ export default function ScreenModal(props: PropsType) {
   }
   const { run } = useDebounceFn(changeProjectSearch)
   function changeProjectSearch(e: React.ChangeEvent<HTMLInputElement>) {
-
     getProjectByName(e.target.value).then(res => {
       setProjectList(res.data)
-      // console.log('项目名称搜索结果',res)
+      console.log('项目名称搜索结果', res.data)
     })
   }
   function reset() {
@@ -193,6 +197,9 @@ export default function ScreenModal(props: PropsType) {
     setSortIndex(0)
     setGoodTypeIndex(0)
   }
+
+  console.log("ScreenInfo", ScreenInfo)
+
   return (
     <Modal className='habitat-modal' visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={959}>
       <div className="modalTop">
@@ -209,13 +216,13 @@ export default function ScreenModal(props: PropsType) {
               <img className={expand6 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
             </div>
           </Dropdown>
-          <div className="ScreenLabel">{t('Bundle & Items')}</div>
+          {/* <div className="ScreenLabel">{t('Bundle & Items')}</div>
           <Dropdown overlay={IsSuitMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand7, expand7)}>
             <div className="ScreenDropDown">
               {IsSuitMap[IsSuitIndex].key}
               <img className={expand7 ? 'rotetaOpen' : 'rotetaClose'} src={openIcon} alt="" />
             </div>
-          </Dropdown>
+          </Dropdown> */}
           <div className="ScreenLabel">{t('Sort')}</div>
           <Dropdown overlay={sortMenu} trigger={['click']} onVisibleChange={() => handleDropDown(setExpand8, expand8)}>
             <div className="ScreenDropDown">
@@ -244,22 +251,32 @@ export default function ScreenModal(props: PropsType) {
             </div>
           </Dropdown>
         </div>
-        <div className="column">
+        <div className="column ">
           <div className="columnLabel">{t('series')}</div>
           <div className="ScreenLabel">{t('search')}</div>
           <div className="search">
             <img src={searchIcon} alt="" />
-            <input type="text" name="projectName" onChange={(e) => { run(e) }} placeholder={t('All')} />
+            <input type="text" name="projectName" value={ScreenInfo.projectName}
+              onChange={(e) => {
+                const name = e.target.value;
+                setScreenInfo({
+                  ...ScreenInfo,
+                  projectName: name
+                })
+                run(e)
+              }} placeholder={t('All')} />
           </div>
-          {
-            ProjectList.map((item, index) => <div className="project" key={index} onClick={() => { changeScreenInfo(item.name) }}>
-              <div className="projectImg">
-                <img src={item.img} alt="" />
-              </div>
-              <div className="projectName">{item.name}</div>
-              <div className="ProjectNo">3231</div>
-            </div>)
-          }
+          <div className="searchResult">
+            {
+              ProjectList.map((item, index) => <div className="project" key={index} onClick={() => { changeScreenInfo(item.name) }}>
+                <div className="projectImg">
+                  <img src={item.img} alt="" />
+                </div>
+                <div className="projectName">{item.name}</div>
+                <div className="ProjectNo">{item?.orderCount}</div>
+              </div>)
+            }
+          </div>
 
         </div>
       </div>
