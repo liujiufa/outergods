@@ -145,28 +145,17 @@ export default function Personal(): JSX.Element {
             dispatch(createAddMessageAction(t('No more')))
         }
     }
-    function LoadMoreActive(fig: string) {
+
+    function LoadMoreCollect(fig: string) {
         console.log("加载更多", fig)
-        if (fig) {
-            dispatch(createSetLodingAction(true))
-            getNfts({
-                "address": web3React.account,
-                // "chain": "bsc%20testnet",
-                "chain": Chain,
-                "cursor": fig,
-                "pageSize": 10
-            }).then((res: any) => {
-                if (res.code === 200) {
-                    console.log(res.data, "个人中心物品");
-                    res.data.result = [...userCurrentNft!!.result, ...res.data.result]
-                    setUserCurrentNft(res.data)
-                    dispatch(createSetLodingAction(false))
-                }
-            }).catch((res: any) => {
-                dispatch(createSetLodingAction(false))
+        if (web3React.account && state.token) {
+            getUserGiveLikeList(web3React.account).then(res => {
+                res.data.map((item: any) => {
+                    item.metadata = JSON.parse(item.metadata) || {}
+                })
+                console.log(res.data, "用户点赞列表")
+                setUserLikeList(res.data)
             })
-        } else {
-            dispatch(createAddMessageAction(t('No more')))
         }
     }
 
@@ -179,11 +168,6 @@ export default function Personal(): JSX.Element {
             })
         })
     }
-
-    function filterByName2(aim: NftInfo[], name: string, status: number) {
-        return aim.filter(item => item.name == name || item.status == status)
-    }
-
     useEffect(() => {
         if (web3React.account && state.token) {
             dispatch(createSetLodingAction(true))
@@ -209,6 +193,27 @@ export default function Personal(): JSX.Element {
             setTableData([])
         }
     }, [web3React.account, state.token])
+    useEffect(() => {
+        if (web3React.account && state.token && tabActive === 0) {
+            getNfts(
+                {
+                    "address": web3React.account,
+                    // "chain": "bsc%20testnet",
+                    "chain": Chain,
+                    "cursor": "",
+                    "pageSize": 10
+                }
+            ).then((res: any) => {
+                if (res.code === 200) {
+                    console.log(res.data, "个人中心物品1");
+                    setUserCurrentNft(res.data)
+                }
+            })
+        } else {
+            setUserCurrentNft(null)
+            setTableData([])
+        }
+    }, [tabActive])
 
     useEffect(() => {
         if (web3React.account && state.token) {
@@ -334,8 +339,6 @@ export default function Personal(): JSX.Element {
     //         bsObj.on("pullingUp", pullingUp)
     //     }
     // }, [bsObj])
-
-
 
     return (
         <div id="Personal" >
@@ -488,7 +491,7 @@ export default function Personal(): JSX.Element {
                                                 <Goods key={index} goPath={() => { goPath(item) }} NftInfo={item} tag="collect" getCollectFun={getCollectFun}></Goods>
                                             </div>)}
                                         </div>
-                                        <div className="LoadMore flexCenter" onClick={() => { LoadMoreActive(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div>
+                                        {/* <div className="LoadMore flexCenter" onClick={() => { LoadMoreCollect(userCurrentNft!!.cursor) }}>{t('Load More')}  {'>'}</div> */}
                                     </> : <NoData></NoData>
                                     }
                                 </div>
@@ -509,16 +512,17 @@ export default function Personal(): JSX.Element {
                                 </div>
 
                                 <Select
+                                    onSelect={(value) => { setActiveType(Number(value)) }}
                                     className='l-hidden selectM'
                                     defaultValue="all"
                                     style={{ width: "100%" }}
                                     dropdownStyle={{ background: "#E7E7FF" }}
                                     options={[
-                                        { value: 'all', label: t("All") },
-                                        { value: 'putType', label: t("List") },
-                                        { value: 'cancelType', label: t("Cancel") },
-                                        { value: 'successfulType', label: t("Sale") },
-                                        { value: 'managepriceType', label: t("Change") },]}
+                                        { value: -1, label: t("All") },
+                                        { value: 0, label: t("List") },
+                                        { value: 2, label: t("Cancel") },
+                                        { value: 1, label: t("Sale") },
+                                        { value: 4, label: t("Change") },]}
                                 />
                                 {/* 动态注释 */}
                                 {tableData?.length > 0 ? <ActionBox tableData={tableData}></ActionBox> : <NoData />}

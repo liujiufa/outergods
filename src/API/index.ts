@@ -100,6 +100,8 @@ export interface getOrderType {
     pageSize: number
 }
 export function getTradeOrder(data: getOrderType) {
+    console.log(data);
+
     return axois.request({
         url: `/user/nNftOrder/getTradeOrder`,
         method: 'post',

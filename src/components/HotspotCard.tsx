@@ -50,6 +50,7 @@ export interface NftInfo {
   orderId?: number,
   status: number,
   tokenAddress: string,
+  projectName: string,
   isAuthentication: number | null,
   normalized_metadata: NftItem
 }

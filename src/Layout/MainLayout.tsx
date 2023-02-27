@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { Layout, Menu, Dropdown } from 'antd';
 import { useConnectWallet, injected, ChainId } from '../web3'
 import { searchData } from '../API'
@@ -33,6 +33,7 @@ interface userData {
     headImg: string
 }
 interface projectData {
+    tokenAddress: string
     name: string
     img: string
 }
@@ -43,17 +44,22 @@ const MainLayout: React.FC = () => {
     const location = useLocation();
     let [addrList, setAddrList] = useState<userData[]>([])
     let [projectList, setProjectList] = useState<projectData[]>([])
-    let [showSearchRes, setShowSearchRes] = useState<boolean>(false)
+    let [showSearchRes, setShowSearchRes] = useState<any>(null)
     const dispatch = useDispatch();
     let ConnectWallet = useConnectWallet()
     const web3React = useWeb3React()
     const navigate = useNavigate();
+    const [params] = useSearchParams();
+    let id = params.get("id")
     function changeLanguage(lang: any) {
         window.localStorage.setItem("lang", lang.key)
         i18n.changeLanguage(lang.key)
     }
     function focus(path: string) {
-        if (path === location.pathname) {
+        let str = id ? `?id=${id}` : ''
+        console.log(str);
+
+        if (path == (location.pathname + str)) {
             return 'menuItem pointer MenuActive'
         } else {
             return 'menuItem pointer'
@@ -64,34 +70,36 @@ const MainLayout: React.FC = () => {
         dispatch(createLoginSuccessAction('', ''))
         dispatch(createAddMessageAction(t('Log out')))
     }
-    useEffect(() => {
-        document.addEventListener('click', function (e: Event) {
-            setShowSearchRes(false)
-        })
-    }, [])
+    // useEffect(() => {
+    //     document.addEventListener('click', function (e: Event) {
+    //         setShowSearchRes(false)
+    //     })
+    // }, [])
     const { run } = useDebounceFn(changeProjectSearch)
     function changeProjectSearch(e: React.ChangeEvent<HTMLInputElement>) {
-        setShowSearchRes(true)
+        // setShowSearchRes(e.target.value)
         if (e.target.value) {
+            setShowSearchRes(e.target.value)
             searchData(e.target.value).then(res => {
                 setAddrList(res.data.userList)
+                console.log(res.data.projectList);
                 setProjectList(res.data.projectList)
-                setShowSearchRes(true)
+                // setShowSearchRes(e.target.value)
             })
         } else {
-            setShowSearchRes(false)
+            setShowSearchRes(null)
         }
     }
     function goSomeone(address: string) {
         navigate('/Someone?address=' + address)
-        setShowSearchRes(false)
+        setShowSearchRes(null)
     }
-    function goProject(projectName: string) {
-        navigate('/Project?projectName=' + projectName)
-        setShowSearchRes(false)
+    function goProject(tokenAddress: string) {
+        navigate('/Launch?tokenAddress=' + tokenAddress)
+        setShowSearchRes(null)
     }
     function FocusFun() {
-        setShowSearchRes(true)
+        setShowSearchRes(null)
     }
     function getparent(triggerNode: any) {
         return triggerNode.parentNode
@@ -135,7 +143,7 @@ const MainLayout: React.FC = () => {
                 {t('Collections')}
             </Menu.Item>
             <Menu.Item key="3" onClick={() => {
-                navigate("/Market?id=1")
+                navigate("/Market")
             }}>
                 {t('Activities')}
             </Menu.Item>
@@ -192,7 +200,7 @@ const MainLayout: React.FC = () => {
                         {t('Collections')}
                         <div className="unLink"></div>
                     </div>
-                    <div className="menuItem" onClick={() => {
+                    <div className={focus('/Market?id=1')} onClick={() => {
                         navigate("/Market?id=1")
                     }} >
                         {t('Activities')}
@@ -200,39 +208,42 @@ const MainLayout: React.FC = () => {
                     </div>
                 </div>
                 <div className="mobile-header-right">
-                    {width < 1440 && <img src={Search} alt="" className="mobile-search-icon middleSearch" />}
-                    {width > 1440 && <div className="search m-hidden" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
+                    {width < 1440 && <img src={Search} alt="" className="mobile-search-icon middleSearch pointer" />}
+                    {width > 1440 && <div className="search m-hidden pointer" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
                         <img src={Search} alt="" />
-                        <input type="text" onChange={(e) => { run(e) }} onFocus={FocusFun} placeholder={t('Search by Collection、User、Address')} />
+                        <input type="text" value={showSearchRes} onChange={(e) => {
+                            run(e)
+                            setShowSearchRes(e.target.value)
+                        }} onFocus={FocusFun} placeholder={t('Search by Collection、User、Address')} />
                         {
-                            showSearchRes && (addrList.length !== 0 || projectList.length !== 0) && <div className="searchResult">
+                            showSearchRes !== null && (addrList.length !== 0 || projectList.length !== 0) && <div className="searchResult">
                                 <div className="LabelRow">{t('User')}</div>
                                 {
                                     addrList.map((item, index) => <div className="resItem" onClick={() => { goSomeone(item.userAddress) }} key={index}><div className="radius"><img src={item.headImg} alt="" /></div>{item.userAddress}</div>)
                                 }
                                 <div className="LabelRow">{t('Project')}</div>
                                 {
-                                    projectList.map((item, index) => <div className="resItem" onClick={() => { goProject(item.name) }} key={index}><div className="radius"><img src={item.img} alt="" /></div>{item.name}</div>)
+                                    projectList.map((item, index) => <div className="resItem" onClick={() => { goProject(item.tokenAddress) }} key={index}><div className="radius"><img src={item.img} alt="" /></div>{item.name}</div>)
                                 }
                             </div>
                         }
                     </div>}
-                    <div className="Chain">
+                    <div className="Chain pointer">
                         <img src={BNBIcon} alt="" />
                         <span className="ChainName">BNB Chain</span>
                     </div>
                     <Dropdown overlay={menu} placement="bottomCenter" overlayStyle={{ zIndex: 99999 }} getPopupContainer={getparent} trigger={['click']}>
-                        <div className="Lang">
+                        <div className="Lang pointer">
                             <img src={langIcon} alt="" />
                             {i18n.language === 'zh' ? 'ZH' : (i18n.language === 'en' ? 'EN' : '한국어')}
                         </div>
                     </Dropdown>
                     {
                         web3React.active ? <Dropdown overlay={personalMenu} trigger={['click']} getPopupContainer={getparent} overlayClassName='MenuList' overlayStyle={{ padding: '10px 12px', zIndex: 99999 }}>
-                            <img className="walletIcon" src={prevPersonal} alt="" />
+                            <img className="walletIcon pointer" src={prevPersonal} alt="" />
                         </Dropdown>
                             :
-                            <img className="walletIcon" onClick={() => { ConnectWallet(injected, ChainId.BSC) }} src={wallet} alt="" />
+                            <img className="walletIcon pointer" onClick={() => { ConnectWallet(injected, ChainId.BSC) }} src={wallet} alt="" />
                     }
                     <Dropdown overlay={HeadMenu} trigger={['click']} getPopupContainer={getparent} overlayStyle={{ zIndex: 99999 }}>
                         <img className="HeadMenu" src={menuIcon} alt="" />

@@ -255,7 +255,7 @@ export default function Market(): JSX.Element {
         }
       </div>
       <ScreenModal isShow={showScreenModal} close={() => { setShowScreenModal(false) }} changeScreen={changeScreen} ></ScreenModal>
-      {currentTradeOrder && <ConfirmBuyNFTModal projectName={currentTradeOrder?.name} NFTInfo={currentTradeOrder} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} changeScreen={changeScreen} ></ConfirmBuyNFTModal>}
+      {currentTradeOrder && <ConfirmBuyNFTModal projectName={currentTradeOrder?.projectName} NFTInfo={currentTradeOrder} isShow={buyNFTModal} close={() => { setBuyNFTModal(false) }} changeScreen={changeScreen} ></ConfirmBuyNFTModal>}
     </div >
   )
 }

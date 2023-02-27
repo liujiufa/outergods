@@ -605,6 +605,7 @@
                             box-shadow: 16px 4px 62px rgba(141, 147, 163, 0.5);
                             border-radius: 16px;
                             overflow: hidden;
+                            z-index: 9999;
 
                             >div {
                                 display: flex;
@@ -1473,4 +1474,12 @@
     .NFTDetailsPage .contentBox .tabBox .right .right-nft-details .right-nft-details-tabcontent .nft-details-describe-group .nft-details-card .nft-details-card-group .nft-details-card-title {
         font-size: 12px;
     }
+}
+
+.Mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    top: 0;
 }

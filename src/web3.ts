@@ -20,8 +20,8 @@ interface contractType {
     [propName: string]: Contract;
 }
 export const ChainId = {
-    BSC: 97,
-    // BSC: 56,
+    // BSC: 97,
+    BSC: 56,
 }
 //切换链
 const SCAN_ADDRESS = {
@@ -30,8 +30,8 @@ const SCAN_ADDRESS = {
 //配置连接链的信息
 const networkConf = {
     [ChainId.BSC]: {
-        chainId: '0x61',
-        // chainId: '0x38',
+        // chainId: '0x61',
+        chainId: '0x38',
         chainName: 'BSC',
         nativeCurrency: {
             name: 'BNB',
@@ -39,8 +39,8 @@ const networkConf = {
             decimals: 18,
         },
         // RPC就是从一台机器（客户端）上通过参数传递的方式调用另一台机器（服务器）上的一个函数或方法（可以统称为服务）并得到返回的结果。
-        // rpcUrls: ['https://bsc-dataseed.binance.org/'],
-        rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
+        rpcUrls: ['https://bsc-dataseed.binance.org/'],
+        // rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
         blockExplorerUrls: [SCAN_ADDRESS[ChainId.BSC]],
     }
 }
@@ -69,56 +69,92 @@ export const changeNetwork = (chainId: number) => {
 export const injected = new InjectedConnector({
     supportedChainIds: [ChainId.BSC],
 })
-// 扫码连接配置
+// 先链接钱包，再切换
+const connectFun = (connector: InjectedConnector, activate: any, deactivate: any) => {
+    // const { activate, deactivate, active } = useWeb3React()
+    return activate(connector, undefined, true).then((e: any) => {
+        if (window.ethereum && window.ethereum.on) {
+            // 监听钱包事件
+            window.ethereum.on('accountsChanged', (accounts: string[]) => {
+                if (accounts.length === 0) {
+                    // 无账号，则代表锁定了,主动断开
+                    deactivate()
+                }
+                // 账号改了，刷新网页
+            })
+
+            window.ethereum.on('disconnect', () => {
+                // 断开连接
+                deactivate()
+            })
+
+            window.ethereum.on('disconnect', () => {
+                // 断开连接
+                deactivate()
+            })
+
+            // window.ethereum.on('message', message => {
+            //     console.log('message', message)
+            // })
+
+        }
+    })
+}
+
 export const useConnectWallet = () => {
     const { activate, deactivate, active } = useWeb3React()
     const connectWallet = useCallback((connector: InjectedConnector, chainId: number) => {
+        // connectFun(connector, activate, deactivate).catch((error: any) => {
         //切换到指定链
-        return changeNetwork(chainId).then(() => {
+        return activate(connector, undefined, true).then((e) => {
+
             //调用连接方法
-            return activate(connector, undefined, true).then((e) => {
-                if (window.ethereum && window.ethereum.on) {
-                    // 监听钱包事件
-                    // const { ethereum } = window
-                    window.ethereum.on('accountsChanged', (accounts: string[]) => {
-                        if (accounts.length === 0) {
-                            // 无账号，则代表锁定了,主动断开
-                            deactivate()
-                        }
-                        // 账号改了，刷新网页
-                    })
+            // connectFun(connector, activate, deactivate)
+            //     if (window.ethereum && window.ethereum.on) {
+            //         // 监听钱包事件
+            //         // const { ethereum } = window
+            //         window.ethereum.on('accountsChanged', (accounts: string[]) => {
+            //             if (accounts.length === 0) {
+            //                 // 无账号，则代表锁定了,主动断开
+            //                 deactivate()
+            //             }
+            //             // 账号改了，刷新网页
+            //         })
 
-                    window.ethereum.on('disconnect', () => {
-                        // 断开连接
-                        deactivate()
-                    })
+            //         window.ethereum.on('disconnect', () => {
+            //             // 断开连接
+            //             deactivate()
+            //         })
 
-                    window.ethereum.on('disconnect', () => {
-                        // 断开连接
-                        deactivate()
-                    })
+            //         window.ethereum.on('disconnect', () => {
+            //             // 断开连接
+            //             deactivate()
+            //         })
 
-                    // window.ethereum.on('message', message => {
-                    //     console.log('message', message)
-                    // })
+            //         // window.ethereum.on('message', message => {
+            //         //     console.log('message', message)
+            //         // })
 
-                }
+            //     }
+            // }).catch((error) => {
+            //     switch (true) {
+            //         case error instanceof UnsupportedChainIdError:
+            //             // console.log('链错了')
+            //             break
+            //         case error instanceof NoEthereumProviderError:
+            //             // console.log('不是钱包环境')
+            //             break
+            //         case error instanceof UserRejectedRequestError:
+            //             // console.log('用户拒绝连接钱包')
+            //             break
+            //         default:
+            //         // console.log(error)
+            //     }
+            // })
+        }).catch(errr => {
+            changeNetwork(chainId).then(() => {
+
             })
-                .catch((error) => {
-                    switch (true) {
-                        case error instanceof UnsupportedChainIdError:
-                            // console.log('链错了')
-                            break
-                        case error instanceof NoEthereumProviderError:
-                            // console.log('不是钱包环境')
-                            break
-                        case error instanceof UserRejectedRequestError:
-                            // console.log('用户拒绝连接钱包')
-                            break
-                        default:
-                        // console.log(error)
-                    }
-                })
         })
     }, [])
 
@@ -127,12 +163,17 @@ export const useConnectWallet = () => {
         !active && connectWallet(injected, ChainId.BSC)
         window.ethereum && window.ethereum.on('chainChanged', () => {
             // 切换网络后，尝试连接
-            // !active && connectWallet(injected, ChainId.BSC)
+            !active && connectWallet(injected, ChainId.BSC)
         })
-        // eslint-disable-next-line
+        window.ethereum && window.ethereum.on('accountsChanged', (accounts: string[]) => {
+            !active && connectWallet(injected, ChainId.BSC)
+        })
     }, [])
     return connectWallet
 }
+
+
+
 export class Contracts {
     //单例
     static example: Contracts

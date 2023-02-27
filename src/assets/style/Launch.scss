@@ -66,10 +66,11 @@
         max-width: 1440px;
         margin: 0px auto;
         position: relative;
+        padding: 0px 20px;
 
         .logoAvtor {
             position: absolute;
-            left: 0px;
+            left: 20px;
             top: 0px;
             transform: translateY(-50%);
 
@@ -910,7 +911,7 @@
 
 @media (max-width:1440px) {
     .ProjectDetail .contentBox {
-        padding: 0px 8%;
+        padding: 0px 4%;
     }
 
     .ProjectDetail .contentBox .logoAvtor {

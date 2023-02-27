@@ -99,7 +99,7 @@ export default function Personal(props: any): JSX.Element {
                     {props.tag === "NFTDetailsL" && <div className="topBox">
                         <div className="actionTitle flexCenter">{t("Activities")}</div>
                         <div className="right">
-                            <div className="dropDownBox">
+                            {/* <div className="dropDownBox">
                                 <div className="MarketSearchRow">
                                     <Dropdown overlay={props.typeMenu} trigger={['click']} onVisibleChange={() => { }}>
                                         <div className="search">
@@ -108,7 +108,7 @@ export default function Personal(props: any): JSX.Element {
                                         </div>
                                     </Dropdown>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="switch"><img src={switchIcon} alt="" /></div>
                         </div>
                     </div>}
@@ -166,7 +166,7 @@ export default function Personal(props: any): JSX.Element {
                     {props.tag === "NFTDetailsL" && <div className="topBox">
                         <div className="actionTitle flexCenter">{t("Activities")}</div>
                         <div className="right">
-                            <div className="dropDownBox">
+                            {/* <div className="dropDownBox">
                                 <div className="MarketSearchRow">
                                     <Dropdown overlay={props.typeMenu} trigger={['click']} onVisibleChange={() => { }}>
                                         <div className="search">
@@ -175,7 +175,7 @@ export default function Personal(props: any): JSX.Element {
                                         </div>
                                     </Dropdown>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="switch"><img src={switchIcon} alt="" /></div>
                         </div>
                     </div>}

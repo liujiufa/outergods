@@ -170,7 +170,7 @@ export default function ScreenModal(props: any) {
           Contracts.example.makeOrder(web3React.account as string, res.data, price as string).then(() => {
             props.close()
             setShowBuySuccess(true)
-            navigate("/Market")
+            // navigate("/Market") 
             // return dispatch(createAddMessageAction(t('Purchase successful')))
           }).finally(() => {
             dispatch(createSetLodingAction(false))

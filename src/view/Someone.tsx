@@ -394,9 +394,9 @@ export default function Personal(): JSX.Element {
                                     </div>
                                 </div>
                                 <div className="content">
-                                    {userCurrentNft ? <>
+                                    {userCurrentNft && userCurrentNft?.result?.length > 0 ? <>
                                         <div className="goodsList">{
-                                            userCurrentNft.result.map((item, index) =>
+                                            userCurrentNft?.result.map((item, index) =>
                                                 <div className="userNft">
                                                     <Goods key={index} NftInfo={item} goPath={() => { goPath(item) }} tag="Personal" address={address}>
                                                     </Goods>

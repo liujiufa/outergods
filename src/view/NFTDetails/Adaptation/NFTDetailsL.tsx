@@ -377,7 +377,7 @@ export default function NFTDetailsL({
                                     <div className="sanlian-box">
                                         <img src={FabulousPng} alt="" />
                                         <div className="sanlian-text">
-                                            100
+                                        {OrderDetail?.giveLikeNum}
                                         </div>
                                     </div>
                                     <img onClick={() => { refreshFun() }} src={RefreshPng} alt="" />
@@ -631,6 +631,9 @@ export default function NFTDetailsL({
                     </div>
                 </div>
             </div>
+            {
+                isShare && <div className="Mask" onClick={() => { setIsShare(!isShare) }}></div>
+            }
             {OrderDetail && <ManageModal NFTDetail={OrderDetail} key={showPriceChange + "" + showEnterCancel} coinKind={coinsKindData} isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} personalFees={OrderDetail?.nnftOrder?.createFee} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
             {OrderDetail && <CancelSaleModal isShow={showEnterCancel} tokenId={OrderDetail?.nnftOrder?.tokenId} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowEnterCancel(false) }}></CancelSaleModal>}
             {OrderDetail && coinsKindData.length > 0 && <SaleModal key={showEnterCancel + "" + saleNFTModal} NFTDetail={OrderDetail} coinKind={coinsKindData} isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress, personalFees: OrderDetail?.nnftOrder?.createFee || OrderDetail?.createFee }}></SaleModal>}

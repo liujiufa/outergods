@@ -213,13 +213,13 @@ export default function ProjectGroup({
                             <GroupPrice>
                                 <PriceItem>
                                     <PriceContent>
-                                        <PriceAmount>$404</PriceAmount>
+                                        <PriceAmount>$-</PriceAmount>
                                         <PriceTitle>地板价</PriceTitle>
                                     </PriceContent>
                                 </PriceItem><PriceItem>
 
                                     <PriceContent>
-                                        <PriceAmount>404</PriceAmount>
+                                        <PriceAmount>-</PriceAmount>
                                         <PriceTitle>交易量</PriceTitle>
                                     </PriceContent>
                                 </PriceItem>

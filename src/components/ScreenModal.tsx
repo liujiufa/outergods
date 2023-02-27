@@ -36,8 +36,6 @@ export default function ScreenModal(props: PropsType) {
   const [expand7, setExpand7] = useState(true);
   const [expand8, setExpand8] = useState(true);
   const [expand9, setExpand9] = useState(true);
-
-
   let [ProjectList, setProjectList] = useState<ProjectType[]>([])
   let [ScreenInfo, setScreenInfo] = useState({
     min: 0,
@@ -57,17 +55,13 @@ export default function ScreenModal(props: PropsType) {
     fun(!value);
   }
   function changeScreenInfo(e: React.ChangeEvent<HTMLInputElement> | string) {
+    console.log("typeof", e, typeof (e))
     if (typeof (e) === 'string') {
-      console.log("typeof", e)
       setScreenInfo({
         ...ScreenInfo,
         projectName: e
       })
     } else {
-      // setScreenInfo({
-      //   ...ScreenInfo,
-      //   projectName: e
-      // })
       let name = e.target.getAttribute('name')
       setScreenInfo({
         ...ScreenInfo,

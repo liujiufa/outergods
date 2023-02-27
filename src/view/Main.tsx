@@ -648,17 +648,21 @@ export default function Main() {
 
     const otherList = [{
         text: t("What is an NFT?"),
-        img: NFTPng
+        img: NFTPng,
+        link: "http://nft.habitverse.io/doc/concepts/NFT/overview"
     }, {
         text: t("How to buy an NFT?"),
-        img: BuyNftPng
+        img: BuyNftPng,
+        link: "http://nft.habitverse.io/doc/contracts/v1/guides/connect-to-uniswap"
     }, {
         text: t("What is a crypto wallet?"),
-        img: EncryWalletPng
+        img: EncryWalletPng,
+        link: "http://nft.habitverse.io/doc/sdk/v1/overview"
     },
     {
         text: t("What are blockchain gas fees?"),
-        img: GasPng
+        img: GasPng,
+        link: "http://nft.habitverse.io/doc/api/v1/overview"
     }]
 
     /* 判断跳转到出售页面还是正在出售页面 */
@@ -712,7 +716,7 @@ export default function Main() {
             <Group>
                 <NFTContent>
                     <Title>
-                        {i18n.language === "zh" ? <div className="mainTitle"><span>HABITAT</span>-面向<span>WEB 3.0</span>的NFT创新交易平台</div> : <div className="enHome"><span>HABITAT</span>-An NFT innovative trading platform for <span> WEB3</span></div>}
+                        {i18n.language === "zh" ? <div className="mainTitle"><span>HABITAT</span>-面向<span>WEB 3.0</span>的NFT创新交易平台</div> : <div className="enHome"><span>HABITAT</span>-An NFT innovative trading platform for <span> WEB 3.0</span></div>}
                     </Title>
                     <Group>
                         <SellBox onClick={() => { navigate("/Market") }}>{t("Buy")}</SellBox>
@@ -816,8 +820,8 @@ export default function Main() {
                     </Group>
                     <OtherList>
                         {
-                            otherList.map((item) => <OtherItem>
-                                <OtherContent>
+                            otherList.map((item) => <OtherItem >
+                                <OtherContent onClick={() => { window.open(item.link) }}>
                                     <OtherImg src={item.img} />
                                     <OtherText >{item.text}</OtherText>
                                 </OtherContent>
