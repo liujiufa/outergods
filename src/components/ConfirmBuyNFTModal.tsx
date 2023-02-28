@@ -214,7 +214,7 @@ export default function ScreenModal(props: any) {
 
   return (
     <>
-      <Modal visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={670} className="ManageModal">
+      <Modal visible={props.isShow} destroyOnClose={true} centered closable={false} footer={null} width={570} className="ManageModal">
         <div className="confirmModalTop">
           <div className="title">{t("Confirm1")}</div>
           <img src={closeIcon} alt="" onClick={() => props.close()} />

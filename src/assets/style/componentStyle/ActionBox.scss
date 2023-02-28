@@ -2,7 +2,7 @@
     flex: auto;
 
     .itemContentBigBox {
-        margin: 25px 0px;
+        margin: 32px 0px;
 
         width: 100%;
         background: #FFFFFF;
@@ -675,6 +675,10 @@
                             line-height: 22px;
                             color: rgba(0, 0, 0, 0.6);
                             text-align: left;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            max-width: 100px;
                         }
 
                         .right {

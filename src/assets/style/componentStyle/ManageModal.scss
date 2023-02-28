@@ -4,16 +4,16 @@
         border-radius: 50px !important;
 
         .ant-modal-body {
-            padding: 40px 30px;
+            padding: 20px;
         }
     }
 
     .confirmModalTop {
         position: relative;
-        height: 70px;
+        height: 50px;
         display: flex;
         justify-content: space-between;
-        margin: 0 15px;
+        margin: 15px;
 
         .title {
             position: absolute;
@@ -30,8 +30,8 @@
         >img {
             position: absolute;
             right: 0px;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
         }
     }
 
@@ -39,7 +39,7 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        margin-bottom: 35px;
+        margin-bottom: 20px;
 
         .NFTLeft {
             width: 150px;
@@ -53,6 +53,7 @@
         }
 
         .NFTRight {
+            flex: 1;
             margin-left: 37px;
 
             .NFTTitle {
@@ -294,13 +295,13 @@
 
 
     .ManageModalFooter {
-        margin: 30px 0;
+        margin: 12px 0;
         display: flex;
         justify-content: flex-end;
         align-items: center;
 
         .enterBtn {
-            height: 50px;
+            height: 40px;
             width: 100%;
             background: linear-gradient(90deg, #7385FF 1.21%, #9E73FF 98.99%);
             border-radius: 25px;
@@ -371,5 +372,9 @@
     .ManageModal .NFTInfo .NFTRight .priceBox{
         font-size: 14px;
         margin-top: 12px;
+    }
+    .ManageModal .NFTInfo .NFTLeft{
+        width: 100px;
+        height: 100px;
     }
 }

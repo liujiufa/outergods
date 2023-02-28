@@ -1278,6 +1278,9 @@
     #launch.ProjectDetail .activeBox .itemBox .item .bottom {
         font-weight: 700;
     }
+    .ProjectDetail .contentBox .container .bigContent .content .goodsList .goodsItem{
+        min-width:148px;
+    }
 }
 
 @media (max-width:375px) {

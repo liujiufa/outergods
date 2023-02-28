@@ -128,7 +128,6 @@ export default function Personal(): JSX.Element {
                 "cursor": fig,
                 "pageSize": 10
             }).then((res) => {
-                console.log(res.data.result, "个人中心物品");
                 res.data.result = [...userCurrentNft!!.result, ...res.data.result]
                 setUserCurrentNft(res.data)
                 dispatch(createSetLodingAction(false))

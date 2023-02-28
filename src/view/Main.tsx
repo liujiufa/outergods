@@ -24,7 +24,7 @@ import GasPng from '../assets/image/gas.png'
 import styled from "styled-components"
 import { FlexCCBox, FlexSBCBox, FlexSCBox } from "../components/FlexBox";
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import { Menu, Dropdown } from "antd";
+import { Menu, Dropdown, Tooltip } from "antd";
 import ProjectGroup from "../components/ProjectGroup";
 import TransactionTips from '../components/TransactionTips'
 import Goods from '../components/HotspotCard'
@@ -289,7 +289,7 @@ const NFTViceTitle = styled(FlexCCBox)`
 
 const GroupMenu = styled(FlexCCBox)`
     justify-content: flex-end;
-    padding: 0 12px;
+    // padding: 0 12px;
 `
 
 const SearchGroup = styled(FlexSBCBox)`
@@ -427,14 +427,6 @@ const OtherImg = styled.img`
 const OtherText = styled(FlexSCBox)`
     width: 100%;
     padding: 20px;
-    font-weight: 700;
-    font-size: 18px;
-    color: rgba(0, 0, 0, 0.7);
-    @media (max-width: 750px) {
-        font-size: 12px;
-        zoom: 0.87;
-        padding: 4px;
-    }
 `
 
 const Bg1 = styled.div`
@@ -823,7 +815,13 @@ export default function Main() {
                             otherList.map((item) => <OtherItem >
                                 <OtherContent onClick={() => { window.open(item.link) }}>
                                     <OtherImg src={item.img} />
-                                    <OtherText >{item.text}</OtherText>
+                                    <OtherText >
+                                        <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>{item.text}</span>} color="#FFF" key="tips">
+                                            <div className="OtherTextContent">
+                                                {item.text}
+                                            </div>
+                                        </Tooltip>
+                                    </OtherText>
                                 </OtherContent>
                             </OtherItem>)
                         }

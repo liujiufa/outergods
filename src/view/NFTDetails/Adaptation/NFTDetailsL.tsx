@@ -1,5 +1,5 @@
 
-import { Tooltip, Menu, Dropdown, Collapse, Space } from 'antd';
+import { Tooltip, Menu, Dropdown, Collapse, Image } from 'antd';
 import copy from "copy-to-clipboard"
 import BinancePng from '../../../assets/image/nftDetails/binance.png'
 import TipsPng from '../../../assets/image/nftDetails/tips.png'
@@ -8,6 +8,7 @@ import UsdtPng from '../../../assets/image/nftDetails/usdt.png'
 import SharePng from '../../../assets/image/nftDetails/share.png'
 import FabulousPng from '../../../assets/image/nftDetails/fabulous.png'
 import RefreshPng from '../../../assets/image/nftDetails/refresh.png'
+import widePng from '../../../assets/image/nftDetails/wide.png'
 import NFTImage from '../../../assets/image/4.png'
 import demoTestImg from '../../../assets/image/demoTestImg.png'
 import authentication from '../../../assets/image/authentication.svg'
@@ -95,6 +96,7 @@ export default function NFTDetailsL({
     let [tableData, setTableData] = useState([])
     let [coinsKindData, setCoinsKindData] = useState([])
     let [isShare, setIsShare] = useState<boolean>(false)
+    let [NFTShow, setNFTShow] = useState<boolean>(false)
     let [buyNFTModal, setBuyNFTModal] = useState<boolean>(false)
     let [showEnterCancel, setShowEnterCancel] = useState<boolean>(false)
     let [currentTradeOrder, setCurrentTradeOrder] = useState<NftInfo>()
@@ -102,6 +104,7 @@ export default function NFTDetailsL({
     let [projectOrder, setProjectOrder] = useState<any>([])
     let [pageNum, setPageNum] = useState<number>(1)
     let [orderState, setOrderState] = useState<any>()
+    let [imgState, setImgState] = useState<any>()
     let [refreshState, setRefreshState] = useState<any>()
     const [params] = useSearchParams();
     const TABS = [
@@ -290,7 +293,7 @@ export default function NFTDetailsL({
         <div className="NFTDetailsPage">
             <div className="contentBox">
                 <div className="tabBox">
-                    <div className='left m-hidden'>
+                    <div className='left m-hidden' onClick={(e) => { e.stopPropagation(); setNFTShow(!NFTShow) }} onMouseEnter={(e) => { setNFTShow(true) }} onMouseLeave={() => { setNFTShow(false) }}>
                         {
                             <img
                                 id="nftImg"
@@ -300,10 +303,25 @@ export default function NFTDetailsL({
                                     e.target.src = defaultCard;
                                     // 控制不要一直触发错误
                                     e.onError = null;
-                                }}
-                                alt="" />
+                                }} alt="" />
                         }
+                        <div className={NFTShow ? "NFTImgContainer NFTImgContainerIn" : "NFTImgContainer NFTImgContainerOut"}>
+                            <div className="menuItem copyMenu">
+                                <img onClick={(e) => { e.stopPropagation(); setIsShare(!isShare) }} src={SharePng} alt="" />
+                                {isShare && <>
+                                    <div className='copyLinkBox'>
+                                        <div className="title">{t("Copy Link")}</div>
+                                        <div className="outLink">{t("Share on Facebook")}</div>
+                                        <div className="outLink">{t("Share on Twitter")}</div>
+                                    </div>
+                                </>}
+                            </div>
+                            <div className="menuItem likeMenu"><img src={FabulousPng} alt="" />{OrderDetail?.giveLikeNum}</div>
+                            <div className="menuItem"><img onClick={(e) => { e.stopPropagation(); refreshFun() }} src={RefreshPng} alt="" /></div>
+                            <div className="menuItem"><img onClick={(e) => { e.stopPropagation(); setImgState(OrderDetail?.normalizedMetadata?.image) }} src={widePng} alt="" /></div>
+                        </div>
                     </div>
+
                     <div className='right'>
                         <h4 className='title'>
                             <div className='title-name'>{OrderDetail && OrderDetail?.normalizedMetadata?.name}</div>
@@ -377,7 +395,7 @@ export default function NFTDetailsL({
                                     <div className="sanlian-box">
                                         <img src={FabulousPng} alt="" />
                                         <div className="sanlian-text">
-                                        {OrderDetail?.giveLikeNum}
+                                            {OrderDetail?.giveLikeNum}
                                         </div>
                                     </div>
                                     <img onClick={() => { refreshFun() }} src={RefreshPng} alt="" />
@@ -515,11 +533,9 @@ export default function NFTDetailsL({
                                         </div>
                                     </div> : (tabIndex === 1 ? <div className='nft-details-attribute-group'>
                                         {
-                                            attrOrInfo ? <>{
-                                                OrderDetail && OrderDetail?.normalizedMetadata && OrderDetail?.normalizedMetadata?.attributes?.length > 0 && OrderDetail?.normalizedMetadata?.attributes.map((item: any, idx: any) =>
+                                            width > 425 ? <>{
+                                                (OrderDetail && OrderDetail?.normalizedMetadata && OrderDetail?.normalizedMetadata?.attributes?.length > 0) ? OrderDetail?.normalizedMetadata?.attributes.map((item: any, idx: any) =>
                                                     <div className={`nft-details-attribute-item ${!((idx + 1) % 3) ? "nft-details-attribute-item-right" : ""}`}>
-
-
                                                         <Tooltip color="#D5DBFF" placement="topLeft" title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#7285FF" }}>{item.trait_type}</span>}>
                                                             <div className="nft-details-attribute-title">
                                                                 {item.trait_type}
@@ -530,11 +546,17 @@ export default function NFTDetailsL({
                                                                 {item.value}
                                                             </div>
                                                         </Tooltip>
-
-                                                    </div>
-                                                )
+                                                    </div>) : <NoData />
                                             }
-                                            </> : null
+                                            </> : <div className='mobileAddrContent'>{
+                                                (OrderDetail && OrderDetail?.normalizedMetadata && OrderDetail?.normalizedMetadata?.attributes?.length > 0) ? OrderDetail?.normalizedMetadata?.attributes.map((item: any, idx: any) =>
+                                                    <div className='mobileAddr'>
+                                                        <div className="topAddr">{item.trait_type}</div>
+                                                        <div className="bottomAddr">{item.value}</div>
+
+                                                    </div>) : <NoData />
+                                            }
+                                            </div>
                                         }
                                     </div> : (tabIndex === 2 ?
                                         <div className="nft-details-info-group">
@@ -579,6 +601,8 @@ export default function NFTDetailsL({
                         </div>
                     </div>
                 </div>
+
+                {/* 
                 <div className="sanlian m-hidden">
                     <div className="sanlian-container">
                         <div className="sanlian-content">
@@ -602,7 +626,9 @@ export default function NFTDetailsL({
 
                         </div>
                     </div>
-                </div>
+                </div> 
+                */}
+
 
                 {
                     tableData.length > 0 && <ActionBox tag="NFTDetailsL" expand1={expand1} typeMenu={typeMenu} tableData={tableData}></ActionBox>
@@ -634,6 +660,9 @@ export default function NFTDetailsL({
             {
                 isShare && <div className="Mask" onClick={() => { setIsShare(!isShare) }}></div>
             }
+            {imgState && <Image width={200} src={imgState} />}
+
+
             {OrderDetail && <ManageModal NFTDetail={OrderDetail} key={showPriceChange + "" + showEnterCancel} coinKind={coinsKindData} isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} personalFees={OrderDetail?.nnftOrder?.createFee} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
             {OrderDetail && <CancelSaleModal isShow={showEnterCancel} tokenId={OrderDetail?.nnftOrder?.tokenId} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowEnterCancel(false) }}></CancelSaleModal>}
             {OrderDetail && coinsKindData.length > 0 && <SaleModal key={showEnterCancel + "" + saleNFTModal} NFTDetail={OrderDetail} coinKind={coinsKindData} isShow={saleNFTModal} close={() => { setSaleNFTModal(false) }} data={{ nftName: OrderDetail!.normalizedMetadata.name, projectName: OrderDetail!.name, image: OrderDetail!.normalizedMetadata.image, id: OrderDetail!.id, tokenId: OrderDetail!.tokenId, tokenAddress: OrderDetail!.tokenAddress, personalFees: OrderDetail?.nnftOrder?.createFee || OrderDetail?.createFee }}></SaleModal>}

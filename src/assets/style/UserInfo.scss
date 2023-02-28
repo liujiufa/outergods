@@ -72,6 +72,7 @@
                 letter-spacing: 0.1em;
 
                 color: #000000;
+                max-width: 462px;
 
                 span {
                     color: #3683F6;
@@ -152,7 +153,7 @@
             }
 
             .submit {
-                background: #3683F7;
+                background: linear-gradient(90deg, #7485FF 3.46%, #9D73FF 100%);
                 border-radius: 25px;
                 width: 130px;
                 // height: 50px;

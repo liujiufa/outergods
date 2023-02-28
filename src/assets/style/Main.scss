@@ -9,12 +9,29 @@
     // margin: 10px !important;
 }
 
+.OtherTextContent {
+    width: 100%;
+    font-weight: 700;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media (max-width: 750px) {
+        font-size: 12px;
+        zoom: 0.87;
+        padding: 4px;
+    }
+}
+
 .enHome {
     // color: #7C8FFB;
     font-weight: 700;
     font-size: 40px;
     text-align: center;
 }
+
 // .mainTitle{
 //     font-weight: 700;
 //     font-size: 40px;

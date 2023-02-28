@@ -164,6 +164,7 @@
                     box-shadow: 16px 4px 62px rgba(141, 147, 163, 0.5);
                     border-radius: 16px;
                     overflow: hidden;
+                    z-index: 99999;
 
                     >div {
                         display: flex;
@@ -720,7 +721,7 @@
 
 @media (max-width: 900px) {
     #Personal {
-        min-height: calc(100vh - 147px);
+        // min-height: calc(100vh - 147px);
         overflow: auto;
 
         .topBox {
@@ -986,7 +987,10 @@
 
 
     #Personal {
-        min-height: calc(100vh - 12px);
+        // min-height: calc(100vh - 12px);
+        .Personal{
+            min-height: calc(100vh - 135px);
+        }
 
         .ant-collapse-header {
             padding: 12px 0;

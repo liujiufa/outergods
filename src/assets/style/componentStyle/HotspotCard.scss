@@ -61,7 +61,7 @@
     }
 
     .bottonBox {
-        padding: 12px 15px 0;
+        padding: 5px 15px 0;
         width: 100%;
 
         .box {
@@ -72,8 +72,8 @@
             .cardName {
                 font-family: 'PingFang SC';
                 font-style: normal;
-                font-weight: 400;
-                font-size: 12px;
+                font-weight: 700;
+                font-size: 14px;
                 line-height: 17px;
                 /* identical to box height */
                 color: rgba(0, 0, 0, 0.6);
@@ -413,6 +413,9 @@
 
     .HotspotCard .cardBottomBox .cardPrice .priceBox {
         display: block;
+    }
+    .HotspotCard .cardBottomBox .cardPrice .priceBox .num{
+        font-size: 14px;
     }
 }
 

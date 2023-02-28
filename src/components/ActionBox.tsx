@@ -201,7 +201,10 @@ export default function Personal(props: any): JSX.Element {
                                                                     <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}{item.projectName} </div>
                                                                 </Tooltip>
 
-                                                                <div className="bottom" onClick={() => { goPath(item) }}>{item.nftName}</div>
+                                                                <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>{item.nftName}</span>} color="#FFF" key="tips">
+                                                                    <div className="bottom" onClick={() => { goPath(item) }}>{item.nftName}</div>
+                                                                </Tooltip>
+
                                                             </div>
                                                         </div>
                                                         <div className="item">

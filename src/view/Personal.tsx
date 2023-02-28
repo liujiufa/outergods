@@ -514,7 +514,7 @@ export default function Personal(): JSX.Element {
                                 <Select
                                     onSelect={(value) => { setActiveType(Number(value)) }}
                                     className='l-hidden selectM'
-                                    defaultValue="all"
+                                    defaultValue={t("All")}
                                     style={{ width: "100%" }}
                                     dropdownStyle={{ background: "#E7E7FF" }}
                                     options={[
@@ -531,6 +531,9 @@ export default function Personal(): JSX.Element {
                     </div>
                 </div>
             </div>
+            {
+                shareActive && <div className="Mask" onClick={() => { shareActiveFun() }}></div>
+            }
             <ReceRecord isShow={showReceRecord} close={() => { setShowReceRecord(false) }}></ReceRecord>
             {/* 筛选弹窗 */}
             <CollectionScreenModal isShow={showScreenModal} close={() => { setShowScreenModal(false) }} changeScreen={changeScreen} ></CollectionScreenModal>

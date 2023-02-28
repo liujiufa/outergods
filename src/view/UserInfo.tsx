@@ -90,7 +90,7 @@ export default function UserInfo(): JSX.Element {
                         <input type="text" name="brief" value={userInfo.brief} onChange={changeInfo} placeholder={t('selfIntro')} />
                     </div>
                     <div className="mainLabel" style={{ marginTop: 40 }}>{t('Social links')}</div>
-                    <div className="mainLabelTips">{ }</div>
+                    <div className="mainLabelTips">{t('socialTip')}</div>
                     <div className="InfoLabel"><img src={twitterIcon} alt="" />{t('TWITTER')}</div>
                     <div className="putBox">
                         <input type="text" name="tweet" value={userInfo.tweet} onChange={changeInfo} placeholder={t('Link')} />
