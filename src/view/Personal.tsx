@@ -191,6 +191,7 @@ export default function Personal(): JSX.Element {
         } else {
             setUserCurrentNft(null)
             setTableData([])
+            setUserLikeList([])
         }
     }, [web3React.account, state.token])
     useEffect(() => {
@@ -359,9 +360,9 @@ export default function Personal(): JSX.Element {
                             </div>
                             <div className="media-group">
                                 <div className="outlinkBox">
-                                    {userInfo?.tweet && <div className="linkItem" onClick={() => { navigate(userInfo?.tweet) }}><img src={twitterIcon} alt="" /></div>}
-                                    {userInfo?.facebook && <div className="linkItem" onClick={() => { navigate(userInfo?.facebook) }}><img src={facebookIcon} alt="" /></div>}
-                                    {userInfo?.youtubeIcon && <div className="linkItem" onClick={() => { navigate(userInfo?.youtubeIcon) }}><img src={facebookIcon} alt="" /></div>}
+                                    {userInfo?.tweet && <div className="linkItem" onClick={() => { window.open(userInfo?.tweet) }}><img src={twitterIcon} alt="" /></div>}
+                                    {userInfo?.faceBook && <div className="linkItem" onClick={() => { window.open(userInfo?.faceBook) }}><img src={facebookIcon} alt="" /></div>}
+                                    {userInfo?.youtube && <div className="linkItem" onClick={() => { window.open(userInfo?.youtube) }}><img src={youtubeIcon} alt="" /></div>}
                                 </div>
                                 <div className="btnGroupRow l-hidden">
                                     <div className="share pointer flexCenter shareBox" onClick={() => { shareActiveFun() }}>

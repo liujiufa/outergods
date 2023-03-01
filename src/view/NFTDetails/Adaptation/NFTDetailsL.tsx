@@ -1,5 +1,5 @@
 
-import { Tooltip, Menu, Dropdown, Collapse, Image } from 'antd';
+import { Tooltip, Menu, Modal } from 'antd';
 import copy from "copy-to-clipboard"
 import BinancePng from '../../../assets/image/nftDetails/binance.png'
 import TipsPng from '../../../assets/image/nftDetails/tips.png'
@@ -17,7 +17,7 @@ import switchIcon from '../../../assets/image/switchIcon.png'
 import AuthenticationPng from '../../../assets/image/authentication.svg'
 import NotAuthenticationPng from '../../../assets/image/NotCertified.svg'
 import './NFTDetailsL.scss'
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import Goods, { NftInfo } from '../../../components/HotspotCard'
@@ -40,6 +40,8 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { useViewport } from '../../../components/viewportContext';
 import NotCertified from '../../../assets/image/NotCertified.svg'
 import { decimalNum } from '../../../utils/decimalNum';
+// import { animateScroll as scroll } from 'react-scroll'
+
 import styled from "styled-components"
 declare let window: any;
 
@@ -67,7 +69,6 @@ const AuthenticationGroup = styled.img`
         height: 20px;
         margin-left: 12px;
         border-radius: 50%;  
-
         
         @media (max-width: 750px) {
             margin-left: 4px;
@@ -80,6 +81,7 @@ export default function NFTDetailsL({
     attrOrInfo,
     NFTDetailFun
 }: any) {
+
     console.log(OrderDetail, "NFT详情");
     let [showPriceChange, setShowPriceChange] = useState<boolean>(false)
     const web3React = useWeb3React()
@@ -107,6 +109,7 @@ export default function NFTDetailsL({
     let [imgState, setImgState] = useState<any>()
     let [refreshState, setRefreshState] = useState<any>()
     const [params] = useSearchParams();
+    const myRef = useRef<HTMLDivElement>(null)
     const TABS = [
         t("Description"),
         t("Attributes"),
@@ -163,6 +166,10 @@ export default function NFTDetailsL({
     }
     /* 判断跳转到出售页面还是正在出售页面 */
     function goPath(goods: any) {
+        if (myRef.current) {
+            console.log(myRef.current.offsetTop);
+            window.scrollTo(0, 0)
+        }
         return navigate(`/NFTDetails?tokenId=${goods.tokenId}&&tokenAddress=${goods.tokenAddress}`)
     }
 
@@ -206,8 +213,6 @@ export default function NFTDetailsL({
         })
     }
 
-
-
     useEffect(() => {
         if (tokenAddress && tokenId) {
             getTradeCoinNameList().then((res: any) => {
@@ -229,7 +234,6 @@ export default function NFTDetailsL({
             })
         }
     }, [tokenAddress, tokenId, saleNFTModal, buyNFTModal, showEnterCancel, showPriceChange])
-
 
     useEffect(() => {
         if (tokenAddress && tokenId) {
@@ -290,10 +294,10 @@ export default function NFTDetailsL({
     }, [web3React.account])
 
     return (
-        <div className="NFTDetailsPage">
+        <div className="NFTDetailsPage" ref={myRef}>
             <div className="contentBox">
                 <div className="tabBox">
-                    <div className='left m-hidden' onClick={(e) => { e.stopPropagation(); setNFTShow(!NFTShow) }} onMouseEnter={(e) => { setNFTShow(true) }} onMouseLeave={() => { setNFTShow(false) }}>
+                    <div className='left m-hidden' onClick={(e) => { e.stopPropagation(); setNFTShow(!NFTShow) }} onMouseEnter={(e) => { setNFTShow(true) }} onMouseLeave={() => { setNFTShow(false); setIsShare(false) }}>
                         {
                             <img
                                 id="nftImg"
@@ -307,8 +311,9 @@ export default function NFTDetailsL({
                         }
                         <div className={NFTShow ? "NFTImgContainer NFTImgContainerIn" : "NFTImgContainer NFTImgContainerOut"}>
                             <div className="menuItem copyMenu">
+                                {/* <img onClick={(e) => { e.stopPropagation(); setIsShare(!isShare) }} src={SharePng} alt="" /> */}
                                 <img onClick={(e) => { e.stopPropagation(); setIsShare(!isShare) }} src={SharePng} alt="" />
-                                {isShare && <>
+                                {(NFTShow && isShare) && <>
                                     <div className='copyLinkBox'>
                                         <div className="title">{t("Copy Link")}</div>
                                         <div className="outLink">{t("Share on Facebook")}</div>
@@ -645,7 +650,9 @@ export default function NFTDetailsL({
                                 <>
                                     <div className="goodsList">
                                         {projectOrder.map((item: any, index: any) =>
-                                            <div className="usernft">
+                                            <div className="usernft" onClick={() => {
+
+                                            }}>
                                                 <Goods key={index} NftInfo={{ ...item, floorPrice: item.price }} buyBtnFun={() => { buyBtnFun(item) }} tag="Market" target="NFTCard" goPath={() => { goPath(item) }}></Goods>
                                                 {/* <Goods key={index} NftInfo={{ ...item, floorPrice: item.price }} buyBtnFun={() => { buyBtnFun(item) }} tag="Market" goPath={() => { goPath(item) }}></Goods> */}
                                             </div>
@@ -658,10 +665,12 @@ export default function NFTDetailsL({
                 </div>
             </div>
             {
-                isShare && <div className="Mask" onClick={() => { setIsShare(!isShare) }}></div>
+                isShare && width < 425 && <div className="Mask" onClick={() => { setIsShare(!isShare) }}></div>
             }
-            {imgState && <Image width={200} src={imgState} />}
 
+            <Modal footer={null} width={800} open={!!imgState} onCancel={() => setImgState(null)} className="imgModal">
+                <div className="imgContainer flexCenter"><img src={imgState} alt="" /></div>
+            </Modal>
 
             {OrderDetail && <ManageModal NFTDetail={OrderDetail} key={showPriceChange + "" + showEnterCancel} coinKind={coinsKindData} isShow={showPriceChange} tokenId={OrderDetail?.nnftOrder?.tokenId} personalFees={OrderDetail?.nnftOrder?.createFee} coinName={OrderDetail?.nnftOrder?.coinName as string} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowPriceChange(false) }}></ManageModal>}
             {OrderDetail && <CancelSaleModal isShow={showEnterCancel} tokenId={OrderDetail?.nnftOrder?.tokenId} orderId={OrderDetail?.nnftOrder?.id as number} close={() => { setShowEnterCancel(false) }}></CancelSaleModal>}

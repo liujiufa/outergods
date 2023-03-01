@@ -187,7 +187,7 @@ const MainLayout: React.FC = () => {
     );
     return (
         <Layout className="layout">
-            <Header className="MainSider" style={{ position: 'fixed', zIndex: 9999, width: '100%' }}>
+            <Header className="MainSider" style={{ position: 'fixed', zIndex: 999, width: '100%' }}>
                 <img className="logo pointer" src={logo} onClick={() => { navigate('/') }} alt="" />
                 <div className="menu">
                     <div className={focus('/Market')} onClick={() => { navigate('/Market') }}>

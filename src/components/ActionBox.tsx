@@ -57,8 +57,7 @@ interface NftCurrentType {
 }
 export default function Personal(props: any): JSX.Element {
     console.log(props.tableData, "动态");
-    // 控制图标上下
-    const [expand16, setExpand16] = useState(true);
+    const [switchAction, setSwitchAction] = useState(true);
     const [params] = useSearchParams();
     const web3React = useWeb3React()
     const dispatch = useDispatch();
@@ -76,7 +75,7 @@ export default function Personal(props: any): JSX.Element {
     let [userLikeList, setUserLikeList] = useState<NftInfo[]>([])
     let operateTtype = [
         t("List"),
-        t("Sale"),
+        t("Sale1"),
         t("Cancel"),
         t("transfer"),
         t("Change"),
@@ -96,7 +95,7 @@ export default function Personal(props: any): JSX.Element {
         <div id="ActionBox" >
             {
                 width >= 768 && <div className="itemContentBigBox">
-                    {props.tag === "NFTDetailsL" && <div className="topBox">
+                    {props.tag === "NFTDetailsL" && <div className={switchAction ? "topBox" : "topBox topCloseBox"}>
                         <div className="actionTitle flexCenter">{t("Activities")}</div>
                         <div className="right">
                             {/* <div className="dropDownBox">
@@ -109,56 +108,62 @@ export default function Personal(props: any): JSX.Element {
                                     </Dropdown>
                                 </div>
                             </div> */}
-                            <div className="switch"><img src={switchIcon} alt="" /></div>
+                            <div className="switch"><img className={switchAction ? 'rotetaOpen' : 'rotetaClose'} src={switchIcon} alt="" onClick={() => { setSwitchAction(!switchAction) }} /></div>
                         </div>
                     </div>}
-                    <div className={props.tag === "NFTDetailsL" ? "titleActive" : "titleBox"}>
-                        <div className="titleItem type">{t("Type")}</div>
-                        <div className="titleItem">{t("Items")}</div>
-                        <div className="titleItem">{t("Price")}</div>
-                        <div className="titleItem">{t("From")}</div>
-                        <div className="titleItem">{t("To")}</div>
-                        <div className="titleItem date">{t("Time")}</div>
-                    </div>
-                    <div className="itemContentBox">
-                        {props.tableData.length > 0 ? props.tableData.map((item: any, index: number) => <div key={index} className="itemBox">
-                            <div className="item type">
-                                <div className="top">{operateTtype[item.operateType]}</div>
-                                <div className="bottom">{t("as fixed price")}</div>
-                            </div>
 
-                            <div className="item projectName">
-                                <div className="leftBox">
-                                    <img src={item.projectLogo} alt="" />
-                                </div>
-                                <div className="right">
 
-                                    <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>{item.projectName}</span>} color="#FFF" key="tips">
-                                        <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}{item.projectName} </div>
-                                    </Tooltip>
-                                    {/* <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div> */}
-                                    <div className="bottom" onClick={() => { goPath(item) }}>{item.nftName}</div>
+                    {switchAction && <div >
+                        <div className={props.tag === "NFTDetailsL" ? "titleActive" : "titleBox"}>
+                            <div className="titleItem type">{t("Type")}</div>
+                            <div className="titleItem">{t("Items")}</div>
+                            <div className="titleItem">{t("Price")}</div>
+                            <div className="titleItem">{t("From")}</div>
+                            <div className="titleItem">{t("To")}</div>
+                            <div className="titleItem date">{t("Time")}</div>
+                        </div>
+                        <div className="itemContentBox">
+                            {props.tableData.length > 0 ? props.tableData.map((item: any, index: number) => <div key={index} className="itemBox">
+                                <div className="item type">
+                                    <div className="top">{operateTtype[item.operateType]}</div>
+                                    <div className="bottom">{t("as fixed price")}</div>
                                 </div>
-                            </div>
-                            <div className="item">
-                                <div className="top ">{item.num} {item.coinName}</div>
-                                <div className="bottom">{item.uprice && (`$` + NumSplic(item.uprice, 4))}  </div>
-                            </div>
-                            <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
-                                {
-                                    item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
-                                }
-                            </div>
-                            <div className="item" onClick={() => { goSomeone(item.toAddress) }}>
-                                {
-                                    item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
-                                }
-                            </div>
-                            <div className="item date">
-                                {HowLongAgo(item.createTime)}
-                            </div>
-                        </div>) : <NoData />}
-                    </div>
+
+                                <div className="item projectName">
+                                    <div className="leftBox">
+                                        <img src={item.projectLogo} alt="" />
+                                    </div>
+                                    <div className="right">
+
+                                        <Tooltip title={<span style={{ fontWeight: 400, fontSize: "14px", color: "#000000" }}>{item.projectName}</span>} color="#FFF" key="tips">
+                                            <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}{item.projectName} </div>
+                                        </Tooltip>
+                                        {/* <div className="top autoTop" onClick={() => { navigate('/Launch?tokenAddress=' + item?.tokenAddress) }}>{item.projectName} {item.isAuthentication === 1 ? <img src={authentication} alt="" /> : <img src={NotCertified} alt="" />}</div> */}
+                                        <div className="bottom" onClick={() => { goPath(item) }}>{item.nftName}</div>
+                                    </div>
+                                </div>
+                                <div className="item">
+                                    <div className="top ">{item.num} {item.coinName}</div>
+                                    <div className="bottom">{item.uprice && (`$` + NumSplic(item.uprice, 4))}  </div>
+                                </div>
+                                <div className="item" onClick={() => { goSomeone(item.formAddress) }}>
+                                    {
+                                        item.formAddress ? AddrHandle(item.formAddress, 6, 4) : '-'
+                                    }
+                                </div>
+                                <div className="item" onClick={() => { goSomeone(item.toAddress) }}>
+                                    {
+                                        item.toAddress ? AddrHandle(item.toAddress, 6, 4) : '-'
+                                    }
+                                </div>
+                                <div className="item date">
+                                    {HowLongAgo(item.createTime)}
+                                </div>
+                            </div>) : <NoData />}
+                        </div>
+                    </div>}
+
+
                 </div>
             }
             {
@@ -176,10 +181,12 @@ export default function Personal(props: any): JSX.Element {
                                     </Dropdown>
                                 </div>
                             </div> */}
-                            <div className="switch"><img src={switchIcon} alt="" /></div>
+                            <div className="switch"><img className={switchAction ? 'rotetaOpen' : 'rotetaClose'} src={switchIcon} alt="" onClick={() => { setSwitchAction(!switchAction) }} /></div>
                         </div>
                     </div>}
-                    <div className="contentBox">
+
+
+                    {switchAction && <div className="contentBox">
                         <Space direction="vertical">
                             <Collapse activeKey={activeKey} expandIcon={() => <></>} defaultActiveKey={['1']}>
                                 {props.tableData.length > 0 ? props.tableData.map((item: any, index: number) =>
@@ -256,9 +263,11 @@ export default function Personal(props: any): JSX.Element {
                                 ) : <NoData />}
                             </Collapse>
                         </Space>
-                    </div>
+                    </div>}
+
+
                 </div>
             }
-        </div>
+        </div >
     )
 }

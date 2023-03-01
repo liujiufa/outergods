@@ -10,6 +10,8 @@ import { useWeb3React } from '@web3-react/core'
 import { stateType } from '../store/reducer'
 import { useSelector, useDispatch } from "react-redux";
 import { useConnectWallet, injected, ChainId } from '../web3'
+import { createAddMessageAction, createSetLodingAction } from '../store/actions'
+
 import authentication from '../assets/image/authentication.svg'
 import NotCertified from '../assets/image/NotCertified.svg'
 import thumbtack from '../assets/image/thumbtack.png'
@@ -71,13 +73,12 @@ export default function HotspotCard(props: any) {
   let [LikeNum, setLikeNum] = useState<number>(props.NftInfo?.giveLikeNum)
   let [hoverProject, setHoverProject] = useState<any>()
   let { t } = useTranslation();
+  const dispatch = useDispatch();
 
   function LikeFun(e: React.MouseEvent<HTMLElement>) {
-
-
     console.log(props.NftInfo.tokenId, props.NftInfo.tokenAddress, "点赞");
     e.stopPropagation()
-    if (state.token) {
+    if (state.token || web3React.account) {
       userGiveLike(props.NftInfo.tokenId, props.NftInfo.tokenAddress).then((res: any) => {
         console.log(res);
         if (res.code === 200) {
@@ -94,9 +95,9 @@ export default function HotspotCard(props: any) {
           props.getCollectFun()
         }
       })
-
     } else {
-      ConnectWallet(injected, ChainId.BSC)
+      dispatch(createAddMessageAction(t('Please connect your wallet')))
+      // ConnectWallet(injected, ChainId.BSC)
     }
   }
 
@@ -139,7 +140,7 @@ export default function HotspotCard(props: any) {
     if (props.NftInfo) {
       setIsLike(!!props.NftInfo.isLike)
     }
-  }, [props?.NftInfo?.isLike])
+  }, [props?.NftInfo?.isLike, web3React.active])
 
   return (
     // <div className="HotspotCard pointer" onMouseEnter={(e) => { HotspotCardFun(e) }} onMouseLeave={() => { setActiveMenu(false) }} onClick={(e) => { props.goPath(); e.stopPropagation(); }}>

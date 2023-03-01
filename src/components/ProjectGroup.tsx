@@ -111,6 +111,7 @@ const GroupPrice = styled(Group)`
     justify-content: space-between;
     margin-top: 8px;
     text-align: center;
+    display:block;
 `
 
 const PriceItem = styled(FlexCCBox)`
@@ -119,13 +120,19 @@ const PriceItem = styled(FlexCCBox)`
 
 const PriceContent = styled.div`
     width: 100%;
+    display:flex;
+    justify-content: space-between;
+
 `
 
 const PriceAmount = styled.div`
     width: 100%;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 14px;
     color: #788CFF;
+    white-space: nowrap;
+    display:flex;
+    justify-content: flex-end;
     @media (max-width: 750px) {
         font-size: 12px;
     }
@@ -133,14 +140,17 @@ const PriceAmount = styled.div`
 
 const PriceTitle = styled.div`
     width: 100%;
-    margin-top: 12px;
+    // margin-top: 12px;
     font-weight: 700;
     font-size: 12px;
     color: rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    display:flex;
+    align-items: center;
     @media (max-width: 750px) {
         margin-top: 0;
         zoom: 0.87;
-        margin-top: 4px;
+        // margin-top: 4px;
     }
 `
 
@@ -181,14 +191,14 @@ export default function ProjectGroup({
                             <GroupPrice>
                                 <PriceItem>
                                     <PriceContent>
-                                        <PriceAmount>${decimalNum(data?.floorPrice, 2)}</PriceAmount>
                                         <PriceTitle>{t("Floor")}</PriceTitle>
+                                        <PriceAmount>{decimalNum(data?.floorPrice, 2)}USDT</PriceAmount>
                                     </PriceContent>
                                 </PriceItem>
                                 <PriceItem>
                                     <PriceContent>
-                                        <PriceAmount>${decimalNum(data?.tradeAmount, 2) ?? 0}</PriceAmount>
                                         <PriceTitle>{t("Volume")}</PriceTitle>
+                                        <PriceAmount>{decimalNum(data?.tradeAmount, 2) ?? 0}USDT</PriceAmount>
                                     </PriceContent>
                                 </PriceItem>
                             </GroupPrice>

@@ -103,6 +103,10 @@
             }
         }
 
+        .topCloseBox {
+            border-radius: 45px;
+        }
+
         .titleBox {
             padding: 0px 45px;
             height: 100px;
@@ -362,7 +366,7 @@
         overflow: auto;
 
         .topBox {
-            padding: 24px 12px 12px;
+            padding: 12px 12px 12px;
         }
 
         .goodsList {

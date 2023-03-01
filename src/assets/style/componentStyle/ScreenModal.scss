@@ -1,9 +1,11 @@
-.ant-modal-content {
-    background: #E0E1FF !important;
-    border-radius: 50px !important;
+.habitat-modal {
+    .ant-modal-content {
+        background: #E0E1FF !important;
+        border-radius: 50px !important;
 
-    .ant-modal-body {
-        padding: 40px 20px;
+        .ant-modal-body {
+            padding: 40px 20px;
+        }
     }
 }
 

@@ -202,15 +202,15 @@ export default function Launch(): JSX.Element {
     const navigate = useNavigate();
     return (
         <div id="launch" className="ProjectDetail">
-            <div className="banner">
+            {ProjectDetail?.backImgUrl ? <div className="banner">
                 <img src={ProjectDetail?.backImgUrl} alt="" />
                 {width > 768 && <div className="dataItems">
                     <div className="item">
-                        <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 2) || "0"}</div>
+                        <div className="top">{decimalNum(ProjectDetail?.tradeAmount, 2) || "0"}USDT</div>
                         <div className="bottom">{t("Total Volume")}</div>
                     </div>
                     <div className="item">
-                        <div className="top">${decimalNum(ProjectDetail?.floorPrice, 2) || "0"}</div>
+                        <div className="top">{decimalNum(ProjectDetail?.floorPrice, 2) || "0"}USDT</div>
                         <div className="bottom">{t("Floor")}</div>
                     </div>
                     <div className="item">
@@ -229,7 +229,7 @@ export default function Launch(): JSX.Element {
                         <div className="top">{ProjectDetail?.holdNum || "0"}</div>
                         <div className="bottom">持有者</div></div> */}
                 </div>}
-            </div>
+            </div> : <NoData></NoData>}
             <div className="contentBox">
                 <div className="outLinkBox l-hidden">
                     <div className="linkItem">
@@ -266,11 +266,11 @@ export default function Launch(): JSX.Element {
                 <div className='outLinkBigBox'>
                     <div className="outLinkBox outLinkBoxM l-hidden">
                         <div className="linkItem">
-                            <div className="top">${decimalNum(ProjectDetail?.tradeAmount, 2) || "0"}</div>
+                            <div className="top">{decimalNum(ProjectDetail?.tradeAmount, 2) || "0"}USDT</div>
                             <div className="bottom">{t("Total Volume")}</div>
                         </div>
                         <div className="linkItem">
-                            <div className="top">${decimalNum(ProjectDetail?.floorPrice, 2) || "0"}</div>
+                            <div className="top">{decimalNum(ProjectDetail?.floorPrice, 2) || "0"}USDT</div>
                             <div className="bottom">{t("Floor")}</div>
                         </div>
                         <div className="linkItem">
