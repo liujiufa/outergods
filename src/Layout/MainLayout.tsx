@@ -9,6 +9,7 @@ import { useWeb3React } from '@web3-react/core'
 import { useDispatch } from "react-redux";
 import { useTranslation } from 'react-i18next'
 import { useViewport } from '../components/viewportContext'
+import SearchRusult from '../components/SearchRusult'
 import logo from '../assets/image/NFTLogo.png'
 import Search from '../assets/image/searchIcon.png'
 import BNBIcon from '../assets/image/BNBIcon.svg'
@@ -42,9 +43,10 @@ const MainLayout: React.FC = () => {
     let { width } = useViewport()
     let { t, i18n } = useTranslation()
     const location = useLocation();
-    let [addrList, setAddrList] = useState<userData[]>([])
-    let [projectList, setProjectList] = useState<projectData[]>([])
-    let [showSearchRes, setShowSearchRes] = useState<any>(null)
+    let [List, setList] = useState<any>()
+    // let [showSearchRes, setShowSearchRes] = useState<any>(null)
+    let [focusHide, setFocusHide] = useState<boolean>(false)
+    let [hideList, setHideList] = useState<any>()
     const dispatch = useDispatch();
     let ConnectWallet = useConnectWallet()
     const web3React = useWeb3React()
@@ -79,30 +81,25 @@ const MainLayout: React.FC = () => {
     function changeProjectSearch(e: React.ChangeEvent<HTMLInputElement>) {
         // setShowSearchRes(e.target.value)
         if (e.target.value) {
-            setShowSearchRes(e.target.value)
             searchData(e.target.value).then(res => {
-                setAddrList(res.data.userList)
-                console.log(res.data.projectList);
-                setProjectList(res.data.projectList)
+                setList(res.data)
+                console.log(res.data);
                 // setShowSearchRes(e.target.value)
             })
         } else {
-            setShowSearchRes(null)
         }
     }
-    function goSomeone(address: string) {
-        navigate('/Someone?address=' + address)
-        setShowSearchRes(null)
-    }
-    function goProject(tokenAddress: string) {
-        navigate('/Launch?tokenAddress=' + tokenAddress)
-        setShowSearchRes(null)
-    }
-    function FocusFun() {
-        setShowSearchRes(null)
-    }
+
     function getparent(triggerNode: any) {
         return triggerNode.parentNode
+    }
+    const autoSearchFun = () => {
+        if (width < 425) {
+            navigate("/MobileSearch")
+        } else {
+
+        }
+
     }
     const personalMenu = (
         <Menu>
@@ -189,6 +186,7 @@ const MainLayout: React.FC = () => {
         <Layout className="layout">
             <Header className="MainSider" style={{ position: 'fixed', zIndex: 999, width: '100%' }}>
                 <img className="logo pointer" src={logo} onClick={() => { navigate('/') }} alt="" />
+
                 <div className="menu">
                     <div className={focus('/Market')} onClick={() => { navigate('/Market') }}>
                         {t('Marketplace')}
@@ -207,48 +205,61 @@ const MainLayout: React.FC = () => {
                         <div className="unLink"></div>
                     </div>
                 </div>
+
                 <div className="mobile-header-right">
-                    {width < 1440 && <img src={Search} alt="" className="mobile-search-icon middleSearch pointer" />}
-                    {width > 1440 && <div className="search m-hidden pointer" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
-                        <img src={Search} alt="" />
-                        <input type="text" value={showSearchRes} onChange={(e) => {
-                            run(e)
-                            setShowSearchRes(e.target.value)
-                        }} onFocus={FocusFun} placeholder={t('Search by Collection、User、Address')} />
-                        {
-                            showSearchRes !== null && (addrList.length !== 0 || projectList.length !== 0) && <div className="searchResult">
-                                <div className="LabelRow">{t('User')}</div>
-                                {
-                                    addrList.map((item, index) => <div className="resItem" onClick={() => { goSomeone(item.userAddress) }} key={index}><div className="radius"><img src={item.headImg} alt="" /></div>{item.userAddress}</div>)
-                                }
-                                <div className="LabelRow">{t('Project')}</div>
-                                {
-                                    projectList.map((item, index) => <div className="resItem" onClick={() => { goProject(item.tokenAddress) }} key={index}><div className="radius"><img src={item.img} alt="" /></div>{item.name}</div>)
-                                }
-                            </div>
-                        }
-                    </div>}
-                    <div className="Chain pointer">
-                        <img src={BNBIcon} alt="" />
-                        <span className="ChainName">BNB Chain</span>
-                    </div>
-                    <Dropdown overlay={menu} placement="bottomCenter" overlayStyle={{ zIndex: 99999 }} getPopupContainer={getparent} trigger={['click']}>
-                        <div className="Lang pointer">
-                            <img src={langIcon} alt="" />
-                            {i18n.language === 'zh' ? 'ZH' : (i18n.language === 'en' ? 'EN' : '한국어')}
-                        </div>
-                    </Dropdown>
-                    {
-                        web3React.active ? <Dropdown overlay={personalMenu} trigger={['click']} getPopupContainer={getparent} overlayClassName='MenuList' overlayStyle={{ padding: '10px 12px', zIndex: 99999 }}>
-                            <img className="walletIcon pointer" src={prevPersonal} alt="" />
-                        </Dropdown>
-                            :
-                            <img className="walletIcon pointer" onClick={() => { ConnectWallet(injected, ChainId.BSC) }} src={wallet} alt="" />
+                    {(425 < width && width < 1440) ?
+                        <div className="autoSearch">
+                            <img src={Search} alt="" className="mobile-search-icon middleSearch pointer" onClick={() => { autoSearchFun() }} />
+                            <input type="text" placeholder="搜索用户地址、项目集合" onChange={(e) => { run(e) }} onFocus={() => { setFocusHide(true) }} onBlur={() => { setFocusHide(false); setHideList(List); setList(null) }} />
+                            {List && <SearchRusult data={List || hideList}></SearchRusult>}
+                        </div> :
+                        (width < 425 && <img src={Search} alt="" className="mobile-search-icon middleSearch pointer" onClick={() => { autoSearchFun() }} />)
                     }
-                    <Dropdown overlay={HeadMenu} trigger={['click']} getPopupContainer={getparent} overlayStyle={{ zIndex: 99999 }}>
-                        <img className="HeadMenu" src={menuIcon} alt="" />
-                    </Dropdown>
+                    {
+                        width > 1440 && <div className="search m-hidden pointer" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
+                            <img src={Search} alt="" />
+                            <input type="text" onChange={(e) => { run(e) }} placeholder={t('Search by Collection、User、Address')} onBlur={() => { setHideList(List); setList(null) }} />
+
+                            {/* 
+                            {
+                                showSearchRes !== null && (addrList.length !== 0 || projectList.length !== 0) && <div className="searchResult">
+                                    <div className="LabelRow">{t('User')}</div>
+                                    {
+                                        addrList.map((item, index) => <div className="resItem" onClick={() => { goSomeone(item.userAddress) }} key={index}><div className="radius"><img src={item.headImg} alt="" /></div>{item.userAddress}</div>)
+                                    }
+                                    <div className="LabelRow">{t('Project')}</div>
+                                    {
+                                        projectList.map((item, index) => <div className="resItem" onClick={() => { goProject(item.tokenAddress) }} key={index}><div className="radius"><img src={item.img} alt="" /></div>{item.name}</div>)
+                                    }
+                                </div>
+                            } */}
+                            {List && <SearchRusult data={List || hideList} ></SearchRusult>}
+                        </div>
+                    }
+                    {(!focusHide) && (!List) && <>
+                        <div className="Chain pointer">
+                            <img src={BNBIcon} alt="" />
+                            <span className="ChainName">BNB Chain</span>
+                        </div>
+                        <Dropdown overlay={menu} placement="bottomCenter" overlayStyle={{ zIndex: 99999 }} getPopupContainer={getparent} trigger={['click']}>
+                            <div className="Lang pointer">
+                                <img src={langIcon} alt="" />
+                                {i18n.language === 'zh' ? 'ZH' : (i18n.language === 'en' ? 'EN' : '한국어')}
+                            </div>
+                        </Dropdown>
+                        {
+                            web3React.active ? <Dropdown overlay={personalMenu} trigger={['click']} getPopupContainer={getparent} overlayClassName='MenuList' overlayStyle={{ padding: '10px 12px', zIndex: 99999 }}>
+                                <img className="walletIcon pointer" src={prevPersonal} alt="" />
+                            </Dropdown>
+                                :
+                                <img className="walletIcon pointer" onClick={() => { ConnectWallet(injected, ChainId.BSC) }} src={wallet} alt="" />
+                        }
+                        <Dropdown overlay={HeadMenu} trigger={['click']} getPopupContainer={getparent} overlayStyle={{ zIndex: 99999 }}>
+                            <img className="HeadMenu" src={menuIcon} alt="" />
+                        </Dropdown>
+                    </>}
                 </div>
+
 
             </Header>
 

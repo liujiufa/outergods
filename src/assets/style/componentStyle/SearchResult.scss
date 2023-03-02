@@ -1,0 +1,46 @@
+.searchResult {
+    position: absolute;
+    width: 100%;
+    top: 44px;
+    z-index: 998;
+
+    background: #fff;
+    box-shadow: rgba(15, 15, 15, 0.2) 0px 8px 16px -8px;
+    border-radius: 20px;
+    padding: 30px;
+
+    .LabelRow {
+        border-bottom: 1px solid #e1e1e1;
+        height: 36px;
+        display: flex;
+        align-items: center;
+    }
+
+    .items {
+        max-height: 250px;
+        overflow-y: auto;
+
+        .resItem {
+            display: flex;
+            align-items: center;
+            height: 45px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            .radius {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                margin-right: 20px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

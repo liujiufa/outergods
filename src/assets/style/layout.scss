@@ -95,9 +95,37 @@
         align-items: center;
         justify-content: end;
 
-        .middleSearch {
-            margin-right: 20px;
+        .autoSearch {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+            margin: 0px 20px;
+            position: relative;
+
+            .middleSearch {
+                margin-right: 8px;
+            }
+
+            input {
+                width: 100%;
+                height: 40px;
+                border: none;
+                background-color: transparent;
+                outline: 2px solid transparent;
+            }
+
+            input::-webkit-input-placeholder {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 16px;
+                text-align: start;
+                color: rgba(0, 0, 0, 0.6);
+            }
         }
+
     }
 
     .search {
@@ -135,45 +163,45 @@
             color: #A5A5A5;
         }
 
-        .searchResult {
-            position: absolute;
-            width: 100%;
-            top: 44px;
-            z-index: 998;
-            max-height: 400px;
-            overflow-y: auto;
-            background: #fff;
-            box-shadow: rgba(15, 15, 15, 0.2) 0px 8px 16px -8px;
-            border-radius: 20px;
-            padding: 30px;
+        // .searchResult {
+        //     position: absolute;
+        //     width: 100%;
+        //     top: 44px;
+        //     z-index: 998;
+        //     max-height: 400px;
+        //     overflow-y: auto;
+        //     background: #fff;
+        //     box-shadow: rgba(15, 15, 15, 0.2) 0px 8px 16px -8px;
+        //     border-radius: 20px;
+        //     padding: 30px;
 
-            .LabelRow {
-                border-bottom: 1px solid #e1e1e1;
-                height: 36px;
-                display: flex;
-                align-items: center;
-            }
+        //     .LabelRow {
+        //         border-bottom: 1px solid #e1e1e1;
+        //         height: 36px;
+        //         display: flex;
+        //         align-items: center;
+        //     }
 
-            .resItem {
-                display: flex;
-                align-items: center;
-                height: 45px;
+        //     .resItem {
+        //         display: flex;
+        //         align-items: center;
+        //         height: 45px;
 
-                .radius {
-                    width: 36px;
-                    height: 36px;
-                    border-radius: 50%;
-                    margin-right: 20px;
-                    overflow: hidden;
-                    display: flex;
-                    align-items: center;
+        //         .radius {
+        //             width: 36px;
+        //             height: 36px;
+        //             border-radius: 50%;
+        //             margin-right: 20px;
+        //             overflow: hidden;
+        //             display: flex;
+        //             align-items: center;
 
-                    img {
-                        width: 100%;
-                    }
-                }
-            }
-        }
+        //             img {
+        //                 width: 100%;
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     .Chain {
@@ -195,6 +223,7 @@
             color: #000000;
             margin-left: 10px;
             font-weight: 700;
+            width: 80px;
 
         }
     }

@@ -10,6 +10,7 @@ const Someone = React.lazy(() => import('../view/Someone'));
 const UserInfo = React.lazy(() => import('../view/UserInfo'));
 const NFTDetails = React.lazy(() => import('../view/NFTDetails'));
 const Main = React.lazy(() => import('../view/Main'));
+const MobileSearch = React.lazy(() => import('../view/MobileSearch'));
 
 export default function Router() {
   return (
@@ -26,6 +27,7 @@ export default function Router() {
           {/* <Route path="StartRes2"  element={<StartRes2/>}></Route>
             <Route path="StartRes3"  element={<StartRes3/>}></Route> */}
         </Route>
+        <Route path="MobileSearch" element={<MobileSearch />}></Route>  {/** N */}
         <Route path="/DeputyLayout" element={<DeputyLayout />}>
         </Route>
       </Routes>

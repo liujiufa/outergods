@@ -1,0 +1,149 @@
+.mobileSearch {
+    position: relative;
+
+    .searchHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0px;
+
+        .left {
+            width: 65px;
+        }
+
+        .right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            .searchIcon {
+                padding-right: 10px;
+            }
+
+            input {
+                width: 100%;
+                border: none;
+                display: flex;
+                align-items: center;
+                background-color: transparent;
+            }
+
+            input::-webkit-input-placeholder {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 18px;
+                text-align: start;
+                color: rgba(0, 0, 0, 0.6);
+            }
+        }
+    }
+
+    .line {
+        display: block;
+        height: 1px;
+        margin: 0px auto;
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    .addressContent,
+    .projectContent {
+        padding: 24px 20px;
+
+        .title {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            color: rgba(0, 0, 0, 0.6);
+            margin-bottom: 10px;
+        }
+
+        .items {
+            // display: flex;
+            // align-items: center;
+            // justify-content: space-between;
+            padding: 0px;
+            max-height: 300px;
+            overflow: auto;
+
+
+            .item {
+                width: 100%;
+                // display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                margin-bottom: 12px;
+                white-space: nowrap;
+                overflow: hidden;
+                /*内容会被修剪，并且其余内容是不可见的*/
+                text-overflow: ellipsis;
+
+                .title {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 22px;
+                    letter-spacing: 0.1em;
+                    color: #000000;
+                    margin-bottom: 4px;
+                }
+
+                img {
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 6px;
+                    margin-right: 15px;
+                }
+            }
+        }
+    }
+
+    .bg1 {
+        position: absolute;
+        top: 200px;
+        right: 0;
+        background: linear-gradient(233.91deg, rgba(177, 248, 250, 0.25) 9.69%, rgba(194, 177, 255, 0.25) 38.49%, rgba(109, 131, 255, 0.15) 68.83%, rgba(56, 255, 243, 0.2075) 83.42%);
+        filter: blur(82.5px);
+        width: 25vw;
+        height: 50vw;
+        transform: translateX(-50%);
+        z-index: -1;
+    }
+
+    .bg2 {
+        position: absolute;
+        top: 100px;
+        left: 0;
+        background: linear-gradient(123.43deg, rgba(250, 177, 177, 0.3) 14.61%, rgba(194, 177, 255, 0.3) 35.53%, rgba(109, 131, 255, 0.18) 53.83%, rgba(56, 255, 243, 0.249) 80.12%);
+        filter: blur(82.5px);
+        width: 25vw;
+        height: 50vw;
+        transform: translateX(-50%);
+        z-index: -1;
+    }
+
+    .bg3 {
+        position: absolute;
+        top: 400px;
+        left: 0;
+        background: linear-gradient(123.43deg, rgba(250, 177, 177, 0.3) 14.61%, rgba(194, 177, 255, 0.3) 35.53%, rgba(109, 131, 255, 0.18) 53.83%, rgba(56, 255, 243, 0.249) 80.12%);
+        filter: blur(82.5px);
+        width: 20vw;
+        height: 40vw;
+        transform: translateX(10vw);
+        z-index: -1;
+    }
+}
+
+@media (max-width:375px) {
+
+    .mobileSearch .addressContent,
+    .mobileSearch .projectContent {
+        padding: 12px 12px;
+    }
+}
