@@ -210,33 +210,29 @@ const MainLayout: React.FC = () => {
                     {(425 < width && width < 1440) ?
                         <div className="autoSearch">
                             <img src={Search} alt="" className="mobile-search-icon middleSearch pointer" onClick={() => { autoSearchFun() }} />
-                            <input type="text" placeholder="搜索用户地址、项目集合" onChange={(e) => { run(e) }} onFocus={() => { setFocusHide(true) }} onBlur={() => { setFocusHide(false); setHideList(List); setList(null) }} />
-                            {List && <SearchRusult data={List || hideList}></SearchRusult>}
+                            <input type="text" placeholder="搜索用户地址、项目集合" onChange={(e) => { run(e) }} onFocus={() => { setFocusHide(true) }} onBlur={() => {
+                                setFocusHide(false); setHideList(List);
+                                setTimeout(() => {
+                                    setList(null)
+                                }, 1000)
+                            }} />
+                            {List && <SearchRusult data={List}></SearchRusult>}
                         </div> :
                         (width < 425 && <img src={Search} alt="" className="mobile-search-icon middleSearch pointer" onClick={() => { autoSearchFun() }} />)
                     }
                     {
                         width > 1440 && <div className="search m-hidden pointer" onClick={(e) => { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); }}>
                             <img src={Search} alt="" />
-                            <input type="text" onChange={(e) => { run(e) }} placeholder={t('Search by Collection、User、Address')} onBlur={() => { setHideList(List); setList(null) }} />
-
-                            {/* 
-                            {
-                                showSearchRes !== null && (addrList.length !== 0 || projectList.length !== 0) && <div className="searchResult">
-                                    <div className="LabelRow">{t('User')}</div>
-                                    {
-                                        addrList.map((item, index) => <div className="resItem" onClick={() => { goSomeone(item.userAddress) }} key={index}><div className="radius"><img src={item.headImg} alt="" /></div>{item.userAddress}</div>)
-                                    }
-                                    <div className="LabelRow">{t('Project')}</div>
-                                    {
-                                        projectList.map((item, index) => <div className="resItem" onClick={() => { goProject(item.tokenAddress) }} key={index}><div className="radius"><img src={item.img} alt="" /></div>{item.name}</div>)
-                                    }
-                                </div>
-                            } */}
-                            {List && <SearchRusult data={List || hideList} ></SearchRusult>}
+                            <input type="text" onChange={(e) => { run(e) }} placeholder={t('Search by Collection、User、Address')} onBlur={() => {
+                                setHideList(List);
+                                setTimeout(() => {
+                                    setList(null)
+                                }, 1000)
+                            }} />
+                            {List && <SearchRusult data={List}></SearchRusult>}
                         </div>
                     }
-                    {(!focusHide) && (!List) && <>
+                    {(!focusHide) && <>
                         <div className="Chain pointer">
                             <img src={BNBIcon} alt="" />
                             <span className="ChainName">BNB Chain</span>

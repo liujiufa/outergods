@@ -290,6 +290,20 @@ export default function Personal(): JSX.Element {
         }
     }
 
+    function copyFun() {
+        if (!web3React.account) {
+            return dispatch(createAddMessageAction(t('Please connect your wallet')))
+        } else {
+            copy(
+                window.location.origin +
+                window.location.pathname +
+                '#/Someone?address=' +
+                web3React.account
+            );
+            return dispatch(createAddMessageAction(t('Copied')))
+        }
+    }
+
     useEffect(() => {
         if (web3React.account && state.token) {
             getNftUserState({
@@ -370,7 +384,7 @@ export default function Personal(): JSX.Element {
                                         {shareActive &&
                                             <>
                                                 <div className='copyLinkBox'>
-                                                    <div className="title">{t("Copy Link")}</div>
+                                                    <div className="title" onClick={() => { copyFun() }}>{t("Copy Link")}</div>
                                                     <div className="outLink">{t("Share on Facebook")}</div>
                                                     <div className="outLink">{t("Share on Twitter")}</div>
                                                 </div>
@@ -390,7 +404,7 @@ export default function Personal(): JSX.Element {
                                 <img src={shareIcon} alt="" />{t('Share')}
                                 {shareActive && <>
                                     <div className='copyLinkBox'>
-                                        <div className="title">{t("Copy Link")}</div>
+                                        <div className="title" onClick={() => { copyFun() }}>{t("Copy Link")}</div>
                                         <div className="outLink">{t("Share on Facebook")}</div>
                                         <div className="outLink">{t("Share on Twitter")}</div>
                                     </div>

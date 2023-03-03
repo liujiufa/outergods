@@ -52,14 +52,20 @@
     .projectContent {
         padding: 24px 20px;
 
-        .title {
-            font-family: 'PingFang SC';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 22px;
-            color: rgba(0, 0, 0, 0.6);
-            margin-bottom: 10px;
+        .topBox {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 12px 0px;
+
+            .title {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 22px;
+                color: rgba(0, 0, 0, 0.6);
+            }
         }
 
         .items {
